@@ -1,8 +1,6 @@
 class_name MapGenerator
 extends Node
 
-
-#Oi
 const X_DIST := 120
 const Y_DIST := 80
 const PLACEMENT_RANDOMNESS := 0
