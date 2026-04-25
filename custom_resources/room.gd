@@ -23,7 +23,7 @@ func _init():
 	next_rooms = []
 
 
-# 🔥 HELPER AQUI
+
 func connect_to(rooms: Array) -> void:
 	next_rooms.clear()
 	for r in rooms:
