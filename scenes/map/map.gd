@@ -81,6 +81,9 @@ func create_map() -> void:
 		for room: Room in current_floor:
 			if room.next_rooms.size() > 0:
 				_spawn_room(room)
+			var start_room = map_data[0][int(MapGenerator.MAP_WIDTH / 2)]
+			camera_2d.position = start_room.position
+			camera_2d.zoom = Vector2(0.8, 0.8)
 	
 	# Boss room has no next room but we need to spawn it
 	var middle := floori(MapGenerator.MAP_WIDTH * 0.5)
