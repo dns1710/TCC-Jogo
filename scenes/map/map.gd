@@ -1,6 +1,6 @@
 class_name Map
 extends Node2D
-#teste 123 abobrinha
+
 const SCROLL_SPEED := 15
 const MAP_ROOM = preload("res://scenes/map/map_room.tscn")
 const MAP_LINE = preload("res://scenes/map/map_line.tscn")
@@ -15,23 +15,48 @@ var map_data: Array[Array]
 var floors_climbed: int
 var last_room: Room
 var camera_edge_y: float
+var dragging := false
+var last_mouse_pos := Vector2.ZERO
+var zoom_speed := 0.1
+var min_zoom := 0.5
+var max_zoom := 2.0
 
 
 func _ready() -> void:
-	camera_edge_y = MapGenerator.Y_DIST * (MapGenerator.FLOORS - 1)
+	camera_edge_y = MapGenerator.X_DIST * (MapGenerator.FLOORS - 1)
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
 		return
 	
-	if event.is_action_pressed("scroll_up"):
-		camera_2d.position.y -= SCROLL_SPEED
-	elif event.is_action_pressed("scroll_down"):
-		camera_2d.position.y += SCROLL_SPEED
-
-	camera_2d.position.y = clamp(camera_2d.position.y, -camera_edge_y, 0)
-
+	# Começa arrastar
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			dragging = event.pressed
+			last_mouse_pos = event.position
+	
+	# Arrastando
+	elif event is InputEventMouseMotion and dragging:
+		var delta = event.position - last_mouse_pos
+		camera_2d.position -= delta
+		last_mouse_pos = event.position
+	# Zoom com scroll
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
+			_zoom_camera(-zoom_speed)
+		elif event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
+			_zoom_camera(zoom_speed)
+	
+	
+	
+func _zoom_camera(amount: float) -> void:
+	var new_zoom = camera_2d.zoom + Vector2(amount, amount)
+	
+	new_zoom.x = clamp(new_zoom.x, min_zoom, max_zoom)
+	new_zoom.y = clamp(new_zoom.y, min_zoom, max_zoom)
+	
+	camera_2d.zoom = new_zoom
 
 func generate_new_map() -> void:
 	floors_climbed = 0
@@ -62,7 +87,6 @@ func create_map() -> void:
 	_spawn_room(map_data[MapGenerator.FLOORS-1][middle])
 
 	var map_width_pixels := MapGenerator.X_DIST * (MapGenerator.MAP_WIDTH - 1)
-	visuals.position.x = (get_viewport_rect().size.x - map_width_pixels) / 2
 	visuals.position.y = get_viewport_rect().size.y / 2
 
 
@@ -98,7 +122,6 @@ func _spawn_room(room: Room) -> void:
 	
 	if room.selected and room.row < floors_climbed:
 		new_map_room.show_selected()
-
 
 func _connect_lines(room: Room) -> void:
 	if room.next_rooms.is_empty():
