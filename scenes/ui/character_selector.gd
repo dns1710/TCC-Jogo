@@ -1,9 +1,8 @@
 extends Control
 
 const RUN_SCENE = preload("res://scenes/run/run.tscn")
-const ASSASSIN_STATS := preload("res://characters/assassin/assassin.tres")
-const WARRIOR_STATS := preload("res://characters/warrior/warrior.tres")
-const WIZARD_STATS := preload("res://characters/wizard/wizard.tres")
+const WARRIOR_STATS := preload("res://characters/player/player.tres")
+
 
 @export var run_startup: RunStartup
 
@@ -34,11 +33,3 @@ func _on_start_button_pressed() -> void:
 
 func _on_warrior_button_pressed() -> void:
 	current_character = WARRIOR_STATS
-
-
-func _on_wizard_button_pressed() -> void:
-	current_character = WIZARD_STATS
-
-
-func _on_assassin_button_pressed() -> void:
-	current_character = ASSASSIN_STATS
