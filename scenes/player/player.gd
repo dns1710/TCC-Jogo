@@ -1,6 +1,6 @@
 class_name Player
 extends Node2D
-
+#TESTE MERGE
 const WHITE_SPRITE_MATERIAL := preload("res://art/white_sprite_material.tres")
 
 @export var stats: CharacterStats : set = set_character_stats
