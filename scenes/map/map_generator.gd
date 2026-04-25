@@ -4,7 +4,7 @@ extends Node
 const X_DIST := 120
 const Y_DIST := 80
 const PLACEMENT_RANDOMNESS := 0
-
+#Não foquemos no bode
 const FLOORS := 7
 const MAP_WIDTH := 7
 
