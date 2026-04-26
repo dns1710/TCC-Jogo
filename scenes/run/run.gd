@@ -104,7 +104,7 @@ func _safe_connect(signal_ref: Signal, callable: Callable) -> void:
 
 func _change_view(scene: PackedScene) -> Node:
 	for child in current_view.get_children():
-		child.free()
+		child.queue_free()
 
 	get_tree().paused = false
 
@@ -117,7 +117,7 @@ func _change_view(scene: PackedScene) -> Node:
 
 func _show_map() -> void:
 	for child in current_view.get_children():
-		child.free()
+		child.queue_free()
 
 	map.show_map()
 	map.unlock_next_rooms()
