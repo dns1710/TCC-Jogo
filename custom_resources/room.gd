@@ -4,6 +4,8 @@ extends Resource
 enum Type {NOT_ASSIGNED, MONSTER, TREASURE, CAMPFIRE, SHOP, BOSS, EVENT}
 
 @export var type: Type = Type.NOT_ASSIGNED
+@export var original_type: Type = Type.NOT_ASSIGNED
+
 @export var row: int = 0
 @export var column: int = 0
 @export var position: Vector2 = Vector2.ZERO
@@ -21,7 +23,6 @@ enum Type {NOT_ASSIGNED, MONSTER, TREASURE, CAMPFIRE, SHOP, BOSS, EVENT}
 
 func _init():
 	next_rooms = []
-
 
 
 func connect_to(rooms: Array) -> void:
