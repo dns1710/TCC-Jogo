@@ -11,8 +11,6 @@ var is_visible_now := false
 
 
 func _ready() -> void:
-	Events.card_tooltip_requested.connect(show_tooltip)
-	Events.tooltip_hide_requested.connect(hide_tooltip)
 	modulate = Color.TRANSPARENT
 	hide()
 

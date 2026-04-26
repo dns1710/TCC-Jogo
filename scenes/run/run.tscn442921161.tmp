@@ -20,7 +20,6 @@ run_startup = ExtResource("2_wgfut")
 [node name="CurrentView" type="Node" parent="." unique_id=878995358]
 
 [node name="DebugButtons" type="VBoxContainer" parent="." unique_id=2106138678]
-visible = false
 anchors_preset = 9
 anchor_bottom = 1.0
 grow_vertical = 2
