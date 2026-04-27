@@ -36,20 +36,12 @@ func add_relic_reward(relic: Relic) -> void:
 	relic_reward.pressed.connect(_on_relic_reward_taken.bind(relic))
 	rewards.add_child.call_deferred(relic_reward)
 
-
-
-
-
-
 func _on_gold_reward_taken(amount: int) -> void:
 	if not run_stats:
 		return
 	
 	run_stats.gold += amount
-
-
-
-
+	
 func _on_relic_reward_taken(relic: Relic) -> void:
 	if not relic or not relic_handler:
 		return
