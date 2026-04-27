@@ -202,3 +202,54 @@ func _on_map_room_selected(room: Room) -> void:
 	floors_climbed += 1
 	hide_map()
 	Events.map_exited.emit(room)
+<<<<<<< Updated upstream
+=======
+
+
+func _on_reroll_button_pressed() -> void:
+	reroll_mode = true
+	_update_reroll_visuals()
+
+
+func _update_reroll_visuals() -> void:
+	for map_room in rooms.get_children():
+		map_room.set_reroll_highlight(reroll_mode)
+
+
+func _reroll_room(room: Room) -> void:
+	if room.row < floors_climbed:
+		return
+
+	if room.type == Room.Type.BOSS:
+		return
+
+	var types = [
+		Room.Type.MONSTER,
+		Room.Type.EVENT,
+		Room.Type.SHOP,
+		Room.Type.CAMPFIRE,
+		Room.Type.TREASURE
+	]
+
+	var pool = []
+
+	for t in types:
+		if t != room.original_type:
+			pool.append(t)
+
+	room.type = pool.pick_random()
+
+	match room.type:
+		Room.Type.MONSTER:
+			room.battle_stats = map_generator.battle_stats_pool.get_random_battle_for_tier(1)
+
+		Room.Type.EVENT:
+			room.event_scene = map_generator.event_room_pool.get_random()
+			
+		Room.Type.TREASURE:
+			pass
+
+	for map_room in rooms.get_children():
+		if map_room.room == room:
+			map_room.update_visual()
+>>>>>>> Stashed changes
