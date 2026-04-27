@@ -9,7 +9,6 @@ script = ExtResource("3_6yvgm")
 character_name = "Player"
 description = "A normal human being"
 portrait = ExtResource("1_mh3et")
-cards_per_turn = 4
 max_mana = 3
 starting_relic = ExtResource("5_cbm2l")
 max_health = 35
