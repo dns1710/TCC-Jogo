@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://47drxe4pbulu" path="res://scenes/battle/battle.gd" id="1_4s751"]
 [ext_resource type="Texture2D" uid="uid://cp4iq5fd6j8be" path="res://art/background.png" id="1_ybkl6"]
 [ext_resource type="PackedScene" uid="uid://2n4lap6w3pde" path="res://scenes/player/player.tscn" id="3_dpj45"]
+[ext_resource type="AudioStream" uid="uid://dpdenqqbovwfq" path="res://art/8_bit_iced_village_lofi.mp3" id="3_nuoky"]
 [ext_resource type="Script" uid="uid://brbvnlnf2h5eq" path="res://scenes/enemy/enemy_handler.gd" id="4_41vpn"]
+[ext_resource type="Resource" uid="uid://sbkc4o401k4l" path="res://characters/player/player.tres" id="4_fwb8a"]
 [ext_resource type="Script" uid="uid://de5r1qjtugn1k" path="res://scenes/ui/battle_ui.gd" id="7_18vit"]
 [ext_resource type="Script" uid="uid://wewhus0wbrdr" path="res://scenes/player/player_handler.gd" id="8_3di7i"]
-[ext_resource type="Resource" uid="uid://c381xju0bdn2g" path="res://custom_resources/actions/action_block.tres" id="9_kd6yx"]
-[ext_resource type="Resource" uid="uid://cdpaf31d21u7r" path="res://custom_resources/actions/action_attack.tres" id="9_t1kk3"]
 [ext_resource type="PackedScene" uid="uid://bnbwu7pkbrwox" path="res://scenes/ui/mana_ui.tscn" id="11_2vu01"]
 [ext_resource type="PackedScene" uid="uid://chry0sgk7t0yf" path="res://scenes/ui/tooltip.tscn" id="12_qx741"]
 [ext_resource type="Script" uid="uid://dp1elam0ofu02" path="res://scenes/ui/red_flash.gd" id="15_qvh8t"]
@@ -19,6 +19,8 @@ size = Vector2(256, 100)
 
 [node name="Battle" type="Node2D" unique_id=213304615]
 script = ExtResource("1_4s751")
+char_stats = ExtResource("4_fwb8a")
+music = ExtResource("3_nuoky")
 metadata/_edit_lock_ = true
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1194211643]
@@ -40,6 +42,7 @@ script = ExtResource("4_41vpn")
 
 [node name="Player" parent="." unique_id=949995850 instance=ExtResource("3_dpj45")]
 position = Vector2(45, 80)
+stats = ExtResource("4_fwb8a")
 
 [node name="PlayerHandler" type="Node" parent="." unique_id=846142550 node_paths=PackedStringArray("player") groups=["player_handler"]]
 script = ExtResource("8_3di7i")
@@ -47,8 +50,6 @@ player = NodePath("../Player")
 
 [node name="BattleUI" type="CanvasLayer" parent="." unique_id=981933385 groups=["ui_layer"]]
 script = ExtResource("7_18vit")
-attack_action = ExtResource("9_t1kk3")
-block_action = ExtResource("9_kd6yx")
 
 [node name="Hand" type="HBoxContainer" parent="BattleUI" unique_id=155687812]
 anchors_preset = 7
