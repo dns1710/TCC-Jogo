@@ -157,6 +157,9 @@ func show_map() -> void:
 	show()
 	camera_2d.enabled = true
 
+	if reroll_button:
+		reroll_button.show()
+
 	if last_room == null:
 		unlock_floor(0)
 	else:
@@ -167,6 +170,9 @@ func hide_map() -> void:
 	hide()
 	camera_2d.enabled = false
 	dragging = false
+
+	if reroll_button:
+		reroll_button.hide()
 
 
 func _spawn_room(room: Room) -> void:
@@ -215,6 +221,7 @@ func _on_map_room_selected(room: Room) -> void:
 
 
 func _on_reroll_button_pressed() -> void:
+	print("Botão funcionou")
 	reroll_mode = true
 	_update_reroll_visuals()
 
