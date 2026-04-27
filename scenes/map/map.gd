@@ -25,16 +25,16 @@ var last_mouse_pos := Vector2.ZERO
 var zoom_speed := 0.1
 var min_zoom := 0.5
 var max_zoom := 2.0
-
+var camera_edge_x := 0.0
 var reroll_mode := false
 
 
 func _ready() -> void:
 	add_to_group("map")
 
-	camera_edge_y = MapGenerator.X_DIST * (MapGenerator.FLOORS - 1)
+	camera_edge_x = MapGenerator.Y_DIST * (MapGenerator.MAP_WIDTH - 1)
 	hide_map()
-
+	
 	if reroll_button:
 		reroll_button.pressed.connect(_on_reroll_button_pressed)
 	else:
@@ -77,10 +77,14 @@ func _zoom_camera(amount: float) -> void:
 
 
 func _clamp_camera() -> void:
-	var view_size := get_viewport_rect().size
+	var min_x = 0
+	var max_x = MapGenerator.X_DIST * (MapGenerator.FLOORS - 1)
 
-	camera_2d.position.x = clamp(camera_2d.position.x, -view_size.x, view_size.x)
-	camera_2d.position.y = clamp(camera_2d.position.y, -camera_edge_y, camera_edge_y)
+	var min_y = 0
+	var max_y = MapGenerator.Y_DIST * (MapGenerator.MAP_WIDTH - 1)
+
+	camera_2d.position.x = clamp(camera_2d.position.x, min_x, max_x)
+	camera_2d.position.y = clamp(camera_2d.position.y, min_y, max_y)
 
 
 func generate_new_map() -> void:
@@ -118,7 +122,7 @@ func create_map() -> void:
 	var start_room = map_data[0][int(MapGenerator.MAP_WIDTH / 2)]
 	camera_2d.position = start_room.position
 	camera_2d.zoom = Vector2(0.8, 0.8)
-
+	
 	# boss
 	var middle := floori(MapGenerator.MAP_WIDTH * 0.5)
 	var boss_room: Room = map_data[MapGenerator.FLOORS - 1][middle]
