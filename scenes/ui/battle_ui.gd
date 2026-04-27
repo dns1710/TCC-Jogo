@@ -9,7 +9,7 @@ extends CanvasLayer
 @onready var attack_button: Button = %AttackButton 
 @onready var block_button: Button = %BlockButton 
 @onready var player = get_parent().get_node("Player") 
-@onready var enemy = get_parent().get_node("EnemyHandler").get_child(0) 
+#@onready var enemy = get_parent().get_node("EnemyHandler").get_child(0) 
 
 var pending_action: Action = null 
 

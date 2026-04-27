@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cuwuwco4sf0y6" path="res://scenes/map/map.tscn" id="1_7xwwf"]
 [ext_resource type="Script" uid="uid://navyj5kh57n2" path="res://scenes/run/run.gd" id="1_bedv1"]
 [ext_resource type="Resource" uid="uid://bd874b0h1q8n1" path="res://scenes/run/run_startup.tres" id="2_wgfut"]
+[ext_resource type="Script" uid="uid://d3tgwm71tnlw5" path="res://scenes/run/reroll_button.gd" id="4_cnkn7"]
 [ext_resource type="PackedScene" uid="uid://jfu1yenfdod5" path="res://scenes/ui/gold_ui.tscn" id="4_dtarl"]
 [ext_resource type="PackedScene" uid="uid://b3dkx1dqlo0eo" path="res://scenes/ui/health_ui.tscn" id="4_k05q4"]
 [ext_resource type="PackedScene" uid="uid://bltkcscivnh8p" path="res://scenes/relic_handler/relic_handler.tscn" id="6_f8fbw"]
@@ -16,6 +17,15 @@ script = ExtResource("1_bedv1")
 run_startup = ExtResource("2_wgfut")
 
 [node name="Map" parent="." unique_id=1692311060 instance=ExtResource("1_7xwwf")]
+
+[node name="Reroll" type="CanvasLayer" parent="Map" unique_id=1647069391]
+
+[node name="RerollButton" type="Button" parent="Map/Reroll" unique_id=1161378671]
+offset_left = 225.0
+offset_top = 129.0
+offset_right = 253.0
+offset_bottom = 141.0
+script = ExtResource("4_cnkn7")
 
 [node name="CurrentView" type="Node" parent="." unique_id=878995358]
 

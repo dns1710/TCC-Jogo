@@ -24,7 +24,7 @@ var room: Room : set = set_room
 
 func set_available(new_value: bool) -> void:
 	available = new_value
-	
+
 	if available:
 		animation_player.play("highlight")
 	elif not room.selected:
@@ -35,8 +35,7 @@ func set_room(new_data: Room) -> void:
 	room = new_data
 	position = room.position
 	line_2d.rotation_degrees = randi_range(0, 360)
-	sprite_2d.texture = ICONS[room.type][0]
-	sprite_2d.scale = ICONS[room.type][1]
+	update_visual()
 
 
 func show_selected() -> void:
@@ -44,7 +43,20 @@ func show_selected() -> void:
 
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if not available or not event.is_action_pressed("left_mouse"):
+	if not event.is_action_pressed("left_mouse"):
+		return
+
+	var map = get_tree().get_first_node_in_group("map")
+	if map == null:
+		return
+
+	# 🎲 REROLL MODE
+	if map.reroll_mode:
+		clicked.emit(room)
+		return
+
+	# 🎮 NORMAL
+	if not available:
 		return
 
 	room.selected = true
@@ -52,7 +64,20 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	animation_player.play("select")
 
 
-# Called by the AnimationPLayer when the 
-# "select" animation finishes.
 func _on_map_room_selected() -> void:
 	selected.emit(room)
+
+
+func update_visual() -> void:
+	if not ICONS.has(room.type):
+		return
+
+	sprite_2d.texture = ICONS[room.type][0]
+	sprite_2d.scale = ICONS[room.type][1]
+
+
+func set_reroll_highlight(active: bool) -> void:
+	if active:
+		modulate = Color(1.2, 1.2, 0.9)
+	else:
+		modulate = Color(1, 1, 1)
