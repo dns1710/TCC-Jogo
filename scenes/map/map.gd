@@ -242,7 +242,8 @@ func _reroll_room(room: Room) -> void:
 		Room.Type.MONSTER,
 		Room.Type.EVENT,
 		Room.Type.SHOP,
-		Room.Type.CAMPFIRE
+		Room.Type.CAMPFIRE,
+		Room.Type.TREASURE
 	]
 
 	var pool = []
@@ -259,6 +260,9 @@ func _reroll_room(room: Room) -> void:
 
 		Room.Type.EVENT:
 			room.event_scene = map_generator.event_room_pool.get_random()
+			
+		Room.Type.TREASURE:
+			pass
 
 	for map_room in rooms.get_children():
 		if map_room.room == room:
