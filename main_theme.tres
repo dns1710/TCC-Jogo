@@ -1,7 +1,5 @@
 [gd_resource type="Theme" format=3 uid="uid://c8cqncsqlplyu"]
 
-[ext_resource type="StyleBox" uid="uid://b4b3e0d14kvmi" path="res://scenes/card_ui/card_base_stylebox.tres" id="1_cof14"]
-[ext_resource type="StyleBox" uid="uid://15046auw6h2r" path="res://scenes/card_ui/card_hover_stylebox.tres" id="1_lro6f"]
 [ext_resource type="FontFile" uid="uid://dskmdk146n4rq" path="res://art/pixel_rpg.ttf" id="1_nmkrf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8u4k"]
@@ -27,8 +25,8 @@ default_font = ExtResource("1_nmkrf")
 default_font_size = 6
 Button/styles/disabled = SubResource("StyleBoxFlat_r8u4k")
 Button/styles/focus = SubResource("StyleBoxEmpty_dmy1r")
-Button/styles/hover = ExtResource("1_lro6f")
-Button/styles/normal = ExtResource("1_cof14")
+Button/styles/hover = null
+Button/styles/normal = null
 Button/styles/pressed = SubResource("StyleBoxFlat_6ipyv")
-Panel/styles/panel = ExtResource("1_cof14")
-PanelContainer/styles/panel = ExtResource("1_cof14")
+Panel/styles/panel = null
+PanelContainer/styles/panel = null

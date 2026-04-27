@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3 uid="uid://cdpaf31d21u7r"]
+
+[ext_resource type="Script" uid="uid://bhdat0f8xiibv" path="res://custom_resources/actions/action_attack.gd" id="1_84l57"]
+
+[resource]
+script = ExtResource("1_84l57")
+id = "attack"
+type = null
+target = 1
+cost = null
+metadata/_custom_type_script = "uid://b7lcfrpx0xbuj"

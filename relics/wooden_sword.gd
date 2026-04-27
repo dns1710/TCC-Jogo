@@ -11,23 +11,14 @@ func initialize_relic(owner: RelicUI) -> void:
 	relic_ui = owner
 	Events.player_hand_drawn.connect(_reset)
 	Events.map_exited.connect(_reset.unbind(1))
-	Events.card_played.connect(_on_card_played)
-
 
 func deactivate_relic(_owner: RelicUI) -> void:
 	Events.player_hand_drawn.disconnect(_reset)
 	Events.map_exited.disconnect(_reset)
-	Events.card_played.disconnect(_on_card_played)
 
 
 func _reset() -> void:
 	skills_this_turn = 0
-
-
-func _on_card_played(card: Card) -> void:
-	if card.type != Card.Type.SKILL:
-		return
-	
 	skills_this_turn += 1
 	
 	if skills_this_turn % skills_required == 0:

@@ -4,7 +4,7 @@ extends Node
 const X_DIST := 120
 const Y_DIST := 80
 const PLACEMENT_RANDOMNESS := 0
-
+#Não foquemos no bode
 const FLOORS := 7
 const MAP_WIDTH := 7
 
@@ -28,14 +28,7 @@ func generate_map() -> Array[Array]:
 
 	start.battle_stats = battle_stats_pool.get_random_battle_for_tier(0)
 
-	# 🔥 DEBUG + SAFETY (IMPORTANTE)
-	if start.battle_stats == null:
-		push_error("START ROOM SEM BATTLE_STATS (POOL RETORNOU NULL)")
-		start.battle_stats = battle_stats_pool.get_random_battle_for_tier(0)
-
-	print("START ROOM OK:", start, "BATTLE:", start.battle_stats)
-	print("EVENT POOL:", event_room_pool)
-	print("EVENT SAMPLE:", event_room_pool.get_random())
+	
 	# -------------------------------
 	# FLOOR 1 → split (shop / event)
 	# -------------------------------
