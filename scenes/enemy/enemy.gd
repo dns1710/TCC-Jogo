@@ -16,15 +16,12 @@ const WHITE_SPRITE_MATERIAL := preload("res://art/white_sprite_material.tres")
 var enemy_action_picker: EnemyActionPicker
 var current_action: EnemyAction : set = set_current_action
 
-
 func _ready() -> void:
 	status_handler.status_owner = self
-
 
 func set_current_action(value: EnemyAction) -> void:
 	current_action = value
 	update_intent()
-
 
 func set_enemy_stats(value: EnemyStats) -> void:
 	stats = value.create_instance()
@@ -35,7 +32,6 @@ func set_enemy_stats(value: EnemyStats) -> void:
 	
 	update_enemy()
 
-
 func setup_ai() -> void:
 	if enemy_action_picker:
 		enemy_action_picker.queue_free()
@@ -45,10 +41,8 @@ func setup_ai() -> void:
 	enemy_action_picker = new_action_picker
 	enemy_action_picker.enemy = self
 
-
 func update_stats() -> void:
 	stats_ui.update_stats(stats)
-
 
 func update_action() -> void:
 	if not enemy_action_picker:
@@ -62,7 +56,6 @@ func update_action() -> void:
 	if new_conditional_action and current_action != new_conditional_action:
 		current_action = new_conditional_action
 
-
 func update_enemy() -> void:
 	if not stats is Stats: 
 		return
@@ -74,21 +67,16 @@ func update_enemy() -> void:
 	setup_ai()
 	update_stats()
 
-
 func update_intent() -> void:
 	if current_action:
 		current_action.update_intent_text()
 		intent_ui.update_intent(current_action.intent)
 
-
 func do_turn() -> void:
-	stats.block = 0
-	
 	if not current_action:
 		return
 	
 	current_action.perform_action()
-
 
 func take_damage(damage: int, which_modifier: Modifier.Type) -> void:
 	if stats.health <= 0:
@@ -111,10 +99,12 @@ func take_damage(damage: int, which_modifier: Modifier.Type) -> void:
 				queue_free()
 	)
 
-
 func _on_area_entered(_area: Area2D) -> void:
 	arrow.show()
 
-
 func _on_area_exited(_area: Area2D) -> void:
 	arrow.hide()
+
+func _input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.pressed:
+		Events.enemy_selected.emit(self)

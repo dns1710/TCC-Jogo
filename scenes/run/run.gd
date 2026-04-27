@@ -132,8 +132,6 @@ func _show_regular_battle_rewards() -> void:
 	reward.run_stats = stats
 	reward.character_stats = character
 	reward.add_gold_reward(map.last_room.battle_stats.roll_gold_reward())
-	reward.add_card_reward()
-
 
 func _on_battle_room_entered(room: Room) -> void:
 	var battle := _change_view(BATTLE_SCENE) as Battle
@@ -142,13 +140,11 @@ func _on_battle_room_entered(room: Room) -> void:
 	battle.relics = relic_handler
 	battle.start_battle()
 
-
 func _on_treasure_room_entered() -> void:
 	var treasure := _change_view(TREASURE_SCENE) as Treasure
 	treasure.relic_handler = relic_handler
 	treasure.char_stats = character
 	treasure.generate_relic()
-
 
 func _on_treasure_room_exited(relic: Relic) -> void:
 	var reward := _change_view(BATTLE_REWARD_SCENE) as BattleReward
@@ -157,11 +153,9 @@ func _on_treasure_room_exited(relic: Relic) -> void:
 	reward.relic_handler = relic_handler
 	reward.add_relic_reward(relic)
 
-
 func _on_campfire_entered() -> void:
 	var campfire := _change_view(CAMPFIRE_SCENE) as Campfire
 	campfire.char_stats = character
-
 
 func _on_shop_entered() -> void:
 	var shop := _change_view(SHOP_SCENE) as Shop
@@ -171,13 +165,11 @@ func _on_shop_entered() -> void:
 	Events.shop_entered.emit(shop)
 	shop.populate_shop()
 
-
 func _on_event_room_entered(room: Room) -> void:
 	var event_room := _change_view(room.event_scene) as EventRoom
 	event_room.character_stats = character
 	event_room.run_stats = stats
 	event_room.setup()
-
 
 func _on_battle_won() -> void:
 	if map.floors_climbed == MapGenerator.FLOORS:
@@ -185,7 +177,6 @@ func _on_battle_won() -> void:
 		win_screen.character = character
 	else:
 		_show_regular_battle_rewards()
-
 
 func _on_map_exited(room: Room) -> void:
 	match room.type:
