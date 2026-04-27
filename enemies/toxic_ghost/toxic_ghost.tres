@@ -9,5 +9,5 @@ script = ExtResource("1_dyv27")
 ai = ExtResource("1_3lheq")
 max_health = 1
 max_speed = 8
-max_block = 40
+max_block = 1
 art = ExtResource("1_frmvf")

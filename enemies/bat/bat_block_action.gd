@@ -1,6 +1,6 @@
 extends EnemyAction
 
-@export var block := 3
+@export var block := 2
 
 
 func perform_action() -> void:
