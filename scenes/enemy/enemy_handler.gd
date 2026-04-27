@@ -7,7 +7,7 @@ var acting_enemies: Array[Enemy] = []
 func _ready() -> void:
 	Events.enemy_died.connect(_on_enemy_died)
 	Events.enemy_action_completed.connect(_on_enemy_action_completed)
-
+	Events.player_turn_ended.connect(start_turn)
 
 func setup_enemies(battle_stats: BattleStats) -> void:
 	if not battle_stats:
@@ -35,7 +35,14 @@ func reset_enemy_actions() -> void:
 		enemy.current_action = null
 		enemy.update_action()
 
-
+func start_enemy_turn(enemy):
+	await get_tree().create_timer(0.3).timeout
+	
+	enemy.take_action()
+	enemy.reset_atb()
+	
+	get_parent().atb_manager.is_waiting_for_input = false
+	
 func start_turn() -> void:
 	if get_child_count() == 0:
 		return
@@ -46,7 +53,6 @@ func start_turn() -> void:
 		acting_enemies.append(enemy)
 
 	_start_next_enemy_turn()
-
 
 func _start_next_enemy_turn() -> void:
 	if acting_enemies.is_empty():
