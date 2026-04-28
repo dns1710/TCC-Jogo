@@ -2,8 +2,11 @@
 
 [ext_resource type="Script" uid="uid://byrxrk7q7isrw" path="res://scenes/treasure/treasure.gd" id="1_0dgmn"]
 [ext_resource type="Texture2D" uid="uid://cp4iq5fd6j8be" path="res://art/background.png" id="2_g7pdp"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_ufafs"]
 [ext_resource type="Texture2D" uid="uid://hva3iy5hon7a" path="res://art/tile_0089.png" id="3_4v1q1"]
+[ext_resource type="Resource" uid="uid://ov2giwe4f4pt" path="res://relics/espada.tres" id="3_qhcu3"]
 [ext_resource type="Texture2D" uid="uid://dhmtctwb5ymhc" path="res://art/gold.png" id="4_3wkp5"]
+[ext_resource type="Resource" uid="uid://ly5qayf6jurh" path="res://relics/escudo.tres" id="4_gkj16"]
 [ext_resource type="Texture2D" uid="uid://d007n5sscvumv" path="res://art/tile_0090.png" id="4_lw04s"]
 [ext_resource type="Texture2D" uid="uid://isan6btj7dwy" path="res://art/tile_0091.png" id="5_h2q1b"]
 
@@ -148,6 +151,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_0dgmn")
+treasure_relic_pool = Array[ExtResource("2_ufafs")]([ExtResource("3_qhcu3"), ExtResource("4_gkj16")])
 
 [node name="Background" type="TextureRect" parent="." unique_id=1895505380]
 layout_mode = 1

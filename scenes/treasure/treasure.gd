@@ -17,6 +17,11 @@ func generate_relic() -> void:
 			return can_appear and not already_had_it
 	)
 	found_relic = RNG.array_pick_random(available_relics)
+	print("POOL SIZE:", treasure_relic_pool.size())
+	print("AVAILABLE:", available_relics)
+	if found_relic == null:
+		push_error("Nenhuma relic válida encontrada no baú!")
+		
 
 
 # Called from the AnimationPlayer, at the
