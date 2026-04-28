@@ -23,7 +23,6 @@ func set_attack(value: int) -> void:
 	attack = value
 	stats_changed.emit()
 
-
 func reset_mana() -> void:
 	mana = max_mana
 

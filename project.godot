@@ -16,9 +16,12 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Deck Builder Tutorial"
 config/tags=PackedStringArray("gamelab")
-run/main_scene="res://scenes/run/run.tscn"
+run/main_scene="uid://4tj0qise1som"
 config/features=PackedStringArray("4.6", "Mobile")
+boot_splash/use_filter=false
+boot_splash/image="uid://cy1gnj0w5x54q"
 config/icon="res://icon.png"
+boot_splash/minimum_display_time=1500
 
 [autoload]
 

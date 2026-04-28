@@ -10,6 +10,7 @@ const WIN_SCREEN_SCENE := preload("res://scenes/win_screen/win_screen.tscn")
 const MAIN_MENU_PATH := "res://scenes/ui/main_menu.tscn"
 
 @export var run_startup: RunStartup
+@export var music: AudioStream
 
 @onready var map: Map = $Map
 @onready var current_view: Node = $CurrentView
@@ -33,7 +34,9 @@ var character: CharacterStats
 func _ready() -> void:
 	if not run_startup:
 		return
-
+		
+	MusicPlayer.play(music, true)
+	
 	_connect_ui_signals()
 	_connect_global_signals()
 
