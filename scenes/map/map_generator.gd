@@ -88,7 +88,7 @@ func generate_map() -> Array[Array]:
 	var boss = map_data[6][mid]
 	_set_room_type(
 		boss,
-		Room.Type.BOSS,
+		Room.Type.MONSTER,
 		battle_stats_pool.get_random_battle_for_tier(2)
 	)
 

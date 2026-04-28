@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dhfll23tipo6p"]
+
+[ext_resource type="PackedScene" uid="uid://d0efyathkfg74" path="res://scenes/enemy/enemy.tscn" id="1_iivdh"]
+[ext_resource type="Resource" uid="uid://bpvq3tglp70d1" path="res://enemies/chicken/chicken.tres" id="2_a6621"]
+
+[node name="Tier13Chicken" type="Node2D" unique_id=458116627]
+
+[node name="Enemy" parent="." unique_id=1725447943 instance=ExtResource("1_iivdh")]
+position = Vector2(146, 72)
+stats = ExtResource("2_a6621")
+
+[node name="Enemy2" parent="." unique_id=438868099 instance=ExtResource("1_iivdh")]
+position = Vector2(185, 50)
+stats = ExtResource("2_a6621")
+
+[node name="Enemy3" parent="." unique_id=709389899 instance=ExtResource("1_iivdh")]
+position = Vector2(226, 80)
+stats = ExtResource("2_a6621")

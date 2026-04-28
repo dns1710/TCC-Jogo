@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://g8ya03t8eema"]
+[gd_scene format=3 uid="uid://g8ya03t8eema"]
 
-[ext_resource type="Script" path="res://scenes/event_rooms/gamble_event.gd" id="1_gxqxk"]
+[ext_resource type="Script" uid="uid://c4dqdcq1kvoot" path="res://scenes/event_rooms/gamble_event.gd" id="1_gxqxk"]
 [ext_resource type="Resource" uid="uid://c05cbhxh1h1wo" path="res://test_data/test_run_stats.tres" id="2_3qv8i"]
 [ext_resource type="PackedScene" uid="uid://br2rpgkb7gbxr" path="res://scenes/event_rooms/event_room_button.tscn" id="2_xqbom"]
 
-[node name="GambleEvent" type="Control"]
+[node name="GambleEvent" type="Control" unique_id=401194959]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +14,7 @@ grow_vertical = 2
 script = ExtResource("1_gxqxk")
 run_stats = ExtResource("2_3qv8i")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=981058542]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.041418, 0.0917935, 0.0344075, 0.815686)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=787590590]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -38,28 +38,26 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 5
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1153180089]
 layout_mode = 2
-text = "Bet your 
-money"
+text = "You found a slot machine
+in the middle of the forest"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FiftyButton" parent="VBoxContainer" instance=ExtResource("2_xqbom")]
+[node name="FiftyButton" parent="VBoxContainer" unique_id=1274545917 instance=ExtResource("2_xqbom")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(110, 20)
 layout_mode = 2
-text = "bet 50g: 50% chance
-to win 100g"
+text = "Small bet: bet 50g to double it (100g)"
 
-[node name="ThirtyButton" parent="VBoxContainer" instance=ExtResource("2_xqbom")]
+[node name="ThirtyButton" parent="VBoxContainer" unique_id=1432329933 instance=ExtResource("2_xqbom")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-text = "bet 50g: 30% chance
-to win 200g"
+text = "ALL IN! Triple your gold (or multiply by zero)"
 
-[node name="SkipButton" parent="VBoxContainer" instance=ExtResource("2_xqbom")]
+[node name="SkipButton" parent="VBoxContainer" unique_id=1624632318 instance=ExtResource("2_xqbom")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ShieldRelic" format=3 uid="uid://ly5qayf6jurh"]
+
+[ext_resource type="Script" uid="uid://bb0l7ik1lb5ay" path="res://relics/escudo.gd" id="1_gpvg2"]
+[ext_resource type="Texture2D" uid="uid://bi6pfjs32f820" path="res://art/tile_0101.png" id="1_oohar"]
+
+[resource]
+script = ExtResource("1_gpvg2")
+relic_name = "Shield"
+id = "escudo"
+type = 1
+icon = ExtResource("1_oohar")
+tooltip = "weirdly small shield
++2 block at the start of the combat"
+metadata/_custom_type_script = "uid://bb0l7ik1lb5ay"

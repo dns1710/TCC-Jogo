@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="HealingPotion" format=3 uid="uid://dl0v7eqbpxyqi"]
+
+[ext_resource type="Texture2D" uid="uid://boklhiqs1414d" path="res://art/tile_0115.png" id="1_7jock"]
+[ext_resource type="Script" uid="uid://dkxx27kqb6tnm" path="res://relics/pocao.gd" id="1_g8nou"]
+
+[resource]
+script = ExtResource("1_g8nou")
+relic_name = "Healing Potion"
+id = "pocao_de_cura"
+type = 3
+icon = ExtResource("1_7jock")
+tooltip = "Ibuprofen
+At the end of combat, heal 6 HP."
+metadata/_custom_type_script = "uid://dkxx27kqb6tnm"

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b38oeg3mj45e7"]
+
+[ext_resource type="PackedScene" uid="uid://d0efyathkfg74" path="res://scenes/enemy/enemy.tscn" id="1_jmuxl"]
+[ext_resource type="Resource" uid="uid://171b6hta0j8j" path="res://enemies/zscout/zscout.tres" id="2_fu4v6"]
+
+[node name="Tier0ZScout" type="Node2D" unique_id=2118704644]
+
+[node name="Enemy" parent="." unique_id=1377259371 instance=ExtResource("1_jmuxl")]
+position = Vector2(211, 74)
+stats = ExtResource("2_fu4v6")

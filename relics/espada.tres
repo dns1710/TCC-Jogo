@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SwordRelic" format=3 uid="uid://ov2giwe4f4pt"]
+
+[ext_resource type="Texture2D" uid="uid://bq4im540nk025" path="res://art/tile_0106.png" id="1_jda12"]
+[ext_resource type="Script" uid="uid://jrf1ynp2rrsw" path="res://relics/espada.gd" id="1_mavaa"]
+
+[resource]
+script = ExtResource("1_mavaa")
+relic_name = "Espada"
+id = "espada"
+type = 1
+icon = ExtResource("1_jda12")
+tooltip = "Really Cool Sword
+Increase damage +2"
+metadata/_custom_type_script = "uid://jrf1ynp2rrsw"

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BattleStats" format=3 uid="uid://d1g3l6w0ib5il"]
+
+[ext_resource type="PackedScene" uid="uid://bvbimjxxa1eu8" path="res://battles/tier_0_cap.tscn" id="1_kbapi"]
+[ext_resource type="Script" uid="uid://bn5trp8qkpcgh" path="res://custom_resources/battle_stats.gd" id="1_xefyn"]
+
+[resource]
+script = ExtResource("1_xefyn")
+weight = 1.0
+gold_reward_min = 50
+gold_reward_max = 60
+enemies = ExtResource("1_kbapi")
+metadata/_custom_type_script = "uid://bn5trp8qkpcgh"

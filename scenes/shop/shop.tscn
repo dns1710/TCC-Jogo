@@ -2,9 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dmde1tplrk1da" path="res://scenes/shop/shop.gd" id="1_oqoy8"]
 [ext_resource type="Texture2D" uid="uid://bj3im6egs4wxx" path="res://art/tile_0086.png" id="2_41omk"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_dww4p"]
+[ext_resource type="Resource" uid="uid://bb6abg7a0w0ra" path="res://relics/armadura.tres" id="3_g6lcs"]
 [ext_resource type="Texture2D" uid="uid://cvtonr5sinxbx" path="res://art/shopkeeper_blink.png" id="3_uthr0"]
 [ext_resource type="PackedScene" uid="uid://d24w6bygugbhd" path="res://scenes/shop/shop_card.tscn" id="4_2u2et"]
+[ext_resource type="Resource" uid="uid://dl0v7eqbpxyqi" path="res://relics/pocao.tres" id="4_131kw"]
 [ext_resource type="PackedScene" uid="uid://dlt6561ywjx8m" path="res://scenes/shop/shop_relic.tscn" id="5_m1t66"]
+[ext_resource type="Resource" uid="uid://ly5qayf6jurh" path="res://relics/escudo.tres" id="5_xoc10"]
+[ext_resource type="Resource" uid="uid://ov2giwe4f4pt" path="res://relics/espada.tres" id="6_k5co3"]
 [ext_resource type="PackedScene" uid="uid://ctvxie3ni1ik4" path="res://scenes/modifier_handler/modifier_handler.tscn" id="11_863hj"]
 [ext_resource type="PackedScene" uid="uid://bqefj5q31b84i" path="res://scenes/modifier_handler/modifier.tscn" id="12_xf6l8"]
 
@@ -69,6 +74,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_oqoy8")
+shop_relics = Array[ExtResource("2_dww4p")]([ExtResource("3_g6lcs"), ExtResource("4_131kw"), ExtResource("5_xoc10"), ExtResource("6_k5co3")])
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=1845713156]
 layer = 0

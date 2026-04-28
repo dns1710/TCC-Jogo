@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://cahno8aso5net"]
 
 [ext_resource type="Script" uid="uid://47drxe4pbulu" path="res://scenes/battle/battle.gd" id="1_4s751"]
-[ext_resource type="Texture2D" uid="uid://cp4iq5fd6j8be" path="res://art/background.png" id="1_ybkl6"]
+[ext_resource type="AudioStream" uid="uid://bydreeeqqdbvd" path="res://art/verdadeira arte/La Route N'est Pas Vide.mp3" id="2_kd6yx"]
 [ext_resource type="PackedScene" uid="uid://2n4lap6w3pde" path="res://scenes/player/player.tscn" id="3_dpj45"]
+[ext_resource type="AudioStream" uid="uid://bo8mn2yas0hpy" path="res://art/verdadeira arte/Esperanto.mp3" id="3_t1kk3"]
 [ext_resource type="Script" uid="uid://brbvnlnf2h5eq" path="res://scenes/enemy/enemy_handler.gd" id="4_41vpn"]
+[ext_resource type="Texture2D" uid="uid://dg4l0d8gvxu2m" path="res://art/backgroundfloresta.jpg" id="4_t1kk3"]
 [ext_resource type="Script" uid="uid://de5r1qjtugn1k" path="res://scenes/ui/battle_ui.gd" id="7_18vit"]
 [ext_resource type="Script" uid="uid://wewhus0wbrdr" path="res://scenes/player/player_handler.gd" id="8_3di7i"]
 [ext_resource type="Resource" uid="uid://c381xju0bdn2g" path="res://custom_resources/actions/action_block.tres" id="9_kd6yx"]
@@ -19,11 +21,14 @@ size = Vector2(256, 100)
 
 [node name="Battle" type="Node2D" unique_id=213304615]
 script = ExtResource("1_4s751")
+music = ExtResource("2_kd6yx")
+map_music = ExtResource("3_t1kk3")
 metadata/_edit_lock_ = true
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1194211643]
 modulate = Color(0.321569, 0.321569, 0.321569, 1)
-texture = ExtResource("1_ybkl6")
+scale = Vector2(0.245, 0.27)
+texture = ExtResource("4_t1kk3")
 centered = false
 metadata/_edit_lock_ = true
 
@@ -64,6 +69,7 @@ grow_vertical = 0
 alignment = 1
 
 [node name="ManaUI" parent="BattleUI" unique_id=31233256 instance=ExtResource("11_2vu01")]
+visible = false
 offset_top = -42.0
 offset_bottom = -24.0
 

@@ -25,8 +25,7 @@ func setup_enemies(battle_stats: BattleStats) -> void:
 		new_enemy_child.status_handler.statuses_applied.connect(
 			_on_enemy_statuses_applied.bind(new_enemy_child)
 		)
-		print("BATTLE STATS RECEBIDO:", battle_stats)
-		print("ENEMIES INSTANCIADOS:", get_child_count())
+		
 	all_new_enemies.queue_free()
 
 
@@ -55,8 +54,19 @@ func start_turn() -> void:
 	_start_next_enemy_turn()
 
 func _start_next_enemy_turn() -> void:
+	#VVVVVVVVV
+	acting_enemies = acting_enemies.filter(
+		func(e): return is_instance_valid(e)
+	)
+	
 	if acting_enemies.is_empty():
 		Events.enemy_turn_ended.emit()
+		return
+	
+	var next_enemy = acting_enemies[0]
+	
+	if not is_instance_valid(next_enemy):
+		_start_next_enemy_turn()
 		return
 
 	acting_enemies[0].status_handler.apply_statuses_by_type(Status.Type.START_OF_TURN)
@@ -73,15 +83,22 @@ func _on_enemy_statuses_applied(type: Status.Type, enemy: Enemy) -> void:
 
 
 func _on_enemy_died(enemy: Enemy) -> void:
-	var is_enemy_turn := acting_enemies.size() > 0
-
+	#var is_enemy_turn := acting_enemies.size() > 0
+	var was_current_enemy := false
+	
+	if not acting_enemies.is_empty() and acting_enemies[0] == enemy:
+		was_current_enemy = true
+		
 	acting_enemies.erase(enemy)
-
-	if is_enemy_turn:
+	
+	if was_current_enemy:
 		_start_next_enemy_turn()
-
+	#if is_enemy_turn:
+	#	_start_next_enemy_turn()
 
 func _on_enemy_action_completed(enemy: Enemy) -> void:
+	if not is_instance_valid(enemy):
+		return
 	enemy.status_handler.apply_statuses_by_type(Status.Type.END_OF_TURN)
 
 

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BattleStats" format=3 uid="uid://bwlryxgi23gxl"]
+
+[ext_resource type="PackedScene" uid="uid://cm55j8rk5l1lk" path="res://battles/tier_2_big_chicken_boss.tscn" id="1_jt1rf"]
+[ext_resource type="Script" uid="uid://bn5trp8qkpcgh" path="res://custom_resources/battle_stats.gd" id="1_tsgdx"]
+
+[resource]
+script = ExtResource("1_tsgdx")
+battle_tier = 2
+weight = 1.0
+gold_reward_min = 70
+gold_reward_max = 100
+enemies = ExtResource("1_jt1rf")
+metadata/_custom_type_script = "uid://bn5trp8qkpcgh"

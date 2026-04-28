@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bvbimjxxa1eu8"]
+
+[ext_resource type="PackedScene" uid="uid://d0efyathkfg74" path="res://scenes/enemy/enemy.tscn" id="1_uk84t"]
+[ext_resource type="Resource" uid="uid://l8dpndea4600" path="res://enemies/cap/cap.tres" id="2_klh5o"]
+
+[node name="Tier0Cap" type="Node2D" unique_id=1292868310]
+
+[node name="Enemy" parent="." unique_id=1918534270 instance=ExtResource("1_uk84t")]
+position = Vector2(205, 73)
+stats = ExtResource("2_klh5o")

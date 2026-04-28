@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://bpvq3tglp70d1"]
+
+[ext_resource type="Script" uid="uid://csml8orhg63vh" path="res://custom_resources/enemy_stats.gd" id="1_4e5ad"]
+[ext_resource type="PackedScene" uid="uid://co7fvwqjh7u05" path="res://enemies/chicken/chicken_ai.tscn" id="1_efblh"]
+[ext_resource type="Texture2D" uid="uid://b8bq77uq4fif2" path="res://art/tile_0124.png" id="1_wrgsv"]
+
+[resource]
+script = ExtResource("1_4e5ad")
+ai = ExtResource("1_efblh")
+max_health = 6
+max_speed = 6
+art = ExtResource("1_wrgsv")
+metadata/_custom_type_script = "uid://csml8orhg63vh"

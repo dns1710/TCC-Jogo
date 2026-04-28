@@ -25,7 +25,7 @@ func _set_char_stats(value: CharacterStats) -> void:
 	mana_ui.char_stats = char_stats 
 
 func _on_attack_button_pressed() -> void: 
-	pending_action = attack_action 
+	pending_action = attack_action
 
 func _on_enemy_selected(enemy: Node) -> void: 
 	if pending_action == null: 
@@ -37,7 +37,7 @@ func _on_enemy_selected(enemy: Node) -> void:
 	Events.player_turn_ended.emit() 
 
 func _on_block_button_pressed() -> void: 
-	block_action.use_action([player], char_stats) 
+	block_action.use_action([player], char_stats)
 	Events.player_turn_ended.emit() 
 
 func _on_player_turn_ended() -> void: 

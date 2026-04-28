@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BattleStats" format=3 uid="uid://durn4252s1h32"]
+
+[ext_resource type="Script" uid="uid://bn5trp8qkpcgh" path="res://custom_resources/battle_stats.gd" id="1_hagmq"]
+[ext_resource type="PackedScene" uid="uid://dhfll23tipo6p" path="res://battles/tier_1_3chicken.tscn" id="1_pycqu"]
+
+[resource]
+script = ExtResource("1_hagmq")
+battle_tier = 1
+gold_reward_min = 60
+gold_reward_max = 70
+enemies = ExtResource("1_pycqu")
+metadata/_custom_type_script = "uid://bn5trp8qkpcgh"
