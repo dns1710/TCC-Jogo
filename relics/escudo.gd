@@ -7,12 +7,13 @@ var applied := false
 
 
 func activate_relic(owner: RelicUI) -> void:
+	print("ESCUDO ATIVOU")
 	if applied:
 		return
 
 	var player := owner.get_tree().get_first_node_in_group("player") as Player
 	if player:
-		player.stats.max_block += block_bonus
+		player.stats.block += block_bonus
 		owner.flash()
 		applied = true
 
@@ -20,6 +21,6 @@ func activate_relic(owner: RelicUI) -> void:
 func deactivate_relic(owner: RelicUI) -> void:
 	var player := owner.get_tree().get_first_node_in_group("player") as Player
 	if player:
-		player.stats.max_block -= block_bonus
+		player.stats.block -= block_bonus
 
 	applied = false

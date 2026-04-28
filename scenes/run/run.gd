@@ -65,8 +65,6 @@ func _setup_top_bar() -> void:
 	health_ui.update_stats(character)
 	gold_ui.run_stats = stats
 
-	if character.starting_relic:
-		relic_handler.add_relic(character.starting_relic)
 
 
 func _connect_ui_signals() -> void:
