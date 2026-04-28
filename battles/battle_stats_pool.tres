@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="BattleStatsPool" load_steps=8 format=3 uid="uid://by8ka073e8sah"]
+[gd_resource type="Resource" script_class="BattleStatsPool" format=3 uid="uid://by8ka073e8sah"]
 
-[ext_resource type="Script" path="res://custom_resources/battle_stats_pool.gd" id="1_c0dve"]
-[ext_resource type="Script" path="res://custom_resources/battle_stats.gd" id="1_k3ygp"]
-[ext_resource type="Resource" uid="uid://b8n7n2ldcvb0c" path="res://battles/tier_0_bats2.tres" id="1_udfgr"]
-[ext_resource type="Resource" uid="uid://btgxo6ksfx835" path="res://battles/tier_0_crab.tres" id="2_7sd42"]
-[ext_resource type="Resource" uid="uid://rscs8yna3uyj" path="res://battles/tier_1_bats3.tres" id="3_p408a"]
-[ext_resource type="Resource" uid="uid://d0rjtrdkgl628" path="res://battles/tier_1_bat_crab.tres" id="4_yjlu3"]
-[ext_resource type="Resource" uid="uid://d3e4osl3tc86v" path="res://battles/tier_2_toxic_ghost.tres" id="5_sb1gi"]
+[ext_resource type="Script" uid="uid://b47epnijnlwwh" path="res://custom_resources/battle_stats_pool.gd" id="1_c0dve"]
+[ext_resource type="Script" uid="uid://bn5trp8qkpcgh" path="res://custom_resources/battle_stats.gd" id="1_k3ygp"]
+[ext_resource type="Resource" uid="uid://c0atnidxb2lmp" path="res://battles/tier_0_zscout.tres" id="2_42yw1"]
+[ext_resource type="Resource" uid="uid://cjn58xq7mnp57" path="res://battles/tier_0_2chicken.tres" id="3_pk2l8"]
+[ext_resource type="Resource" uid="uid://durn4252s1h32" path="res://battles/tier_1_3chicken.tres" id="4_mktey"]
+[ext_resource type="Resource" uid="uid://d1g3l6w0ib5il" path="res://battles/tier_0_cap.tres" id="4_s5wuo"]
+[ext_resource type="Resource" uid="uid://bdtdha5bcquni" path="res://battles/tier_1_2zscot.tres" id="5_lrvlq"]
+[ext_resource type="Resource" uid="uid://cogl1xks6b5t6" path="res://battles/tier_1_cap_chicken.tres" id="7_7ckf5"]
+[ext_resource type="Resource" uid="uid://bwlryxgi23gxl" path="res://battles/tier_2_big_chicken_boss.tres" id="8_hpysq"]
 
 [resource]
 script = ExtResource("1_c0dve")
-pool = Array[ExtResource("1_k3ygp")]([ExtResource("1_udfgr"), ExtResource("2_7sd42"), ExtResource("3_p408a"), ExtResource("4_yjlu3"), ExtResource("5_sb1gi")])
+pool = Array[ExtResource("1_k3ygp")]([ExtResource("2_42yw1"), ExtResource("3_pk2l8"), ExtResource("4_s5wuo"), ExtResource("5_lrvlq"), ExtResource("4_mktey"), ExtResource("7_7ckf5"), ExtResource("8_hpysq")])

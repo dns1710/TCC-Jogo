@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://171b6hta0j8j"]
+
+[ext_resource type="PackedScene" uid="uid://d3jmf05haw1mq" path="res://enemies/zscout/zscout_ai.tscn" id="1_6y80n"]
+[ext_resource type="Script" uid="uid://csml8orhg63vh" path="res://custom_resources/enemy_stats.gd" id="1_8cu52"]
+[ext_resource type="Texture2D" uid="uid://bv2wpbh3uv4x3" path="res://art/tile_0109.png" id="2_g6jrd"]
+
+[resource]
+script = ExtResource("1_8cu52")
+ai = ExtResource("1_6y80n")
+max_health = 8
+max_speed = 5
+max_block = 4
+art = ExtResource("2_g6jrd")
+metadata/_custom_type_script = "uid://csml8orhg63vh"

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://co7fvwqjh7u05"]
+
+[ext_resource type="Script" uid="uid://dnhcysun6wq2l" path="res://scenes/enemy/enemy_action_picker.gd" id="1_lx0tu"]
+[ext_resource type="Script" uid="uid://61x6f04ajl6" path="res://enemies/chicken/chicken_attack_action.gd" id="2_duphj"]
+[ext_resource type="Script" uid="uid://88hogv7k757k" path="res://custom_resources/intent.gd" id="3_g7s0f"]
+[ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="4_n71jh"]
+
+[sub_resource type="Resource" id="Resource_5y3yg"]
+script = ExtResource("3_g7s0f")
+metadata/_custom_type_script = "uid://88hogv7k757k"
+
+[node name="ChickenAI" type="Node" unique_id=657990026]
+script = ExtResource("1_lx0tu")
+
+[node name="AttackAction" type="Node" parent="." unique_id=2011957142]
+script = ExtResource("2_duphj")
+intent = SubResource("Resource_5y3yg")
+sound = ExtResource("4_n71jh")
+type = 1
+chance_weight = 5.0

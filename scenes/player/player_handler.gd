@@ -1,8 +1,5 @@
 class_name PlayerHandler 
-extends Node 
-
-const HAND_DRAW_INTERVAL := 0.25 
-const HAND_DISCARD_INTERVAL := 0.25 
+extends Node
 
 @export var relics: RelicHandler 
 @export var player: Player
