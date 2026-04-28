@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bydreeeqqdbvd"
+path="res://.godot/imported/La Route N'est Pas Vide.mp3-8ee97a8626ca0f7f910ce9fab521f028.mp3str"
+
+[deps]
+
+source_file="res://art/verdadeira arte/La Route N'est Pas Vide.mp3"
+dest_files=["res://.godot/imported/La Route N'est Pas Vide.mp3-8ee97a8626ca0f7f910ce9fab521f028.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

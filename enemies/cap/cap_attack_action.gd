@@ -20,6 +20,9 @@ func perform_action() -> void:
 	tween.tween_interval(0.25)
 	tween.tween_property(enemy, "global_position", start, 0.4)
 	
+	if damage < 7:
+		damage +=1
+	
 	tween.finished.connect(
 		func():
 			Events.enemy_action_completed.emit(enemy)
