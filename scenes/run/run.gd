@@ -65,7 +65,10 @@ func _setup_top_bar() -> void:
 	health_ui.update_stats(character)
 	gold_ui.run_stats = stats
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 func _connect_ui_signals() -> void:
 	_safe_connect(battle_button.pressed, func(): _change_view(BATTLE_SCENE))

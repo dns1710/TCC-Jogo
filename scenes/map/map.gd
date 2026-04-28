@@ -11,7 +11,7 @@ const MAP_LINE := preload("res://scenes/map/map_line.tscn")
 @onready var visuals: Node2D = $Visuals
 @onready var camera_2d: Camera2D = $Camera2D
 
-# ✅ botão agora dentro do Map
+
 @onready var reroll_button = get_node_or_null("Reroll/RerollButton")
 
 var map_data: Array[Array] = []
@@ -118,12 +118,12 @@ func create_map() -> void:
 			if room.next_rooms.size() > 0:
 				_spawn_room(room)
 
-	# câmera inicial
+	
 	var start_room = map_data[0][int(MapGenerator.MAP_WIDTH / 2)]
 	camera_2d.position = start_room.position
 	camera_2d.zoom = Vector2(0.8, 0.8)
 	
-	# boss
+
 	var middle := floori(MapGenerator.MAP_WIDTH * 0.5)
 	var boss_room: Room = map_data[MapGenerator.FLOORS - 1][middle]
 	_spawn_room(boss_room)

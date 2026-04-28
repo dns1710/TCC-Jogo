@@ -1,3 +1,4 @@
+class_name PocaoCura
 extends Relic
 
 @export var heal_amount := 4

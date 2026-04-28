@@ -1,3 +1,4 @@
+class_name Armor
 extends Relic
 
 @export var block_bonus := 3

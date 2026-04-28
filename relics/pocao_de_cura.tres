@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PocaoCura" format=3 uid="uid://c6v3eqm6h4mmf"]
+
+[ext_resource type="Script" uid="uid://dsrcl4bm7iasn" path="res://relics/pocao_de_cura.gd" id="1_du33p"]
+[ext_resource type="Texture2D" uid="uid://boklhiqs1414d" path="res://art/tile_0115.png" id="1_lavwf"]
+
+[resource]
+script = ExtResource("1_du33p")
+relic_name = "Healing Potion"
+id = "pocao_de_cura"
+type = 3
+icon = ExtResource("1_lavwf")
+tooltip = "At the end of combat, heal 4 HP."
+metadata/_custom_type_script = "uid://dsrcl4bm7iasn"

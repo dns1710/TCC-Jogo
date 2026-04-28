@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Armor" format=3 uid="uid://bb6abg7a0w0ra"]
+
+[ext_resource type="Script" uid="uid://doman22hrts78" path="res://relics/armadura.gd" id="1_vcchg"]
+[ext_resource type="Texture2D" uid="uid://dl3a87y1bxtt8" path="res://art/tile_0096.png" id="1_w5iwp"]
+
+[resource]
+script = ExtResource("1_vcchg")
+relic_name = "Armor"
+id = "armadura"
+icon = ExtResource("1_w5iwp")
+tooltip = "+1 block at the end of your turn"
+metadata/_custom_type_script = "uid://doman22hrts78"
