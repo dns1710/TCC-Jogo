@@ -6,7 +6,6 @@ extends Node
 
 @onready var total_weight := 0.0
 
-
 func _ready() -> void:
 	target = get_tree().get_first_node_in_group("player")
 	setup_chances()

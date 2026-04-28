@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BattleStats" format=3 uid="uid://cogl1xks6b5t6"]
+
+[ext_resource type="PackedScene" uid="uid://b85slgeau4w5e" path="res://battles/tier_1_cap_chicken.tscn" id="1_8g6fd"]
+[ext_resource type="Script" uid="uid://bn5trp8qkpcgh" path="res://custom_resources/battle_stats.gd" id="1_etnni"]
+
+[resource]
+script = ExtResource("1_etnni")
+battle_tier = 1
+weight = 8.0
+gold_reward_min = 60
+gold_reward_max = 70
+enemies = ExtResource("1_8g6fd")
+metadata/_custom_type_script = "uid://bn5trp8qkpcgh"

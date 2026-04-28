@@ -9,7 +9,7 @@ const WHITE_SPRITE_MATERIAL := preload("res://art/white_sprite_material.tres")
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var arrow: Sprite2D = $Arrow
 @onready var stats_ui: StatsUI = $StatsUI
-@onready var intent_ui: IntentUI = $IntentUI
+#@onready var intent_ui: IntentUI = $IntentUI
 @onready var status_handler: StatusHandler = $StatusHandler
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
 
@@ -21,7 +21,7 @@ func _ready() -> void:
 
 func set_current_action(value: EnemyAction) -> void:
 	current_action = value
-	update_intent()
+#	update_intent()
 
 func set_enemy_stats(value: EnemyStats) -> void:
 	stats = value.create_instance()
@@ -43,6 +43,8 @@ func setup_ai() -> void:
 
 func update_stats() -> void:
 	stats_ui.update_stats(stats)
+	#if stats.health <= 0:
+	#	queue_free()
 
 func update_action() -> void:
 	if not enemy_action_picker:
@@ -67,10 +69,10 @@ func update_enemy() -> void:
 	setup_ai()
 	update_stats()
 
-func update_intent() -> void:
-	if current_action:
-		current_action.update_intent_text()
-		intent_ui.update_intent(current_action.intent)
+#func update_intent() -> void:
+#	if current_action:
+#		current_action.update_intent_text()
+#		intent_ui.update_intent(current_action.intent)
 
 func do_turn() -> void:
 	if not current_action:
@@ -92,11 +94,17 @@ func take_damage(damage: int, which_modifier: Modifier.Type) -> void:
 
 	tween.finished.connect(
 		func():
+			if not is_instance_valid(self):
+				return
 			sprite_2d.material = null
 			
 			if stats.health <= 0:
 				Events.enemy_died.emit(self)
 				queue_free()
+			#sprite_2d.material = null
+			
+			#if stats.health <= 0:
+			#	Events.enemy_died.emit(self)
 	)
 
 func _on_area_entered(_area: Area2D) -> void:

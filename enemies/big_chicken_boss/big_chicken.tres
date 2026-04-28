@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://5f4jlkvp4b5a"]
+
+[ext_resource type="Texture2D" uid="uid://cgopx2ponr1qi" path="res://art/tile_0121.png" id="1_e72ft"]
+[ext_resource type="PackedScene" uid="uid://cs6ysgl37qcip" path="res://enemies/big_chicken_boss/big_chicken_ai.tscn" id="1_idh5q"]
+[ext_resource type="Script" uid="uid://csml8orhg63vh" path="res://custom_resources/enemy_stats.gd" id="1_mol81"]
+
+[resource]
+script = ExtResource("1_mol81")
+ai = ExtResource("1_idh5q")
+max_health = 25
+max_speed = 4
+art = ExtResource("1_e72ft")
+metadata/_custom_type_script = "uid://csml8orhg63vh"

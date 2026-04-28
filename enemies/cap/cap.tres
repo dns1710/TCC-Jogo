@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://l8dpndea4600"]
+
+[ext_resource type="Texture2D" uid="uid://d2vujk8wvu6ia" path="res://art/tile_0123.png" id="1_2i1ky"]
+[ext_resource type="PackedScene" uid="uid://xlx7yfgcaar8" path="res://enemies/cap/cap_ai.tscn" id="1_ekla3"]
+[ext_resource type="Script" uid="uid://csml8orhg63vh" path="res://custom_resources/enemy_stats.gd" id="1_ioeqq"]
+
+[resource]
+script = ExtResource("1_ioeqq")
+ai = ExtResource("1_ekla3")
+max_health = 7
+max_speed = 5
+max_block = 4
+art = ExtResource("1_2i1ky")
+metadata/_custom_type_script = "uid://csml8orhg63vh"

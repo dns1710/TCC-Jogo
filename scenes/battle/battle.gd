@@ -36,11 +36,13 @@ func _on_enemy_turn_ended() -> void:
 	enemy_handler.reset_enemy_actions() 
 
 func _on_player_died() -> void: 
-	Events.battle_over_screen_requested.emit("Game Over!", BattleOverPanel.Type.LOSE) 
+	Events.battle_over_screen_requested.emit("Game Over!", BattleOverPanel.Type.LOSE)
 	SaveGame.delete_data() 
 
 func _on_relics_activated(type: Relic.Type) -> void: 
 	match type: 
 		Relic.Type.START_OF_COMBAT: 
 			player_handler.start_battle(char_stats) 
-		Relic.Type.END_OF_COMBAT: Events.battle_over_screen_requested.emit("Victorious!", BattleOverPanel.Type.WIN)
+		Relic.Type.END_OF_COMBAT:
+			char_stats.set_block(0)
+			Events.battle_over_screen_requested.emit("Victorious!", BattleOverPanel.Type.WIN)
