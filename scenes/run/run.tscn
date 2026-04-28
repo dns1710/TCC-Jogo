@@ -24,10 +24,10 @@ music = ExtResource("3_yeia0")
 [node name="Reroll" type="CanvasLayer" parent="Map" unique_id=1647069391]
 
 [node name="RerollButton" type="Button" parent="Map/Reroll" unique_id=1161378671]
-offset_left = 225.0
-offset_top = 129.0
-offset_right = 253.0
-offset_bottom = 141.0
+offset_left = 217.0
+offset_top = 119.0
+offset_right = 245.0
+offset_bottom = 131.0
 script = ExtResource("4_cnkn7")
 
 [node name="CurrentView" type="Node" parent="." unique_id=878995358]

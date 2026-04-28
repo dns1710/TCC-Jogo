@@ -9,5 +9,6 @@ relic_name = "Espada"
 id = "espada"
 type = 1
 icon = ExtResource("1_jda12")
-tooltip = "Increase damage +2"
+tooltip = "Really Cool Sword
+Increase damage +2"
 metadata/_custom_type_script = "uid://jrf1ynp2rrsw"

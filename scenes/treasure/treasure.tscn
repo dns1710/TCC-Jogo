@@ -9,6 +9,8 @@
 [ext_resource type="Resource" uid="uid://ly5qayf6jurh" path="res://relics/escudo.tres" id="4_gkj16"]
 [ext_resource type="Texture2D" uid="uid://d007n5sscvumv" path="res://art/tile_0090.png" id="4_lw04s"]
 [ext_resource type="Texture2D" uid="uid://isan6btj7dwy" path="res://art/tile_0091.png" id="5_h2q1b"]
+[ext_resource type="Resource" uid="uid://dl0v7eqbpxyqi" path="res://relics/pocao.tres" id="5_mn6fe"]
+[ext_resource type="Resource" uid="uid://bb6abg7a0w0ra" path="res://relics/armadura.tres" id="6_8auyv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8a2h2"]
 font_size = 12
@@ -151,7 +153,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_0dgmn")
-treasure_relic_pool = Array[ExtResource("2_ufafs")]([ExtResource("3_qhcu3"), ExtResource("4_gkj16")])
+treasure_relic_pool = Array[ExtResource("2_ufafs")]([ExtResource("3_qhcu3"), ExtResource("4_gkj16"), ExtResource("5_mn6fe"), ExtResource("6_8auyv")])
 
 [node name="Background" type="TextureRect" parent="." unique_id=1895505380]
 layout_mode = 1

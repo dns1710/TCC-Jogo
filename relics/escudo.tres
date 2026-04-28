@@ -9,4 +9,6 @@ relic_name = "Shield"
 id = "escudo"
 type = 1
 icon = ExtResource("1_oohar")
+tooltip = "weirdly small shield
++2 block at the start of the combat"
 metadata/_custom_type_script = "uid://bb0l7ik1lb5ay"

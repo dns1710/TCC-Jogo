@@ -15,11 +15,12 @@ func setup() -> void:
 
 
 func bet_30() -> void:
+	var temp: = run_stats.gold
 	thirty_button.disabled = true
-	run_stats.gold -= 50
+	run_stats.gold = 0
 	
 	if RNG.instance.randf() < 0.3:
-		run_stats.gold += 200
+		run_stats.gold = temp * 3
 
 
 func bet_50() -> void:
