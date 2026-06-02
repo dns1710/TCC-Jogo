@@ -228,14 +228,24 @@ func _on_reroll_button_pressed() -> void:
 
 func _update_reroll_visuals() -> void:
 	for map_room in rooms.get_children():
-		map_room.set_reroll_highlight(reroll_mode)
+		map_room.set_reroll_highlight(
+			reroll_mode
+			and map_room.room.row != 0
+			and map_room.room.row != MapGenerator.FLOORS - 1
+		)
 
 
 func _reroll_room(room: Room) -> void:
-	if room.row < floors_climbed:
+	# primeira sala
+	if room.row == 0:
 		return
 
-	if room.type == Room.Type.BOSS:
+	# última sala
+	if room.row == MapGenerator.FLOORS - 1:
+		return
+
+	# salas já visitadas
+	if room.row < floors_climbed:
 		return
 
 	var types = [
@@ -260,7 +270,7 @@ func _reroll_room(room: Room) -> void:
 
 		Room.Type.EVENT:
 			room.event_scene = map_generator.event_room_pool.get_random()
-			
+
 		Room.Type.TREASURE:
 			pass
 
