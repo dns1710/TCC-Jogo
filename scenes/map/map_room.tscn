@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dqvt1s82wu8pu"]
+[gd_scene format=3 uid="uid://dqvt1s82wu8pu"]
 
-[ext_resource type="Script" path="res://scenes/map/map_room.gd" id="1_1rfj3"]
+[ext_resource type="Script" uid="uid://blk0g4nbnm3d8" path="res://scenes/map/map_room.gd" id="1_1rfj3"]
 [ext_resource type="Texture2D" uid="uid://bfvi02kojsa00" path="res://art/tile_0103.png" id="1_hme85"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_auf4t"]
@@ -80,34 +80,32 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5oev0"]
 _data = {
-"RESET": SubResource("Animation_foqjf"),
-"highlight": SubResource("Animation_rwbam"),
-"select": SubResource("Animation_kidfm")
+&"RESET": SubResource("Animation_foqjf"),
+&"highlight": SubResource("Animation_rwbam"),
+&"select": SubResource("Animation_kidfm")
 }
 
-[node name="MapRoom" type="Area2D"]
+[node name="MapRoom" type="Area2D" unique_id=960586208]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_1rfj3")
 
-[node name="Visuals" type="Node2D" parent="."]
+[node name="Visuals" type="Node2D" parent="." unique_id=795553185]
 
-[node name="Line2D" type="Line2D" parent="Visuals"]
+[node name="Line2D" type="Line2D" parent="Visuals" unique_id=802465912]
 modulate = Color(1, 1, 1, 0)
 points = PackedVector2Array(-8, 8, 0, 12, 8, 6, 10, -6, 0, -12, -10, -6)
 closed = true
 width = 2.0
 default_color = Color(0.529412, 0.529412, 0.529412, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+[node name="Sprite2D" type="Sprite2D" parent="Visuals" unique_id=518888772]
 texture = ExtResource("1_hme85")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=657655779]
 shape = SubResource("CircleShape2D_auf4t")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_5oev0")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1064948704]
+libraries/ = SubResource("AnimationLibrary_5oev0")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
