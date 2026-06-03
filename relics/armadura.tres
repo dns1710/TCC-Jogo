@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_vcchg")
-relic_name = "Armor"
+relic_name = "Shining Armor"
 id = "armadura"
 type = 2
 icon = ExtResource("1_w5iwp")

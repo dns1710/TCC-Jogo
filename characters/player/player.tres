@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b1nj6u7dxl3mh" path="res://art/tile_0085.png" id="1_mh3et"]
 [ext_resource type="Script" uid="uid://dytuicfqgqu5k" path="res://custom_resources/character_stats.gd" id="3_6yvgm"]
-[ext_resource type="Resource" uid="uid://dgsppvwlatlhw" path="res://relics/healing_potion.tres" id="5_cbm2l"]
+[ext_resource type="Resource" uid="uid://dgsppvwlatlhw" path="res://relics/old/healing_potion.tres" id="5_cbm2l"]
 
 [resource]
 script = ExtResource("3_6yvgm")

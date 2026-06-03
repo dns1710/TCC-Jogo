@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_gpvg2")
-relic_name = "Shield"
+relic_name = "weirdly small shield"
 id = "escudo"
 type = 1
 icon = ExtResource("1_oohar")

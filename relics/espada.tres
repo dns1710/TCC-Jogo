@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_mavaa")
-relic_name = "Espada"
+relic_name = "Really Cool Sword"
 id = "espada"
 type = 1
 icon = ExtResource("1_jda12")

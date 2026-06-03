@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_g8nou")
-relic_name = "Healing Potion"
+relic_name = "Ibuprofen"
 id = "pocao_de_cura"
 type = 3
 icon = ExtResource("1_7jock")
