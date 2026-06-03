@@ -49,7 +49,8 @@ func _ready() -> void:
 func _start_new_run() -> void:
 	stats = RunStats.new()
 	character = run_startup.picked_character.create_instance()
-
+	relic_handler.run_stats = stats
+	
 	_setup_top_bar()
 
 	map.generate_new_map()
