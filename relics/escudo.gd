@@ -5,16 +5,6 @@ extends Relic
 
 var applied := false
 
-
-#func initialize_relic(owner: RelicUI) -> void:
-#	var player := owner.get_tree().get_first_node_in_group("player") as Player
-#	if player:
-#		player.stats.block += block_bonus
-#		owner.flash()
-#	Events.battle_won.connect(_on_battle_ended)
-#	Events.player_died.connect(_on_battle_ended)
-
-
 func activate_relic(owner: RelicUI) -> void:
 	if applied:
 		return
@@ -31,7 +21,3 @@ func deactivate_relic(owner: RelicUI) -> void:
 	if player:
 		player.stats.block -= block_bonus
 	applied = false
-
-
-#func _on_battle_ended(_arg = null) -> void:
-#	applied = false
