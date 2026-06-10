@@ -7,8 +7,8 @@
 script = ExtResource("1_gpvg2")
 relic_name = "weirdly small shield"
 id = "escudo"
-type = 1
+type = 2
 icon = ExtResource("1_oohar")
 tooltip = "weirdly small shield
-+2 block at the start of the combat"
+Gain +2 block at the start of battles"
 metadata/_custom_type_script = "uid://bb0l7ik1lb5ay"

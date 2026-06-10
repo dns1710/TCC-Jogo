@@ -7,8 +7,8 @@
 script = ExtResource("1_vcchg")
 relic_name = "Shining Armor"
 id = "armadura"
-type = 2
+type = 1
 icon = ExtResource("1_w5iwp")
 tooltip = "Shining Armor
-At the end of your turn, gain 1 block."
+Gain 1 block at the start of every turn"
 metadata/_custom_type_script = "uid://doman22hrts78"

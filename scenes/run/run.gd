@@ -29,7 +29,7 @@ const MAIN_MENU_PATH := "res://scenes/ui/main_menu.tscn"
 
 var stats: RunStats
 var character: CharacterStats
-
+var save_data: SaveGame
 
 func _ready() -> void:
 	if not run_startup:
@@ -45,6 +45,8 @@ func _ready() -> void:
 	match run_startup.type:
 		RunStartup.Type.NEW_RUN:
 			_start_new_run()
+		RunStartup.Type.CONTINUED_RUN:
+			_load_run()
 
 func _start_new_run() -> void:
 	stats = RunStats.new()
@@ -56,13 +58,40 @@ func _start_new_run() -> void:
 	map.generate_new_map()
 	map.unlock_floor(0)
 	map.show_map()
+	
+	save_data = SaveGame.new()
+	_save_run(true)
 
+func _save_run(was_on_map: bool) -> void:
+	save_data.run_stats = stats
+	save_data.char_stats = character
+	#save_data.current_health = character.health
+	save_data.relics = relic_handler.get_all_relics()
+	save_data.last_room = map.last_room
+	save_data.map_data = map.map_data.duplicate()
+	save_data.floors_climbed = map.floors_climbed
+	save_data.was_on_map = was_on_map
+	save_data.save_data()
 
-func _continue_run() -> void:
+func _load_run() -> void:
+	save_data = SaveGame.load_data()
+	assert(save_data, "Couldn't load last save")
+	
+	stats = save_data.run_stats
+	character = save_data.char_stats
+	#character.health = save_data.current_health
+	relic_handler.add_relics(save_data.relics)
+	_setup_top_bar()
+	#_setup_event_connections()
+	
+	map.load_map(save_data.map_data, save_data.floors_climbed, save_data.last_room)
+	if save_data.last_room and not save_data.was_on_map:
+		_on_map_exited(save_data.last_room)
+	
+#func _continue_run() -> void:
 	# implementar save/load futuramente
-	_start_new_run()
-
-
+#	_start_new_run()
+	
 func _setup_top_bar() -> void:
 	_connect_character_signals()
 
@@ -117,11 +146,15 @@ func _change_view(scene: PackedScene) -> Node:
 
 
 func _show_map() -> void:
-	for child in current_view.get_children():
-		child.queue_free()
+	if current_view.get_child_count() > 0:
+		current_view.get_child(0).queue_free()
+	#for child in current_view.get_children():
+	#	child.queue_free()
 
 	map.show_map()
 	map.unlock_next_rooms()
+	
+	_save_run(true)
 
 
 func _go_to_main_menu() -> void:
@@ -181,6 +214,8 @@ func _on_battle_won() -> void:
 		_show_regular_battle_rewards()
 
 func _on_map_exited(room: Room) -> void:
+	_save_run(false)
+	
 	match room.type:
 		Room.Type.MONSTER, Room.Type.BOSS:
 			_on_battle_room_entered(room)

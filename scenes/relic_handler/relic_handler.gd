@@ -20,6 +20,9 @@ func activate_relics_by_type(type: Relic.Type) -> void:
 	if type == Relic.Type.EVENT_BASED:
 		return
 		
+	if type == Relic.Type.PASSIVE:
+		return
+		
 	var relic_queue: Array[RelicUI] = _get_all_relic_ui_nodes().filter(
 		func(relic_ui: RelicUI):
 			return relic_ui.relic.type == type

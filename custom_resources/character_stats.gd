@@ -12,8 +12,8 @@ extends Stats
 @export var max_attack: int
 @export var starting_relic: Relic
 
-var mana: int : set = set_mana
-var attack: int : set = set_attack
+@export var mana: int : set = set_mana
+@export var attack: int : set = set_attack
 
 func set_mana(value: int) -> void:
 	mana = value

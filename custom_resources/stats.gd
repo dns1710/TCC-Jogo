@@ -8,9 +8,9 @@ signal stats_changed
 @export var art: Texture
 const cap_speed := 20
 
-var health: int : set = set_health
-var block: int : set = set_block
-var speed: int : set = set_speed
+@export var health: int : set = set_health
+@export var block: int : set = set_block
+@export var speed: int : set = set_speed
 
 func set_health(value : int) -> void:
 	health = clampi(value, 0, max_health)

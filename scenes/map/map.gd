@@ -89,22 +89,21 @@ func _clamp_camera() -> void:
 
 func generate_new_map() -> void:
 	floors_climbed = 0
-	last_room = null
+	#last_room = null
 	map_data = map_generator.generate_map()
 	create_map()
 
 
 func load_map(map: Array[Array], floors_completed: int, last_room_climbed: Room) -> void:
 	floors_climbed = floors_completed
-	last_room = last_room_climbed
 	map_data = map
-
+	last_room = last_room_climbed
 	create_map()
 
-	if last_room == null:
-		unlock_floor(0)
-	else:
+	if floors_climbed > 0:
 		unlock_next_rooms()
+	else:
+		unlock_floor()
 
 
 func create_map() -> void:
