@@ -7,6 +7,28 @@ const WHITE_SPRITE_MATERIAL := preload("res://art/white_sprite_material.tres")
 @onready var status_handler: StatusHandler = $StatusHandler 
 @onready var modifier_handler: ModifierHandler = $ModifierHandler 
 
+@onready var atb_label: Label = $ATBLabel
+
+const ATB_MAX := 30.0
+
+var atb: float = 0.0
+var can_act := false
+
+func reset_atb() -> void:
+	atb = 0.0
+	can_act = false
+
+func add_atb(delta: float) -> void:
+	if can_act:
+		return
+	atb += stats.speed * delta
+	print("ATB:", atb)
+	
+	if atb >= ATB_MAX:
+		atb = ATB_MAX
+		can_act = true
+	print("PLAYER PRONTO")
+
 func _ready() -> void: 
 	status_handler.status_owner = self
 
@@ -46,3 +68,9 @@ func take_damage(damage: int, which_modifier: Modifier.Type) -> void:
 				Events.player_died.emit() 
 				queue_free() 
 	)
+
+func _process(_delta: float) -> void:
+	if not is_instance_valid(atb_label):
+		return
+
+	atb_label.text = "ATB %.1f / %.1f" % [atb, ATB_MAX]

@@ -10,11 +10,14 @@ extends Node2D
 @onready var player_handler: PlayerHandler = $PlayerHandler 
 @onready var enemy_handler: EnemyHandler = $EnemyHandler 
 @onready var player: Player = $Player 
+@onready var atb_manager: ATBManager = $ATBManager
 
 func _ready() -> void: 
 	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed) 
-	Events.enemy_turn_ended.connect(_on_enemy_turn_ended) 
-	Events.player_turn_ended.connect(player_handler.end_turn) 
+	#Events.enemy_turn_ended.connect(_on_enemy_turn_ended) 
+	#Events.player_turn_ended.connect(player_handler.end_turn)
+	Events.player_atb_ready.connect(_on_player_atb_ready)
+	Events.player_action_completed.connect(_on_player_action_completed)
 	Events.player_died.connect(_on_player_died) 
 	
 func start_battle() -> void: 
@@ -26,16 +29,23 @@ func start_battle() -> void:
 	enemy_handler.setup_enemies(battle_stats) 
 	enemy_handler.reset_enemy_actions() 
 	relics.relics_activated.connect(_on_relics_activated) 
-	relics.activate_relics_by_type(Relic.Type.START_OF_COMBAT) 
+	relics.activate_relics_by_type(Relic.Type.START_OF_COMBAT)
+	atb_manager.start_battle(player,enemy_handler)
 
 func _on_enemies_child_order_changed() -> void: 
 	if enemy_handler.get_child_count() == 0 and is_instance_valid(relics): 
 		relics.activate_relics_by_type(Relic.Type.END_OF_COMBAT) 
 
-func _on_enemy_turn_ended() -> void: 
-	player_handler.start_turn() 
-	enemy_handler.reset_enemy_actions() 
+#func _on_enemy_turn_ended() -> void: 
+#	player_handler.start_turn() 
+#	enemy_handler.reset_enemy_actions() 
 
+func _on_player_atb_ready() -> void:
+	player_handler.player_atb_ready()
+
+func _on_player_action_completed() -> void:
+	player_handler.player_action_finished()
+	
 func _on_player_died() -> void: 
 	Events.battle_over_screen_requested.emit("Game Over!", BattleOverPanel.Type.LOSE)
 	SaveGame.delete_data() 

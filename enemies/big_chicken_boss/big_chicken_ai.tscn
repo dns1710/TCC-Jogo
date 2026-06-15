@@ -30,4 +30,4 @@ script = ExtResource("3_fahno")
 intent = SubResource("Resource_riuip")
 sound = ExtResource("6_082ib")
 type = 1
-chance_weight = 2.0
+chance_weight = 1.0

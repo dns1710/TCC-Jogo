@@ -40,7 +40,7 @@ func start_enemy_turn(enemy):
 	enemy.take_action()
 	enemy.reset_atb()
 	
-	get_parent().atb_manager.is_waiting_for_input = false
+	#get_parent().atb_manager.is_waiting_for_input = false
 	
 func start_turn() -> void:
 	if get_child_count() == 0:

@@ -9,10 +9,26 @@ const WHITE_SPRITE_MATERIAL := preload("res://art/white_sprite_material.tres")
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var arrow: Sprite2D = $Arrow
 @onready var stats_ui: StatsUI = $StatsUI
-#@onready var intent_ui: IntentUI = $IntentUI
 @onready var status_handler: StatusHandler = $StatusHandler
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
 
+const ATB_MAX := 30.0
+
+var atb: float = 0.0
+var can_act := false
+
+func reset_atb() -> void:
+	atb = 0.0
+	can_act = false
+
+func add_atb(delta: float) -> void:
+	if can_act:
+		return
+	atb += stats.speed * delta
+	if atb >= ATB_MAX:
+		atb = ATB_MAX
+		can_act = true
+		
 var enemy_action_picker: EnemyActionPicker
 var current_action: EnemyAction : set = set_current_action
 
@@ -21,7 +37,6 @@ func _ready() -> void:
 
 func set_current_action(value: EnemyAction) -> void:
 	current_action = value
-#	update_intent()
 
 func set_enemy_stats(value: EnemyStats) -> void:
 	stats = value.create_instance()
@@ -69,12 +84,7 @@ func update_enemy() -> void:
 	setup_ai()
 	update_stats()
 
-#func update_intent() -> void:
-#	if current_action:
-#		current_action.update_intent_text()
-#		intent_ui.update_intent(current_action.intent)
-
-func do_turn() -> void:
+func do_action() -> void:
 	if not current_action:
 		return
 	
@@ -99,12 +109,9 @@ func take_damage(damage: int, which_modifier: Modifier.Type) -> void:
 			sprite_2d.material = null
 			
 			if stats.health <= 0:
+				can_act = false
 				Events.enemy_died.emit(self)
 				queue_free()
-			#sprite_2d.material = null
-			
-			#if stats.health <= 0:
-			#	Events.enemy_died.emit(self)
 	)
 
 func _on_area_entered(_area: Area2D) -> void:

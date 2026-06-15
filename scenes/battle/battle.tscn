@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bnbwu7pkbrwox" path="res://scenes/ui/mana_ui.tscn" id="11_2vu01"]
 [ext_resource type="PackedScene" uid="uid://chry0sgk7t0yf" path="res://scenes/ui/tooltip.tscn" id="12_qx741"]
 [ext_resource type="Script" uid="uid://dp1elam0ofu02" path="res://scenes/ui/red_flash.gd" id="15_qvh8t"]
+[ext_resource type="Script" uid="uid://bgtdvxd4ta7fm" path="res://scenes/battle/atb_manager.gd" id="16_n6gaa"]
 [ext_resource type="PackedScene" uid="uid://dfig8d63ggof1" path="res://scenes/ui/battle_over_panel.tscn" id="17_xrby7"]
 [ext_resource type="PackedScene" uid="uid://c3fu2yk5vm3qb" path="res://scenes/ui/status_view.tscn" id="22_kfjwu"]
 
@@ -126,3 +127,6 @@ layer = 4
 
 [node name="StatusView" parent="StatusViewLayer" unique_id=919814158 instance=ExtResource("22_kfjwu")]
 visible = false
+
+[node name="ATBManager" type="Node" parent="." unique_id=2125806121]
+script = ExtResource("16_n6gaa")

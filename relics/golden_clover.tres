@@ -7,7 +7,7 @@
 script = ExtResource("1_kfids")
 relic_name = "Golden Clover"
 id = "clover"
-type = 3
+type = 4
 icon = ExtResource("1_t8yi6")
 tooltip = "Golden Clover
 Gain a little bit of gold at the end of every battle"
