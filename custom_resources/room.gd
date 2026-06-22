@@ -19,7 +19,7 @@ enum Type {NOT_ASSIGNED, MONSTER, TREASURE, CAMPFIRE, SHOP, BOSS, EVENT}
 
 # This is only used by the EVENT room type
 @export var event_scene: PackedScene
-
+@export var active := false
 
 func _init():
 	next_rooms = []
@@ -30,6 +30,11 @@ func connect_to(rooms: Array) -> void:
 	for r in rooms:
 		next_rooms.append(r)
 
+func add_connection(room: Room) -> void:
+	if not next_rooms.has(room):
+		next_rooms.append(room)
 
 func _to_string() -> String:
 	return "%s (%s)" % [column, Type.keys()[type]]
+	
+	

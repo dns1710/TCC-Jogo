@@ -11,7 +11,6 @@ const MAP_LINE := preload("res://scenes/map/map_line.tscn")
 @onready var visuals: Node2D = $Visuals
 @onready var camera_2d: Camera2D = $Camera2D
 
-# ✅ botão agora dentro do Map
 @onready var reroll_button = get_node_or_null("Reroll/RerollButton")
 
 var map_data: Array[Array] = []
@@ -115,7 +114,7 @@ func create_map() -> void:
 
 	for current_floor in map_data:
 		for room in current_floor:
-			if room.next_rooms.size() > 0:
+			if room.active:
 				_spawn_room(room)
 
 	# câmera inicial
@@ -236,8 +235,14 @@ func _update_reroll_visuals() -> void:
 
 
 func _reroll_room(room: Room) -> void:
-	# primeira sala
+
 	if room.row == 0:
+		return
+
+	if room.row == MapGenerator.FLOORS - 1:
+		return
+
+	if room.row < floors_climbed:
 		return
 
 	# última sala
