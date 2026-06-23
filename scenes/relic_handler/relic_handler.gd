@@ -7,6 +7,7 @@ const RELIC_APPLY_INTERVAL := 0.5
 const RELIC_UI = preload("res://scenes/relic_handler/relic_ui.tscn")
 
 @export var run_stats: RunStats
+@export var character_stats: CharacterStats
 
 @onready var relics_control: RelicsControl = $RelicsControl
 @onready var relics: HBoxContainer = %Relics
@@ -20,7 +21,7 @@ func activate_relics_by_type(type: Relic.Type) -> void:
 	if type == Relic.Type.EVENT_BASED:
 		return
 		
-	if type == Relic.Type.PASSIVE:
+	if type == Relic.Type.PASSIVE_STATS:
 		return
 		
 	var relic_queue: Array[RelicUI] = _get_all_relic_ui_nodes().filter(
@@ -52,14 +53,24 @@ func add_relic(relic: Relic) -> void:
 		push_error("Tentou adicionar relic NULL")
 		return
 	
+	_apply_relic_stats(relic)
+	
 	var new_relic_ui := RELIC_UI.instantiate() as RelicUI
 	relics.add_child(new_relic_ui)
 	new_relic_ui.relic = relic
 	new_relic_ui.relic.initialize_relic(new_relic_ui)
-	
-	
 
 
+func _apply_relic_stats(relic: Relic) -> void:
+	if not character_stats:
+		return
+
+	character_stats.max_block += relic.bonus_blk
+	character_stats.max_attack += relic.bonus_atk
+	character_stats.max_speed += relic.bonus_spd
+	character_stats.stats_changed.emit()
+	
+	
 func has_relic(id: String) -> bool:
 	for relic_ui: RelicUI in relics.get_children():
 		if relic_ui.relic.id == id and is_instance_valid(relic_ui):

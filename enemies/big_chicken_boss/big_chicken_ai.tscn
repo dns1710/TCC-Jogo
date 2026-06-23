@@ -3,15 +3,12 @@
 [ext_resource type="Script" uid="uid://dnhcysun6wq2l" path="res://scenes/enemy/enemy_action_picker.gd" id="1_41d4s"]
 [ext_resource type="Script" uid="uid://casjnlrwxlyem" path="res://enemies/big_chicken_boss/big_chicken_attack_action.gd" id="2_50xvw"]
 [ext_resource type="Script" uid="uid://88hogv7k757k" path="res://custom_resources/intent.gd" id="3_ct1cc"]
-[ext_resource type="Script" uid="uid://cwp0swg6l0qkw" path="res://enemies/big_chicken_boss/big_chicken_block_action.gd" id="3_fahno"]
 [ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="4_082ib"]
-[ext_resource type="AudioStream" uid="uid://k8m4o3hlwm7l" path="res://art/enemy_block.ogg" id="6_082ib"]
+[ext_resource type="Script" uid="uid://c8bo322j43y37" path="res://enemies/big_chicken_boss/big_chicken_enrage_action.gd" id="5_082ib"]
+[ext_resource type="Texture2D" uid="uid://dj26yyd4gi8i3" path="res://art/verdadeira arte/chicken_boss_rage.png" id="6_riuip"]
+[ext_resource type="AudioStream" uid="uid://cnqve7dtqjghp" path="res://art/true_strength.ogg" id="6_wcmkg"]
 
 [sub_resource type="Resource" id="Resource_wcmkg"]
-script = ExtResource("3_ct1cc")
-metadata/_custom_type_script = "uid://88hogv7k757k"
-
-[sub_resource type="Resource" id="Resource_riuip"]
 script = ExtResource("3_ct1cc")
 metadata/_custom_type_script = "uid://88hogv7k757k"
 
@@ -25,9 +22,7 @@ sound = ExtResource("4_082ib")
 type = 1
 chance_weight = 1.0
 
-[node name="BlockAction" type="Node" parent="." unique_id=593939297]
-script = ExtResource("3_fahno")
-intent = SubResource("Resource_riuip")
-sound = ExtResource("6_082ib")
-type = 1
-chance_weight = 1.0
+[node name="EnrageAction" type="Node" parent="." unique_id=1274820002]
+script = ExtResource("5_082ib")
+enrage_art = ExtResource("6_riuip")
+sound = ExtResource("6_wcmkg")

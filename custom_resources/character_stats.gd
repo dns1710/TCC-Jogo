@@ -9,22 +9,18 @@ extends Stats
 @export_group("Gameplay Data")
 
 @export var max_mana: int
-@export var max_attack: int
+
 @export var starting_relic: Relic
 
-@export var mana: int : set = set_mana
-@export var attack: int : set = set_attack
+@export var focus: int : set = set_mana
 
 func set_mana(value: int) -> void:
-	mana = value
+	focus = value
 	stats_changed.emit()
-
-func set_attack(value: int) -> void:
-	attack = value
-	stats_changed.emit()
+	
 
 func reset_mana() -> void:
-	mana = max_mana
+	focus = max_mana
 
 
 func take_damage(damage: int) -> void:
@@ -39,5 +35,10 @@ func create_instance() -> Resource:
 	instance.block = max_block
 	instance.speed = max_speed
 	instance.attack = max_attack
-	instance.mana = max_mana
 	return instance
+
+func reset_stats()->void:
+	block = max_block
+	attack = max_attack
+	speed = max_speed
+	stats_changed.emit()

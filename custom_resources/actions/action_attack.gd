@@ -6,4 +6,3 @@ func apply_effects(targets: Array[Node]) -> void:
 	damage_effect.amount = player.stats.attack
 	damage_effect.execute(targets)
 	Events.player_action_completed.emit()
-	print("ATTACK:", player.stats.attack)

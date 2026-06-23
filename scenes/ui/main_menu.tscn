@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b1nj6u7dxl3mh" path="res://art/tile_0085.png" id="3_uhagc"]
 [ext_resource type="Texture2D" uid="uid://b8bq77uq4fif2" path="res://art/tile_0124.png" id="5_btxxm"]
 [ext_resource type="Texture2D" uid="uid://d2vujk8wvu6ia" path="res://art/tile_0123.png" id="6_wb0q5"]
-[ext_resource type="Texture2D" uid="uid://cgopx2ponr1qi" path="res://art/tile_0121.png" id="7_btxxm"]
+[ext_resource type="Texture2D" uid="uid://bub76qc3f5hk7" path="res://art/verdadeira arte/zscout.png" id="7_btxxm"]
 
 [sub_resource type="Gradient" id="Gradient_7af3e"]
 colors = PackedColorArray(0.2, 0.117647, 0.0509804, 1, 0.054902, 0, 0.0588235, 1)
@@ -108,7 +108,6 @@ texture = ExtResource("6_wb0q5")
 position = Vector2(232, 111)
 scale = Vector2(2, 2)
 texture = ExtResource("7_btxxm")
-flip_h = true
 
 [connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="VBoxContainer/NewRun" to="." method="_on_new_run_pressed"]

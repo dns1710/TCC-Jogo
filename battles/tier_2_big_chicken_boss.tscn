@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cm55j8rk5l1lk"]
+[gd_scene format=3 uid="uid://dbptsj6bu641u"]
 
 [ext_resource type="PackedScene" uid="uid://d0efyathkfg74" path="res://scenes/enemy/enemy.tscn" id="1_wiswe"]
 [ext_resource type="Resource" uid="uid://bpvq3tglp70d1" path="res://enemies/chicken/chicken.tres" id="2_aynx2"]
@@ -6,14 +6,14 @@
 
 [node name="Tier2BigChickenBoss" type="Node2D" unique_id=1617944045]
 
+[node name="Enemy3" parent="." unique_id=998016498 instance=ExtResource("1_wiswe")]
+position = Vector2(153, 100)
+stats = ExtResource("2_aynx2")
+
+[node name="Enemy2" parent="." unique_id=358845570 instance=ExtResource("1_wiswe")]
+position = Vector2(148, 56)
+stats = ExtResource("2_aynx2")
+
 [node name="Enemy" parent="." unique_id=1918534270 instance=ExtResource("1_wiswe")]
-position = Vector2(170, 47)
-stats = ExtResource("2_aynx2")
-
-[node name="Enemy2" parent="." unique_id=1085085559 instance=ExtResource("1_wiswe")]
-position = Vector2(172, 85)
-stats = ExtResource("2_aynx2")
-
-[node name="Enemy3" parent="." unique_id=1706407160 instance=ExtResource("1_wiswe")]
-position = Vector2(224, 68)
+position = Vector2(194, 74)
 stats = ExtResource("3_61u8o")

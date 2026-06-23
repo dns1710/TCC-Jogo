@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://cn5hre22qxejs"]
+
+[ext_resource type="Script" uid="uid://csml8orhg63vh" path="res://custom_resources/enemy_stats.gd" id="1_2pbhn"]
+[ext_resource type="PackedScene" uid="uid://bejlj2j1c0yw8" path="res://enemies/zscout_bomb/zscout_bomb_ai.tscn" id="1_8jurt"]
+[ext_resource type="Texture2D" uid="uid://u737t7a610mt" path="res://art/verdadeira arte/zscout_bomb.png" id="1_yn2sh"]
+
+[resource]
+script = ExtResource("1_2pbhn")
+ai = ExtResource("1_8jurt")
+max_health = 7
+max_attack = 3
+max_speed = 4
+max_block = 3
+art = ExtResource("1_yn2sh")
+metadata/_custom_type_script = "uid://csml8orhg63vh"

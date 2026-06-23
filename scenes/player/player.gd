@@ -5,32 +5,34 @@ const WHITE_SPRITE_MATERIAL := preload("res://art/white_sprite_material.tres")
 @onready var sprite_2d: Sprite2D = $Sprite2D 
 @onready var stats_ui: StatsUI = $StatsUI 
 @onready var status_handler: StatusHandler = $StatusHandler 
-@onready var modifier_handler: ModifierHandler = $ModifierHandler 
+@onready var modifier_handler: ModifierHandler = $ModifierHandler
+@onready var atb_progress: TextureProgressBar = $ATBProgress
 
-@onready var atb_label: Label = $ATBLabel
-
+const DAMAGE_POPUP = preload("res://scenes/ui/popup.tscn")
 const ATB_MAX := 30.0
 
 var atb: float = 0.0
 var can_act := false
 
+func _ready() -> void: 
+	status_handler.status_owner = self
+	atb_progress.min_value = 0
+	atb_progress.max_value = ATB_MAX
+	
 func reset_atb() -> void:
 	atb = 0.0
 	can_act = false
+	atb_progress.value = atb
 
 func add_atb(delta: float) -> void:
 	if can_act:
 		return
 	atb += stats.speed * delta
-	print("ATB:", atb)
 	
 	if atb >= ATB_MAX:
 		atb = ATB_MAX
 		can_act = true
-	print("PLAYER PRONTO")
-
-func _ready() -> void: 
-	status_handler.status_owner = self
+	atb_progress.value = atb
 
 func set_character_stats(value: CharacterStats) -> void:
 	stats = value 
@@ -51,16 +53,18 @@ func update_player() -> void:
 func update_stats() -> void: 
 	stats_ui.update_stats(stats) 
 
-func take_damage(damage: int, which_modifier: Modifier.Type) -> void: 
+func take_damage(damage: int, which_modifier: Modifier.Type, source = null) -> void: 
 	if stats.health <= 0: 
 		return 
 	
 	sprite_2d.material = WHITE_SPRITE_MATERIAL 
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier) 
+	_spawn_popup(str(modified_damage), Color.FIREBRICK)
 	var tween := create_tween() 
 	tween.tween_callback(Shaker.shake.bind(self, 16, 0.15)) 
 	tween.tween_callback(stats.take_damage.bind(modified_damage)) 
 	tween.tween_interval(0.17)
+	Events.player_damaged.emit(source, modified_damage)
 	tween.finished.connect( 
 		func(): 
 			sprite_2d.material = null 
@@ -69,8 +73,13 @@ func take_damage(damage: int, which_modifier: Modifier.Type) -> void:
 				queue_free() 
 	)
 
-func _process(_delta: float) -> void:
-	if not is_instance_valid(atb_label):
-		return
+func heal(amount:int) -> void:
+	stats.heal(amount)
+	_spawn_popup(str(amount), Color.LIME_GREEN)
 
-	atb_label.text = "ATB %.1f / %.1f" % [atb, ATB_MAX]
+func _spawn_popup(poptext: String, color: Color) -> void:
+	var popup = DAMAGE_POPUP.instantiate()
+	var random_offset = Vector2(randf_range(-10, 10), 0)
+	get_parent().add_child(popup)
+	popup.global_position = sprite_2d.global_position + random_offset
+	popup.setup(poptext, color)

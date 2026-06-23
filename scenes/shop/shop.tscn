@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://ly5qayf6jurh" path="res://relics/escudo.tres" id="5_xoc10"]
 [ext_resource type="Resource" uid="uid://ov2giwe4f4pt" path="res://relics/espada.tres" id="6_k5co3"]
 [ext_resource type="Resource" uid="uid://sjue6ufyig07" path="res://relics/boots.tres" id="7_g6lcs"]
+[ext_resource type="Resource" uid="uid://d3piv68i0huvr" path="res://relics/thorn_helm.tres" id="8_131kw"]
 [ext_resource type="PackedScene" uid="uid://ctvxie3ni1ik4" path="res://scenes/modifier_handler/modifier_handler.tscn" id="11_863hj"]
 [ext_resource type="PackedScene" uid="uid://bqefj5q31b84i" path="res://scenes/modifier_handler/modifier.tscn" id="12_xf6l8"]
 
@@ -75,7 +76,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_oqoy8")
-shop_relics = Array[ExtResource("2_dww4p")]([ExtResource("3_g6lcs"), ExtResource("4_131kw"), ExtResource("5_xoc10"), ExtResource("6_k5co3"), ExtResource("7_g6lcs")])
+shop_relics = Array[ExtResource("2_dww4p")]([ExtResource("3_g6lcs"), ExtResource("4_131kw"), ExtResource("5_xoc10"), ExtResource("6_k5co3"), ExtResource("7_g6lcs"), ExtResource("8_131kw")])
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=1845713156]
 layer = 0

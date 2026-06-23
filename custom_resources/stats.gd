@@ -2,26 +2,37 @@ class_name Stats
 extends Resource
 signal stats_changed
 
-@export var max_health : int : set = set_max_health
+@export var max_health: int : set = set_max_health
+
+@export var max_attack: int
+
 @export var max_speed: int
 @export var max_block: int
 @export var art: Texture
-const cap_speed := 20
+const CAP_SPEED := 20
+const MIN_SPEED := 1
 
 @export var health: int : set = set_health
+
+@export var attack: int : set = set_attack
+
 @export var block: int : set = set_block
 @export var speed: int : set = set_speed
 
 func set_health(value : int) -> void:
 	health = clampi(value, 0, max_health)
 	stats_changed.emit()
-
-func set_block(value : int) -> void:
-	block = clampi(value, 0, 999)
+	
+func set_attack(value: int) -> void:
+	attack = value
 	stats_changed.emit()
 
 func set_speed(value : int) -> void:
-	speed = clampi(value, 0, cap_speed)
+	speed = clampi(value, MIN_SPEED, CAP_SPEED)
+	stats_changed.emit()
+	
+func set_block(value : int) -> void:
+	block = clampi(value, 0, 999)
 	stats_changed.emit()
 
 func set_max_health(value : int) -> void:
@@ -49,6 +60,7 @@ func heal(amount : int) -> void:
 func create_instance() -> Resource:
 	var instance: Stats = self.duplicate()
 	instance.health = max_health
+	instance.attack = max_attack
 	instance.block = max_block
 	instance.speed = max_speed
 	return instance

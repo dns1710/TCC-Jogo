@@ -7,8 +7,8 @@
 script = ExtResource("1_mavaa")
 relic_name = "Really Cool Sword"
 id = "espada"
-type = 2
 icon = ExtResource("1_jda12")
 tooltip = "Really Cool Sword
-Gain +2 attack at the start of battles"
++2 ATTACK"
+bonus_atk = 2
 metadata/_custom_type_script = "uid://jrf1ynp2rrsw"

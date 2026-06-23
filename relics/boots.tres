@@ -1,4 +1,4 @@
-[gd_resource type="Resource" format=3 uid="uid://sjue6ufyig07"]
+[gd_resource type="Resource" script_class="Boots" format=3 uid="uid://sjue6ufyig07"]
 
 [ext_resource type="Script" uid="uid://c7ftfai6s2ibf" path="res://relics/boots.gd" id="1_at0rw"]
 [ext_resource type="Texture2D" uid="uid://c47mthtx6sgf5" path="res://art/verdadeira arte/boots.png" id="1_hbsv4"]
@@ -6,9 +6,9 @@
 [resource]
 script = ExtResource("1_at0rw")
 relic_name = "Old Boots"
-id = "botas"
-type = 2
+id = "boots"
 icon = ExtResource("1_hbsv4")
 tooltip = "Old Boots
-Gain +2 speed at the start of battles"
++2 SPEED"
+bonus_spd = 2
 metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

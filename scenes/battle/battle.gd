@@ -2,7 +2,7 @@ class_name Battle
 extends Node2D 
 
 @export var battle_stats: BattleStats 
-@export var char_stats: CharacterStats 
+@export var char_stats: CharacterStats
 @export var music: AudioStream
 @export var map_music: AudioStream
 @export var relics: RelicHandler 
@@ -23,11 +23,12 @@ func _ready() -> void:
 func start_battle() -> void: 
 	get_tree().paused = false 
 	MusicPlayer.play(music, true) 
-	battle_ui.char_stats = char_stats 
+	battle_ui.char_stats = char_stats
+	char_stats.reset_stats()
 	player.stats = char_stats 
 	player_handler.relics = relics 
 	enemy_handler.setup_enemies(battle_stats) 
-	enemy_handler.reset_enemy_actions() 
+	#enemy_handler.reset_enemy_actions() 
 	relics.relics_activated.connect(_on_relics_activated) 
 	relics.activate_relics_by_type(Relic.Type.START_OF_COMBAT)
 	atb_manager.start_battle(player,enemy_handler)
@@ -35,10 +36,6 @@ func start_battle() -> void:
 func _on_enemies_child_order_changed() -> void: 
 	if enemy_handler.get_child_count() == 0 and is_instance_valid(relics): 
 		relics.activate_relics_by_type(Relic.Type.END_OF_COMBAT) 
-
-#func _on_enemy_turn_ended() -> void: 
-#	player_handler.start_turn() 
-#	enemy_handler.reset_enemy_actions() 
 
 func _on_player_atb_ready() -> void:
 	player_handler.player_atb_ready()

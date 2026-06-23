@@ -7,9 +7,9 @@
 [node name="Tier1CapChicken" type="Node2D" unique_id=2027319084]
 
 [node name="Enemy" parent="." unique_id=1918534270 instance=ExtResource("1_nfagm")]
-position = Vector2(177, 64)
+position = Vector2(163, 54)
 stats = ExtResource("2_w7pvr")
 
 [node name="Enemy2" parent="." unique_id=2079373148 instance=ExtResource("1_nfagm")]
-position = Vector2(221, 84)
+position = Vector2(183, 91)
 stats = ExtResource("3_j078j")

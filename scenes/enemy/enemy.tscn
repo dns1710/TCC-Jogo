@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bwet1kdg2v1di" path="res://scenes/status_handler/status_handler.tscn" id="6_3dhyq"]
 [ext_resource type="PackedScene" uid="uid://ctvxie3ni1ik4" path="res://scenes/modifier_handler/modifier_handler.tscn" id="7_xbm7w"]
 [ext_resource type="PackedScene" uid="uid://bqefj5q31b84i" path="res://scenes/modifier_handler/modifier.tscn" id="8_akusk"]
+[ext_resource type="Texture2D" uid="uid://y80pj8ygkucw" path="res://art/verdadeira arte/progress_bar_circle.png" id="9_hvxgb"]
+[ext_resource type="Texture2D" uid="uid://cvbp3ruyrev3e" path="res://art/verdadeira arte/progress_bar_cover.png" id="10_peoo5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gsft"]
 
@@ -49,6 +51,20 @@ status_owner = NodePath("..")
 
 [node name="DamageTakenModifier" parent="ModifierHandler" unique_id=1194083829 instance=ExtResource("8_akusk")]
 type = 1
+
+[node name="ATBProgress" type="TextureProgressBar" parent="." unique_id=1908050035]
+visible = false
+offset_left = -26.0
+offset_top = -19.0
+offset_right = -11.0
+offset_bottom = -4.0
+fill_mode = 4
+texture_under = ExtResource("9_hvxgb")
+texture_over = ExtResource("10_peoo5")
+texture_progress = ExtResource("9_hvxgb")
+tint_under = Color(0.65615284, 0.45811093, 0.5432022, 1)
+tint_over = Color(0.24705882, 0.14901961, 0.19215687, 1)
+tint_progress = Color(0.92935306, 0.8293497, 0.32180545, 1)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

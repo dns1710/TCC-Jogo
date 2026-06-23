@@ -13,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://dg4l0d8gvxu2m" path="res://art/backgroundfloresta.jpg" id="7_8auyv"]
 [ext_resource type="Resource" uid="uid://bbrll5h8git80" path="res://relics/golden_clover.tres" id="7_bbvtr"]
 [ext_resource type="Resource" uid="uid://sjue6ufyig07" path="res://relics/boots.tres" id="8_ko1oj"]
+[ext_resource type="Resource" uid="uid://dnn4mqdh6l1y" path="res://relics/flordelis.tres" id="9_ab3yx"]
+[ext_resource type="Resource" uid="uid://ddvwvwkec6euc" path="res://relics/thorn_ring.tres" id="10_odogb"]
+[ext_resource type="Resource" uid="uid://d3piv68i0huvr" path="res://relics/thorn_helm.tres" id="11_2i7av"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8a2h2"]
 font_size = 12
@@ -155,7 +158,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_0dgmn")
-treasure_relic_pool = Array[ExtResource("2_ufafs")]([ExtResource("3_qhcu3"), ExtResource("4_gkj16"), ExtResource("5_mn6fe"), ExtResource("6_8auyv"), ExtResource("7_bbvtr"), ExtResource("8_ko1oj")])
+treasure_relic_pool = Array[ExtResource("2_ufafs")]([ExtResource("4_gkj16"), ExtResource("3_qhcu3"), ExtResource("8_ko1oj"), ExtResource("6_8auyv"), ExtResource("5_mn6fe"), ExtResource("7_bbvtr"), ExtResource("9_ab3yx"), ExtResource("10_odogb"), ExtResource("11_2i7av")])
 
 [node name="Background" type="TextureRect" parent="." unique_id=1895505380]
 layout_mode = 1

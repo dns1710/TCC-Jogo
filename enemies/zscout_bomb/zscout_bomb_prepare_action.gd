@@ -1,12 +1,15 @@
 extends EnemyAction
 
-@export var block := 4
-
-
-func perform_action() -> void:
-	if not enemy or not target:
-		return
+@export var block = 3
+var already_used := false
 	
+func perform_action() -> void:
+	if not enemy:
+		return
+		
+	already_used = true
+	enemy.special_state = "PREPARE"
+	enemy._spawn_popup("!!!", Color.RED)
 	var block_effect := BlockEffect.new()
 	block_effect.amount = block
 	block_effect.sound = sound
@@ -16,5 +19,3 @@ func perform_action() -> void:
 		func():
 			Events.enemy_action_completed.emit(enemy)
 	)
-	
-	self.chance_weight = 0.0

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://b2ttr8bjsu8rq"]
+
+[ext_resource type="PackedScene" uid="uid://0gpw5vii3dkd" path="res://enemies/bear_boss/bear_boss_ai.tscn" id="1_1usp3"]
+[ext_resource type="Script" uid="uid://csml8orhg63vh" path="res://custom_resources/enemy_stats.gd" id="1_c2kga"]
+[ext_resource type="Texture2D" uid="uid://g6rlnmve6oys" path="res://art/verdadeira arte/bear_boss_sleep.png" id="2_1usp3"]
+
+[resource]
+script = ExtResource("1_c2kga")
+ai = ExtResource("1_1usp3")
+max_health = 45
+max_attack = 6
+max_speed = 3
+max_block = 10
+art = ExtResource("2_1usp3")
+metadata/_custom_type_script = "uid://csml8orhg63vh"

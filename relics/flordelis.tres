@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://dnn4mqdh6l1y"]
+
+[ext_resource type="Texture2D" uid="uid://cy5ygiokw64pv" path="res://art/verdadeira arte/statsup_relic.png" id="1_2f53w"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="1_hjymp"]
+
+[resource]
+script = ExtResource("1_hjymp")
+relic_name = "Fleur-De-Lis"
+id = "flordelis"
+icon = ExtResource("1_2f53w")
+tooltip = "Fleur-De-Lis
+ALL STATS UP!
++1 BLOCK, +1 ATTACK and +1 SPEED"
+bonus_blk = 1
+bonus_atk = 1
+bonus_spd = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

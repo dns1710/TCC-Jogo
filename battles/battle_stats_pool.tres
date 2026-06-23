@@ -5,11 +5,13 @@
 [ext_resource type="Resource" uid="uid://c0atnidxb2lmp" path="res://battles/tier_0_zscout.tres" id="2_42yw1"]
 [ext_resource type="Resource" uid="uid://cjn58xq7mnp57" path="res://battles/tier_0_2chicken.tres" id="3_pk2l8"]
 [ext_resource type="Resource" uid="uid://d1g3l6w0ib5il" path="res://battles/tier_0_cap.tres" id="4_s5wuo"]
-[ext_resource type="Resource" uid="uid://bdtdha5bcquni" path="res://battles/tier_1_2zscot.tres" id="5_lrvlq"]
+[ext_resource type="Resource" uid="uid://bdtdha5bcquni" path="res://battles/tier_1_2zscout.tres" id="5_lrvlq"]
 [ext_resource type="Resource" uid="uid://durn4252s1h32" path="res://battles/tier_1_3chicken.tres" id="6_hpysq"]
 [ext_resource type="Resource" uid="uid://cogl1xks6b5t6" path="res://battles/tier_1_cap_chicken.tres" id="7_a7oj0"]
 [ext_resource type="Resource" uid="uid://bwlryxgi23gxl" path="res://battles/tier_2_big_chicken_boss.tres" id="8_hpysq"]
+[ext_resource type="Resource" uid="uid://dsccuois3d6mq" path="res://battles/tier_1_zscout_zbomb.tres" id="8_iy31b"]
+[ext_resource type="Resource" uid="uid://cppw54nfm84mw" path="res://battles/tier_2_bear_boss.tres" id="9_a7oj0"]
 
 [resource]
 script = ExtResource("1_c0dve")
-pool = Array[ExtResource("1_k3ygp")]([ExtResource("2_42yw1"), ExtResource("3_pk2l8"), ExtResource("4_s5wuo"), ExtResource("5_lrvlq"), ExtResource("6_hpysq"), ExtResource("7_a7oj0"), ExtResource("8_hpysq")])
+pool = Array[ExtResource("1_k3ygp")]([ExtResource("2_42yw1"), ExtResource("3_pk2l8"), ExtResource("4_s5wuo"), ExtResource("6_hpysq"), ExtResource("7_a7oj0"), ExtResource("5_lrvlq"), ExtResource("8_iy31b"), ExtResource("8_hpysq"), ExtResource("9_a7oj0")])

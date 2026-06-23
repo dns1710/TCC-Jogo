@@ -28,19 +28,10 @@ func setup_enemies(battle_stats: BattleStats) -> void:
 		
 	all_new_enemies.queue_free()
 
-
-func reset_enemy_actions() -> void:
-	for enemy: Enemy in get_children():
-		enemy.current_action = null
-		enemy.update_action()
-
 func start_enemy_turn(enemy):
 	await get_tree().create_timer(0.3).timeout
-	
 	enemy.take_action()
 	enemy.reset_atb()
-	
-	#get_parent().atb_manager.is_waiting_for_input = false
 	
 func start_turn() -> void:
 	if get_child_count() == 0:
@@ -54,7 +45,6 @@ func start_turn() -> void:
 	_start_next_enemy_turn()
 
 func _start_next_enemy_turn() -> void:
-	#VVVVVVVVV
 	acting_enemies = acting_enemies.filter(
 		func(e): return is_instance_valid(e)
 	)

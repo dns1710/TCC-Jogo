@@ -2,10 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dnhcysun6wq2l" path="res://scenes/enemy/enemy_action_picker.gd" id="1_aponk"]
 [ext_resource type="Script" uid="uid://chsfmf2o2ndhp" path="res://enemies/zscout/zscout_attack_action.gd" id="2_awon3"]
-[ext_resource type="Script" uid="uid://ck6cdisbb5atk" path="res://enemies/zscout/zscout_block_action.gd" id="3_xteh8"]
+[ext_resource type="Script" uid="uid://ck6cdisbb5atk" path="res://enemies/zscout/zscout_drain_action.gd" id="3_xteh8"]
 [ext_resource type="Script" uid="uid://88hogv7k757k" path="res://custom_resources/intent.gd" id="4_tebig"]
 [ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="4_y0ecc"]
-[ext_resource type="AudioStream" uid="uid://df64e7qat73gs" path="res://art/block.ogg" id="5_y0ecc"]
 
 [sub_resource type="Resource" id="Resource_gf3ew"]
 script = ExtResource("4_tebig")
@@ -23,11 +22,11 @@ script = ExtResource("2_awon3")
 intent = SubResource("Resource_gf3ew")
 sound = ExtResource("4_y0ecc")
 type = 1
-chance_weight = 5.0
+chance_weight = 7.0
 
-[node name="BlockAction" type="Node" parent="." unique_id=1028984447]
+[node name="DrainAction" type="Node" parent="." unique_id=1028984447]
 script = ExtResource("3_xteh8")
 intent = SubResource("Resource_jycub")
-sound = ExtResource("5_y0ecc")
+sound = ExtResource("4_y0ecc")
 type = 1
-chance_weight = 5.0
+chance_weight = 3.0

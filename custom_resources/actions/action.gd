@@ -29,7 +29,7 @@ func _get_targets(targets: Array[Node]) -> Array[Node]:
 
 func use_action(targets: Array[Node], char_stats: CharacterStats) -> void:
 	Events.action_used.emit(self)
-	char_stats.mana -= cost
+	#char_stats.mana -= cost
 	
 	if is_single_targeted():
 		apply_effects(targets)

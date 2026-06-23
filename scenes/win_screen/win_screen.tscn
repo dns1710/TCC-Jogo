@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cg6eqhe0t3dv2"]
+[gd_scene format=3 uid="uid://cg6eqhe0t3dv2"]
 
-[ext_resource type="Script" path="res://scenes/win_screen/win_screen.gd" id="1_n40vj"]
+[ext_resource type="Script" uid="uid://csf1fkkelbf78" path="res://scenes/win_screen/win_screen.gd" id="1_n40vj"]
 [ext_resource type="Texture2D" uid="uid://cpydvk8mq66o5" path="res://art/tile_0087.png" id="3_13ibh"]
 
 [sub_resource type="Gradient" id="Gradient_7af3e"]
@@ -16,7 +16,7 @@ font_size = 12
 shadow_size = 4
 shadow_color = Color(0.54902, 0.443137, 0.376471, 0.333333)
 
-[node name="WinScreen" type="Control"]
+[node name="WinScreen" type="Control" unique_id=1925376231]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,7 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n40vj")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=805582944]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,7 +34,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_1kxac")
 
-[node name="CharacterPortrait" type="TextureRect" parent="."]
+[node name="CharacterPortrait" type="TextureRect" parent="." unique_id=173389455]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 1
@@ -53,7 +53,7 @@ texture = ExtResource("3_13ibh")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="VboxContainer" type="VBoxContainer" parent="."]
+[node name="VboxContainer" type="VBoxContainer" parent="." unique_id=1316992271]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -68,16 +68,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 
-[node name="Message" type="Label" parent="VboxContainer"]
+[node name="Message" type="Label" parent="VboxContainer" unique_id=910117028]
 unique_name_in_owner = true
 layout_mode = 2
-text = "The Warrior
-is victorious!"
+text = "YOU WON!!"
 label_settings = SubResource("LabelSettings_aveil")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MainMenuButton" type="Button" parent="VboxContainer"]
+[node name="MainMenuButton" type="Button" parent="VboxContainer" unique_id=535689264]
 custom_minimum_size = Vector2(60, 14)
 layout_mode = 2
 size_flags_horizontal = 4

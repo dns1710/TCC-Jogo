@@ -120,11 +120,11 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ikhwv"]
 _data = {
-"RESET": SubResource("Animation_em2db"),
-"fade_out": SubResource("Animation_wekwb")
+&"RESET": SubResource("Animation_em2db"),
+&"fade_out": SubResource("Animation_wekwb")
 }
 
-[node name="Campfire" type="Control"]
+[node name="Campfire" type="Control" unique_id=480840977]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -135,10 +135,10 @@ mouse_filter = 2
 script = ExtResource("1_i8fph")
 char_stats = ExtResource("2_0gfpy")
 
-[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=2064748958]
 layer = 0
 
-[node name="Background" type="TextureRect" parent="BackgroundLayer"]
+[node name="Background" type="TextureRect" parent="BackgroundLayer" unique_id=1063514500]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -146,18 +146,18 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_6orn2")
 
-[node name="ParticlesLayer" type="CanvasLayer" parent="."]
+[node name="ParticlesLayer" type="CanvasLayer" parent="." unique_id=345458763]
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ParticlesLayer" unique_id=678059571]
 position = Vector2(90, 100)
 amount = 128
-process_material = SubResource("ParticleProcessMaterial_1jtqt")
 texture = ExtResource("2_ykw02")
 lifetime = 1.5
+process_material = SubResource("ParticleProcessMaterial_1jtqt")
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=2061521219]
 
-[node name="UI" type="VBoxContainer" parent="UILayer"]
+[node name="UI" type="VBoxContainer" parent="UILayer" unique_id=147837849]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -170,30 +170,39 @@ offset_bottom = 22.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Title" type="Label" parent="UILayer/UI"]
+[node name="CampfireText" type="Label" parent="UILayer/UI" unique_id=499931308]
 layout_mode = 2
-text = "Campfire"
+theme_override_font_sizes/font_size = 8
+text = "You find a small camp in the
+middle of the woods.
+The campfire is still lit.
+Looks like a good place to rest."
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="UILayer/UI" unique_id=1641554614]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
 label_settings = SubResource("LabelSettings_k52g7")
 horizontal_alignment = 1
 
-[node name="Spacer" type="Control" parent="UILayer/UI"]
+[node name="Spacer" type="Control" parent="UILayer/UI" unique_id=40797591]
 layout_mode = 2
 
-[node name="RestButton" type="Button" parent="UILayer/UI"]
+[node name="RestButton" type="Button" parent="UILayer/UI" unique_id=119223313]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 14)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Rest"
 
-[node name="Description" type="Label" parent="UILayer/UI"]
+[node name="Description" type="Label" parent="UILayer/UI" unique_id=1744476642]
 layout_mode = 2
+theme_override_font_sizes/font_size = 6
 text = "+30% HP"
 horizontal_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_ikhwv")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=605446309]
+libraries/ = SubResource("AnimationLibrary_ikhwv")
 
 [connection signal="pressed" from="UILayer/UI/RestButton" to="." method="_on_rest_button_pressed"]
