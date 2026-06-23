@@ -11,7 +11,6 @@ const MAP_LINE := preload("res://scenes/map/map_line.tscn")
 @onready var visuals: Node2D = $Visuals
 @onready var camera_2d: Camera2D = $Camera2D
 
-# ✅ botão agora dentro do Map
 @onready var reroll_button = get_node_or_null("Reroll/RerollButton")
 
 var map_data: Array[Array] = []
@@ -114,7 +113,7 @@ func create_map() -> void:
 
 	for current_floor in map_data:
 		for room in current_floor:
-			if room.next_rooms.size() > 0:
+			if room.active:
 				_spawn_room(room)
 
 	# câmera inicial
@@ -227,14 +226,30 @@ func _on_reroll_button_pressed() -> void:
 
 func _update_reroll_visuals() -> void:
 	for map_room in rooms.get_children():
-		map_room.set_reroll_highlight(reroll_mode)
+		map_room.set_reroll_highlight(
+			reroll_mode
+			and map_room.room.row != 0
+			and map_room.room.row != MapGenerator.FLOORS - 1
+		)
 
 
 func _reroll_room(room: Room) -> void:
+
+	if room.row == 0:
+		return
+
+	if room.row == MapGenerator.FLOORS - 1:
+		return
+
 	if room.row < floors_climbed:
 		return
 
-	if room.type == Room.Type.BOSS:
+	# última sala
+	if room.row == MapGenerator.FLOORS - 1:
+		return
+
+	# salas já visitadas
+	if room.row < floors_climbed:
 		return
 
 	var types = [
@@ -259,7 +274,7 @@ func _reroll_room(room: Room) -> void:
 
 		Room.Type.EVENT:
 			room.event_scene = map_generator.event_room_pool.get_random()
-			
+
 		Room.Type.TREASURE:
 			pass
 
