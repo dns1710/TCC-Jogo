@@ -54,4 +54,5 @@ func _on_relics_activated(type: Relic.Type) -> void:
 		Relic.Type.END_OF_COMBAT:
 			char_stats.set_block(0)
 			MusicPlayer.play(map_music, true)
+			Score.add_room_clear()
 			Events.battle_over_screen_requested.emit("Victorious!", BattleOverPanel.Type.WIN)

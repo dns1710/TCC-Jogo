@@ -30,6 +30,8 @@ Shaker="*res://global/shaker.gd"
 MusicPlayer="*res://global/music_player.tscn"
 SFXPlayer="*res://global/sfx_player.tscn"
 RNG="*res://global/rng.gd"
+Score="*uid://qt8jw0eirltc"
+SupabaseService="*uid://o5frqxl2pptw"
 
 [debug]
 

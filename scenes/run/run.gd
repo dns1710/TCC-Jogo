@@ -212,6 +212,8 @@ func _on_event_room_entered(room: Room) -> void:
 func _on_battle_won() -> void:
 	if map.floors_climbed == MapGenerator.FLOORS:
 		var win_screen := _change_view(WIN_SCREEN_SCENE) as WinScreen
+		Score.add_run_victory()
+		Score._on_run_ended()
 		win_screen.character = character
 	else:
 		_show_regular_battle_rewards()

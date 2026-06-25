@@ -41,6 +41,7 @@ func _on_gold_reward_taken(amount: int) -> void:
 		return
 	
 	run_stats.gold += amount
+	Score.add_gold(amount)
 	
 func _on_relic_reward_taken(relic: Relic) -> void:
 	if not relic or not relic_handler:
