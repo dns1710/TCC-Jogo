@@ -17,27 +17,22 @@ func submit_score(player_name: String, score: int):
 func _insert_score(player_name: String, score: int):
 	var request := HTTPRequest.new()
 	add_child(request)
-
+	
+	var url = SUPABASE_URL + "/rest/v1/scores"
+	
 	var headers = [
 		"apikey: " + API_KEY,
 		"Authorization: Bearer " + API_KEY,
 		"Content-Type: application/json",
 		"Prefer: return=representation"
 	]
-
+	
 	var body := JSON.stringify({
 		"player_name": player_name,
 		"score": score
 	})
-
-	var url = SUPABASE_URL + "/rest/v1/scores"
-
-	request.request(
-		url,
-		headers,
-		HTTPClient.METHOD_POST,
-		body
-	)
+	
+	request.request(url, headers, HTTPClient.METHOD_POST, body)
 
 	var result = await request.request_completed
 	var response_code = result[1]
@@ -51,7 +46,9 @@ func _insert_score(player_name: String, score: int):
 func _update_score(player_name: String, score: int):
 	var request := HTTPRequest.new()
 	add_child(request)
-
+	
+	var url = SUPABASE_URL + "/rest/v1/scores?player_name=eq.%s" % player_name.uri_encode()
+	
 	var headers = [
 		"apikey: " + API_KEY,
 		"Authorization: Bearer " + API_KEY,
@@ -62,15 +59,7 @@ func _update_score(player_name: String, score: int):
 		"score": score
 	})
 
-	var url = SUPABASE_URL + \
-		"/rest/v1/scores?player_name=eq.%s" % player_name.uri_encode()
-
-	request.request(
-		url,
-		headers,
-		HTTPClient.METHOD_PATCH,
-		body
-	)
+	request.request(url, headers, HTTPClient.METHOD_PATCH, body)
 
 	var result = await request.request_completed
 	var response_code = result[1]
@@ -90,6 +79,7 @@ func get_player_score(player_name: String):
 		"Authorization: Bearer " + API_KEY
 	]
 	var url = SUPABASE_URL + "/rest/v1/scores?player_name=eq.%s&select=*" % player_name.uri_encode()
+	
 	request.request(url, headers)
 	
 	var result = await request.request_completed
@@ -152,9 +142,7 @@ func get_top_scores(limit := 50):
 		}
 
 	var json_text = result[3].get_string_from_utf8()
-
 	var json = JSON.new()
-
 	if json.parse(json_text) != OK:
 		request.queue_free()
 		return {

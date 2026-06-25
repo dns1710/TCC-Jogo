@@ -19,45 +19,18 @@ func load_leaderboard():
 	print("RESPONSE:", response)
 
 	if not response.success:
-		print("Leaderboard falhou. HTTP:", response.http_code)
 		error_label.show()
-		print("VISIBLE:", error_label.visible)
 		return
 
 	var scores = response.data
-
 	var rank := 1
-
 	for data in scores:
-
 		var entry = ENTRY_SCENE.instantiate()
-
 		entry.get_node("Rank").text = "#" + str(rank)
 		entry.get_node("Name").text = str(data["player_name"])
 		entry.get_node("Score").text = str(data["score"])
-
 		entries_container.add_child(entry)
-
 		rank += 1
-		
-#func load_leaderboard():
-#	var scores = await SupabaseService.get_top_scores()
-	
-#	if scores == null:
-#		error_label.show()
-#		return
-
-#	error_label.hide()
-	
-#	var rank := 1
-
-#	for data in scores:
-#		var entry = ENTRY_SCENE.instantiate()
-#		entry.get_node("Rank").text = "#" + str(rank)
-#		entry.get_node("Name").text = str(data["player_name"])
-#		entry.get_node("Score").text = str(data["score"])
-#		entries_container.add_child(entry)
-#		rank += 1
 
 func _on_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
