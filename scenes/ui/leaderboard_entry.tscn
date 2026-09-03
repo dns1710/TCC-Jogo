@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://byiw2gvwru05w"]
+
+[node name="LeaderboardEntry" type="HBoxContainer" unique_id=992179395]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Rank" type="Label" parent="." unique_id=1414402418]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+text = "# 1"
+horizontal_alignment = 1
+
+[node name="Name" type="Label" parent="." unique_id=9524522]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+text = "Player123"
+
+[node name="Score" type="Label" parent="." unique_id=1480518305]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "99999"
