@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://c5tba2x0lr2dr"]
+
+[ext_resource type="PackedScene" uid="uid://lregaj2p1de4" path="res://enemies/onca/onca_ai.tscn" id="1_201xy"]
+[ext_resource type="Script" uid="uid://csml8orhg63vh" path="res://custom_resources/enemy_stats.gd" id="1_kcmc4"]
+[ext_resource type="Texture2D" uid="uid://ck8766rjdn0en" path="res://art/verdadeira arte/onca.png" id="2_dabrw"]
+
+[resource]
+script = ExtResource("1_kcmc4")
+ai = ExtResource("1_201xy")
+max_health = 25
+max_attack = 4
+max_speed = 5
+art = ExtResource("2_dabrw")
+metadata/_custom_type_script = "uid://csml8orhg63vh"

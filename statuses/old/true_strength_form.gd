@@ -1,7 +1,7 @@
 class_name TrueStrengthStatus
 extends Status
 
-const MUSCLE_STATUS = preload("res://statuses/muscle.tres")
+const MUSCLE_STATUS = preload("res://statuses/old/muscle.tres")
 
 var stacks_per_turn := 2
 

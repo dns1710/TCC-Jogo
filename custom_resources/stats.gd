@@ -3,9 +3,7 @@ extends Resource
 signal stats_changed
 
 @export var max_health: int : set = set_max_health
-
 @export var max_attack: int
-
 @export var max_speed: int
 @export var max_block: int
 @export var art: Texture

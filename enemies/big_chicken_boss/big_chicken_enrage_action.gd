@@ -1,8 +1,10 @@
 extends EnemyAction
 
-@export var speed_buff := 3
 @export var enemy_threshold := 1
 @export var enrage_art : Texture2D
+
+const SPEED_STATUS = preload("res://statuses/status_speed_up.tres")
+
 var already_used := false
 	
 func is_performable() -> bool:
@@ -20,7 +22,12 @@ func perform_action() -> void:
 		return
 	
 	enemy._spawn_popup("SPEED UP", Color.DARK_ORANGE)
-	enemy.stats.speed += speed_buff
+	var status_effect := StatusEffect.new()
+	var speed := SPEED_STATUS.duplicate()
+	speed.stacks = 5
+	status_effect.status = speed
+	status_effect.execute([enemy])
+	
 	already_used = true
 	enemy.sprite_2d.texture = enrage_art
 	SFXPlayer.play(sound)

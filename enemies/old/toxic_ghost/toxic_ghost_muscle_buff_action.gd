@@ -1,6 +1,6 @@
 extends EnemyAction
 
-const MUSCLE_STATUS = preload("res://statuses/muscle.tres")
+const MUSCLE_STATUS = preload("res://statuses/old/muscle.tres")
 
 @export var stacks_per_action := 2
 

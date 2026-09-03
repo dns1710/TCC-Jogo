@@ -39,10 +39,10 @@ offset_top = -24.0
 offset_bottom = -10.0
 
 [node name="StatusHandler" parent="." unique_id=1266277097 node_paths=PackedStringArray("status_owner") instance=ExtResource("6_3dhyq")]
-offset_left = -27.0
-offset_top = 25.0
-offset_right = -27.0
-offset_bottom = 25.0
+offset_left = -24.0
+offset_top = 20.0
+offset_right = -24.0
+offset_bottom = 20.0
 status_owner = NodePath("..")
 
 [node name="ModifierHandler" parent="." unique_id=1265591245 instance=ExtResource("7_xbm7w")]
@@ -53,7 +53,6 @@ status_owner = NodePath("..")
 type = 1
 
 [node name="ATBProgress" type="TextureProgressBar" parent="." unique_id=1908050035]
-visible = false
 offset_left = -26.0
 offset_top = -19.0
 offset_right = -11.0
