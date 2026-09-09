@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bnbwu7pkbrwox" path="res://scenes/ui/mana_ui.tscn" id="11_2vu01"]
 [ext_resource type="PackedScene" uid="uid://chry0sgk7t0yf" path="res://scenes/ui/tooltip.tscn" id="12_qx741"]
 [ext_resource type="Script" uid="uid://dp1elam0ofu02" path="res://scenes/ui/red_flash.gd" id="15_qvh8t"]
+[ext_resource type="Script" uid="uid://bgtdvxd4ta7fm" path="res://scenes/battle/atb_manager.gd" id="16_n6gaa"]
 [ext_resource type="PackedScene" uid="uid://dfig8d63ggof1" path="res://scenes/ui/battle_over_panel.tscn" id="17_xrby7"]
 [ext_resource type="PackedScene" uid="uid://c3fu2yk5vm3qb" path="res://scenes/ui/status_view.tscn" id="22_kfjwu"]
 
@@ -33,6 +34,7 @@ centered = false
 metadata/_edit_lock_ = true
 
 [node name="CardDropArea" type="Area2D" parent="." unique_id=1042635026]
+visible = false
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CardDropArea" unique_id=264494491]
@@ -56,6 +58,7 @@ attack_action = ExtResource("9_t1kk3")
 block_action = ExtResource("9_kd6yx")
 
 [node name="Hand" type="HBoxContainer" parent="BattleUI" unique_id=155687812]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -79,19 +82,19 @@ offset_bottom = 42.0
 
 [node name="AttackButton" type="Button" parent="BattleUI" unique_id=917591278]
 unique_name_in_owner = true
-offset_left = 31.0
-offset_top = 100.0
-offset_right = 62.0
-offset_bottom = 117.0
+offset_left = 15.0
+offset_top = 112.0
+offset_right = 47.0
+offset_bottom = 129.0
 theme_override_font_sizes/font_size = 6
 text = "ATTACK"
 
 [node name="BlockButton" type="Button" parent="BattleUI" unique_id=876155633]
 unique_name_in_owner = true
-offset_left = 32.0
-offset_top = 119.0
-offset_right = 60.0
-offset_bottom = 136.0
+offset_left = 51.0
+offset_top = 112.0
+offset_right = 79.0
+offset_bottom = 129.0
 theme_override_font_sizes/font_size = 6
 text = "BLOCK"
 
@@ -107,6 +110,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0.443137, 0.443137, 0)
+metadata/_edit_lock_ = true
 
 [node name="Timer" type="Timer" parent="RedFlash" unique_id=177459570]
 wait_time = 0.1
@@ -126,3 +130,6 @@ layer = 4
 
 [node name="StatusView" parent="StatusViewLayer" unique_id=919814158 instance=ExtResource("22_kfjwu")]
 visible = false
+
+[node name="ATBManager" type="Node" parent="." unique_id=2125806121]
+script = ExtResource("16_n6gaa")

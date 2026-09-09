@@ -1,11 +1,10 @@
 extends EnemyAction
 
-@export var damage := 2
-
-
 func perform_action() -> void:
 	if not enemy or not target:
 		return
+	
+	var damage = randi_range(enemy.stats.attack-1, enemy.stats.attack+1)
 	
 	var tween := create_tween().set_trans(Tween.TRANS_QUINT)
 	var start := enemy.global_position
@@ -14,6 +13,7 @@ func perform_action() -> void:
 	var target_array: Array[Node] = [target]
 	damage_effect.amount = damage
 	damage_effect.sound = sound
+	damage_effect.source = enemy
 	
 	tween.tween_property(enemy, "global_position", end, 0.4)
 	tween.tween_callback(damage_effect.execute.bind(target_array))
@@ -25,12 +25,3 @@ func perform_action() -> void:
 		func():
 			Events.enemy_action_completed.emit(enemy)
 	)
-
-
-#func update_intent_text() -> void:
-#	var player := target as Player
-#	if not player:
-#		return
-	
-#	var modified_dmg := player.modifier_handler.get_modified_value(damage, Modifier.Type.DMG_TAKEN)
-#	intent.current_text = intent.base_text % modified_dmg

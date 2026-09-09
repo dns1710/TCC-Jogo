@@ -1,0 +1,32 @@
+extends EnemyAction
+
+func perform_action() -> void:
+	if not enemy or not target:
+		return
+	
+	var damage = randi_range(enemy.stats.attack, enemy.stats.attack+2)
+	
+	var tween := create_tween().set_trans(Tween.TRANS_QUINT)
+	var start := enemy.global_position
+	var end := target.global_position + Vector2.RIGHT * 32
+	var damage_effect := DamageEffect.new()
+	var target_array: Array[Node] = [target]
+	damage_effect.amount = damage
+	damage_effect.sound = sound
+	damage_effect.source = enemy
+	
+	tween.tween_property(enemy, "global_position", end, 0.4)
+	tween.tween_callback(
+		func():
+			var effective_damage = max(damage - target.stats.block, 0)
+			damage_effect.execute(target_array)
+			if effective_damage > 0:
+				enemy.heal(effective_damage)
+	)
+	tween.tween_interval(0.25)
+	tween.tween_property(enemy, "global_position", start, 0.4)
+	
+	tween.finished.connect(
+		func():
+			Events.enemy_action_completed.emit(enemy)
+	)

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ThornPlate" format=3 uid="uid://d3piv68i0huvr"]
+
+[ext_resource type="Texture2D" uid="uid://df4pvnlsbwrn1" path="res://art/verdadeira arte/thorn_helm_relic.png" id="1_sechd"]
+[ext_resource type="Script" uid="uid://b51bqefqg1wxq" path="res://relics/thorn_helm.gd" id="2_njka6"]
+
+[resource]
+script = ExtResource("2_njka6")
+relic_name = "Thorn Helm"
+id = "thornplate"
+type = 5
+icon = ExtResource("1_sechd")
+tooltip = "Thorn Helm
++1 Block
+Enemies that damage you take 1 damage back"
+bonus_blk = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

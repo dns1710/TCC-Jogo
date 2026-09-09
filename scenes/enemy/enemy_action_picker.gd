@@ -39,7 +39,7 @@ func get_chance_based_action() -> EnemyAction:
 		
 		if action.accumulated_weight > roll:
 			return action
-	
+			
 	return null
 
 

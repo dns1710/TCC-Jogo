@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://lregaj2p1de4"]
+
+[ext_resource type="Script" uid="uid://dnhcysun6wq2l" path="res://scenes/enemy/enemy_action_picker.gd" id="1_opqjf"]
+[ext_resource type="Script" uid="uid://brll2pb2jjhqy" path="res://enemies/onca/onca_attack_action.gd" id="2_equ5p"]
+[ext_resource type="Script" uid="uid://dyrsant81w2h6" path="res://enemies/onca/onca_buff_action.gd" id="3_6v47j"]
+[ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="3_r6d2k"]
+[ext_resource type="AudioStream" uid="uid://cnqve7dtqjghp" path="res://art/true_strength.ogg" id="5_n4o33"]
+
+[node name="OncaAi" type="Node" unique_id=72654407]
+script = ExtResource("1_opqjf")
+
+[node name="AttackAction" type="Node" parent="." unique_id=945355588]
+script = ExtResource("2_equ5p")
+sound = ExtResource("3_r6d2k")
+type = 1
+chance_weight = 1.0
+
+[node name="BuffAction" type="Node" parent="." unique_id=1192021295]
+script = ExtResource("3_6v47j")
+sound = ExtResource("5_n4o33")

@@ -30,10 +30,6 @@ func generate_map() -> Array[Array]:
 		battle_stats_pool.get_random_battle_for_tier(0)
 	)
 
-	# --------------------------------
-	# Primeira bifurcação garantida
-	# --------------------------------
-
 	var top_room: Room = map_data[1][0]
 	var middle_room: Room = map_data[1][1]
 	var bottom_room: Room = map_data[1][2]
@@ -52,9 +48,6 @@ func generate_map() -> Array[Array]:
 		bottom_room
 	]
 
-	# --------------------------------
-	# Geração das floors
-	# --------------------------------
 
 	for floor in range(1, FLOORS - 2):
 
@@ -116,9 +109,6 @@ func generate_map() -> Array[Array]:
 
 		current_rooms = next_rooms
 
-	# --------------------------------
-	# Tipos das salas intermediárias
-	# --------------------------------
 
 	var treasure_floor := int(FLOORS / 2)
 
@@ -135,10 +125,6 @@ func generate_map() -> Array[Array]:
 				continue
 
 			_assign_random_type(room)
-
-	# --------------------------------
-	# Boss
-	# --------------------------------
 
 	var boss_room: Room = map_data[FLOORS - 1][mid]
 
@@ -181,9 +167,6 @@ func _assign_random_type(room: Room) -> void:
 	else:
 		_set_room_type(room, Room.Type.TREASURE)
 
-# --------------------------------------------------
-# helper principal
-# --------------------------------------------------
 func _set_room_type(room: Room, type: Room.Type, extra_data: Variant = null) -> void:
 	room.type = type
 	room.original_type = type

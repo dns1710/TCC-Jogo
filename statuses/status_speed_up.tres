@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SpeedUpStatus" format=3 uid="uid://3dfrai25tdaf"]
+
+[ext_resource type="Texture2D" uid="uid://bchl24durdm6" path="res://art/verdadeira arte/status_speed_up.png" id="1_214fa"]
+[ext_resource type="Script" uid="uid://cuoonnkrlxr6q" path="res://statuses/status_speed_up.gd" id="2_w8gqk"]
+
+[resource]
+script = ExtResource("2_w8gqk")
+id = "speedup"
+type = 2
+stack_type = 1
+stacks = 1
+icon = ExtResource("1_214fa")
+tooltip = "SPEED UP
+Boosts speed. Stacks."
+metadata/_custom_type_script = "uid://cabgjq2uy7l61"

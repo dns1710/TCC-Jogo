@@ -1,27 +1,17 @@
 extends EventRoom
 
 @onready var fifty_button: EventRoomButton = %FiftyButton
-@onready var thirty_button: EventRoomButton = %ThirtyButton
+@onready var allin_button: EventRoomButton = %AllInButton
 @onready var skip_button: EventRoomButton = %SkipButton
 
 
 func setup() -> void:
-	skip_button.visible = run_stats.gold < 50
+	#skip_button.visible = run_stats.gold < 50
 	fifty_button.disabled = run_stats.gold < 50
-	thirty_button.disabled = run_stats.gold < 50
+	allin_button.disabled = run_stats.gold < 1
 	
 	fifty_button.event_button_callback = bet_50
-	thirty_button.event_button_callback = bet_30
-
-
-func bet_30() -> void:
-	var temp: = run_stats.gold
-	thirty_button.disabled = true
-	run_stats.gold = 0
-	
-	if RNG.instance.randf() < 0.3:
-		run_stats.gold = temp * 3
-
+	allin_button.event_button_callback = bet_allin
 
 func bet_50() -> void:
 	fifty_button.disabled = true
@@ -29,3 +19,11 @@ func bet_50() -> void:
 	
 	if RNG.instance.randf() < 0.5:
 		run_stats.gold += 100
+
+func bet_allin() -> void:
+	var bet_all_in: = run_stats.gold
+	allin_button.disabled = true
+	run_stats.gold = 0
+	
+	if RNG.instance.randf() < 0.5:
+		run_stats.gold = bet_all_in * 2

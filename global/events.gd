@@ -5,6 +5,9 @@ signal player_hit
 signal player_died
 signal player_turn_ended
 signal player_turn_started
+signal player_atb_ready
+signal player_action_completed
+signal player_damaged(attacker: Enemy, damage: int)
 
 # Enemy-related events
 signal enemy_action_completed(enemy: Enemy)

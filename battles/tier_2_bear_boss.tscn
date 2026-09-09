@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cm55j8rk5l1lk"]
+
+[ext_resource type="PackedScene" uid="uid://d0efyathkfg74" path="res://scenes/enemy/enemy.tscn" id="1_tkn83"]
+[ext_resource type="Resource" uid="uid://b2ttr8bjsu8rq" path="res://enemies/bear_boss/bear_boss.tres" id="2_0jy4s"]
+
+[node name="Tier2BearBoss" type="Node2D" unique_id=1617944045]
+
+[node name="Enemy" parent="." unique_id=1918534270 instance=ExtResource("1_tkn83")]
+position = Vector2(178, 72)
+stats = ExtResource("2_0jy4s")

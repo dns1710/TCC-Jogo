@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ThornRing" format=3 uid="uid://ddvwvwkec6euc"]
+
+[ext_resource type="Script" uid="uid://cxt634wu4e7s7" path="res://relics/thorn_ring.gd" id="1_8limt"]
+[ext_resource type="Texture2D" uid="uid://bs0es5c4jnxer" path="res://art/verdadeira arte/thorn_ring_relic.png" id="1_vbqlt"]
+
+[resource]
+script = ExtResource("1_8limt")
+relic_name = "Thorn Ring"
+id = "thornring"
+type = 5
+icon = ExtResource("1_vbqlt")
+tooltip = "Thorn Ring
++1 ATTACK
+Enemies that damage you take 1 damage back."
+bonus_atk = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

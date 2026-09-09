@@ -21,7 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.041418, 0.0917935, 0.0344075, 0.815686)
+color = Color(0.4883589, 0.5856971, 0.2784997, 0.8156863)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=787590590]
 layout_mode = 1
@@ -40,8 +40,9 @@ theme_override_constants/separation = 5
 
 [node name="Label" type="Label" parent="VBoxContainer" unique_id=1153180089]
 layout_mode = 2
-text = "You found a slot machine
-in the middle of the forest"
+text = "You found a slot machine in
+the middle of the forest.
+Wanna gamble?"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -49,16 +50,16 @@ vertical_alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(110, 20)
 layout_mode = 2
-text = "Small bet: bet 50g to double it (100g)"
+text = "Bet 50 gold"
 
-[node name="ThirtyButton" parent="VBoxContainer" unique_id=1432329933 instance=ExtResource("2_xqbom")]
+[node name="AllInButton" parent="VBoxContainer" unique_id=1432329933 instance=ExtResource("2_xqbom")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-text = "ALL IN! Triple your gold (or multiply by zero)"
+text = "ALL IN!"
 
 [node name="SkipButton" parent="VBoxContainer" unique_id=1624632318 instance=ExtResource("2_xqbom")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
-text = "Skip the bet"
+text = "Skip"

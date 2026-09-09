@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ch4kc1ffkgdjm"]
+
+[ext_resource type="PackedScene" uid="uid://d0efyathkfg74" path="res://scenes/enemy/enemy.tscn" id="1_fl0ve"]
+[ext_resource type="Resource" uid="uid://171b6hta0j8j" path="res://enemies/zscout/zscout.tres" id="2_k44jl"]
+[ext_resource type="Resource" uid="uid://cn5hre22qxejs" path="res://enemies/zscout_bomb/zscout_bomb.tres" id="3_w131d"]
+
+[node name="Tier1ZScoutZBomb" type="Node2D" unique_id=2128079672]
+
+[node name="Enemy" parent="." unique_id=1918534270 instance=ExtResource("1_fl0ve")]
+position = Vector2(164, 57)
+stats = ExtResource("2_k44jl")
+
+[node name="Enemy2" parent="." unique_id=1180083846 instance=ExtResource("1_fl0ve")]
+position = Vector2(185, 93)
+stats = ExtResource("3_w131d")

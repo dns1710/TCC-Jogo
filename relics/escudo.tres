@@ -5,10 +5,10 @@
 
 [resource]
 script = ExtResource("1_gpvg2")
-relic_name = "Shield"
+relic_name = "weirdly small shield"
 id = "escudo"
-type = 1
 icon = ExtResource("1_oohar")
 tooltip = "weirdly small shield
-+2 block at the start of the combat"
++2 BLOCK"
+bonus_blk = 2
 metadata/_custom_type_script = "uid://bb0l7ik1lb5ay"

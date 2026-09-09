@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bejlj2j1c0yw8"]
+
+[ext_resource type="Script" uid="uid://dnhcysun6wq2l" path="res://scenes/enemy/enemy_action_picker.gd" id="1_epc6x"]
+[ext_resource type="Script" uid="uid://dxlwahru5lkgv" path="res://enemies/zscout_bomb/zscout_bomb_attack_action.gd" id="2_uxjei"]
+[ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="3_bkffc"]
+[ext_resource type="Script" uid="uid://blgt63wtj2epv" path="res://enemies/zscout_bomb/zscout_bomb_prepare_action.gd" id="4_erptm"]
+[ext_resource type="Texture2D" uid="uid://bngm6xsndg68o" path="res://art/verdadeira arte/zscout_bomb_prepare.png" id="5_3q6wn"]
+[ext_resource type="AudioStream" uid="uid://cnqve7dtqjghp" path="res://art/true_strength.ogg" id="6_wqy8k"]
+[ext_resource type="Script" uid="uid://rhingiuyturn" path="res://enemies/zscout_bomb/zscout_bomb_explode_action.gd" id="7_fgyus"]
+[ext_resource type="AudioStream" uid="uid://b1vpjjmi5cj3n" path="res://art/axe.ogg" id="8_t5dmm"]
+
+[node name="ZScoutBombAi" type="Node" unique_id=72654407]
+script = ExtResource("1_epc6x")
+
+[node name="AttackAction" type="Node" parent="." unique_id=1822620101]
+script = ExtResource("2_uxjei")
+sound = ExtResource("3_bkffc")
+type = 1
+chance_weight = 7.0
+
+[node name="PrepareAction" type="Node" parent="." unique_id=239603648]
+script = ExtResource("4_erptm")
+prepare_art = ExtResource("5_3q6wn")
+sound = ExtResource("6_wqy8k")
+type = 1
+chance_weight = 4.0
+
+[node name="ExplodeAction" type="Node" parent="." unique_id=1820230457]
+script = ExtResource("7_fgyus")
+sound = ExtResource("8_t5dmm")
