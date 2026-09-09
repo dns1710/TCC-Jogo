@@ -27,6 +27,7 @@ var max_zoom := 2.0
 var camera_edge_x := 0.0
 var reroll_mode := false
 
+var run_stats: RunStats
 
 func _ready() -> void:
 	add_to_group("map")
@@ -200,10 +201,13 @@ func _connect_lines(room: Room) -> void:
 
 
 func _on_map_room_clicked(room: Room) -> void:
+
 	if reroll_mode:
 		_reroll_room(room)
+
 		reroll_mode = false
 		_update_reroll_visuals()
+
 		return
 
 	for map_room in rooms.get_children():
@@ -219,7 +223,9 @@ func _on_map_room_selected(room: Room) -> void:
 
 
 func _on_reroll_button_pressed() -> void:
-	print("Botão funcionou")
+	if run_stats == null or run_stats.rerolls <= 0:
+		return
+
 	reroll_mode = true
 	_update_reroll_visuals()
 
@@ -230,27 +236,28 @@ func _update_reroll_visuals() -> void:
 			reroll_mode
 			and map_room.room.row != 0
 			and map_room.room.row != MapGenerator.FLOORS - 1
+			and map_room.room.row >= floors_climbed
 		)
 
+	_update_reroll_button()
 
-func _reroll_room(room: Room) -> void:
+
+func _reroll_room(room: Room) -> bool:
+
+	if run_stats == null:
+		return false
+
+	if run_stats.rerolls <= 0:
+		return false
 
 	if room.row == 0:
-		return
+		return false
 
 	if room.row == MapGenerator.FLOORS - 1:
-		return
+		return false
 
 	if room.row < floors_climbed:
-		return
-
-	# última sala
-	if room.row == MapGenerator.FLOORS - 1:
-		return
-
-	# salas já visitadas
-	if room.row < floors_climbed:
-		return
+		return false
 
 	var types = [
 		Room.Type.MONSTER,
@@ -260,7 +267,7 @@ func _reroll_room(room: Room) -> void:
 		Room.Type.TREASURE
 	]
 
-	var pool = []
+	var pool: Array[Room.Type] = []
 
 	for t in types:
 		if t != room.original_type:
@@ -281,3 +288,23 @@ func _reroll_room(room: Room) -> void:
 	for map_room in rooms.get_children():
 		if map_room.room == room:
 			map_room.update_visual()
+
+	run_stats.rerolls -= 1
+
+	_update_reroll_button()
+
+	return true
+
+	for map_room in rooms.get_children():
+		if map_room.room == room:
+			map_room.update_visual()
+
+func _update_reroll_button() -> void:
+	if not reroll_button:
+		return
+
+	if run_stats == null:
+		reroll_button.disabled = true
+		return
+
+	reroll_button.disabled = run_stats.rerolls <= 0

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Smore" format=3 uid="uid://8onvruwjr1hq"]
+
+[ext_resource type="Texture2D" uid="uid://o6mhnfvroyvx" path="res://art/tile_0125.png" id="1_7cucw"]
+[ext_resource type="Script" uid="uid://dyglv5qd26r1c" path="res://relics/smore.gd" id="2_csoos"]
+
+[resource]
+script = ExtResource("2_csoos")
+relic_name = "Smore"
+id = "smore"
+type = 5
+icon = ExtResource("1_7cucw")
+tooltip = "SMORE
+Less smore"
+bonus_blk = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

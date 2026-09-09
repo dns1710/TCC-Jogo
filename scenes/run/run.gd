@@ -51,8 +51,11 @@ func _ready() -> void:
 func _start_new_run() -> void:
 	stats = RunStats.new()
 	character = run_startup.picked_character.create_instance()
+
 	relic_handler.run_stats = stats
 	relic_handler.character_stats = character
+
+	map.run_stats = stats
 	
 	_setup_top_bar()
 
@@ -80,6 +83,7 @@ func _load_run() -> void:
 	
 	stats = save_data.run_stats
 	character = save_data.char_stats
+	map.run_stats = stats
 	#character.health = save_data.current_health
 	relic_handler.add_relics(save_data.relics)
 	relic_handler.run_stats = stats

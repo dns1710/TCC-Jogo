@@ -44,10 +44,12 @@ func set_max_health(value : int) -> void:
 	
 	stats_changed.emit()
 
-func take_damage(damage : int) -> void:
+func take_damage(damage: int) -> void:
 	if damage <= 0:
 		return
-	var initial_damage = damage
+
+	var initial_damage := damage
+
 	damage = clampi(damage - block, 0, damage)
 	block = clampi(block - initial_damage, 0, block)
 	health -= damage
