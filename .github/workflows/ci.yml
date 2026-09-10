@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Testar CI
+        run: echo "CI está funcionando"
+        
       - name: Baixar projeto
         uses: actions/checkout@v4
-
-      - name: Teste de CI
-        run: echo "CI está funcionando"
 
       - name: Instalar Godot
         uses: chickensoft-games/setup-godot@v2
@@ -26,3 +26,10 @@ jobs:
 
       - name: Verificar projeto
         run: godot --headless --path . --editor --quit
+
+      - name: Executar testes GUT
+        run: |
+          godot --headless --path . \
+            -s addons/gut/gut_cmdln.gd \
+            -gdir=res://test/unit \
+            -gexit
