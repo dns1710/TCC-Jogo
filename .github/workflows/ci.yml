@@ -1,1 +1,28 @@
+name: CI
 
+on:
+  push:
+    branches:
+      - testes
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar projeto
+        uses: actions/checkout@v4
+
+      - name: Teste de CI
+        run: echo "CI está funcionando"
+
+      - name: Instalar Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.6.1
+
+      - name: Verificar versão do Godot
+        run: godot --version
+
+      - name: Verificar projeto
+        run: godot --headless --path . --editor --quit
