@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Testar CI
-        run: echo "CI está funcionando"
-        
       - name: Baixar projeto
         uses: actions/checkout@v4
 
