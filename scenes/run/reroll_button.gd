@@ -8,3 +8,5 @@ func _ready() -> void:
 
 func _on_pressed() -> void:
 	reroll_pressed.emit()
+
+#comentário
