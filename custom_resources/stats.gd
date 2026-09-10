@@ -22,7 +22,7 @@ func set_health(value : int) -> void:
 	stats_changed.emit()
 	
 func set_attack(value: int) -> void:
-	attack = value
+	attack = clampi(value, 1, 999)
 	stats_changed.emit()
 
 func set_speed(value : int) -> void:
