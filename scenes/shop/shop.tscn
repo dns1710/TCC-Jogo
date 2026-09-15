@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://ov2giwe4f4pt" path="res://relics/espada.tres" id="6_k5co3"]
 [ext_resource type="Resource" uid="uid://sjue6ufyig07" path="res://relics/boots.tres" id="7_g6lcs"]
 [ext_resource type="Resource" uid="uid://d3piv68i0huvr" path="res://relics/thorn_helm.tres" id="8_131kw"]
-[ext_resource type="Resource" uid="uid://8onvruwjr1hq" path="res://relics/smore.tres" id="9_xoc10"]
+[ext_resource type="Resource" uid="uid://c1g6p1lp2ebmn" path="res://relics/smore.tres" id="9_xoc10"]
 [ext_resource type="PackedScene" uid="uid://ctvxie3ni1ik4" path="res://scenes/modifier_handler/modifier_handler.tscn" id="11_863hj"]
 [ext_resource type="PackedScene" uid="uid://bqefj5q31b84i" path="res://scenes/modifier_handler/modifier.tscn" id="12_xf6l8"]
 

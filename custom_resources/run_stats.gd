@@ -4,7 +4,7 @@ extends Resource
 signal gold_changed
 
 const STARTING_GOLD := 70
-const STARTING_REROLLS := 3
+const STARTING_REROLLS := 999
 #const BASE_CARD_REWARDS := 3
 const BASE_COMMON_WEIGHT := 6.0
 const BASE_UNCOMMON_WEIGHT := 3.7

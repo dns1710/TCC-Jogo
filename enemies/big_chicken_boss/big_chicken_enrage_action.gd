@@ -1,6 +1,7 @@
 extends EnemyAction
 
 @export var enemy_threshold := 1
+@export var stack_amount := 4
 @export var enrage_art : Texture2D
 
 const SPEED_STATUS = preload("res://statuses/status_speed_up.tres")
@@ -24,7 +25,7 @@ func perform_action() -> void:
 	enemy._spawn_popup("SPEED UP", Color.DARK_ORANGE)
 	var status_effect := StatusEffect.new()
 	var speed := SPEED_STATUS.duplicate()
-	speed.stacks = 5
+	speed.stacks = stack_amount
 	status_effect.status = speed
 	status_effect.execute([enemy])
 	

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://chsrjkh63fq2d"]
+
+[ext_resource type="Script" uid="uid://dnhcysun6wq2l" path="res://scenes/enemy/enemy_action_picker.gd" id="1_3ub35"]
+[ext_resource type="Script" uid="uid://bux2sfn73o8wo" path="res://enemies/croc/croc_grab_action.gd" id="2_c3k4l"]
+[ext_resource type="AudioStream" uid="uid://b1vpjjmi5cj3n" path="res://art/axe.ogg" id="3_2hjsk"]
+[ext_resource type="Script" uid="uid://4bubwdo4ty3u" path="res://enemies/croc/croc_attack_action.gd" id="3_5gm4s"]
+[ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="5_msmtb"]
+
+[node name="CrocAI" type="Node" unique_id=72654407]
+script = ExtResource("1_3ub35")
+
+[node name="GrabAction" type="Node" parent="." unique_id=82602394]
+script = ExtResource("2_c3k4l")
+sound = ExtResource("3_2hjsk")
+
+[node name="AttackAction" type="Node" parent="." unique_id=2056035828]
+script = ExtResource("3_5gm4s")
+sound = ExtResource("5_msmtb")
+type = 1
+chance_weight = 10.0

@@ -18,9 +18,6 @@ func _ready() -> void:
 
 
 func activate_relics_by_type(type: Relic.Type) -> void:
-	if type == Relic.Type.EVENT_BASED:
-		return
-		
 	if type == Relic.Type.PASSIVE_STATS:
 		return
 		

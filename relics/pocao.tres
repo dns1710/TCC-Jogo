@@ -9,6 +9,6 @@ relic_name = "Ibuprofen"
 id = "pocao_de_cura"
 type = 4
 icon = ExtResource("1_7jock")
-tooltip = "Ibuprofen
+tooltip = "[color=\"ffdf00\"]IBUPROFEN[/color]
 Heal 4 HP at the end of every battle"
 metadata/_custom_type_script = "uid://dkxx27kqb6tnm"

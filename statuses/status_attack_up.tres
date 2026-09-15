@@ -10,6 +10,6 @@ type = 2
 stack_type = 1
 stacks = 1
 icon = ExtResource("1_ukiii")
-tooltip = "ATTACK UP
-Boosts attack. Stacks."
+tooltip = "[color=\"ffdf00\"]ATTACK UP[/color]
+Boosts [color=\"dc143c\"]ATTACK[/color]"
 metadata/_custom_type_script = "uid://cabgjq2uy7l61"

@@ -1,22 +1,14 @@
 class_name ThornRing
 extends Relic
 
-@export var thorn_damage := 1
-
-
-func initialize_relic(_owner: RelicUI) -> void:
-	if not Events.player_damaged.is_connected(_on_player_damaged):
-		Events.player_damaged.connect(_on_player_damaged)
-
-
-func deactivate_relic(_owner: RelicUI) -> void:
-	if Events.player_damaged.is_connected(_on_player_damaged):
-		Events.player_damaged.disconnect(_on_player_damaged)
-
-
-func _on_player_damaged(attacker: Node, _damage: int) -> void:
-	if not attacker:
-		return
-
-	if attacker is Enemy:
-		attacker.take_damage(thorn_damage, Modifier.Type.DMG_TAKEN)
+const THORN_STATUS = preload("res://statuses/status_thorns.tres")
+		
+func activate_relic(owner: RelicUI) -> void:
+	var player := owner.get_tree().get_first_node_in_group("player") as Player
+	if player:
+		player._spawn_popup("THORNS UP", Color.DARK_GOLDENROD)
+		var status_effect := StatusEffect.new()
+		var thorns := THORN_STATUS.duplicate()
+		status_effect.status = thorns
+		status_effect.execute([player])
+	owner.flash()

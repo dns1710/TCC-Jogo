@@ -9,6 +9,6 @@ relic_name = "Golden Clover"
 id = "clover"
 type = 4
 icon = ExtResource("1_t8yi6")
-tooltip = "Golden Clover
+tooltip = "[color=\"ffdf00\"]GOLDEN CLOVER[/color]
 Gain a little bit of gold at the end of every battle"
 metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

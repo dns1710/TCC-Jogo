@@ -8,9 +8,8 @@ script = ExtResource("1_hjymp")
 relic_name = "Fleur-De-Lis"
 id = "flordelis"
 icon = ExtResource("1_2f53w")
-tooltip = "Fleur-De-Lis
-ALL STATS UP!
-+1 BLOCK, +1 ATTACK and +1 SPEED"
+tooltip = "[color=\"ffdf00\"]FLUER-DE-LIS[/color]
++1 [color=\"6fa8dc\"]BLOCK[/color], +1 [color=\"dc143c\"]ATTACK[/color], +1 [color=\"#ffa500\"]SPEED[/color]"
 bonus_blk = 1
 bonus_atk = 1
 bonus_spd = 1

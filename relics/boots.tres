@@ -8,7 +8,7 @@ script = ExtResource("1_at0rw")
 relic_name = "Old Boots"
 id = "boots"
 icon = ExtResource("1_hbsv4")
-tooltip = "Old Boots
-+2 SPEED"
+tooltip = "[color=\"ffdf00\"]OLD BOOTS[/color]
++2 [color=\"#ffa500\"]SPEED[/color]"
 bonus_spd = 2
 metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

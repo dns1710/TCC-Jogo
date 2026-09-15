@@ -62,7 +62,8 @@ func take_damage(damage: int, which_modifier: Modifier.Type, source = null) -> v
 	_spawn_popup(str(modified_damage), Color.FIREBRICK)
 	var tween := create_tween() 
 	tween.tween_callback(Shaker.shake.bind(self, 16, 0.15)) 
-	tween.tween_callback(stats.take_damage.bind(modified_damage)) 
+	tween.tween_callback(stats.take_damage.bind(modified_damage))
+	tween.tween_callback(func(): Events.player_health_changed.emit(self))
 	tween.tween_interval(0.17)
 	Events.player_damaged.emit(source, modified_damage)
 	tween.finished.connect( 
@@ -75,6 +76,7 @@ func take_damage(damage: int, which_modifier: Modifier.Type, source = null) -> v
 
 func heal(amount:int) -> void:
 	stats.heal(amount)
+	Events.player_health_changed.emit(self)
 	_spawn_popup(str(amount), Color.LIME_GREEN)
 
 func _spawn_popup(poptext: String, color: Color) -> void:

@@ -16,7 +16,7 @@
 [ext_resource type="Resource" uid="uid://dnn4mqdh6l1y" path="res://relics/flordelis.tres" id="9_ab3yx"]
 [ext_resource type="Resource" uid="uid://ddvwvwkec6euc" path="res://relics/thorn_ring.tres" id="10_odogb"]
 [ext_resource type="Resource" uid="uid://d3piv68i0huvr" path="res://relics/thorn_helm.tres" id="11_2i7av"]
-[ext_resource type="Resource" uid="uid://8onvruwjr1hq" path="res://relics/smore.tres" id="12_wp70s"]
+[ext_resource type="Resource" uid="uid://c1g6p1lp2ebmn" path="res://relics/smore.tres" id="12_wp70s"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8a2h2"]
 font_size = 12

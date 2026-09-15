@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cbi0a8da6uhxs"]
+
+[ext_resource type="PackedScene" uid="uid://d0efyathkfg74" path="res://scenes/enemy/enemy.tscn" id="1_rslhp"]
+[ext_resource type="Resource" uid="uid://do0lneltd5i4t" path="res://enemies/croc/croc.tres" id="2_sqgsf"]
+
+[node name="Tier12Croc" type="Node2D" unique_id=1437672035]
+
+[node name="Enemy" parent="." unique_id=1918534270 instance=ExtResource("1_rslhp")]
+position = Vector2(164, 95)
+stats = ExtResource("2_sqgsf")
+
+[node name="Enemy2" parent="." unique_id=1636720551 instance=ExtResource("1_rslhp")]
+position = Vector2(183, 58)
+stats = ExtResource("2_sqgsf")

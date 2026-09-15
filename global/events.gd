@@ -8,6 +8,7 @@ signal player_turn_started
 signal player_atb_ready
 signal player_action_completed
 signal player_damaged(attacker: Enemy, damage: int)
+signal player_health_changed(player: Player)
 
 # Enemy-related events
 signal enemy_action_completed(enemy: Enemy)

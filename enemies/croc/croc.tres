@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://do0lneltd5i4t"]
+
+[ext_resource type="Script" uid="uid://csml8orhg63vh" path="res://custom_resources/enemy_stats.gd" id="1_dojwh"]
+[ext_resource type="PackedScene" uid="uid://chsrjkh63fq2d" path="res://enemies/croc/croc_ai.tscn" id="1_lveqr"]
+[ext_resource type="Texture2D" uid="uid://j6ixog4ugsnf" path="res://art/verdadeira arte/enemy_j.png" id="1_msv1l"]
+
+[resource]
+script = ExtResource("1_dojwh")
+ai = ExtResource("1_lveqr")
+max_health = 18
+max_attack = 5
+max_speed = 2
+art = ExtResource("1_msv1l")
+metadata/_custom_type_script = "uid://csml8orhg63vh"

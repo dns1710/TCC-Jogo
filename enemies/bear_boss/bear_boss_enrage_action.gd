@@ -2,7 +2,7 @@ extends EnemyAction
 
 @export var hp_treshold = 23
 @export var block = 6
-@export var prepare_art : Texture2D
+@export var stack_amount := 4
 const ATTACK_STATUS = preload("res://statuses/status_attack_up.tres")
 var already_used = false
 
@@ -25,7 +25,7 @@ func perform_action() -> void:
 	enemy._spawn_popup("ATTACK UP", Color.CRIMSON)
 	var status_effect := StatusEffect.new()
 	var attack := ATTACK_STATUS.duplicate()
-	attack.stacks = 4
+	attack.stacks = stack_amount
 	status_effect.status = attack
 	status_effect.execute([enemy])
 	var block_effect := BlockEffect.new()

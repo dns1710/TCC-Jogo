@@ -31,6 +31,7 @@ func start_battle() -> void:
 	#enemy_handler.reset_enemy_actions() 
 	relics.relics_activated.connect(_on_relics_activated) 
 	relics.activate_relics_by_type(Relic.Type.START_OF_COMBAT)
+	relics.activate_relics_by_type(Relic.Type.EVENT_BASED)
 	atb_manager.start_battle(player,enemy_handler)
 
 func _on_enemies_child_order_changed() -> void: 

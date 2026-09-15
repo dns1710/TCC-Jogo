@@ -10,6 +10,6 @@ type = 2
 stack_type = 1
 stacks = 1
 icon = ExtResource("1_214fa")
-tooltip = "SPEED UP
-Boosts speed. Stacks."
+tooltip = "[color=\"ffdf00\"]SPEED UP[/color]
+Boosts [color=\"#ffa500\"]SPEED[/color]"
 metadata/_custom_type_script = "uid://cabgjq2uy7l61"

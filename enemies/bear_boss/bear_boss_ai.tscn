@@ -7,7 +7,6 @@
 [ext_resource type="AudioStream" uid="uid://df64e7qat73gs" path="res://art/block.ogg" id="3_t3ddo"]
 [ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="5_fom13"]
 [ext_resource type="Script" uid="uid://hr1c85yn0a0i" path="res://enemies/bear_boss/bear_boss_enrage_action.gd" id="6_6qxcb"]
-[ext_resource type="Texture2D" uid="uid://uyr8miyfjqcl" path="res://art/verdadeira arte/bear_boss_prepare.png" id="7_1bx63"]
 [ext_resource type="AudioStream" uid="uid://cnqve7dtqjghp" path="res://art/true_strength.ogg" id="7_bcf4y"]
 
 [node name="BearBossAi" type="Node" unique_id=72654407]
@@ -26,5 +25,4 @@ chance_weight = 1.0
 
 [node name="EnrageAction" type="Node" parent="." unique_id=179716276]
 script = ExtResource("6_6qxcb")
-prepare_art = ExtResource("7_1bx63")
 sound = ExtResource("7_bcf4y")
