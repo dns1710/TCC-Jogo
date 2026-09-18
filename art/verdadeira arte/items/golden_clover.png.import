@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uyr8miyfjqcl"
-path="res://.godot/imported/bear_boss_prepare.png-51d4bbb751516b2dcd8917f1c97f5517.ctex"
+uid="uid://cyr8nq6ah8bjl"
+path="res://.godot/imported/golden_clover.png-e14a62ab0732febd3e9265c3f6bbaeb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/bear_boss_prepare.png"
-dest_files=["res://.godot/imported/bear_boss_prepare.png-51d4bbb751516b2dcd8917f1c97f5517.ctex"]
+source_file="res://art/verdadeira arte/items/golden_clover.png"
+dest_files=["res://.godot/imported/golden_clover.png-e14a62ab0732febd3e9265c3f6bbaeb0.ctex"]
 
 [params]
 

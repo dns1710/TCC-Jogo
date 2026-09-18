@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyr8nq6ah8bjl"
-path="res://.godot/imported/golden_clover.png-ecd96d3c375c5d40d6feda0cbcfaa28e.ctex"
+uid="uid://ofuf7gqonakt"
+path="res://.godot/imported/smore_relic.png-4c16488599d8b795dc00bcb7f1484725.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/golden_clover.png"
-dest_files=["res://.godot/imported/golden_clover.png-ecd96d3c375c5d40d6feda0cbcfaa28e.ctex"]
+source_file="res://art/verdadeira arte/items/smore_relic.png"
+dest_files=["res://.godot/imported/smore_relic.png-4c16488599d8b795dc00bcb7f1484725.ctex"]
 
 [params]
 

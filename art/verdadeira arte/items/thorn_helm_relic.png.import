@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j6ixog4ugsnf"
-path="res://.godot/imported/enemy_j.png-5bf57d72cd2a8ee2ebacf689141a306e.ctex"
+uid="uid://df4pvnlsbwrn1"
+path="res://.godot/imported/thorn_helm_relic.png-97acd8c1904156fbdcd90be7a9384bc2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/enemy_j.png"
-dest_files=["res://.godot/imported/enemy_j.png-5bf57d72cd2a8ee2ebacf689141a306e.ctex"]
+source_file="res://art/verdadeira arte/items/thorn_helm_relic.png"
+dest_files=["res://.godot/imported/thorn_helm_relic.png-97acd8c1904156fbdcd90be7a9384bc2.ctex"]
 
 [params]
 

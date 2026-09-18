@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bn6sk8i5pjyff"
-path="res://.godot/imported/status_attack_down.png-a94fe867f30cb110c86a426a0edaf153.ctex"
+uid="uid://bngm6xsndg68o"
+path="res://.godot/imported/zscout_bomb_prepare.png-392ff1a7683f3bfccab962cf5e4c605a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/status_attack_down.png"
-dest_files=["res://.godot/imported/status_attack_down.png-a94fe867f30cb110c86a426a0edaf153.ctex"]
+source_file="res://art/verdadeira arte/enemy/zscout_bomb_prepare.png"
+dest_files=["res://.godot/imported/zscout_bomb_prepare.png-392ff1a7683f3bfccab962cf5e4c605a.ctex"]
 
 [params]
 

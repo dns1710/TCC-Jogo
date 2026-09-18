@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d21wok07mgo86"
-path="res://.godot/imported/status_thorns.png-5db5678ddb414361c7c465b63b3a3e58.ctex"
+uid="uid://dvqfht80ap3cl"
+path="res://.godot/imported/status_speed_down.png-776c91e5c2f19e39408512904ec0ba2d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/status_thorns.png"
-dest_files=["res://.godot/imported/status_thorns.png-5db5678ddb414361c7c465b63b3a3e58.ctex"]
+source_file="res://art/verdadeira arte/status/status_speed_down.png"
+dest_files=["res://.godot/imported/status_speed_down.png-776c91e5c2f19e39408512904ec0ba2d.ctex"]
 
 [params]
 

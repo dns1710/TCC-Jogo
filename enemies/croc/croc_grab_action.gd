@@ -1,6 +1,8 @@
 extends EnemyAction
 
-@export var damage_amount := 3
+@export var dice_value := 4
+@export var dice_amount := 1
+
 const SPEED_DOWN_STATUS = preload("res://statuses/status_speed_down.tres")
 var already_used = false
 
@@ -11,7 +13,8 @@ func perform_action() -> void:
 	if not enemy or not target:
 		return
 	
-	var damage = enemy.stats.attack-2
+	var damage = Dice.roll(dice_amount, dice_value, enemy.stats.attack)
+	
 	var tween := create_tween().set_trans(Tween.TRANS_QUINT)
 	var start := enemy.global_position
 	var end := target.global_position + Vector2.RIGHT * 32

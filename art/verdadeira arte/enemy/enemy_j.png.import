@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ofuf7gqonakt"
-path="res://.godot/imported/smore_relic.png-dad1b6d750a135bafc4ac2a0fc251401.ctex"
+uid="uid://j6ixog4ugsnf"
+path="res://.godot/imported/enemy_j.png-d4cd296b0380475081b346a1cb3a05c0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/smore_relic.png"
-dest_files=["res://.godot/imported/smore_relic.png-dad1b6d750a135bafc4ac2a0fc251401.ctex"]
+source_file="res://art/verdadeira arte/enemy/enemy_j.png"
+dest_files=["res://.godot/imported/enemy_j.png-d4cd296b0380475081b346a1cb3a05c0.ctex"]
 
 [params]
 

@@ -10,5 +10,5 @@ id = "pocao_de_cura"
 type = 4
 icon = ExtResource("1_7jock")
 tooltip = "[color=\"ffdf00\"]IBUPROFEN[/color]
-Heal 4 HP at the end of every battle"
+Heal [color=\"13bf42\"]2D4+2[/color] at the end of the battle if you're at half health or less"
 metadata/_custom_type_script = "uid://dkxx27kqb6tnm"

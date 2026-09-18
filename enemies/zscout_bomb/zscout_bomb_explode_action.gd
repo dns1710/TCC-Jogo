@@ -1,5 +1,8 @@
 extends EnemyAction
 
+@export var dice_value := 10
+@export var dice_amount := 2
+
 func is_performable() -> bool:
 	if not enemy:
 		return false
@@ -13,7 +16,7 @@ func perform_action() -> void:
 	if not enemy or not target:
 		return
 	
-	var damage = enemy.stats.attack + 7
+	var damage = Dice.roll(dice_amount, dice_value, enemy.stats.attack)
 	
 	var tween := create_tween().set_trans(Tween.TRANS_QUINT)
 	var end := target.global_position + Vector2.RIGHT * 32

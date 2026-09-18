@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvqfht80ap3cl"
-path="res://.godot/imported/status_speed_down.png-a96fb31777aeacc405fe43ee46f95a35.ctex"
+uid="uid://c1lgo1b6r4pnx"
+path="res://.godot/imported/status_attack_up.png-3102b8a92833b7c077506a52ad92b728.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/status_speed_down.png"
-dest_files=["res://.godot/imported/status_speed_down.png-a96fb31777aeacc405fe43ee46f95a35.ctex"]
+source_file="res://art/verdadeira arte/status/status_attack_up.png"
+dest_files=["res://.godot/imported/status_attack_up.png-3102b8a92833b7c077506a52ad92b728.ctex"]
 
 [params]
 

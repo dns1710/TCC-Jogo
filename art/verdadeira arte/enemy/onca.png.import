@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1lgo1b6r4pnx"
-path="res://.godot/imported/status_attack_up.png-41408228a4b047d46d365e7c836061cb.ctex"
+uid="uid://ck8766rjdn0en"
+path="res://.godot/imported/onca.png-b0d45ee6e3d9358e99a77835e6cc5af3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/status_attack_up.png"
-dest_files=["res://.godot/imported/status_attack_up.png-41408228a4b047d46d365e7c836061cb.ctex"]
+source_file="res://art/verdadeira arte/enemy/onca.png"
+dest_files=["res://.godot/imported/onca.png-b0d45ee6e3d9358e99a77835e6cc5af3.ctex"]
 
 [params]
 

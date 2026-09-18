@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ck8766rjdn0en"
-path="res://.godot/imported/onca.png-eb0f583bfdd9d85da98b6d08da15f4b8.ctex"
+uid="uid://bchl24durdm6"
+path="res://.godot/imported/status_speed_up.png-c7aaf6df04e1053278303274440fc2c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/onca.png"
-dest_files=["res://.godot/imported/onca.png-eb0f583bfdd9d85da98b6d08da15f4b8.ctex"]
+source_file="res://art/verdadeira arte/status/status_speed_up.png"
+dest_files=["res://.godot/imported/status_speed_up.png-c7aaf6df04e1053278303274440fc2c5.ctex"]
 
 [params]
 

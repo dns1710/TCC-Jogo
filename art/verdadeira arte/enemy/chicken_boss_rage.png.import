@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bngm6xsndg68o"
-path="res://.godot/imported/zscout_bomb_prepare.png-b868ccb505fe50049b2b1ee0dcb26123.ctex"
+uid="uid://dj26yyd4gi8i3"
+path="res://.godot/imported/chicken_boss_rage.png-d6d1787cd799a41ddb4c18093f60e94f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/zscout_bomb_prepare.png"
-dest_files=["res://.godot/imported/zscout_bomb_prepare.png-b868ccb505fe50049b2b1ee0dcb26123.ctex"]
+source_file="res://art/verdadeira arte/enemy/chicken_boss_rage.png"
+dest_files=["res://.godot/imported/chicken_boss_rage.png-d6d1787cd799a41ddb4c18093f60e94f.ctex"]
 
 [params]
 

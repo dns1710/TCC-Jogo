@@ -6,7 +6,6 @@ extends Relic
 const ATTACK_UP_STATUS = preload("res://statuses/status_attack_up.tres")
 var attack_up_active := false
 
-
 func activate_relic(owner: RelicUI) -> void:
 	attack_up_active = false
 	

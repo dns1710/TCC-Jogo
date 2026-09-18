@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g6rlnmve6oys"
-path="res://.godot/imported/bear_boss_sleep.png-fbae98e4ff458a92e3b2934eea4a5d32.ctex"
+uid="uid://d21wok07mgo86"
+path="res://.godot/imported/status_thorns.png-78b0260275ea3a73143cef9dc0b26db9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/bear_boss_sleep.png"
-dest_files=["res://.godot/imported/bear_boss_sleep.png-fbae98e4ff458a92e3b2934eea4a5d32.ctex"]
+source_file="res://art/verdadeira arte/status/status_thorns.png"
+dest_files=["res://.godot/imported/status_thorns.png-78b0260275ea3a73143cef9dc0b26db9.ctex"]
 
 [params]
 

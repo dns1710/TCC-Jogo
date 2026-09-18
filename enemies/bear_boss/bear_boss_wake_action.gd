@@ -18,7 +18,7 @@ func perform_action() -> void:
 		
 	already_used = true
 	enemy.special_state = "AWAKE"
-	enemy._spawn_popup("!?", Color.DARK_GRAY)
+	enemy._spawn_popup("!?", Color.CRIMSON)
 	enemy.stats.set_block(0)
 	enemy.sprite_2d.texture = wake_art
 	SFXPlayer.play(sound)

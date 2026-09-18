@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cy5ygiokw64pv"
-path="res://.godot/imported/statsup_relic.png-b4f9273fe7fc318d91de94e9af46fbac.ctex"
+uid="uid://g6rlnmve6oys"
+path="res://.godot/imported/bear_boss_sleep.png-d825dbaff4040a0ef5e72f892a7a4837.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/statsup_relic.png"
-dest_files=["res://.godot/imported/statsup_relic.png-b4f9273fe7fc318d91de94e9af46fbac.ctex"]
+source_file="res://art/verdadeira arte/enemy/bear_boss_sleep.png"
+dest_files=["res://.godot/imported/bear_boss_sleep.png-d825dbaff4040a0ef5e72f892a7a4837.ctex"]
 
 [params]
 

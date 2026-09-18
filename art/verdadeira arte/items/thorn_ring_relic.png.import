@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bub76qc3f5hk7"
-path="res://.godot/imported/zscout.png-e6675e1b42d6c0bcd4f7f55fd99782c8.ctex"
+uid="uid://bs0es5c4jnxer"
+path="res://.godot/imported/thorn_ring_relic.png-83537330a26a0716814104b2e3883965.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/zscout.png"
-dest_files=["res://.godot/imported/zscout.png-e6675e1b42d6c0bcd4f7f55fd99782c8.ctex"]
+source_file="res://art/verdadeira arte/items/thorn_ring_relic.png"
+dest_files=["res://.godot/imported/thorn_ring_relic.png-83537330a26a0716814104b2e3883965.ctex"]
 
 [params]
 

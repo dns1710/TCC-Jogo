@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://u737t7a610mt"
-path="res://.godot/imported/zscout_bomb.png-ccdfd58b9891f1a82eabc7312039926f.ctex"
+path="res://.godot/imported/zscout_bomb.png-8de66019797dba5aa479050cfd825901.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/zscout_bomb.png"
-dest_files=["res://.godot/imported/zscout_bomb.png-ccdfd58b9891f1a82eabc7312039926f.ctex"]
+source_file="res://art/verdadeira arte/enemy/zscout_bomb.png"
+dest_files=["res://.godot/imported/zscout_bomb.png-8de66019797dba5aa479050cfd825901.ctex"]
 
 [params]
 

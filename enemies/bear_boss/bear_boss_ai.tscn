@@ -25,4 +25,6 @@ chance_weight = 1.0
 
 [node name="EnrageAction" type="Node" parent="." unique_id=179716276]
 script = ExtResource("6_6qxcb")
+hp_treshold = 30
+block = 10
 sound = ExtResource("7_bcf4y")

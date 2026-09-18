@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj26yyd4gi8i3"
-path="res://.godot/imported/chicken_boss_rage.png-feac19f3d5d9d434e8e95eade6df7212.ctex"
+uid="uid://uyr8miyfjqcl"
+path="res://.godot/imported/bear_boss_prepare.png-ebbcf15314ca312efb439dd5af30c186.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/verdadeira arte/chicken_boss_rage.png"
-dest_files=["res://.godot/imported/chicken_boss_rage.png-feac19f3d5d9d434e8e95eade6df7212.ctex"]
+source_file="res://art/verdadeira arte/enemy/bear_boss_prepare.png"
+dest_files=["res://.godot/imported/bear_boss_prepare.png-ebbcf15314ca312efb439dd5af30c186.ctex"]
 
 [params]
 

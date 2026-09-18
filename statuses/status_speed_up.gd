@@ -10,5 +10,5 @@ func initialize_status(target: Node) -> void:
 func _on_status_changed(target: Node) -> void:
 	assert(target.get("stats"), "No stats on %s" % target)
 	var stack_difference := stacks - applied_stacks
-	target.stats.speed -= stack_difference
+	target.stats.speed += stack_difference
 	applied_stacks = stacks

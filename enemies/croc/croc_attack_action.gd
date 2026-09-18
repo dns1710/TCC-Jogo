@@ -1,10 +1,13 @@
 extends EnemyAction
 
+@export var dice_value := 8
+@export var dice_amount := 1
+
 func perform_action() -> void:
 	if not enemy or not target:
 		return
 	
-	var damage = randi_range(enemy.stats.attack-1, enemy.stats.attack+1)
+	var damage = Dice.roll(dice_amount, dice_value, enemy.stats.attack)
 	
 	var tween := create_tween().set_trans(Tween.TRANS_QUINT)
 	var start := enemy.global_position
