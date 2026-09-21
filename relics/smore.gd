@@ -46,8 +46,8 @@ func _remove_attack_up(player: Player) -> void:
 	var status := player.status_handler._get_status("attackup")
 
 	if status:
-		player.stats.attack -= 3
-		status.stacks -= 3
+		#player.stats.attack -= stack_amount
+		status.stacks -= stack_amount
 
 		if status.stacks <= 0:
 			for status_ui in player.status_handler.get_children():

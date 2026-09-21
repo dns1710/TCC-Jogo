@@ -9,5 +9,6 @@ func execute(targets: Array[Node]) -> void:
 		if not target:
 			continue
 		if target is Enemy or target is Player:
+			#target.heal(amount)
 			target.stats.block += amount
 			SFXPlayer.play(sound)

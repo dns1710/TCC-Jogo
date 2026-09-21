@@ -89,7 +89,7 @@ func _clamp_camera() -> void:
 
 func generate_new_map() -> void:
 	floors_climbed = 0
-	#last_room = null
+	last_room = null
 	map_data = map_generator.generate_map()
 	create_map()
 

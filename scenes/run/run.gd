@@ -11,7 +11,6 @@ const MAIN_MENU_PATH := "res://scenes/ui/main_menu.tscn"
 
 @export var run_startup: RunStartup
 @export var music: AudioStream
-
 @onready var map: Map = $Map
 @onready var current_view: Node = $CurrentView
 @onready var health_ui: HealthUI = %HealthUI
@@ -75,12 +74,16 @@ func _save_run(was_on_map: bool) -> void:
 	save_data.map_data = map.map_data.duplicate()
 	save_data.floors_climbed = map.floors_climbed
 	save_data.was_on_map = was_on_map
+	
+	save_data.rng_seed = RNG.instance.seed
+	save_data.rng_state = RNG.instance.state
+	
 	save_data.save_data()
 
 func _load_run() -> void:
 	save_data = SaveGame.load_data()
-	assert(save_data, "Couldn't load last save")
 	
+	RNG.set_from_save_data(save_data.rng_seed, save_data.rng_state)
 	stats = save_data.run_stats
 	character = save_data.char_stats
 	map.run_stats = stats
@@ -92,12 +95,12 @@ func _load_run() -> void:
 	#_setup_event_connections()
 	
 	map.load_map(save_data.map_data, save_data.floors_climbed, save_data.last_room)
-	if save_data.last_room and not save_data.was_on_map:
+	#if save_data.last_room and not save_data.was_on_map:
+	#	_on_map_exited(save_data.last_room)
+	if save_data.was_on_map:
+		map.show_map()
+	elif save_data.last_room:
 		_on_map_exited(save_data.last_room)
-	
-#func _continue_run() -> void:
-	# implementar save/load futuramente
-#	_start_new_run()
 	
 func _setup_top_bar() -> void:
 	_connect_character_signals()

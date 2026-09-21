@@ -19,7 +19,7 @@ func start_battle(char_stats: CharacterStats) -> void:
 #	relics.activate_relics_by_type(Relic.Type.END_OF_TURN) 
 
 func player_atb_ready() -> void:
-	character.reset_mana()
+	#character.reset_mana()
 	relics.activate_relics_by_type(Relic.Type.START_OF_TURN)
 
 func player_action_finished() -> void:
