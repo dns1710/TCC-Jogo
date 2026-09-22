@@ -16,6 +16,10 @@ func set_from_save_data(which_seed: int, state: int) -> void:
 	instance = RandomNumberGenerator.new()
 	instance.seed = which_seed
 	instance.state = state
+	
+
+func pick_random(min: int, max: int) -> int:
+	return instance.randi_range(min,max)
 
 
 func array_pick_random(array: Array) -> Variant:

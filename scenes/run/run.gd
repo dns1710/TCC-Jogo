@@ -192,10 +192,12 @@ func _on_treasure_room_entered() -> void:
 
 func _on_treasure_room_exited(relic: Relic) -> void:
 	var reward := _change_view(BATTLE_REWARD_SCENE) as BattleReward
+	var gold_reward_min = 40
+	var gold_reward_max = 50
 	reward.run_stats = stats
 	reward.character_stats = character
 	reward.relic_handler = relic_handler
-	reward.add_gold_reward(randi_range(40,50))
+	reward.add_gold_reward(RNG.pick_random(gold_reward_min,gold_reward_max))
 	reward.add_relic_reward(relic)
 
 func _on_campfire_entered() -> void:
