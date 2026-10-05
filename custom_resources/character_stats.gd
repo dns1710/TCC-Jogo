@@ -2,11 +2,10 @@ class_name CharacterStats
 extends Stats
 
 @export_group("Visuals")
+@export_group("Gameplay Data")
 @export var character_name: String
 @export_multiline var description: String
 @export var portrait: Texture
-
-@export_group("Gameplay Data")
 
 #@export var max_mana: int
 

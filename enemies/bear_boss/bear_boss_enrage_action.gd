@@ -22,7 +22,6 @@ func perform_action() -> void:
 	if not enemy:
 		return
 	
-	enemy._spawn_popup("ATTACK UP", Color.CRIMSON)
 	var status_effect := StatusEffect.new()
 	var attack := ATTACK_STATUS.duplicate()
 	attack.stacks = stack_amount

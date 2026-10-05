@@ -30,7 +30,7 @@ func perform_action() -> void:
 	
 	tween.finished.connect(
 		func():
-			enemy._spawn_popup("BOOOMM!!", Color.BLUE_VIOLET)
+			enemy._spawn_popup("BOOOMM!!!", Color.BLUE_VIOLET)
 			Events.enemy_action_completed.emit(enemy)
 			enemy.queue_free()
 	)

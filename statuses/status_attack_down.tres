@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="AttackDownStatus" format=3 uid="uid://2wcpmds7x0h3"]
 
-[ext_resource type="Texture2D" uid="uid://bn6sk8i5pjyff" path="res://art/verdadeira arte/status_attack_down.png" id="1_wyyiu"]
+[ext_resource type="Texture2D" uid="uid://bn6sk8i5pjyff" path="res://art/verdadeira arte/status/status_attack_down.png" id="1_wyyiu"]
 [ext_resource type="Script" uid="uid://bpgfbujhp61ie" path="res://statuses/status_attack_down.gd" id="2_oj6rv"]
 
 [resource]
 script = ExtResource("2_oj6rv")
+name = "Attack Down"
 id = "attackdown"
 type = 2
 stack_type = 1

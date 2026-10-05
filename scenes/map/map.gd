@@ -243,7 +243,6 @@ func _update_reroll_visuals() -> void:
 
 
 func _reroll_room(room: Room) -> bool:
-
 	if run_stats == null:
 		return false
 
@@ -294,10 +293,6 @@ func _reroll_room(room: Room) -> bool:
 	_update_reroll_button()
 
 	return true
-
-	for map_room in rooms.get_children():
-		if map_room.room == room:
-			map_room.update_visual()
 
 func _update_reroll_button() -> void:
 	if not reroll_button:

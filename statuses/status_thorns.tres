@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="ThornsStatus" format=3 uid="uid://djk6lwvfehpm7"]
 
-[ext_resource type="Texture2D" uid="uid://d21wok07mgo86" path="res://art/verdadeira arte/status_thorns.png" id="1_5mgsj"]
+[ext_resource type="Texture2D" uid="uid://d21wok07mgo86" path="res://art/verdadeira arte/status/status_thorns.png" id="1_5mgsj"]
 [ext_resource type="Script" uid="uid://cypprsyp8d51d" path="res://statuses/status_thorns.gd" id="2_5mgsj"]
 
 [resource]
 script = ExtResource("2_5mgsj")
+name = "Thorns"
 id = "thorns"
 type = 2
 stack_type = 1

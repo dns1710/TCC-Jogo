@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://dwsuopmco8wh7"]
+
+[ext_resource type="Texture2D" uid="uid://bh3ylc5echbij" path="res://art/verdadeira arte/items/loaded_die_relic.png" id="1_i0vua"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="1_yajso"]
+
+[resource]
+script = ExtResource("1_yajso")
+relic_name = "Loaded D6"
+id = "loadedd"
+type = 5
+icon = ExtResource("1_i0vua")
+tooltip = "[color=\"ffdf00\"]LOADED D6[/color]
+Your first attack every battle deals [color=\"dc143c\"]max damage[/color]"
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

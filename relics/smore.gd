@@ -54,3 +54,9 @@ func _remove_attack_up(player: Player) -> void:
 				if status_ui.status == status:
 					status_ui.queue_free()
 					break
+
+
+func deactivate_relic(_owner: RelicUI) -> void:
+	if Events.player_health_changed.is_connected(_on_player_health_changed):
+		Events.player_health_changed.disconnect(_on_player_health_changed)
+	attack_up_active = false

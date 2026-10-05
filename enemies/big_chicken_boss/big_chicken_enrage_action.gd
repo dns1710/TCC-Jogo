@@ -22,7 +22,6 @@ func perform_action() -> void:
 	if not enemy:
 		return
 	
-	enemy._spawn_popup("SPEED UP", Color.DARK_ORANGE)
 	var status_effect := StatusEffect.new()
 	var speed := SPEED_STATUS.duplicate()
 	speed.stacks = stack_amount
