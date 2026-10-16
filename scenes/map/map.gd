@@ -17,17 +17,20 @@ var map_data: Array[Array] = []
 var floors_climbed := 0
 var last_room: Room = null
 var camera_edge_y := 0.0
+var map_camera_start_position: Vector2 = Vector2.ZERO
 
 var dragging := false
 var last_mouse_pos := Vector2.ZERO
 
-var zoom_speed := 0.1
-var min_zoom := 0.5
-var max_zoom := 2.0
+#var zoom_speed := 0.1
+#var min_zoom := 0.5
+#var max_zoom := 2.0
 var camera_edge_x := 0.0
 var reroll_mode := false
 
 var run_stats: RunStats
+
+var adaptation_cutscene_active: bool = false
 
 func _ready() -> void:
 	add_to_group("map")
@@ -46,47 +49,62 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if event is InputEventMouseButton:
-		match event.button_index:
-			MOUSE_BUTTON_LEFT:
-				dragging = event.pressed
-				last_mouse_pos = event.position
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			dragging = event.pressed
+			last_mouse_pos = event.position
+		#match event.button_index:
+			#MOUSE_BUTTON_LEFT:
+			#	dragging = event.pressed
+			#	last_mouse_pos = event.position
 
-			MOUSE_BUTTON_WHEEL_UP:
-				if event.pressed:
-					_zoom_camera(zoom_speed)
+			#MOUSE_BUTTON_WHEEL_UP:
+			#	if event.pressed:
+			#		_zoom_camera(zoom_speed)
 
-			MOUSE_BUTTON_WHEEL_DOWN:
-				if event.pressed:
-					_zoom_camera(-zoom_speed)
+			#MOUSE_BUTTON_WHEEL_DOWN:
+			#	if event.pressed:
+			#		_zoom_camera(-zoom_speed)
 
 	elif event is InputEventMouseMotion and dragging:
 		var delta: Vector2 = event.position - last_mouse_pos
-		camera_2d.position -= delta
+		camera_2d.position.x -= delta.x
+		camera_2d.position.y = map_camera_start_position.y
 		last_mouse_pos = event.position
 		_clamp_camera()
 
 
-func _zoom_camera(amount: float) -> void:
-	var new_zoom := camera_2d.zoom + Vector2(amount, amount)
+#func _zoom_camera(amount: float) -> void:
+#	var new_zoom := camera_2d.zoom + Vector2(amount, amount)
 
-	new_zoom.x = clamp(new_zoom.x, min_zoom, max_zoom)
-	new_zoom.y = clamp(new_zoom.y, min_zoom, max_zoom)
+#	new_zoom.x = clamp(new_zoom.x, min_zoom, max_zoom)
+#	new_zoom.y = clamp(new_zoom.y, min_zoom, max_zoom)
 
-	camera_2d.zoom = new_zoom
-	_clamp_camera()
+#	camera_2d.zoom = new_zoom
+#	_clamp_camera()
 
 
 func _clamp_camera() -> void:
 	var min_x = 0
-	var max_x = MapGenerator.X_DIST * (MapGenerator.FLOORS - 1)
+	var max_x = MapGenerator.X_DIST * (MapGenerator.FLOORS - 1) -250
 
-	var min_y = 0
-	var max_y = MapGenerator.Y_DIST * (MapGenerator.MAP_WIDTH - 1)
+	#var min_y = 0
+	#var max_y = MapGenerator.Y_DIST * (MapGenerator.MAP_WIDTH - 1)
 
 	camera_2d.position.x = clamp(camera_2d.position.x, min_x, max_x)
-	camera_2d.position.y = clamp(camera_2d.position.y, min_y, max_y)
+	#camera_2d.position.y = clamp(camera_2d.position.y, min_y, max_y)
+	camera_2d.position.y = map_camera_start_position.y
 
+func get_clamped_camera_position(target: Vector2) -> Vector2:
+	var min_x: float = 0.0
+	var max_x: float = float(
+		MapGenerator.X_DIST * (MapGenerator.FLOORS - 1) - 250
+	)
 
+	return Vector2(
+		clampf(target.x, min_x, max_x),
+		map_camera_start_position.y
+	)
+	
 func generate_new_map() -> void:
 	floors_climbed = 0
 	last_room = null
@@ -118,9 +136,13 @@ func create_map() -> void:
 				_spawn_room(room)
 
 	# câmera inicial
-	var start_room = map_data[0][int(MapGenerator.MAP_WIDTH / 2)]
-	camera_2d.position = start_room.position
-	camera_2d.zoom = Vector2(0.8, 0.8)
+	#var start_room = map_data[0][int(MapGenerator.MAP_WIDTH / 2)]
+	#camera_2d.position = start_room.position
+	#camera_2d.zoom = Vector2(0.2, 0.2)
+	var start_room: Room = map_data[0][int(MapGenerator.MAP_WIDTH / 2)]
+	map_camera_start_position = start_room.position
+	camera_2d.position = map_camera_start_position
+	camera_2d.zoom = Vector2(0.9, 0.9)
 	
 	# boss
 	var middle := floori(MapGenerator.MAP_WIDTH * 0.5)
@@ -155,6 +177,7 @@ func unlock_next_rooms() -> void:
 func show_map() -> void:
 	show()
 	camera_2d.enabled = true
+	camera_2d.make_current()
 
 	if reroll_button:
 		reroll_button.show()
@@ -303,3 +326,93 @@ func _update_reroll_button() -> void:
 		return
 
 	reroll_button.disabled = run_stats.rerolls <= 0
+
+
+func adapt_map_for_low_score() -> bool:
+	if run_stats == null:
+		return false
+
+	if run_stats.dda_score >= DDA.LOW_SCORE_THRESHOLD:
+		return false
+
+	var candidates: Array[Room] = []
+
+	for floor_rooms in map_data:
+		for room: Room in floor_rooms:
+			if not room.active:
+				continue
+
+			if room.type != Room.Type.MONSTER:
+				continue
+
+			# Não alterar salas já visitadas.
+			if room.row < floors_climbed:
+				continue
+
+			# Não alterar a sala do chefe.
+			if room.row >= MapGenerator.FLOORS - 1:
+				continue
+
+			candidates.append(room)
+
+	if candidates.is_empty():
+		return false
+
+	var room_to_change: Room = candidates.pick_random()
+
+	# Reutiliza a animação genérica do mapa.
+	return await room_change_animation(room_to_change, Room.Type.CAMPFIRE)
+
+func room_change_animation(room: Room, new_type: Room.Type) -> bool:
+	if room == null or room.type == new_type:
+		return false
+
+	var map_room: MapRoom = null
+
+	for current_map_room: MapRoom in rooms.get_children():
+		if current_map_room.room == room:
+			map_room = current_map_room
+			break
+
+	if map_room == null:
+		return false
+
+	var original_position: Vector2 = camera_2d.position
+	var room_position: Vector2 = to_local(map_room.global_position)
+	var desired_position := room_position - camera_2d.offset
+	var target_position := get_clamped_camera_position(desired_position)
+	
+	var tween := create_tween()
+	tween.tween_property(camera_2d, "position", target_position, 1.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	await tween.finished
+
+	await get_tree().create_timer(0.8).timeout
+
+	var original_scale: Vector2 = map_room.scale
+
+	tween = create_tween()
+	tween.tween_property(map_room, "scale", original_scale * 1.2, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	await tween.finished
+
+	room.type = new_type
+	room.original_type = new_type
+
+	if new_type != Room.Type.MONSTER and new_type != Room.Type.BOSS:
+		room.battle_stats = null
+
+	if new_type != Room.Type.EVENT:
+		room.event_scene = null
+
+	map_room.update_visual()
+
+	tween = create_tween()
+	tween.tween_property(map_room, "scale", original_scale, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	await tween.finished
+
+	await get_tree().create_timer(1.2).timeout
+
+	tween = create_tween()
+	tween.tween_property(camera_2d, "position", original_position, 1.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	await tween.finished
+	
+	return true

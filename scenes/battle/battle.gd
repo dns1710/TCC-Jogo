@@ -13,9 +13,7 @@ extends Node2D
 @onready var atb_manager: ATBManager = $ATBManager
 
 func _ready() -> void: 
-	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed) 
-	#Events.enemy_turn_ended.connect(_on_enemy_turn_ended) 
-	#Events.player_turn_ended.connect(player_handler.end_turn)
+	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed)
 	Events.player_atb_ready.connect(_on_player_atb_ready)
 	Events.player_action_completed.connect(_on_player_action_completed)
 	Events.player_died.connect(_on_player_died) 
@@ -27,8 +25,7 @@ func start_battle() -> void:
 	char_stats.reset_stats()
 	player.stats = char_stats 
 	player_handler.relics = relics 
-	enemy_handler.setup_enemies(battle_stats) 
-	#enemy_handler.reset_enemy_actions() 
+	enemy_handler.setup_enemies(battle_stats)
 	relics.relics_activated.connect(_on_relics_activated) 
 	relics.activate_relics_by_type(Relic.Type.START_OF_COMBAT)
 	relics.activate_relics_by_type(Relic.Type.EVENT_BASED)

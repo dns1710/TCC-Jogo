@@ -17,7 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Deck Builder Tutorial"
 config/tags=PackedStringArray("gamelab")
 run/main_scene="uid://4tj0qise1som"
-config/features=PackedStringArray("4.6", "Mobile")
+config/features=PackedStringArray("4.7", "Mobile")
 boot_splash/use_filter=false
 boot_splash/image="uid://cy1gnj0w5x54q"
 config/icon="res://icon.png"
@@ -39,6 +39,7 @@ gdscript/warnings/unused_signal=0
 
 window/size/viewport_width=256
 window/size/viewport_height=144
+window/size/mode=3
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="viewport"

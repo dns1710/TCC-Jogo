@@ -29,6 +29,7 @@ const MAIN_MENU_PATH := "res://scenes/ui/main_menu.tscn"
 var stats: RunStats
 var character: CharacterStats
 var save_data: SaveGame
+var dda := DDA.new()
 
 func _ready() -> void:
 	if not run_startup:
@@ -68,7 +69,6 @@ func _start_new_run() -> void:
 func _save_run(was_on_map: bool) -> void:
 	save_data.run_stats = stats
 	save_data.char_stats = character
-	#save_data.current_health = character.health
 	save_data.relics = relic_handler.get_all_relics()
 	save_data.last_room = map.last_room
 	save_data.map_data = map.map_data.duplicate()
@@ -87,16 +87,12 @@ func _load_run() -> void:
 	stats = save_data.run_stats
 	character = save_data.char_stats
 	map.run_stats = stats
-	#character.health = save_data.current_health
 	relic_handler.add_relics(save_data.relics)
 	relic_handler.run_stats = stats
 	relic_handler.character_stats = character
 	_setup_top_bar()
-	#_setup_event_connections()
 	
 	map.load_map(save_data.map_data, save_data.floors_climbed, save_data.last_room)
-	#if save_data.last_room and not save_data.was_on_map:
-	#	_on_map_exited(save_data.last_room)
 	if save_data.was_on_map:
 		map.show_map()
 	elif save_data.last_room:
@@ -219,6 +215,11 @@ func _on_event_room_entered(room: Room) -> void:
 	event_room.setup()
 
 func _on_battle_won() -> void:
+	dda.update_score_battle(character.health, character.max_health,stats)
+	
+	if stats.dda_score < DDA.LOW_SCORE_THRESHOLD:
+		map.adapt_map_for_low_score()
+		
 	if map.floors_climbed == MapGenerator.FLOORS:
 		var win_screen := _change_view(WIN_SCREEN_SCENE) as WinScreen
 		win_screen.character = character
