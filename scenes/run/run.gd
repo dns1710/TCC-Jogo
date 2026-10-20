@@ -117,7 +117,7 @@ func _connect_ui_signals() -> void:
 func _connect_global_signals() -> void:
 	_safe_connect(Events.battle_won, _on_battle_won)
 	_safe_connect(Events.battle_reward_exited, _show_map)
-	_safe_connect(Events.campfire_exited, _show_map)
+	_safe_connect(Events.campfire_exited, _on_campfire_exited)
 	_safe_connect(Events.map_exited, _on_map_exited)
 	_safe_connect(Events.shop_exited, _show_map)
 	_safe_connect(Events.treasure_room_exited, _on_treasure_room_exited)
@@ -154,8 +154,6 @@ func _change_view(scene: PackedScene) -> Node:
 func _show_map() -> void:
 	if current_view.get_child_count() > 0:
 		current_view.get_child(0).queue_free()
-	#for child in current_view.get_children():
-	#	child.queue_free()
 
 	map.show_map()
 	map.unlock_next_rooms()
@@ -200,6 +198,29 @@ func _on_campfire_entered() -> void:
 	var campfire := _change_view(CAMPFIRE_SCENE) as Campfire
 	campfire.char_stats = character
 
+func _on_campfire_exited() -> void:
+	dda.update_score_campfire(character.health, character.max_health,stats)
+	
+	var score: int = stats.dda_score
+	var hp_percentage: float = (float(character.health)/float(character.max_health) if character.max_health > 0 else 0.0)
+	
+		
+	if score >= 70:
+		var room_type: Room.Type
+		var amount := 2 if score >= 90 else 1
+		if hp_percentage >= 0.5:
+			room_type = Room.Type.CAMPFIRE
+		else:
+			room_type = Room.Type.EVENT
+			
+		map.change_room(room_type, Room.Type.MONSTER, amount)
+		
+	if score <= 30:
+		var amount := 2 if score <= 10 else 1
+		map.change_room(Room.Type.MONSTER, Room.Type.CAMPFIRE, amount)
+		
+	_show_map()
+
 func _on_shop_entered() -> void:
 	var shop := _change_view(SHOP_SCENE) as Shop
 	shop.char_stats = character
@@ -217,8 +238,24 @@ func _on_event_room_entered(room: Room) -> void:
 func _on_battle_won() -> void:
 	dda.update_score_battle(character.health, character.max_health,stats)
 	
-	if stats.dda_score < DDA.LOW_SCORE_THRESHOLD:
-		map.adapt_map_for_low_score()
+	var score: int = stats.dda_score
+	
+	if score >= 65:
+		var amount := 2 if score >= 90 else 1
+		map.change_room(Room.Type.CAMPFIRE, Room.Type.MONSTER, amount)
+		
+	if score <= 35:
+		var room_type: Room.Type
+		
+		var hp_percentage: float = (float(character.health)/float(character.max_health) if character.max_health > 0 else 0.0)
+		
+		if stats.gold >= 150 and hp_percentage > 0.5:
+			room_type = Room.Type.SHOP
+		else:
+			room_type = Room.Type.CAMPFIRE
+			
+		var amount := 2 if score <= 10 else 1
+		map.change_room(Room.Type.MONSTER, room_type, amount)
 		
 	if map.floors_climbed == MapGenerator.FLOORS:
 		var win_screen := _change_view(WIN_SCREEN_SCENE) as WinScreen

@@ -224,7 +224,6 @@ func _connect_lines(room: Room) -> void:
 
 
 func _on_map_room_clicked(room: Room) -> void:
-
 	if reroll_mode:
 		_reroll_room(room)
 
@@ -326,44 +325,39 @@ func _update_reroll_button() -> void:
 		return
 
 	reroll_button.disabled = run_stats.rerolls <= 0
-
-
-func adapt_map_for_low_score() -> bool:
-	if run_stats == null:
-		return false
-
-	if run_stats.dda_score >= DDA.LOW_SCORE_THRESHOLD:
-		return false
-
-	var candidates: Array[Room] = []
-
+	
+func change_room(original_type: Room.Type, new_type: Room.Type, amount: int = 1) -> int:
+	var candidates: Array[Room]
+	
 	for floor_rooms in map_data:
 		for room: Room in floor_rooms:
 			if not room.active:
 				continue
-
-			if room.type != Room.Type.MONSTER:
+			if room.type != original_type:
 				continue
-
-			# Não alterar salas já visitadas.
 			if room.row < floors_climbed:
 				continue
-
-			# Não alterar a sala do chefe.
 			if room.row >= MapGenerator.FLOORS - 1:
 				continue
-
 			candidates.append(room)
-
+	
+	var changed_count := 0
+	var rooms_to_change: int = mini(amount, candidates.size())
+	var initial_camera_position: Vector2 = camera_2d.position
+	
+	for i in range(rooms_to_change):
+		var target_room: Room = candidates.pick_random()
+		candidates.erase(target_room)
+		var is_last_room: bool = i == rooms_to_change-1
+		var changed: bool = await room_change_animation(target_room, new_type, is_last_room, initial_camera_position)
+		if changed:
+			changed_count += 1
 	if candidates.is_empty():
 		return false
-
-	var room_to_change: Room = candidates.pick_random()
-
-	# Reutiliza a animação genérica do mapa.
-	return await room_change_animation(room_to_change, Room.Type.CAMPFIRE)
-
-func room_change_animation(room: Room, new_type: Room.Type) -> bool:
+	
+	return changed_count
+	
+func room_change_animation(room: Room, new_type: Room.Type, return_camera: bool = true, return_position: Vector2 = Vector2.ZERO) -> bool:
 	if room == null or room.type == new_type:
 		return false
 
@@ -383,7 +377,7 @@ func room_change_animation(room: Room, new_type: Room.Type) -> bool:
 	var target_position := get_clamped_camera_position(desired_position)
 	
 	var tween := create_tween()
-	tween.tween_property(camera_2d, "position", target_position, 1.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(camera_2d, "position", target_position, 1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
 
 	await get_tree().create_timer(0.8).timeout
@@ -391,28 +385,33 @@ func room_change_animation(room: Room, new_type: Room.Type) -> bool:
 	var original_scale: Vector2 = map_room.scale
 
 	tween = create_tween()
-	tween.tween_property(map_room, "scale", original_scale * 1.2, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(map_room, "scale", original_scale * 1, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	await tween.finished
 
 	room.type = new_type
 	room.original_type = new_type
 
-	if new_type != Room.Type.MONSTER and new_type != Room.Type.BOSS:
-		room.battle_stats = null
-
-	if new_type != Room.Type.EVENT:
-		room.event_scene = null
+	match new_type:
+		Room.Type.MONSTER:
+			room.battle_stats = map_generator.battle_stats_pool.get_random_battle_for_tier(1)
+			room.event_scene = null
+		Room.Type.EVENT:
+			room.event_scene = map_generator.event_room_pool.get_random()
+			room.battle_stats = null
+		_:
+			room.battle_stats = null
+			room.event_scene = null
 
 	map_room.update_visual()
 
 	tween = create_tween()
 	tween.tween_property(map_room, "scale", original_scale, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	await tween.finished
-
-	await get_tree().create_timer(1.2).timeout
-
-	tween = create_tween()
-	tween.tween_property(camera_2d, "position", original_position, 1.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	await tween.finished
+	
+	if return_camera:
+		await get_tree().create_timer(1).timeout
+		tween = create_tween()
+		tween.tween_property(camera_2d, "position", return_position, 1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		await tween.finished
 	
 	return true

@@ -84,3 +84,12 @@ func _spawn_popup(poptext: String, color: Color) -> void:
 	get_parent().add_child(popup)
 	popup.global_position = sprite_2d.global_position
 	popup.setup(poptext, color)
+
+#func attack_animation() -> void:
+#	var original_position := position
+#	var attack_position := original_position + Vector2(32, 0)
+#	var tween := create_tween()
+#	tween.tween_property(self, "position", attack_position, 0.15).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+#	tween.tween_interval(0.25)
+#	tween.tween_property(self, "position", original_position, 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+#	await tween.finished
