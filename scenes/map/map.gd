@@ -403,13 +403,14 @@ func room_change_animation(room: Room, new_type: Room.Type, return_camera: bool 
 			room.event_scene = null
 
 	map_room.update_visual()
+	map_room.flash()
 
 	tween = create_tween()
 	tween.tween_property(map_room, "scale", original_scale, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	await tween.finished
 	
 	if return_camera:
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(1.2).timeout
 		tween = create_tween()
 		tween.tween_property(camera_2d, "position", return_position, 1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		await tween.finished
