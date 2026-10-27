@@ -327,11 +327,14 @@ func _update_reroll_button() -> void:
 	reroll_button.disabled = run_stats.rerolls <= 0
 	
 func change_room(original_type: Room.Type, new_type: Room.Type, amount: int = 1) -> int:
-	var candidates: Array[Room]
-	
+	var candidates: Array[Room] = []
+	var reachable_rooms: Array[Room] = get_reachable_rooms()
+
 	for floor_rooms in map_data:
 		for room: Room in floor_rooms:
 			if not room.active:
+				continue
+			if not reachable_rooms.has(room):
 				continue
 			if room.type != original_type:
 				continue
@@ -339,23 +342,67 @@ func change_room(original_type: Room.Type, new_type: Room.Type, amount: int = 1)
 				continue
 			if room.row >= MapGenerator.FLOORS - 1:
 				continue
+
 			candidates.append(room)
-	
+
+	if candidates.is_empty():
+		return 0
+
+	var reference_position: Vector2 = Vector2.ZERO
+	if last_room != null:
+		reference_position = last_room.position
+
+	candidates.sort_custom(
+		func(a: Room, b: Room) -> bool:
+			var a_is_next: bool = (last_room != null and last_room.next_rooms.has(a))
+			var b_is_next: bool = (last_room != null and last_room.next_rooms.has(b))
+
+			if a_is_next != b_is_next:
+				return a_is_next
+
+			return (a.position.distance_squared_to(reference_position) < b.position.distance_squared_to(reference_position))
+	)
+
 	var changed_count := 0
 	var rooms_to_change: int = mini(amount, candidates.size())
 	var initial_camera_position: Vector2 = camera_2d.position
-	
+
 	for i in range(rooms_to_change):
-		var target_room: Room = candidates.pick_random()
-		candidates.erase(target_room)
-		var is_last_room: bool = i == rooms_to_change-1
+		var target_room: Room = candidates[i]
+		var is_last_room: bool = i == rooms_to_change - 1
+
 		var changed: bool = await room_change_animation(target_room, new_type, is_last_room, initial_camera_position)
+
 		if changed:
 			changed_count += 1
-	if candidates.is_empty():
-		return false
 	
 	return changed_count
+
+func get_reachable_rooms() -> Array[Room]:
+	var reachable: Array[Room] = []
+	var rooms_to_check: Array[Room] = []
+
+	if last_room == null:
+		return reachable
+
+	for room: Room in last_room.next_rooms:
+		if room.active and not reachable.has(room):
+			reachable.append(room)
+			rooms_to_check.append(room)
+
+	while not rooms_to_check.is_empty():
+		var current_room: Room = rooms_to_check.pop_front()
+		
+		for next_room: Room in current_room.next_rooms:
+			if not next_room.active:
+				continue
+			if reachable.has(next_room):
+				continue
+				
+			reachable.append(next_room)
+			rooms_to_check.append(next_room)
+
+	return reachable
 	
 func room_change_animation(room: Room, new_type: Room.Type, return_camera: bool = true, return_position: Vector2 = Vector2.ZERO) -> bool:
 	if room == null or room.type == new_type:
@@ -371,7 +418,6 @@ func room_change_animation(room: Room, new_type: Room.Type, return_camera: bool 
 	if map_room == null:
 		return false
 
-	var original_position: Vector2 = camera_2d.position
 	var room_position: Vector2 = to_local(map_room.global_position)
 	var desired_position := room_position - camera_2d.offset
 	var target_position := get_clamped_camera_position(desired_position)
