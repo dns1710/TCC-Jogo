@@ -50,6 +50,10 @@ func add_relic(relic: Relic) -> void:
 		push_error("Tentou adicionar relic NULL")
 		return
 	
+	if run_stats:
+		run_stats.dda_score = clampi(run_stats.dda_score + 5, 0, 100)
+		print("ADD RELIC. SCORE: ", run_stats.dda_score)
+	
 	_apply_relic_stats(relic)
 	
 	var new_relic_ui := RELIC_UI.instantiate() as RelicUI

@@ -31,6 +31,9 @@ var character: CharacterStats
 var save_data: SaveGame
 var dda := DDA.new()
 
+var shop_entered_items: int
+var shop_changed := false
+
 func _ready() -> void:
 	if not run_startup:
 		return
@@ -100,7 +103,6 @@ func _load_run() -> void:
 	
 func _setup_top_bar() -> void:
 	_connect_character_signals()
-
 	health_ui.update_stats(character)
 	gold_ui.run_stats = stats
 
@@ -119,7 +121,7 @@ func _connect_global_signals() -> void:
 	_safe_connect(Events.battle_reward_exited, _show_map)
 	_safe_connect(Events.campfire_exited, _on_campfire_exited)
 	_safe_connect(Events.map_exited, _on_map_exited)
-	_safe_connect(Events.shop_exited, _show_map)
+	_safe_connect(Events.shop_exited, _on_shop_exited)
 	_safe_connect(Events.treasure_room_exited, _on_treasure_room_exited)
 	_safe_connect(Events.event_room_exited, _show_map)
 	_safe_connect(Events.relic_tooltip_requested, relic_tooltip.show_tooltip)
@@ -127,10 +129,7 @@ func _connect_global_signals() -> void:
 
 func _connect_character_signals() -> void:
 	if character:
-		_safe_connect(
-			character.stats_changed,
-			func(): health_ui.update_stats(character)
-		)
+		_safe_connect(character.stats_changed, func(): health_ui.update_stats(character))
 
 
 func _safe_connect(signal_ref: Signal, callable: Callable) -> void:
@@ -204,7 +203,6 @@ func _on_campfire_exited() -> void:
 	var score: int = stats.dda_score
 	var hp_percentage: float = (float(character.health)/float(character.max_health) if character.max_health > 0 else 0.0)
 	
-		
 	if score >= 70:
 		var room_type: Room.Type
 		var amount := 2 if score >= 90 else 1
@@ -212,22 +210,50 @@ func _on_campfire_exited() -> void:
 			room_type = Room.Type.CAMPFIRE
 		else:
 			room_type = Room.Type.EVENT
-			
-		map.change_room(room_type, Room.Type.MONSTER, amount)
 		
+		map.change_room(room_type, Room.Type.MONSTER, amount)
+	
 	if score <= 30:
 		var amount := 2 if score <= 10 else 1
-		map.change_room(Room.Type.MONSTER, Room.Type.CAMPFIRE, amount)
+		if hp_percentage >= 0.5:
+			map.change_room(Room.Type.EVENT, Room.Type.CAMPFIRE, amount)
+		else:
+			map.change_room(Room.Type.MONSTER, Room.Type.CAMPFIRE, amount)
 		
 	_show_map()
 
 func _on_shop_entered() -> void:
+	shop_entered_items = relic_handler.get_all_relics().size()
+	print("ITENS ATUAIS: ", shop_entered_items)
+	
 	var shop := _change_view(SHOP_SCENE) as Shop
 	shop.char_stats = character
 	shop.run_stats = stats
 	shop.relic_handler = relic_handler
 	Events.shop_entered.emit(shop)
 	shop.populate_shop()
+	
+func _on_shop_exited() -> void:
+	var score: int = stats.dda_score
+	var relic_count: int = relic_handler.get_all_relics().size()
+	
+	print("ITENS ATUAIS: ", relic_count)
+	
+	if !shop_changed and relic_count == (shop_entered_items+3) and relic_count >= 4:
+		map.change_room(Room.Type.SHOP, Room.Type.MONSTER)
+		shop_changed = true
+	
+	if !shop_changed and relic_count == shop_entered_items and stats.gold <= 90:
+		print("LOW SCORE SHOP")
+		if score <= 15:
+			print("MOSNTER >>>> TREASURE")
+			map.change_room(Room.Type.MONSTER, Room.Type.TREASURE)
+		elif score <= 35:
+			print("EVENT >>>> TREASURE")
+			map.change_room(Room.Type.EVENT, Room.Type.TREASURE)
+		shop_changed = true
+		
+	_show_map()
 
 func _on_event_room_entered(room: Room) -> void:
 	var event_room := _change_view(room.event_scene) as EventRoom
@@ -238,16 +264,23 @@ func _on_event_room_entered(room: Room) -> void:
 func _on_battle_won() -> void:
 	dda.update_score_battle(character.health, character.max_health,stats)
 	
+	var hp_percentage: float = (float(character.health)/float(character.max_health) if character.max_health > 0 else 0.0)
 	var score: int = stats.dda_score
 	
 	if score >= 65:
 		var amount := 2 if score >= 90 else 1
-		map.change_room(Room.Type.CAMPFIRE, Room.Type.MONSTER, amount)
+		var relic_count: int = relic_handler.get_all_relics().size()
 		
+		if relic_count >= 4 and shop_changed == false:
+			map.change_room(Room.Type.SHOP, Room.Type.MONSTER)
+			shop_changed = true
+		elif hp_percentage >= 0.5:
+			map.change_room(Room.Type.CAMPFIRE, Room.Type.MONSTER)
+		elif hp_percentage < 0.5:
+			map.change_room(Room.Type.EVENT, Room.Type.MONSTER)
+				
 	if score <= 35:
 		var room_type: Room.Type
-		
-		var hp_percentage: float = (float(character.health)/float(character.max_health) if character.max_health > 0 else 0.0)
 		
 		if stats.gold >= 150 and hp_percentage > 0.5:
 			room_type = Room.Type.SHOP
@@ -255,7 +288,7 @@ func _on_battle_won() -> void:
 			room_type = Room.Type.CAMPFIRE
 			
 		var amount := 2 if score <= 10 else 1
-		map.change_room(Room.Type.MONSTER, room_type, amount)
+		map.change_room(Room.Type.MONSTER, room_type)
 		
 	if map.floors_climbed == MapGenerator.FLOORS:
 		var win_screen := _change_view(WIN_SCREEN_SCENE) as WinScreen

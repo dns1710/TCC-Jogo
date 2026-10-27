@@ -50,12 +50,12 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	if map == null:
 		return
 
-	# 🎲 REROLL MODE
+	#REROLL MODE
 	if map.reroll_mode:
 		clicked.emit(room)
 		return
 
-	# 🎮 NORMAL
+	#NORMAL
 	if not available:
 		return
 
