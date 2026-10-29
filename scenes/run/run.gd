@@ -34,6 +34,7 @@ var dda := DDA.new()
 var shop_entered_items: int
 var dda_shop_changed := false
 var dda_treasure_spawned := false
+var dda_treasure_pending := false
 
 func _ready() -> void:
 	if not run_startup:
@@ -152,6 +153,20 @@ func _change_view(scene: PackedScene) -> Node:
 
 
 func _show_map() -> void:
+	if dda_treasure_pending:
+		var score: int = stats.dda_score
+		var relic_count: int = relic_handler.get_all_relics().size()
+		var hp_percentage: float = (float(character.health)/float(character.max_health) if character.max_health > 0 else 0.0)
+		
+		if !dda_shop_changed and score >= 55 and relic_count > shop_entered_items and relic_count >= 4:
+			map.change_room(Room.Type.SHOP, Room.Type.MONSTER)
+			dda_shop_changed = true
+		elif score >= 70:
+			if hp_percentage > 0.5:
+				map.change_room(Room.Type.CAMPFIRE, Room.Type.MONSTER)
+			else:
+				map.change_room(Room.Type.EVENT, Room.Type.MONSTER)
+			
 	if current_view.get_child_count() > 0:
 		current_view.get_child(0).queue_free()
 
@@ -183,6 +198,7 @@ func _on_treasure_room_entered() -> void:
 	treasure.relic_handler = relic_handler
 	treasure.char_stats = character
 	treasure.generate_relic()
+	shop_entered_items = relic_handler.get_all_relics().size()
 
 func _on_treasure_room_exited(relic: Relic) -> void:
 	var reward := _change_view(BATTLE_REWARD_SCENE) as BattleReward
@@ -193,6 +209,7 @@ func _on_treasure_room_exited(relic: Relic) -> void:
 	reward.relic_handler = relic_handler
 	reward.add_gold_reward(RNG.pick_random(gold_reward_min,gold_reward_max))
 	reward.add_relic_reward(relic)
+	dda_treasure_pending = true
 
 func _on_campfire_entered() -> void:
 	var campfire := _change_view(CAMPFIRE_SCENE) as Campfire
@@ -200,7 +217,6 @@ func _on_campfire_entered() -> void:
 
 func _on_campfire_exited() -> void:
 	dda.update_score_campfire(character.health, character.max_health,stats)
-	
 	var score: int = stats.dda_score
 	var hp_percentage: float = (float(character.health)/float(character.max_health) if character.max_health > 0 else 0.0)
 	

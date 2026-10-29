@@ -37,6 +37,9 @@ signal campfire_exited
 # Battle Reward-related events
 signal battle_reward_exited
 
+# Reward-related events
+signal reward_exited
+
 # Treasure Room-related events
 signal treasure_room_exited(found_relic: Relic)
 

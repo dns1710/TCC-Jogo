@@ -27,4 +27,5 @@ func set_reward_text(new_text: String) -> void:
 
 
 func _on_pressed() -> void:
+	Events.reward_exited.emit()
 	queue_free()

@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cahno8aso5net"]
 
 [ext_resource type="Script" uid="uid://47drxe4pbulu" path="res://scenes/battle/battle.gd" id="1_4s751"]
-[ext_resource type="AudioStream" uid="uid://bydreeeqqdbvd" path="res://art/verdadeira arte/La Route N'est Pas Vide.mp3" id="2_kd6yx"]
+[ext_resource type="AudioStream" uid="uid://bydreeeqqdbvd" path="res://art/verdadeira arte/track/La Route N'est Pas Vide.mp3" id="2_kd6yx"]
 [ext_resource type="PackedScene" uid="uid://2n4lap6w3pde" path="res://scenes/player/player.tscn" id="3_dpj45"]
-[ext_resource type="AudioStream" uid="uid://bo8mn2yas0hpy" path="res://art/verdadeira arte/Esperanto.mp3" id="3_t1kk3"]
+[ext_resource type="AudioStream" uid="uid://bo8mn2yas0hpy" path="res://art/verdadeira arte/track/Esperanto.mp3" id="3_t1kk3"]
 [ext_resource type="Script" uid="uid://brbvnlnf2h5eq" path="res://scenes/enemy/enemy_handler.gd" id="4_41vpn"]
 [ext_resource type="Texture2D" uid="uid://dg4l0d8gvxu2m" path="res://art/backgroundfloresta.jpg" id="4_t1kk3"]
 [ext_resource type="Script" uid="uid://de5r1qjtugn1k" path="res://scenes/ui/battle_ui.gd" id="7_18vit"]
@@ -82,18 +82,18 @@ offset_bottom = 42.0
 
 [node name="AttackButton" type="Button" parent="BattleUI" unique_id=917591278]
 unique_name_in_owner = true
-offset_left = 15.0
+offset_left = 46.0
 offset_top = 112.0
-offset_right = 47.0
+offset_right = 78.0
 offset_bottom = 129.0
 theme_override_font_sizes/font_size = 6
 text = "ATTACK"
 
 [node name="BlockButton" type="Button" parent="BattleUI" unique_id=876155633]
 unique_name_in_owner = true
-offset_left = 51.0
+offset_left = 15.0
 offset_top = 112.0
-offset_right = 79.0
+offset_right = 43.0
 offset_bottom = 129.0
 theme_override_font_sizes/font_size = 6
 text = "BLOCK"
