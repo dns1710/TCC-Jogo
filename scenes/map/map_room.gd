@@ -49,6 +49,9 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	var map = get_tree().get_first_node_in_group("map")
 	if map == null:
 		return
+	
+	if map.animation_lock:
+		return
 
 	#REROLL MODE
 	if map.reroll_mode:

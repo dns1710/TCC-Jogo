@@ -166,6 +166,7 @@ func _show_map() -> void:
 				map.change_room(Room.Type.CAMPFIRE, Room.Type.MONSTER)
 			else:
 				map.change_room(Room.Type.EVENT, Room.Type.MONSTER)
+		dda_treasure_pending = false
 			
 	if current_view.get_child_count() > 0:
 		current_view.get_child(0).queue_free()
@@ -201,6 +202,7 @@ func _on_treasure_room_entered() -> void:
 	shop_entered_items = relic_handler.get_all_relics().size()
 
 func _on_treasure_room_exited(relic: Relic) -> void:
+	print("EXITES TREASURE")
 	var reward := _change_view(BATTLE_REWARD_SCENE) as BattleReward
 	var gold_reward_min = 40
 	var gold_reward_max = 50

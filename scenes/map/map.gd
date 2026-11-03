@@ -23,9 +23,6 @@ var animation_lock := false
 var dragging := false
 var last_mouse_pos := Vector2.ZERO
 
-#var zoom_speed := 0.1
-#var min_zoom := 0.5
-#var max_zoom := 2.0
 var camera_edge_x := 0.0
 var reroll_mode := false
 
@@ -56,18 +53,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			dragging = event.pressed
 			last_mouse_pos = event.position
-		#match event.button_index:
-			#MOUSE_BUTTON_LEFT:
-			#	dragging = event.pressed
-			#	last_mouse_pos = event.position
-
-			#MOUSE_BUTTON_WHEEL_UP:
-			#	if event.pressed:
-			#		_zoom_camera(zoom_speed)
-
-			#MOUSE_BUTTON_WHEEL_DOWN:
-			#	if event.pressed:
-			#		_zoom_camera(-zoom_speed)
 
 	elif event is InputEventMouseMotion and dragging:
 		var delta: Vector2 = event.position - last_mouse_pos
@@ -76,26 +61,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		last_mouse_pos = event.position
 		_clamp_camera()
 
-
-#func _zoom_camera(amount: float) -> void:
-#	var new_zoom := camera_2d.zoom + Vector2(amount, amount)
-
-#	new_zoom.x = clamp(new_zoom.x, min_zoom, max_zoom)
-#	new_zoom.y = clamp(new_zoom.y, min_zoom, max_zoom)
-
-#	camera_2d.zoom = new_zoom
-#	_clamp_camera()
-
-
 func _clamp_camera() -> void:
 	var min_x = 0
 	var max_x = MapGenerator.X_DIST * (MapGenerator.FLOORS - 1) -250
 
-	#var min_y = 0
-	#var max_y = MapGenerator.Y_DIST * (MapGenerator.MAP_WIDTH - 1)
-
 	camera_2d.position.x = clamp(camera_2d.position.x, min_x, max_x)
-	#camera_2d.position.y = clamp(camera_2d.position.y, min_y, max_y)
 	camera_2d.position.y = map_camera_start_position.y
 
 func get_clamped_camera_position(target: Vector2) -> Vector2:
@@ -139,10 +109,6 @@ func create_map() -> void:
 			if room.active:
 				_spawn_room(room)
 
-	# câmera inicial
-	#var start_room = map_data[0][int(MapGenerator.MAP_WIDTH / 2)]
-	#camera_2d.position = start_room.position
-	#camera_2d.zoom = Vector2(0.2, 0.2)
 	var start_room: Room = map_data[0][int(MapGenerator.MAP_WIDTH / 2)]
 	map_camera_start_position = start_room.position
 	camera_2d.position = map_camera_start_position
