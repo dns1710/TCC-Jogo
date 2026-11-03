@@ -9,7 +9,7 @@ func perform_action() -> void:
 		
 	already_used = true
 	enemy.special_state = "PREPARE"
-	enemy._spawn_popup("!!!", Color.RED)
+	enemy._spawn_popup("!!!!", Color.RED)
 	var block_effect := BlockEffect.new()
 	block_effect.amount = block
 	block_effect.sound = sound

@@ -3,9 +3,7 @@ extends Resource
 signal stats_changed
 
 @export var max_health: int : set = set_max_health
-
 @export var max_attack: int
-
 @export var max_speed: int
 @export var max_block: int
 @export var art: Texture
@@ -24,7 +22,7 @@ func set_health(value : int) -> void:
 	stats_changed.emit()
 	
 func set_attack(value: int) -> void:
-	attack = value
+	attack = clampi(value, 1, 999)
 	stats_changed.emit()
 
 func set_speed(value : int) -> void:
@@ -46,10 +44,12 @@ func set_max_health(value : int) -> void:
 	
 	stats_changed.emit()
 
-func take_damage(damage : int) -> void:
+func take_damage(damage: int) -> void:
 	if damage <= 0:
 		return
-	var initial_damage = damage
+
+	var initial_damage := damage
+
 	damage = clampi(damage - block, 0, damage)
 	block = clampi(block - initial_damage, 0, block)
 	health -= damage

@@ -20,7 +20,6 @@ enum CharacterType {ALL}
 func initialize_relic(_owner: RelicUI) -> void:
 	pass
 
-
 func activate_relic(_owner: RelicUI) -> void:
 	pass
 

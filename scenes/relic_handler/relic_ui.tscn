@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dqhq0ng8wwug3" path="res://scenes/relic_handler/relic_ui.gd" id="1_12s3y"]
 [ext_resource type="Texture2D" uid="uid://dytq0eumwvky6" path="res://art/tile_0074.png" id="1_3654h"]
-[ext_resource type="Resource" uid="uid://dgsppvwlatlhw" path="res://relics/old/healing_potion.tres" id="2_ed5mv"]
 [ext_resource type="Material" uid="uid://d30aqi80c1nrc" path="res://art/white_sprite_material.tres" id="2_t20sa"]
 
 [sub_resource type="Animation" id="Animation_ymr5g"]
@@ -63,18 +62,17 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mnii6"]
 _data = {
-"RESET": SubResource("Animation_ymr5g"),
-"flash": SubResource("Animation_ed1dg")
+&"RESET": SubResource("Animation_ymr5g"),
+&"flash": SubResource("Animation_ed1dg")
 }
 
-[node name="RelicUI" type="Control"]
+[node name="RelicUI" type="Control" unique_id=379823450]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_12s3y")
-relic = ExtResource("2_ed5mv")
 
-[node name="Icon" type="TextureRect" parent="."]
+[node name="Icon" type="TextureRect" parent="." unique_id=584719097]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 0
 offset_right = 16.0
@@ -84,9 +82,7 @@ texture = ExtResource("1_3654h")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_mnii6")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1820558920]
+libraries/ = SubResource("AnimationLibrary_mnii6")
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

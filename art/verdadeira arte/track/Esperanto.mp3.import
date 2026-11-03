@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bo8mn2yas0hpy"
+path="res://.godot/imported/Esperanto.mp3-c7fb19c204f4eb15504e11fcbb0bd8d1.mp3str"
+
+[deps]
+
+source_file="res://art/verdadeira arte/track/Esperanto.mp3"
+dest_files=["res://.godot/imported/Esperanto.mp3-c7fb19c204f4eb15504e11fcbb0bd8d1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -18,9 +18,6 @@ func _ready() -> void:
 
 
 func activate_relics_by_type(type: Relic.Type) -> void:
-	if type == Relic.Type.EVENT_BASED:
-		return
-		
 	if type == Relic.Type.PASSIVE_STATS:
 		return
 		
@@ -52,6 +49,10 @@ func add_relic(relic: Relic) -> void:
 	if relic == null:
 		push_error("Tentou adicionar relic NULL")
 		return
+	
+	if run_stats:
+		run_stats.dda_score = clampi(run_stats.dda_score + 5, 0, 100)
+		print("ADD RELIC. SCORE: ", run_stats.dda_score)
 	
 	_apply_relic_stats(relic)
 	

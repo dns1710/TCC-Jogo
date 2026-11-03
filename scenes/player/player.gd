@@ -8,7 +8,7 @@ const WHITE_SPRITE_MATERIAL := preload("res://art/white_sprite_material.tres")
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
 @onready var atb_progress: TextureProgressBar = $ATBProgress
 
-const DAMAGE_POPUP = preload("res://scenes/ui/popup.tscn")
+const POPUP = preload("res://scenes/ui/popup.tscn")
 const ATB_MAX := 30.0
 
 var atb: float = 0.0
@@ -62,7 +62,8 @@ func take_damage(damage: int, which_modifier: Modifier.Type, source = null) -> v
 	_spawn_popup(str(modified_damage), Color.FIREBRICK)
 	var tween := create_tween() 
 	tween.tween_callback(Shaker.shake.bind(self, 16, 0.15)) 
-	tween.tween_callback(stats.take_damage.bind(modified_damage)) 
+	tween.tween_callback(stats.take_damage.bind(modified_damage))
+	tween.tween_callback(func(): Events.player_health_changed.emit(self))
 	tween.tween_interval(0.17)
 	Events.player_damaged.emit(source, modified_damage)
 	tween.finished.connect( 
@@ -75,11 +76,20 @@ func take_damage(damage: int, which_modifier: Modifier.Type, source = null) -> v
 
 func heal(amount:int) -> void:
 	stats.heal(amount)
+	Events.player_health_changed.emit(self)
 	_spawn_popup(str(amount), Color.LIME_GREEN)
 
 func _spawn_popup(poptext: String, color: Color) -> void:
-	var popup = DAMAGE_POPUP.instantiate()
-	var random_offset = Vector2(randf_range(-10, 10), 0)
+	var popup = POPUP.instantiate()
 	get_parent().add_child(popup)
-	popup.global_position = sprite_2d.global_position + random_offset
+	popup.global_position = sprite_2d.global_position
 	popup.setup(poptext, color)
+
+#func attack_animation() -> void:
+#	var original_position := position
+#	var attack_position := original_position + Vector2(32, 0)
+#	var tween := create_tween()
+#	tween.tween_property(self, "position", attack_position, 0.15).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+#	tween.tween_interval(0.25)
+#	tween.tween_property(self, "position", original_position, 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+#	await tween.finished

@@ -8,7 +8,7 @@ script = ExtResource("1_mavaa")
 relic_name = "Really Cool Sword"
 id = "espada"
 icon = ExtResource("1_jda12")
-tooltip = "Really Cool Sword
-+2 ATTACK"
+tooltip = "[color=\"ffdf00\"]REALLY COOL SWORD[/color]
++2 [color=\"dc143c\"]ATTACK[/color]"
 bonus_atk = 2
 metadata/_custom_type_script = "uid://jrf1ynp2rrsw"

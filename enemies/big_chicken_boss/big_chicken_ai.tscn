@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://88hogv7k757k" path="res://custom_resources/intent.gd" id="3_ct1cc"]
 [ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="4_082ib"]
 [ext_resource type="Script" uid="uid://c8bo322j43y37" path="res://enemies/big_chicken_boss/big_chicken_enrage_action.gd" id="5_082ib"]
-[ext_resource type="Texture2D" uid="uid://dj26yyd4gi8i3" path="res://art/verdadeira arte/chicken_boss_rage.png" id="6_riuip"]
+[ext_resource type="Texture2D" uid="uid://dj26yyd4gi8i3" path="res://art/verdadeira arte/enemy/chicken_boss_rage.png" id="6_riuip"]
 [ext_resource type="AudioStream" uid="uid://cnqve7dtqjghp" path="res://art/true_strength.ogg" id="6_wcmkg"]
 
 [sub_resource type="Resource" id="Resource_wcmkg"]

@@ -49,13 +49,16 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	var map = get_tree().get_first_node_in_group("map")
 	if map == null:
 		return
+	
+	if map.animation_lock:
+		return
 
-	# 🎲 REROLL MODE
+	#REROLL MODE
 	if map.reroll_mode:
 		clicked.emit(room)
 		return
 
-	# 🎮 NORMAL
+	#NORMAL
 	if not available:
 		return
 
@@ -81,3 +84,18 @@ func set_reroll_highlight(active: bool) -> void:
 		modulate = Color(1.2, 1.2, 0.9)
 	else:
 		modulate = Color(1, 1, 1)
+
+
+func flash() -> void:
+	var original_scale: Vector2 = sprite_2d.scale
+	var tween := create_tween()
+
+	tween.set_parallel(true)
+
+	tween.tween_property(sprite_2d, "modulate", Color(3.0, 3.0, 1.8, 1.0), 0.15).from(Color.WHITE)
+
+	tween.tween_property(sprite_2d, "scale", original_scale * 1.4, 0.15).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+	tween.chain().tween_property(sprite_2d, "modulate", Color.WHITE, 0.3)
+
+	tween.parallel().tween_property(sprite_2d, "scale", original_scale,	0.3	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN_OUT)

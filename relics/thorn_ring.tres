@@ -7,10 +7,10 @@
 script = ExtResource("1_8limt")
 relic_name = "Thorn Ring"
 id = "thornring"
-type = 5
+type = 2
 icon = ExtResource("1_vbqlt")
-tooltip = "Thorn Ring
-+1 ATTACK
-Enemies that damage you take 1 damage back."
+tooltip = "[color=\"ffdf00\"]THORN RING[/color]
+[color=\"a6b2c9\"]\"You feel weird looking at it...\"[/color]
++1 [color=\"dc143c\"]ATTACK[/color], +1 [color=\"daa520\"]THORNS [/color]"
 bonus_atk = 1
 metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

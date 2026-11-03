@@ -8,6 +8,7 @@ enum Type {START_OF_TURN, END_OF_TURN, EVENT_BASED}
 enum StackType {NONE, INTENSITY, DURATION}
 
 @export_group("Status Data")
+@export var name: String
 @export var id: String
 @export var type: Type
 @export var stack_type: StackType

@@ -32,6 +32,10 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_gyfd6"]
+resource_name = "flash"
+length = 0.3
+
 [sub_resource type="Animation" id="Animation_rwbam"]
 resource_name = "highlight"
 loop_mode = 1
@@ -81,6 +85,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5oev0"]
 _data = {
 &"RESET": SubResource("Animation_foqjf"),
+&"flash": SubResource("Animation_gyfd6"),
 &"highlight": SubResource("Animation_rwbam"),
 &"select": SubResource("Animation_kidfm")
 }

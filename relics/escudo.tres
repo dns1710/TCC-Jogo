@@ -8,7 +8,7 @@ script = ExtResource("1_gpvg2")
 relic_name = "weirdly small shield"
 id = "escudo"
 icon = ExtResource("1_oohar")
-tooltip = "weirdly small shield
-+2 BLOCK"
+tooltip = "[color=\"ffdf00\"]WEIRDLY SMALL SHIELD[/color]
++2 [color=\"6fa8dc\"]BLOCK[/color]"
 bonus_blk = 2
 metadata/_custom_type_script = "uid://bb0l7ik1lb5ay"

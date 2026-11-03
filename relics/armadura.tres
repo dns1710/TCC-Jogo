@@ -9,6 +9,8 @@ relic_name = "Shining Armor"
 id = "armadura"
 type = 1
 icon = ExtResource("1_w5iwp")
-tooltip = "Shining Armor
-Gain 1 block at the start of every turn"
+tooltip = "[color=\"ffdf00\"]SHINING ARMOR[/color]
++1 [color=\"6fa8dc\"]BLOCK[/color]
+Gain +1 [color=\"6fa8dc\"]BLOCK[/color] at the start of every other turn"
+bonus_blk = 1
 metadata/_custom_type_script = "uid://doman22hrts78"

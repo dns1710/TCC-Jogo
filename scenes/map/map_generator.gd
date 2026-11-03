@@ -4,7 +4,7 @@ extends Node
 const X_DIST := 50
 const Y_DIST := 35
 const PLACEMENT_RANDOMNESS := 0
-const FLOORS := 11
+const FLOORS := 13
 const MAP_WIDTH := 3
 
 @export var battle_stats_pool: BattleStatsPool
@@ -50,7 +50,6 @@ func generate_map() -> Array[Array]:
 
 
 	for floor in range(1, FLOORS - 2):
-
 		var next_rooms: Array[Room] = []
 		var floor_connections := []
 
@@ -113,7 +112,6 @@ func generate_map() -> Array[Array]:
 	var treasure_floor := int(FLOORS / 2)
 
 	for floor in range(1, FLOORS - 1):
-
 		for room in map_data[floor]:
 
 			if not room.active:

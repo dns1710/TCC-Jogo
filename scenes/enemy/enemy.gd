@@ -15,7 +15,7 @@ const WHITE_SPRITE_MATERIAL := preload("res://art/white_sprite_material.tres")
 
 var special_state := ""
 
-const DAMAGE_POPUP = preload("res://scenes/ui/popup.tscn")
+const POPUP = preload("res://scenes/ui/popup.tscn")
 
 const ATB_MAX := 30.0
 var atb: float = 0.0
@@ -130,10 +130,9 @@ func heal(amount:int) -> void:
 	_spawn_popup(str(amount), Color.LIME_GREEN)
 
 func _spawn_popup(poptext: String, color: Color) -> void:
-	var popup = DAMAGE_POPUP.instantiate()
-	var random_offset = Vector2(randf_range(-10, 10), 0)
+	var popup = POPUP.instantiate()
 	get_parent().get_parent().add_child(popup)
-	popup.global_position = sprite_2d.global_position + random_offset
+	popup.global_position = sprite_2d.global_position
 	popup.setup(poptext, color)
 
 func _on_area_entered(_area: Area2D) -> void:

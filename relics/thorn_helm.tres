@@ -9,8 +9,7 @@ relic_name = "Thorn Helm"
 id = "thornplate"
 type = 5
 icon = ExtResource("1_sechd")
-tooltip = "Thorn Helm
-+1 Block
-Enemies that damage you take 1 damage back"
+tooltip = "[color=\"ffdf00\"]THORN HELM[/color]
++1 [color=\"6fa8dc\"]BLOCK[/color], +1 [color=\"daa520\"]THORNS [/color]"
 bonus_blk = 1
 metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

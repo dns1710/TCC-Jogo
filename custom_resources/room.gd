@@ -23,8 +23,7 @@ enum Type {NOT_ASSIGNED, MONSTER, TREASURE, CAMPFIRE, SHOP, BOSS, EVENT}
 
 func _init():
 	next_rooms = []
-
-
+	
 func connect_to(rooms: Array) -> void:
 	next_rooms.clear()
 	for r in rooms:

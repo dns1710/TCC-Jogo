@@ -4,7 +4,8 @@ extends HBoxContainer
 @export var status: Status : set = set_status
 
 @onready var icon: TextureRect = $Icon
-@onready var label: Label = $Label
+#@onready var label: Label = $Label
+@onready var status_tooltip: RichTextLabel = %StatusTooltip
 
 
 func set_status(new_status: Status) -> void:
@@ -13,4 +14,5 @@ func set_status(new_status: Status) -> void:
 	
 	status = new_status
 	icon.texture = status.icon
-	label.text = status.get_tooltip()
+	status_tooltip.text = status.get_tooltip()
+	#label.text = status.get_tooltip()
