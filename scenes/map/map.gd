@@ -18,6 +18,7 @@ var floors_climbed := 0
 var last_room: Room = null
 var camera_edge_y := 0.0
 var map_camera_start_position: Vector2 = Vector2.ZERO
+var animation_lock := false
 
 var dragging := false
 var last_mouse_pos := Vector2.ZERO
@@ -46,6 +47,9 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
+		return
+	
+	if animation_lock:
 		return
 
 	if event is InputEventMouseButton:
@@ -224,6 +228,9 @@ func _connect_lines(room: Room) -> void:
 
 
 func _on_map_room_clicked(room: Room) -> void:
+	if animation_lock:
+		return
+		
 	if reroll_mode:
 		_reroll_room(room)
 
@@ -238,6 +245,9 @@ func _on_map_room_clicked(room: Room) -> void:
 
 
 func _on_map_room_selected(room: Room) -> void:
+	if animation_lock:
+		return
+		
 	last_room = room
 	floors_climbed += 1
 	hide_map()
@@ -245,6 +255,9 @@ func _on_map_room_selected(room: Room) -> void:
 
 
 func _on_reroll_button_pressed() -> void:
+	if animation_lock:
+		return
+		
 	if run_stats == null or run_stats.rerolls <= 0:
 		return
 
@@ -407,7 +420,9 @@ func get_reachable_rooms() -> Array[Room]:
 func room_change_animation(room: Room, new_type: Room.Type, return_camera: bool = true, return_position: Vector2 = Vector2.ZERO) -> bool:
 	if room == null or room.type == new_type:
 		return false
-
+	
+	animation_lock = true
+	
 	var map_room: MapRoom = null
 
 	for current_map_room: MapRoom in rooms.get_children():
@@ -461,4 +476,5 @@ func room_change_animation(room: Room, new_type: Room.Type, return_camera: bool 
 		tween.tween_property(camera_2d, "position", return_position, 1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		await tween.finished
 	
+	animation_lock = false
 	return true

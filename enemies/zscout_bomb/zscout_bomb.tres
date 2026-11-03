@@ -10,6 +10,6 @@ ai = ExtResource("1_8jurt")
 max_health = 10
 max_attack = 2
 max_speed = 4
-max_block = 5
+max_block = 4
 art = ExtResource("1_yn2sh")
 metadata/_custom_type_script = "uid://csml8orhg63vh"

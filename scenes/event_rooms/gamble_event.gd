@@ -6,7 +6,6 @@ extends EventRoom
 
 
 func setup() -> void:
-	#skip_button.visible = run_stats.gold < 50
 	fifty_button.disabled = run_stats.gold < 50
 	allin_button.disabled = run_stats.gold < 1
 	
@@ -19,6 +18,9 @@ func bet_50() -> void:
 	
 	if RNG.instance.randf() < 0.5:
 		run_stats.gold += 100
+		run_stats.dda_score += 5
+	else:
+		run_stats.dda_score -= 5
 
 func bet_allin() -> void:
 	var bet_all_in: = run_stats.gold
@@ -27,3 +29,6 @@ func bet_allin() -> void:
 	
 	if RNG.instance.randf() < 0.5:
 		run_stats.gold = bet_all_in * 2
+		run_stats.dda_score += 10
+	else:
+		run_stats.dda_score -= 10

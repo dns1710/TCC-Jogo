@@ -53,6 +53,7 @@ status_owner = NodePath("..")
 type = 1
 
 [node name="ATBProgress" type="TextureProgressBar" parent="." unique_id=1908050035]
+visible = false
 offset_left = -26.0
 offset_top = -19.0
 offset_right = -11.0
