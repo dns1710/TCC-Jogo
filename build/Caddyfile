@@ -1,0 +1,12 @@
+:80 {
+    root * /usr/share/caddy
+    file_server
+
+    # Required headers for Godot SharedArrayBuffer / WebAssembly
+    header {
+        Cross-Origin-Opener-Policy "same-origin"
+        Cross-Origin-Embedder-Policy "require-corp"
+        # Optional: enable gzip compression
+        encode gzip zstd
+    }
+}
