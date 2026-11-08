@@ -1,6 +1,6 @@
 extends EnemyAction
 
-@export var dice_value := 4
+@export var dice_value := 8
 @export var dice_amount := 1
 
 const SPEED_DOWN_STATUS = preload("res://statuses/status_speed_down.tres")

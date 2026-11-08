@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c61ry5y3b1amo"]
+
+[ext_resource type="PackedScene" uid="uid://d0efyathkfg74" path="res://scenes/enemy/enemy.tscn" id="1_ale8k"]
+[ext_resource type="Resource" uid="uid://171b6hta0j8j" path="res://enemies/zscout/zscout.tres" id="2_p3n2w"]
+
+[node name="Tier23Zscout" type="Node2D" unique_id=1437672035]
+
+[node name="Enemy" parent="." unique_id=1918534270 instance=ExtResource("1_ale8k")]
+position = Vector2(175, 109)
+stats = ExtResource("2_p3n2w")
+
+[node name="Enemy2" parent="." unique_id=1636720551 instance=ExtResource("1_ale8k")]
+position = Vector2(203, 78)
+stats = ExtResource("2_p3n2w")
+
+[node name="Enemy3" parent="." unique_id=292812930 instance=ExtResource("1_ale8k")]
+position = Vector2(173, 48)
+stats = ExtResource("2_p3n2w")

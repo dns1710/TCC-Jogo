@@ -2,18 +2,20 @@
 
 [ext_resource type="Script" uid="uid://b47epnijnlwwh" path="res://custom_resources/battle_stats_pool.gd" id="1_c0dve"]
 [ext_resource type="Script" uid="uid://bn5trp8qkpcgh" path="res://custom_resources/battle_stats.gd" id="1_k3ygp"]
-[ext_resource type="Resource" uid="uid://c0atnidxb2lmp" path="res://battles/tier_0_zscout.tres" id="2_42yw1"]
-[ext_resource type="Resource" uid="uid://cjn58xq7mnp57" path="res://battles/tier_0_2chicken.tres" id="3_pk2l8"]
-[ext_resource type="Resource" uid="uid://d1g3l6w0ib5il" path="res://battles/tier_0_cap.tres" id="4_s5wuo"]
-[ext_resource type="Resource" uid="uid://bdtdha5bcquni" path="res://battles/tier_1_2zscout.tres" id="5_lrvlq"]
-[ext_resource type="Resource" uid="uid://durn4252s1h32" path="res://battles/tier_1_3chicken.tres" id="6_hpysq"]
-[ext_resource type="Resource" uid="uid://cogl1xks6b5t6" path="res://battles/tier_1_cap_chicken.tres" id="7_a7oj0"]
-[ext_resource type="Resource" uid="uid://bwlryxgi23gxl" path="res://battles/tier_2_big_chicken_boss.tres" id="8_hpysq"]
-[ext_resource type="Resource" uid="uid://dsccuois3d6mq" path="res://battles/tier_1_zscout_zbomb.tres" id="8_iy31b"]
-[ext_resource type="Resource" uid="uid://cppw54nfm84mw" path="res://battles/tier_2_bear_boss.tres" id="9_a7oj0"]
-[ext_resource type="Resource" uid="uid://drkm2hck7jy15" path="res://battles/tier_1_2croc.tres" id="10_qr2kv"]
-[ext_resource type="Resource" uid="uid://bec17e8ii33lq" path="res://battles/tier_1_onca.tres" id="11_7u7oe"]
+[ext_resource type="Resource" uid="uid://c0atnidxb2lmp" path="res://battles/map1/tier0/tier_0_zscout.tres" id="2_ycppb"]
+[ext_resource type="Resource" uid="uid://cjn58xq7mnp57" path="res://battles/map1/tier0/tier_0_2chicken.tres" id="3_smtvb"]
+[ext_resource type="Resource" uid="uid://d1g3l6w0ib5il" path="res://battles/map1/tier0/tier_0_cap.tres" id="4_6x4eu"]
+[ext_resource type="Resource" uid="uid://durn4252s1h32" path="res://battles/map1/tier1/tier_1_3chicken.tres" id="5_r64ow"]
+[ext_resource type="Resource" uid="uid://cogl1xks6b5t6" path="res://battles/map1/tier1/tier_1_cap_chicken.tres" id="6_imvag"]
+[ext_resource type="Resource" uid="uid://bdtdha5bcquni" path="res://battles/map1/tier1/tier_1_2zscout.tres" id="7_jfc4n"]
+[ext_resource type="Resource" uid="uid://dsccuois3d6mq" path="res://battles/map1/tier1/tier_1_zscout_zbomb.tres" id="8_pqmnr"]
+[ext_resource type="Resource" uid="uid://bec17e8ii33lq" path="res://battles/map1/tier2/tier_2_onca.tres" id="9_iajyq"]
+[ext_resource type="Resource" uid="uid://cmgajwlifirt3" path="res://battles/map1/tier2/tier_2_3zscout.tres" id="10_pbp3f"]
+[ext_resource type="Resource" uid="uid://drkm2hck7jy15" path="res://battles/map1/tier2/tier_2_2croc.tres" id="11_avrxc"]
+[ext_resource type="Resource" uid="uid://cev10nq6k4luq" path="res://battles/map1/tier2/tier_2_2zscout_1zbomb.tres" id="11_smtvb"]
+[ext_resource type="Resource" uid="uid://cppw54nfm84mw" path="res://battles/map1/tier3/tier_3_bear_boss.tres" id="12_hfjhm"]
+[ext_resource type="Resource" uid="uid://bwlryxgi23gxl" path="res://battles/map1/tier3/tier_3_big_chicken_boss.tres" id="13_hnmhw"]
 
 [resource]
 script = ExtResource("1_c0dve")
-pool = Array[ExtResource("1_k3ygp")]([ExtResource("2_42yw1"), ExtResource("3_pk2l8"), ExtResource("4_s5wuo"), ExtResource("6_hpysq"), ExtResource("7_a7oj0"), ExtResource("5_lrvlq"), ExtResource("8_iy31b"), ExtResource("11_7u7oe"), ExtResource("10_qr2kv"), ExtResource("9_a7oj0"), ExtResource("8_hpysq")])
+pool = Array[ExtResource("1_k3ygp")]([ExtResource("2_ycppb"), ExtResource("3_smtvb"), ExtResource("4_6x4eu"), ExtResource("5_r64ow"), ExtResource("6_imvag"), ExtResource("7_jfc4n"), ExtResource("8_pqmnr"), ExtResource("9_iajyq"), ExtResource("10_pbp3f"), ExtResource("11_smtvb"), ExtResource("11_avrxc"), ExtResource("12_hfjhm"), ExtResource("13_hnmhw")])

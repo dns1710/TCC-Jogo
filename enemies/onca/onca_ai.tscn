@@ -17,4 +17,5 @@ chance_weight = 1.0
 
 [node name="BuffAction" type="Node" parent="." unique_id=1192021295]
 script = ExtResource("3_6v47j")
+block = 3
 sound = ExtResource("5_n4o33")

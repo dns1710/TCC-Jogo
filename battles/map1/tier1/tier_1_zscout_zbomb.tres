@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BattleStats" format=3 uid="uid://dsccuois3d6mq"]
 
-[ext_resource type="PackedScene" uid="uid://ch4kc1ffkgdjm" path="res://battles/tier_1_zscout_zbomb.tscn" id="1_723fa"]
+[ext_resource type="PackedScene" uid="uid://ch4kc1ffkgdjm" path="res://battles/map1/tier1/tier_1_zscout_zbomb.tscn" id="1_723fa"]
 [ext_resource type="Script" uid="uid://bn5trp8qkpcgh" path="res://custom_resources/battle_stats.gd" id="1_v5ufm"]
 
 [resource]

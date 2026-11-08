@@ -20,6 +20,7 @@ const POPUP = preload("res://scenes/ui/popup.tscn")
 const ATB_MAX := 30.0
 var atb: float = 0.0
 var can_act := false
+var atb_cooldown: float = 0.0
 
 func _ready() -> void:
 	status_handler.status_owner = self
@@ -34,6 +35,11 @@ func reset_atb() -> void:
 func add_atb(delta: float) -> void:
 	if can_act:
 		return
+	
+	if atb_cooldown > 0.0:
+		atb_cooldown = maxf(0.0, atb_cooldown - delta)
+		return
+		
 	atb += stats.speed * delta
 	if atb >= ATB_MAX:
 		atb = ATB_MAX
@@ -101,7 +107,7 @@ func do_action() -> void:
 	
 	#current_action.perform_action()
 
-func take_damage(damage: int, which_modifier: Modifier.Type, source = null) -> void:
+func take_damage(damage: int, which_modifier: Modifier.Type, _source = null) -> void:
 	if stats.health <= 0:
 		return
 	

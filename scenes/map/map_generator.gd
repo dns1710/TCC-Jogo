@@ -12,11 +12,13 @@ const MAP_WIDTH := 3
 
 var map_data: Array[Array]
 
-
+func _ready() -> void:
+	battle_stats_pool.setup()
+	
 func generate_map() -> Array[Array]:
 	map_data = _generate_initial_grid()
 
-	battle_stats_pool.setup()
+	#battle_stats_pool.setup()
 
 	var mid := int(MAP_WIDTH / 2)
 
@@ -131,7 +133,7 @@ func generate_map() -> Array[Array]:
 	_set_room_type(
 		boss_room,
 		Room.Type.BOSS,
-		battle_stats_pool.get_random_battle_for_tier(2)
+		battle_stats_pool.get_random_battle_for_tier(3)
 	)
 
 	for room in current_rooms:
