@@ -1,3 +1,4 @@
+
 class_name Map
 extends Node2D
 
@@ -30,12 +31,13 @@ var run_stats: RunStats
 
 var adaptation_cutscene_active: bool = false
 
+
 func _ready() -> void:
 	add_to_group("map")
 
 	camera_edge_x = MapGenerator.Y_DIST * (MapGenerator.MAP_WIDTH - 1)
 	hide_map()
-	
+
 	if reroll_button:
 		reroll_button.pressed.connect(_on_reroll_button_pressed)
 	else:
@@ -45,7 +47,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
 		return
-	
+
 	if animation_lock:
 		return
 
@@ -61,12 +63,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		last_mouse_pos = event.position
 		_clamp_camera()
 
+
 func _clamp_camera() -> void:
 	var min_x = 0
-	var max_x = MapGenerator.X_DIST * (MapGenerator.FLOORS - 1) -250
+	var max_x = MapGenerator.X_DIST * (MapGenerator.FLOORS - 1) - 250
 
 	camera_2d.position.x = clamp(camera_2d.position.x, min_x, max_x)
 	camera_2d.position.y = map_camera_start_position.y
+
 
 func get_clamped_camera_position(target: Vector2) -> Vector2:
 	var min_x: float = 0.0
@@ -78,7 +82,8 @@ func get_clamped_camera_position(target: Vector2) -> Vector2:
 		clampf(target.x, min_x, max_x),
 		map_camera_start_position.y
 	)
-	
+
+
 func generate_new_map() -> void:
 	floors_climbed = 0
 	last_room = null
@@ -109,15 +114,12 @@ func create_map() -> void:
 			if room.active:
 				_spawn_room(room)
 
+	# Posiciona a câmera no início da primeira região
 	var start_room: Room = map_data[0][int(MapGenerator.MAP_WIDTH / 2)]
+
 	map_camera_start_position = start_room.position
 	camera_2d.position = map_camera_start_position
 	camera_2d.zoom = Vector2(0.9, 0.9)
-	
-	# boss
-	var middle := floori(MapGenerator.MAP_WIDTH * 0.5)
-	var boss_room: Room = map_data[MapGenerator.FLOORS - 1][middle]
-	_spawn_room(boss_room)
 
 	visuals.position.y = get_viewport_rect().size.y / 2.0
 
@@ -196,7 +198,7 @@ func _connect_lines(room: Room) -> void:
 func _on_map_room_clicked(room: Room) -> void:
 	if animation_lock:
 		return
-		
+
 	if reroll_mode:
 		_reroll_room(room)
 
@@ -213,7 +215,7 @@ func _on_map_room_clicked(room: Room) -> void:
 func _on_map_room_selected(room: Room) -> void:
 	if animation_lock:
 		return
-		
+
 	last_room = room
 	floors_climbed += 1
 	hide_map()
@@ -223,7 +225,7 @@ func _on_map_room_selected(room: Room) -> void:
 func _on_reroll_button_pressed() -> void:
 	if animation_lock:
 		return
-		
+
 	if run_stats == null or run_stats.rerolls <= 0:
 		return
 
@@ -235,12 +237,20 @@ func _update_reroll_visuals() -> void:
 	for map_room in rooms.get_children():
 		map_room.set_reroll_highlight(
 			reroll_mode
-			and map_room.room.row != 0
-			and map_room.room.row != MapGenerator.FLOORS - 1
+			and not _is_protected_floor(map_room.room.row)
 			and map_room.room.row >= floors_climbed
 		)
 
 	_update_reroll_button()
+
+
+func _is_protected_floor(row: int) -> bool:
+	return (
+		row == 0
+		or row == MapGenerator.FLOORS_PER_REGION - 1
+		or row == MapGenerator.FLOORS_PER_REGION
+		or row == MapGenerator.FLOORS - 1
+	)
 
 
 func _reroll_room(room: Room) -> bool:
@@ -250,10 +260,7 @@ func _reroll_room(room: Room) -> bool:
 	if run_stats.rerolls <= 0:
 		return false
 
-	if room.row == 0:
-		return false
-
-	if room.row == MapGenerator.FLOORS - 1:
+	if _is_protected_floor(room.row):
 		return false
 
 	if room.row < floors_climbed:
@@ -278,12 +285,15 @@ func _reroll_room(room: Room) -> bool:
 	match room.type:
 		Room.Type.MONSTER:
 			room.battle_stats = map_generator.battle_stats_pool.get_random_battle_for_tier(1)
+			room.event_scene = null
 
 		Room.Type.EVENT:
 			room.event_scene = map_generator.event_room_pool.get_random()
+			room.battle_stats = null
 
-		Room.Type.TREASURE:
-			pass
+		_:
+			room.battle_stats = null
+			room.event_scene = null
 
 	for map_room in rooms.get_children():
 		if map_room.room == room:
@@ -295,6 +305,7 @@ func _reroll_room(room: Room) -> bool:
 
 	return true
 
+
 func _update_reroll_button() -> void:
 	if not reroll_button:
 		return
@@ -304,7 +315,8 @@ func _update_reroll_button() -> void:
 		return
 
 	reroll_button.disabled = run_stats.rerolls <= 0
-	
+
+
 func change_room(original_type: Room.Type, new_type: Room.Type, amount: int = 1) -> int:
 	var candidates: Array[Room] = []
 	var reachable_rooms: Array[Room] = get_reachable_rooms()
@@ -313,13 +325,17 @@ func change_room(original_type: Room.Type, new_type: Room.Type, amount: int = 1)
 		for room: Room in floor_rooms:
 			if not room.active:
 				continue
+
 			if not reachable_rooms.has(room):
 				continue
+
 			if room.type != original_type:
 				continue
+
 			if room.row < floors_climbed:
 				continue
-			if room.row >= MapGenerator.FLOORS - 1:
+
+			if _is_protected_floor(room.row):
 				continue
 
 			candidates.append(room)
@@ -328,18 +344,28 @@ func change_room(original_type: Room.Type, new_type: Room.Type, amount: int = 1)
 		return 0
 
 	var reference_position: Vector2 = Vector2.ZERO
+
 	if last_room != null:
 		reference_position = last_room.position
 
 	candidates.sort_custom(
 		func(a: Room, b: Room) -> bool:
-			var a_is_next: bool = (last_room != null and last_room.next_rooms.has(a))
-			var b_is_next: bool = (last_room != null and last_room.next_rooms.has(b))
+			var a_is_next: bool = (
+				last_room != null and last_room.next_rooms.has(a)
+			)
+
+			var b_is_next: bool = (
+				last_room != null and last_room.next_rooms.has(b)
+			)
 
 			if a_is_next != b_is_next:
 				return a_is_next
 
-			return (a.position.distance_squared_to(reference_position) < b.position.distance_squared_to(reference_position))
+			return (
+				a.position.distance_squared_to(reference_position)
+				<
+				b.position.distance_squared_to(reference_position)
+			)
 	)
 
 	var changed_count := 0
@@ -350,12 +376,18 @@ func change_room(original_type: Room.Type, new_type: Room.Type, amount: int = 1)
 		var target_room: Room = candidates[i]
 		var is_last_room: bool = i == rooms_to_change - 1
 
-		var changed: bool = await room_change_animation(target_room, new_type, is_last_room, initial_camera_position)
+		var changed: bool = await room_change_animation(
+			target_room,
+			new_type,
+			is_last_room,
+			initial_camera_position
+		)
 
 		if changed:
 			changed_count += 1
-	
+
 	return changed_count
+
 
 func get_reachable_rooms() -> Array[Room]:
 	var reachable: Array[Room] = []
@@ -371,24 +403,32 @@ func get_reachable_rooms() -> Array[Room]:
 
 	while not rooms_to_check.is_empty():
 		var current_room: Room = rooms_to_check.pop_front()
-		
+
 		for next_room: Room in current_room.next_rooms:
 			if not next_room.active:
 				continue
+
 			if reachable.has(next_room):
 				continue
-				
+
 			reachable.append(next_room)
 			rooms_to_check.append(next_room)
 
 	return reachable
-	
-func room_change_animation(room: Room, new_type: Room.Type, return_camera: bool = true, return_position: Vector2 = Vector2.ZERO) -> bool:
+
+
+func room_change_animation(
+	room: Room,
+	new_type: Room.Type,
+	return_camera: bool = true,
+	return_position: Vector2 = Vector2.ZERO
+) -> bool:
+
 	if room == null or room.type == new_type:
 		return false
-	
+
 	animation_lock = true
-	
+
 	var map_room: MapRoom = null
 
 	for current_map_room: MapRoom in rooms.get_children():
@@ -397,14 +437,21 @@ func room_change_animation(room: Room, new_type: Room.Type, return_camera: bool 
 			break
 
 	if map_room == null:
+		animation_lock = false
 		return false
 
 	var room_position: Vector2 = to_local(map_room.global_position)
 	var desired_position := room_position - camera_2d.offset
 	var target_position := get_clamped_camera_position(desired_position)
-	
+
 	var tween := create_tween()
-	tween.tween_property(camera_2d, "position", target_position, 1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(
+		camera_2d,
+		"position",
+		target_position,
+		1
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
 	await tween.finished
 
 	await get_tree().create_timer(0.8).timeout
@@ -412,7 +459,13 @@ func room_change_animation(room: Room, new_type: Room.Type, return_camera: bool 
 	var original_scale: Vector2 = map_room.scale
 
 	tween = create_tween()
-	tween.tween_property(map_room, "scale", original_scale * 1, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(
+		map_room,
+		"scale",
+		original_scale * 1,
+		0.25
+	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
 	await tween.finished
 
 	room.type = new_type
@@ -422,9 +475,11 @@ func room_change_animation(room: Room, new_type: Room.Type, return_camera: bool 
 		Room.Type.MONSTER:
 			room.battle_stats = map_generator.battle_stats_pool.get_random_battle_for_tier(1)
 			room.event_scene = null
+
 		Room.Type.EVENT:
 			room.event_scene = map_generator.event_room_pool.get_random()
 			room.battle_stats = null
+
 		_:
 			room.battle_stats = null
 			room.event_scene = null
@@ -433,14 +488,27 @@ func room_change_animation(room: Room, new_type: Room.Type, return_camera: bool 
 	map_room.flash()
 
 	tween = create_tween()
-	tween.tween_property(map_room, "scale", original_scale, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(
+		map_room,
+		"scale",
+		original_scale,
+		0.25
+	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN_OUT)
+
 	await tween.finished
-	
+
 	if return_camera:
 		await get_tree().create_timer(1.2).timeout
+
 		tween = create_tween()
-		tween.tween_property(camera_2d, "position", return_position, 1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_property(
+			camera_2d,
+			"position",
+			return_position,
+			1
+		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
 		await tween.finished
-	
+
 	animation_lock = false
 	return true
