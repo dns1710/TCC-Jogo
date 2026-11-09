@@ -28,5 +28,5 @@ jobs:
         run: |
           godot --headless --path . \
             -s addons/gut/gut_cmdln.gd \
-            -gdir=res://test/unit \
+            -gdir=res://test/seguranca \
             -gexit
