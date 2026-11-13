@@ -11,9 +11,7 @@ const CAP_SPEED := 20
 const MIN_SPEED := 1
 
 @export var health: int : set = set_health
-
 @export var attack: int : set = set_attack
-
 @export var block: int : set = set_block
 @export var speed: int : set = set_speed
 

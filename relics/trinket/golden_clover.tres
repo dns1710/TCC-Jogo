@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="GoldenClover" format=3 uid="uid://bbrll5h8git80"]
+
+[ext_resource type="Texture2D" uid="uid://cyr8nq6ah8bjl" path="res://art/verdadeira arte/items/golden_clover.png" id="1_3grnf"]
+[ext_resource type="Script" uid="uid://cbftj534ql1wq" path="res://relics/trinket/golden_clover.gd" id="2_yh03m"]
+
+[resource]
+script = ExtResource("2_yh03m")
+relic_name = "Golden Clover"
+id = "clover"
+type = 4
+equip = 3
+rarity = 1
+icon = ExtResource("1_3grnf")
+tooltip = "[color=\"ffdf00\"]GOLDEN CLOVER[/color]
+[color=\"5b6ee1\"]Uncommon Trinket[/color]
+Gain a little bit of gold at the end of every battle"
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

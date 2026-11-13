@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://cnh2f7px1vx1e"]
+
+[ext_resource type="Texture2D" uid="uid://bilv7b6rs7wm3" path="res://art/verdadeira arte/items/swift_badge_relic.png" id="1_l2qng"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_s656y"]
+
+[resource]
+script = ExtResource("2_s656y")
+relic_name = "Badge of Swiftness"
+id = "speed_badge"
+equip = 3
+rarity = 1
+icon = ExtResource("1_l2qng")
+tooltip = "[color=\"ffdf00\"]BADGE OF SWIFTNESS[/color]
+[color=\"5b6ee1\"]Uncommon Trinket[/color]
++2 [color=\"#ffa500\"]SPEED[/color]"
+bonus_spd = 2
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

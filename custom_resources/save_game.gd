@@ -14,6 +14,12 @@ const SAVE_PATH := "user://savegame.tres"
 @export var floors_climbed: int
 @export var was_on_map: bool
 
+@export_group("Equipped Items")
+@export var equipped_weapon_id: String = ""
+@export var equipped_helmet_id: String = ""
+@export var equipped_armor_id: String = ""
+@export var equipped_trinket_1_id: String = ""
+@export var equipped_trinket_2_id: String = ""
 
 func save_data() -> void:
 	var err := ResourceSaver.save(self, SAVE_PATH)

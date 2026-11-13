@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Armor" format=3 uid="uid://bb6abg7a0w0ra"]
+
+[ext_resource type="Script" uid="uid://doman22hrts78" path="res://relics/armor/armadura.gd" id="1_vcchg"]
+[ext_resource type="Texture2D" uid="uid://dl3a87y1bxtt8" path="res://art/tile_0096.png" id="1_w5iwp"]
+
+[resource]
+script = ExtResource("1_vcchg")
+relic_name = "Shining Armor"
+id = "armadura"
+type = 1
+equip = 2
+rarity = 1
+icon = ExtResource("1_w5iwp")
+tooltip = "[color=\"ffdf00\"]SHINING ARMOR[/color]
++1 [color=\"6fa8dc\"]BLOCK[/color]
+Gain +1 [color=\"6fa8dc\"]BLOCK[/color] at the start of every other turn"
+bonus_blk = 1
+metadata/_custom_type_script = "uid://doman22hrts78"

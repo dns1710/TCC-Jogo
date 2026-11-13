@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Smore" format=3 uid="uid://c1g6p1lp2ebmn"]
+
+[ext_resource type="Texture2D" uid="uid://ofuf7gqonakt" path="res://art/verdadeira arte/items/smore_relic.png" id="1_ecodf"]
+[ext_resource type="Script" uid="uid://bmutckgokcjrb" path="res://relics/trinket/smore.gd" id="2_6vpsy"]
+
+[resource]
+script = ExtResource("2_6vpsy")
+relic_name = "Smore"
+id = "smore"
+type = 5
+equip = 3
+rarity = 1
+icon = ExtResource("1_ecodf")
+tooltip = "[color=\"ffdf00\"]SMORE[/color]
+[color=\"5b6ee1\"]Uncommon Trinket[/color]
++1 [color=\"6fa8dc\"]BLOCK[/color]
+Gain +2 [color=\"dc143c\"]ATTACK[/color] at half health or less"
+bonus_blk = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

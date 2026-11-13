@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://dnn4mqdh6l1y"]
+
+[ext_resource type="Texture2D" uid="uid://cy5ygiokw64pv" path="res://art/verdadeira arte/items/statsup_relic.png" id="1_lnygp"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_rfm6m"]
+
+[resource]
+script = ExtResource("2_rfm6m")
+relic_name = "Fleur-De-Lis"
+id = "flordelis"
+equip = 3
+rarity = 2
+icon = ExtResource("1_lnygp")
+tooltip = "[color=\"ffdf00\"]FLUER-DE-LIS[/color]
+[color=\"d95763\"]Rare Trinket[/color]
++1 [color=\"6fa8dc\"]BLOCK[/color], +1 [color=\"dc143c\"]ATTACK[/color], +1 [color=\"#ffa500\"]SPEED[/color]"
+bonus_blk = 1
+bonus_atk = 1
+bonus_spd = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

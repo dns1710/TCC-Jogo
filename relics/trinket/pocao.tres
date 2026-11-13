@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="HealingPotion" format=3 uid="uid://dl0v7eqbpxyqi"]
+
+[ext_resource type="Texture2D" uid="uid://boklhiqs1414d" path="res://art/tile_0115.png" id="1_4cegs"]
+[ext_resource type="Script" uid="uid://dkxx27kqb6tnm" path="res://relics/trinket/pocao.gd" id="2_c7lwy"]
+
+[resource]
+script = ExtResource("2_c7lwy")
+relic_name = "Ibuprofen"
+id = "pocao_de_cura"
+type = 4
+equip = 3
+icon = ExtResource("1_4cegs")
+tooltip = "[color=\"ffdf00\"]IBUPROFEN[/color]
+[color=\"ffed73\"]Common Trinket[/color]
+Heal [color=\"13bf42\"]2D4+2[/color] at the end of the battle if you're at half health or less"
+metadata/_custom_type_script = "uid://dkxx27kqb6tnm"

@@ -1,18 +1,13 @@
 extends Action
 
-@export var dice_value := 6
-@export var dice_amount := 1
-
 func apply_effects(targets: Array[Node]) -> void:
 	var player = targets[0].get_tree().get_first_node_in_group("player")
+	var relic_handler := player.get_tree().get_first_node_in_group("relic_handler")
 	
-	var damage = Dice.roll(dice_amount,dice_value,player.stats.attack)
+	var damage = relic_handler.get_weapon_damage()
 	var damage_effect := DamageEffect.new()
 	damage_effect.amount = damage
-	
 	#await player.attack_animation()
-	
 	damage_effect.execute(targets)
 	
 	Events.player_action_completed.emit()
-	#print(player.stats.attack)

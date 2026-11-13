@@ -90,7 +90,7 @@ layout_mode = 2
 text = "Exit"
 
 [node name="Player" type="Sprite2D" parent="." unique_id=2146435779]
-position = Vector2(43.999996, 102)
+position = Vector2(43.999996, 94)
 scale = Vector2(3.125, 3.125)
 texture = ExtResource("3_uhagc")
 

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ThornPlate" format=3 uid="uid://d3piv68i0huvr"]
+
+[ext_resource type="Texture2D" uid="uid://df4pvnlsbwrn1" path="res://art/verdadeira arte/items/thorn_helm_relic.png" id="1_56ft7"]
+[ext_resource type="Script" uid="uid://b51bqefqg1wxq" path="res://relics/helmet/thorn_helm.gd" id="2_7jrfj"]
+
+[resource]
+script = ExtResource("2_7jrfj")
+relic_name = "Thorn Helm"
+id = "thornplate"
+type = 5
+equip = 1
+icon = ExtResource("1_56ft7")
+tooltip = "[color=\"ffdf00\"]THORN HELM[/color]
+[color=\"5b6ee1\"]Uncommon Helmet[/color]
++1 [color=\"6fa8dc\"]BLOCK[/color], +1 [color=\"daa520\"]THORNS [/color]"
+bonus_blk = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

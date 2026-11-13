@@ -1,0 +1,191 @@
+[gd_scene format=3 uid="uid://cauqxs6fypdeu"]
+
+[ext_resource type="Script" uid="uid://bqfjagqao5k85" path="res://scenes/inventory/inventory.gd" id="1_msrby"]
+[ext_resource type="Texture2D" uid="uid://d1y50at8020tl" path="res://art/verdadeira arte/items/trinket_slot_icon.png" id="2_4axmw"]
+[ext_resource type="Texture2D" uid="uid://db8fp5e84uvoh" path="res://art/verdadeira arte/items/hand_slot_icon.png" id="2_bxceu"]
+[ext_resource type="Texture2D" uid="uid://ctobsk5pmxlsh" path="res://art/verdadeira arte/items/inventory_background.png" id="2_v8e04"]
+[ext_resource type="Texture2D" uid="uid://bv4kjlk4j1mr1" path="res://art/verdadeira arte/items/armor_slot_icon.png" id="3_el5y6"]
+[ext_resource type="Texture2D" uid="uid://dq4ry8lk1j8b2" path="res://art/verdadeira arte/items/helmet_slot_icon.png" id="3_tvok8"]
+[ext_resource type="Texture2D" uid="uid://nk1g4ppvfbq2" path="res://art/verdadeira arte/health_icon.png" id="7_efxst"]
+[ext_resource type="Texture2D" uid="uid://bwvoqpxuw82ia" path="res://art/verdadeira arte/attack_icon.png" id="8_g1nyl"]
+[ext_resource type="Texture2D" uid="uid://br1vksymxgbr" path="res://art/verdadeira arte/block_icon.png" id="9_j21gq"]
+[ext_resource type="Texture2D" uid="uid://cnjvc0qpbb815" path="res://art/verdadeira arte/speed_icon.png" id="10_ll4hh"]
+
+[node name="Inventory" type="Control" unique_id=1979637531]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_msrby")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2040896705]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.2
+offset_top = -64.8
+offset_right = 114.8
+offset_bottom = 65.2
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_v8e04")
+metadata/_edit_lock_ = true
+
+[node name="EquipSlotsVBox" type="VBoxContainer" parent="." unique_id=194013683]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 33.0
+offset_right = 118.0
+offset_bottom = 85.0
+alignment = 1
+
+[node name="MainSlots" type="HBoxContainer" parent="EquipSlotsVBox" unique_id=973872207]
+layout_mode = 2
+alignment = 1
+
+[node name="WeaponSlot" type="Button" parent="EquipSlotsVBox/MainSlots" unique_id=1839247202]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+icon = ExtResource("2_bxceu")
+
+[node name="HelmetSlot" type="Button" parent="EquipSlotsVBox/MainSlots" unique_id=1249800963]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+icon = ExtResource("3_tvok8")
+
+[node name="ArmorSlot" type="Button" parent="EquipSlotsVBox/MainSlots" unique_id=1737863131]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+icon = ExtResource("3_el5y6")
+
+[node name="TrinketSlots" type="HBoxContainer" parent="EquipSlotsVBox" unique_id=281994280]
+layout_mode = 2
+alignment = 1
+
+[node name="TrinketSlot1" type="Button" parent="EquipSlotsVBox/TrinketSlots" unique_id=484292632]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+icon = ExtResource("2_4axmw")
+
+[node name="TrinketSlot2" type="Button" parent="EquipSlotsVBox/TrinketSlots" unique_id=663266950]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+icon = ExtResource("2_4axmw")
+
+[node name="InventoryScroll" type="ScrollContainer" parent="." unique_id=68225022]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 15.0
+offset_right = 235.0
+offset_bottom = 130.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InventoryGrid" type="GridContainer" parent="InventoryScroll" unique_id=926829548]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 3
+
+[node name="CloseButton" type="Button" parent="." unique_id=1817769651]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_left = 19.0
+offset_top = 13.0
+offset_right = 43.0
+offset_bottom = 29.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "BACK"
+
+[node name="StatsVBox" type="VBoxContainer" parent="." unique_id=503873439]
+clip_contents = true
+layout_mode = 0
+offset_left = 22.0
+offset_top = 96.0
+offset_right = 136.0
+offset_bottom = 132.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StatsVBox" unique_id=338133119]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="Health" type="HBoxContainer" parent="StatsVBox/HBoxContainer" unique_id=878824045]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="StatsVBox/HBoxContainer/Health" unique_id=1353835641]
+layout_mode = 2
+texture = ExtResource("7_efxst")
+
+[node name="HealthLabel" type="Label" parent="StatsVBox/HBoxContainer/Health" unique_id=1109606044]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.26657522, 0.2665752, 0.2665752, 1)
+theme_override_font_sizes/font_size = 9
+text = "99"
+
+[node name="Attack" type="HBoxContainer" parent="StatsVBox/HBoxContainer" unique_id=923954601]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="StatsVBox/HBoxContainer/Attack" unique_id=992308557]
+layout_mode = 2
+texture = ExtResource("8_g1nyl")
+stretch_mode = 3
+
+[node name="AttackLabel" type="Label" parent="StatsVBox/HBoxContainer/Attack" unique_id=1599681141]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.26657522, 0.2665752, 0.2665752, 1)
+theme_override_font_sizes/font_size = 9
+text = "99"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="StatsVBox" unique_id=948092841]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="Block" type="HBoxContainer" parent="StatsVBox/HBoxContainer2" unique_id=609839808]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="StatsVBox/HBoxContainer2/Block" unique_id=552573673]
+layout_mode = 2
+texture = ExtResource("9_j21gq")
+
+[node name="BlockLabel" type="Label" parent="StatsVBox/HBoxContainer2/Block" unique_id=740182693]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.26657522, 0.2665752, 0.2665752, 1)
+theme_override_font_sizes/font_size = 9
+text = "99"
+
+[node name="Speed" type="HBoxContainer" parent="StatsVBox/HBoxContainer2" unique_id=1462367294]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="StatsVBox/HBoxContainer2/Speed" unique_id=738217753]
+layout_mode = 2
+texture = ExtResource("10_ll4hh")
+stretch_mode = 3
+
+[node name="SpeedLabel" type="Label" parent="StatsVBox/HBoxContainer2/Speed" unique_id=56271030]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.26657522, 0.2665752, 0.2665752, 1)
+theme_override_font_sizes/font_size = 9
+text = "99"

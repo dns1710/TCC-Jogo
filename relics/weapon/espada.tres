@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://ov2giwe4f4pt"]
+
+[ext_resource type="Texture2D" uid="uid://bq4im540nk025" path="res://art/tile_0106.png" id="1_8kqgg"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_apveb"]
+
+[resource]
+script = ExtResource("2_apveb")
+relic_name = "Really Cool Sword"
+id = "espada"
+icon = ExtResource("1_8kqgg")
+tooltip = "[color=\"ffdf00\"]REALLY COOL SWORD[/color]
+[color=\"dc143c\"]1D6 Damage[/color]"
+weapon_dice_attack = 6
+weapon_dice_amount = 1
+metadata/_custom_type_script = "uid://jrf1ynp2rrsw"

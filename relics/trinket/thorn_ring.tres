@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ThornRing" format=3 uid="uid://ddvwvwkec6euc"]
+
+[ext_resource type="Texture2D" uid="uid://bs0es5c4jnxer" path="res://art/verdadeira arte/items/thorn_ring_relic.png" id="1_mkp64"]
+[ext_resource type="Script" uid="uid://cxt634wu4e7s7" path="res://relics/trinket/thorn_ring.gd" id="2_si6pb"]
+
+[resource]
+script = ExtResource("2_si6pb")
+relic_name = "Thorn Ring"
+id = "thornring"
+type = 2
+equip = 3
+rarity = 1
+icon = ExtResource("1_mkp64")
+tooltip = "[color=\"ffdf00\"]THORN RING[/color]
+[color=\"5b6ee1\"]Uncommon Trinket[/color]
++1 [color=\"dc143c\"]ATTACK[/color], +1 [color=\"daa520\"]THORNS [/color]"
+bonus_atk = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

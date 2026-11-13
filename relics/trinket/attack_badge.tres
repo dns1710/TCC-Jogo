@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://ccras23p4omub"]
+
+[ext_resource type="Texture2D" uid="uid://b3bx6dgemqrjc" path="res://art/verdadeira arte/items/attack_badge_relic.png" id="1_uld1m"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_2mrhc"]
+
+[resource]
+script = ExtResource("2_2mrhc")
+relic_name = "Badge of Strengh"
+id = "attack_badge"
+equip = 3
+rarity = 1
+icon = ExtResource("1_uld1m")
+tooltip = "[color=\"ffdf00\"]BADGE OF STRENGH[/color]
+[color=\"5b6ee1\"]Uncommon Trinket[/color]
++2 [color=\"dc143c\"]ATTACK[/color]"
+bonus_atk = 2
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

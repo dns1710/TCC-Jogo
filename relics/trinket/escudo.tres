@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://ly5qayf6jurh"]
+
+[ext_resource type="Texture2D" uid="uid://bi6pfjs32f820" path="res://art/tile_0101.png" id="1_1mc5a"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_dvqyj"]
+
+[resource]
+script = ExtResource("2_dvqyj")
+relic_name = "weirdly small shield"
+id = "escudo"
+equip = 3
+icon = ExtResource("1_1mc5a")
+tooltip = "[color=\"ffdf00\"]WEIRDLY SMALL SHIELD[/color]
+[color=\"ffed73\"]Common Trinket[/color]
++1 [color=\"6fa8dc\"]BLOCK[/color]"
+bonus_blk = 1

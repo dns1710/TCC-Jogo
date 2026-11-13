@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://sjue6ufyig07"]
+
+[ext_resource type="Texture2D" uid="uid://c47mthtx6sgf5" path="res://art/verdadeira arte/items/boots.png" id="1_p3l3i"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_5dupt"]
+
+[resource]
+script = ExtResource("2_5dupt")
+relic_name = "Old Boots"
+id = "boots"
+equip = 3
+icon = ExtResource("1_p3l3i")
+tooltip = "[color=\"ffdf00\"]OLD BOOTS[/color]
+[color=\"ffed73\"]Common Trinket[/color]
++1 [color=\"#ffa500\"]SPEED[/color]"
+bonus_spd = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"
