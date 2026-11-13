@@ -5,11 +5,11 @@
 
 [resource]
 script = ExtResource("2_apveb")
-relic_name = "Really Cool Sword"
-id = "espada"
+relic_name = "Short Sword"
+id = "short_sword"
 icon = ExtResource("1_8kqgg")
-tooltip = "[color=\"ffdf00\"]REALLY COOL SWORD[/color]
-[color=\"dc143c\"]1D6 Damage[/color]"
-weapon_dice_attack = 6
+tooltip = "[color=\"ffdf00\"]SHORT SWORD[/color]
+[color=\"5b6ee1\"]Uncommon Weapon[/color]
+[color=\"dc143c\"]1D8 Damage[/color]"
+weapon_dice_attack = 8
 weapon_dice_amount = 1
-metadata/_custom_type_script = "uid://jrf1ynp2rrsw"

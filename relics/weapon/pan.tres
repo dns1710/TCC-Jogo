@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://btn8ie46m7kio"]
+
+[ext_resource type="Texture2D" uid="uid://dytq0eumwvky6" path="res://art/tile_0074.png" id="1_h65x5"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_dsthr"]
+
+[resource]
+script = ExtResource("2_dsthr")
+relic_name = "Frying Pan"
+id = "pan"
+type = 4
+icon = ExtResource("1_h65x5")
+tooltip = "[color=\"ffdf00\"]FRYING PAN[/color]
+[color=\"ffed73\"]Common Weapon[/color]
+[color=\"dc143c\"]1D4 Damage[/color]
++2 [color=\"6fa8dc\"]BLOCK[/color]"
+bonus_blk = 2
+weapon_dice_attack = 4
+weapon_dice_amount = 1
+metadata/_custom_type_script = "uid://dkxx27kqb6tnm"

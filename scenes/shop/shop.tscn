@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://dl0v7eqbpxyqi" path="res://relics/trinket/pocao.tres" id="4_131kw"]
 [ext_resource type="PackedScene" uid="uid://dlt6561ywjx8m" path="res://scenes/shop/shop_relic.tscn" id="5_m1t66"]
 [ext_resource type="Resource" uid="uid://ly5qayf6jurh" path="res://relics/trinket/escudo.tres" id="5_xoc10"]
-[ext_resource type="Resource" uid="uid://ov2giwe4f4pt" path="res://relics/weapon/espada.tres" id="6_k5co3"]
+[ext_resource type="Resource" uid="uid://ov2giwe4f4pt" path="res://relics/weapon/short_sword.tres" id="6_k5co3"]
 [ext_resource type="Resource" uid="uid://sjue6ufyig07" path="res://relics/trinket/boots.tres" id="7_g6lcs"]
 [ext_resource type="Resource" uid="uid://d3piv68i0huvr" path="res://relics/helmet/thorn_helm.tres" id="8_131kw"]
 [ext_resource type="Resource" uid="uid://c1g6p1lp2ebmn" path="res://relics/trinket/smore.tres" id="9_xoc10"]

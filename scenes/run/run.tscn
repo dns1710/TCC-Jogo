@@ -14,7 +14,7 @@
 [ext_resource type="Resource" uid="uid://dl0v7eqbpxyqi" path="res://relics/trinket/pocao.tres" id="7_ymu0v"]
 [ext_resource type="Resource" uid="uid://c1g6p1lp2ebmn" path="res://relics/trinket/smore.tres" id="8_vqexm"]
 [ext_resource type="Resource" uid="uid://ddvwvwkec6euc" path="res://relics/trinket/thorn_ring.tres" id="9_wy2jw"]
-[ext_resource type="Resource" uid="uid://ov2giwe4f4pt" path="res://relics/weapon/espada.tres" id="10_0bq42"]
+[ext_resource type="Resource" uid="uid://ov2giwe4f4pt" path="res://relics/weapon/short_sword.tres" id="10_0bq42"]
 [ext_resource type="PackedScene" uid="uid://bwtke8nmynqt2" path="res://scenes/relic_handler/relic_tooltip.tscn" id="10_xh4qt"]
 [ext_resource type="Script" uid="uid://d1oh2kro3uncj" path="res://scenes/run/pause_menu.gd" id="11_a4w7h"]
 [ext_resource type="Script" uid="uid://cx11e86cw681" path="res://scenes/run/sound_slider.gd" id="11_g42ja"]
@@ -23,7 +23,12 @@
 [ext_resource type="Resource" uid="uid://ccras23p4omub" path="res://relics/trinket/attack_badge.tres" id="12_psst2"]
 [ext_resource type="Resource" uid="uid://cnh2f7px1vx1e" path="res://relics/trinket/speed_badge.tres" id="13_ymu0v"]
 [ext_resource type="Resource" uid="uid://decraqxknmau8" path="res://relics/trinket/block_badge.tres" id="14_ymu0v"]
+[ext_resource type="Resource" uid="uid://c8allik0xhrv2" path="res://relics/weapon/stick.tres" id="15_hu4rv"]
 [ext_resource type="Resource" uid="uid://bnhppnqmysrne" path="res://relics/weapon/acha.tres" id="15_vqexm"]
+[ext_resource type="Resource" uid="uid://btn8ie46m7kio" path="res://relics/weapon/pan.tres" id="16_xgkqp"]
+[ext_resource type="Resource" uid="uid://dt0gwtbtjvnkx" path="res://relics/weapon/hammer.tres" id="17_26or8"]
+[ext_resource type="Resource" uid="uid://cej0oxdyxl65a" path="res://relics/weapon/battle_axe.tres" id="18_4hft2"]
+[ext_resource type="Resource" uid="uid://c11fdadbrr4pw" path="res://relics/weapon/longsword.tres" id="20_x5y4b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_68deg"]
 
@@ -31,7 +36,7 @@
 script = ExtResource("1_bedv1")
 run_startup = ExtResource("2_wgfut")
 music = ExtResource("3_yeia0")
-battle_relic_pool = Array[ExtResource("4_txvia")]([ExtResource("5_u2bn2"), ExtResource("6_psst2"), ExtResource("7_ymu0v"), ExtResource("8_vqexm"), ExtResource("9_wy2jw"), ExtResource("10_0bq42"), ExtResource("11_wgm62"), ExtResource("12_psst2"), ExtResource("13_ymu0v"), ExtResource("14_ymu0v"), ExtResource("15_vqexm")])
+battle_relic_pool = Array[ExtResource("4_txvia")]([ExtResource("14_ymu0v"), ExtResource("13_ymu0v"), ExtResource("12_psst2"), ExtResource("7_ymu0v"), ExtResource("6_psst2"), ExtResource("5_u2bn2"), ExtResource("8_vqexm"), ExtResource("9_wy2jw"), ExtResource("10_0bq42"), ExtResource("11_wgm62"), ExtResource("15_hu4rv"), ExtResource("16_xgkqp"), ExtResource("17_26or8"), ExtResource("10_0bq42"), ExtResource("18_4hft2"), ExtResource("15_vqexm"), ExtResource("20_x5y4b")])
 
 [node name="Map" parent="." unique_id=1692311060 instance=ExtResource("1_7xwwf")]
 
