@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ThornSword" format=3 uid="uid://c3b0enh4cm5e2"]
+
+[ext_resource type="Texture2D" uid="uid://pgj8vfpj6tc5" path="res://art/tile_0130.png" id="1_jg06g"]
+[ext_resource type="Script" uid="uid://ccqufwvp7qyvm" path="res://relics/weapon/thornsword.gd" id="2_jg06g"]
+
+[resource]
+script = ExtResource("2_jg06g")
+relic_name = "Thorn Sword"
+id = "thornsword"
+type = 2
+rarity = 1
+icon = ExtResource("1_jg06g")
+tooltip = "2D4 Weapon damage
++2 THORNS"
+weapon_dice_attack = 6
+weapon_dice_amount = 2

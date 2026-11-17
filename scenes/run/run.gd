@@ -257,13 +257,12 @@ func _show_first_battle_reward()-> void:
 func _get_random_relic_reward(
 	required_equip: int = -1,
 	exclude_weapon: bool = false,
-	rarity_weights: Dictionary = {}
-) -> Relic:
+	rarity_weights: Dictionary = {}) -> Relic:
 	if rarity_weights.is_empty():
 		rarity_weights = {
 			Relic.Rarity.COMMON:50,
-			Relic.Rarity.UNCOMMON: 45,
-			Relic.Rarity.RARE: 5
+			Relic.Rarity.UNCOMMON: 35,
+			Relic.Rarity.RARE: 15
 		}
 	var available_relics: Dictionary = {
 		Relic.Rarity.COMMON: [],
@@ -303,49 +302,7 @@ func _get_random_relic_reward(
 			return RNG.array_pick_random(available_relics[rarity])
 	
 	return null
-
-#func _get_random_relic_reward() -> Relic:
-#	var available_relics: Dictionary = {
-#		Relic.Rarity.COMMON: [],
-#		Relic.Rarity.UNCOMMON: [],
-#		Relic.Rarity.RARE: []
-#	}
 	
-#	for relic: Relic in battle_relic_pool:
-#		if relic == null:
-#			continue
-#		if not relic.can_appear_as_reward(character):
-#			continue
-#		if relic_handler.has_relic(relic.id):
-#			continue
-#		available_relics[relic.rarity].append(relic)
-	
-#	var rarity_weights: Dictionary = {
-#		Relic.Rarity.COMMON: 50,
-#		Relic.Rarity.UNCOMMON: 45,
-#		Relic.Rarity.RARE: 5
-#	}
-	
-#	var total_weight := 0
-#	var available_rarities: Array[int] = []
-#	for rarity: int in rarity_weights:
-#		if not available_relics[rarity].is_empty():
-#			available_rarities.append(rarity)
-#			total_weight += rarity_weights[rarity]
-	
-#	if available_rarities.is_empty():
-#		return null
-	
-#	var roll := RNG.pick_random(1,total_weight)
-#	var selected_rarity: int
-	
-#	for rarity: int in available_rarities:
-#		roll -= rarity_weights[rarity]
-#		if roll <= 0:
-#			selected_rarity = rarity
-#			break
-	
-#	return RNG.array_pick_random(available_relics[selected_rarity])
 
 func _on_battle_room_entered(room: Room) -> void:
 	#var tier: int

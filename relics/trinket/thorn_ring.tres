@@ -11,8 +11,6 @@ type = 2
 equip = 3
 rarity = 1
 icon = ExtResource("1_mkp64")
-tooltip = "[color=\"ffdf00\"]THORN RING[/color]
-[color=\"5b6ee1\"]Uncommon Trinket[/color]
-+1 [color=\"dc143c\"]ATTACK[/color], +1 [color=\"daa520\"]THORNS [/color]"
+tooltip = "+1 ATTACK, +1 THORNS"
 bonus_atk = 1
 metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

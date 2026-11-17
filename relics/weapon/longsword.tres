@@ -9,8 +9,6 @@ relic_name = "Long Sword"
 id = "longsword"
 rarity = 2
 icon = ExtResource("1_bfidu")
-tooltip = "[color=\"ffdf00\"]GREAT AXE[/color]
-[color=\"d95763\"]Rare Weapon[/color]
-[color=\"dc143c\"]1D10 Damage[/color]"
+tooltip = "1D10 Weapon damage"
 weapon_dice_attack = 10
 weapon_dice_amount = 1

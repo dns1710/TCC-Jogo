@@ -35,6 +35,36 @@ func deactivate_relic(_owner: RelicUI) -> void:
 func get_tooltip() -> String:
 	return tooltip
 
+func get_equip() -> String:
+	var relic_equip: String
+	
+	match equip:
+		Relic.Equip.WEAPON:
+			relic_equip = "Weapon"
+		Relic.Equip.HELMET:
+			relic_equip = "Helmet"
+		Relic.Equip.ARMOR:
+			relic_equip = "Armor"
+		Relic.Equip.TRINKET:
+			relic_equip = "Trinket"
+
+	return relic_equip
+
+
+func get_rarity() -> String:
+	var relic_rarity: String
+	
+	match rarity:
+		Relic.Rarity.COMMON:
+			relic_rarity = "Common"
+		Relic.Rarity.UNCOMMON:
+			relic_rarity = "Uncommon"
+		Relic.Rarity.RARE:
+			relic_rarity = "Rare"
+	
+	return relic_rarity
+	
+
 func can_appear_as_reward(character: CharacterStats) -> bool:
 	if starter_relic:
 		return false

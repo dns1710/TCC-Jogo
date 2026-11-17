@@ -11,7 +11,5 @@ type = 4
 equip = 3
 rarity = 1
 icon = ExtResource("1_3grnf")
-tooltip = "[color=\"ffdf00\"]GOLDEN CLOVER[/color]
-[color=\"5b6ee1\"]Uncommon Trinket[/color]
-Gain a little bit of gold at the end of every battle"
+tooltip = "Gain a little bit of gold at the end of every battle"
 metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

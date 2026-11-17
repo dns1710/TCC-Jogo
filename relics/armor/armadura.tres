@@ -11,8 +11,7 @@ type = 1
 equip = 2
 rarity = 1
 icon = ExtResource("1_w5iwp")
-tooltip = "[color=\"ffdf00\"]SHINING ARMOR[/color]
-+1 [color=\"6fa8dc\"]BLOCK[/color]
-Gain +1 [color=\"6fa8dc\"]BLOCK[/color] at the start of every other turn"
+tooltip = "+1 BLOCK
+Gain +1 BLOCK at the start of every other turn"
 bonus_blk = 1
 metadata/_custom_type_script = "uid://doman22hrts78"

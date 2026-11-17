@@ -17,10 +17,15 @@ extends Control
 @onready var trinket_slot_2: Button = %TrinketSlot2
 
 var relic_handler: RelicHandler
-
 var empty_slot_icons: Dictionary = {}
+var animation_lock: bool = false
+var battle_lock: bool = false
 
 func _ready() -> void:
+	Events.animation_dda_lock.connect(_animation_lock_check)
+	Events.battle_start.connect(_on_battle_start)
+	Events.battle_over_screen_requested.connect(_on_battle_over)
+	
 	close_button.pressed.connect(close_inventory)
 	weapon_slot.pressed.connect(_on_equipment_slot_pressed.bind(weapon_slot))
 	helmet_slot.pressed.connect(_on_equipment_slot_pressed.bind(helmet_slot))
@@ -33,8 +38,20 @@ func _ready() -> void:
 	empty_slot_icons[armor_slot] = armor_slot.icon
 	empty_slot_icons[trinket_slot_1] = trinket_slot_1.icon
 	empty_slot_icons[trinket_slot_2] = trinket_slot_2.icon
+
+func _animation_lock_check(value: bool) -> void:
+	animation_lock = value
+
+func _on_battle_start() -> void:
+	battle_lock = true
+
+func _on_battle_over(_string = null, _type = null) -> void:
+	battle_lock = false
 	
 func open_inventory(handler: RelicHandler) -> void:
+	if animation_lock:
+		return
+		
 	relic_handler = handler
 	print("INVENTÁRIO ABERTO")
 	print("Quantidade de itens: ", relic_handler.get_all_relics().size())
@@ -79,6 +96,10 @@ func update_player_stats() -> void:
 	speed_label.text = "%d" % stats.max_speed
 
 func _on_relic_button_pressed(relic: Relic) -> void:
+	if battle_lock:
+		print("Can't change items on battle!")
+		return
+		
 	if relic_handler.equip_relic(relic):
 		update_inventory()
 		update_equipment_slots()
@@ -103,6 +124,10 @@ func _update_slot(slot: Button, relic: Relic) -> void:
 
 
 func _on_equipment_slot_pressed(slot: Button) -> void:
+	if battle_lock:
+		print("Can't change items on battle!")
+		return
+		
 	var relic: Relic
 
 	if slot == weapon_slot:

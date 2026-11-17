@@ -42,7 +42,16 @@ func add_relic(relic: Relic) -> void:
 	inventory.append(relic)
 	
 	if run_stats:
-		run_stats.dda_score = clampi(run_stats.dda_score + 5, 0, 100)
+		var rarity_score
+		match relic.rarity:
+			Relic.Rarity.COMMON:
+				rarity_score = 1
+			Relic.Rarity.UNCOMMON:
+				rarity_score = 3
+			Relic.Rarity.RARE:
+				rarity_score = 5
+			
+		run_stats.dda_score = clampi(run_stats.dda_score + rarity_score, 0, 100)
 		print("ADD RELIC. SCORE: ", run_stats.dda_score)
 	
 	#if relic.equip == Relic.Equip.TRINKET:

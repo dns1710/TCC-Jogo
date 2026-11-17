@@ -9,7 +9,5 @@ relic_name = "weirdly small shield"
 id = "escudo"
 equip = 3
 icon = ExtResource("1_1mc5a")
-tooltip = "[color=\"ffdf00\"]WEIRDLY SMALL SHIELD[/color]
-[color=\"ffed73\"]Common Trinket[/color]
-+1 [color=\"6fa8dc\"]BLOCK[/color]"
+tooltip = "+1 BLOCK"
 bonus_blk = 1

@@ -18,7 +18,8 @@ func _ready() -> void:
 	Events.player_action_completed.connect(_on_player_action_completed)
 	Events.player_died.connect(_on_player_died) 
 	
-func start_battle() -> void: 
+func start_battle() -> void:
+	Events.battle_start.emit()
 	get_tree().paused = false 
 	MusicPlayer.play(music, true) 
 	battle_ui.char_stats = char_stats

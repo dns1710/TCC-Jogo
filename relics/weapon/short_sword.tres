@@ -8,8 +8,6 @@ script = ExtResource("2_apveb")
 relic_name = "Short Sword"
 id = "short_sword"
 icon = ExtResource("1_8kqgg")
-tooltip = "[color=\"ffdf00\"]SHORT SWORD[/color]
-[color=\"5b6ee1\"]Uncommon Weapon[/color]
-[color=\"dc143c\"]1D8 Damage[/color]"
+tooltip = "1D8 Weapon damage"
 weapon_dice_attack = 8
 weapon_dice_amount = 1
