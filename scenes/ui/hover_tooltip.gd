@@ -2,7 +2,7 @@ class_name HoverTooltip
 extends PanelContainer
 
 @export var hover_delay: float = 0.5
-@export var mouse_offset := Vector2(12, 12)
+@export var mouse_offset := Vector2(8, 8)
 
 @onready var title_label: Label = %TitleLabel
 @onready var type_label: Label = %TypeLabel
@@ -28,7 +28,7 @@ func _ready() -> void:
 	hover_timer.timeout.connect(_on_hover_timer_timeout)
 
 
-func show_tooltip(title: String, rarity: String, equip: String, description: String) -> void:
+func show_tooltip(title: String, description: String, rarity: String = "", equip: String = "") -> void:
 	pending_title = title.to_upper()
 	pending_rarity = rarity
 	pending_equip = equip
@@ -44,6 +44,10 @@ func hide_tooltip() -> void:
 func _on_hover_timer_timeout() -> void:
 	title_label.text = pending_title
 	type_label.text = pending_rarity + " " + pending_equip
+	if type_label.text == "":
+		type_label.hide()
+	else:
+		type_label.show()
 	description_label.text = pending_description
 	
 	match pending_rarity:

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ThornPlate" format=3 uid="uid://d3ft8s0c5go3t"]
+
+[ext_resource type="Texture2D" uid="uid://jnsla8mlhg0y" path="res://art/verdadeira arte/thorn_plate_relic.png" id="1_ii7uv"]
+[ext_resource type="Script" uid="uid://bnb2mmt566o25" path="res://relics/armor/thorn_plate.gd" id="2_ii7uv"]
+
+[resource]
+script = ExtResource("2_ii7uv")
+relic_name = "Thorn Plate"
+id = "thornplate"
+type = 5
+equip = 2
+rarity = 1
+icon = ExtResource("1_ii7uv")
+tooltip = "+1 BLOCK, +1 THORNS"
+bonus_blk = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

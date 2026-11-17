@@ -26,7 +26,7 @@ func flash() -> void:
 func _on_mouse_entered() -> void:
 	if not relic or not hover_tooltip:
 		return
-	hover_tooltip.show_tooltip(relic.relic_name, relic.get_rarity(), relic.get_equip(), relic.get_tooltip())
+	hover_tooltip.show_tooltip(relic.relic_name, relic.get_tooltip(), relic.get_rarity(), relic.get_equip())
 
 func _on_mouse_exited() -> void:
 	if hover_tooltip:

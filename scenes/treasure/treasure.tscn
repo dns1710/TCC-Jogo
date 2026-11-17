@@ -17,6 +17,7 @@
 [ext_resource type="Resource" uid="uid://c3b0enh4cm5e2" path="res://relics/weapon/thornsword.tres" id="12_50sti"]
 [ext_resource type="Resource" uid="uid://c1g6p1lp2ebmn" path="res://relics/trinket/smore.tres" id="12_wp70s"]
 [ext_resource type="Resource" uid="uid://bnhppnqmysrne" path="res://relics/weapon/acha.tres" id="13_50sti"]
+[ext_resource type="Resource" uid="uid://d3ft8s0c5go3t" path="res://relics/armor/thorn_plate.tres" id="13_ethah"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8a2h2"]
 font_size = 12
@@ -159,7 +160,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_0dgmn")
-treasure_relic_pool = Array[ExtResource("2_ufafs")]([ExtResource("6_8auyv"), ExtResource("11_2i7av"), ExtResource("7_bbvtr"), ExtResource("12_wp70s"), ExtResource("10_odogb"), ExtResource("13_50sti"), ExtResource("9_2i7av"), ExtResource("10_wp70s"), ExtResource("3_qhcu3"), ExtResource("12_50sti")])
+treasure_relic_pool = Array[ExtResource("2_ufafs")]([ExtResource("6_8auyv"), ExtResource("11_2i7av"), ExtResource("7_bbvtr"), ExtResource("12_wp70s"), ExtResource("10_odogb"), ExtResource("13_50sti"), ExtResource("9_2i7av"), ExtResource("10_wp70s"), ExtResource("3_qhcu3"), ExtResource("12_50sti"), ExtResource("13_ethah")])
 
 [node name="Background" type="TextureRect" parent="." unique_id=1895505380]
 layout_mode = 1

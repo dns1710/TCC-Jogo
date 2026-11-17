@@ -10,7 +10,7 @@ id = "thornsword"
 type = 2
 rarity = 1
 icon = ExtResource("1_jg06g")
-tooltip = "2D4 Weapon damage
+tooltip = "1d6 Weapon damage
 +2 THORNS"
 weapon_dice_attack = 6
-weapon_dice_amount = 2
+weapon_dice_amount = 1

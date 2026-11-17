@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://cf07wiytx0wxh"]
+
+[ext_resource type="Texture2D" uid="uid://ct1f1tefoitch" path="res://art/verdadeira arte/items/old_shirt_relic.png" id="1_qlm1x"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_1n3fk"]
+
+[resource]
+script = ExtResource("2_1n3fk")
+relic_name = "Old Shirt"
+id = "old_shirt"
+equip = 2
+icon = ExtResource("1_qlm1x")
+tooltip = "+1 BLOCK"
+bonus_blk = 1

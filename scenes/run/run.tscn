@@ -32,6 +32,9 @@
 [ext_resource type="Resource" uid="uid://cej0oxdyxl65a" path="res://relics/weapon/battle_axe.tres" id="18_4hft2"]
 [ext_resource type="Resource" uid="uid://c11fdadbrr4pw" path="res://relics/weapon/longsword.tres" id="20_x5y4b"]
 [ext_resource type="Resource" uid="uid://c3b0enh4cm5e2" path="res://relics/weapon/thornsword.tres" id="23_4hft2"]
+[ext_resource type="Resource" uid="uid://mmgrfiitup8x" path="res://relics/helmet/old_cap.tres" id="24_6w2u5"]
+[ext_resource type="Resource" uid="uid://cf07wiytx0wxh" path="res://relics/armor/old_shirt.tres" id="25_tbe7a"]
+[ext_resource type="Resource" uid="uid://d3ft8s0c5go3t" path="res://relics/armor/thorn_plate.tres" id="26_tbe7a"]
 [ext_resource type="PackedScene" uid="uid://hotalxr27hiu" path="res://scenes/ui/hover_tooltip.tscn" id="33_x5y4b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_68deg"]
@@ -40,7 +43,7 @@
 script = ExtResource("1_bedv1")
 run_startup = ExtResource("2_wgfut")
 music = ExtResource("3_yeia0")
-battle_relic_pool = Array[ExtResource("4_txvia")]([ExtResource("5_4hft2"), ExtResource("11_wgm62"), ExtResource("12_psst2"), ExtResource("14_ymu0v"), ExtResource("5_u2bn2"), ExtResource("6_psst2"), ExtResource("11_x5y4b"), ExtResource("7_ymu0v"), ExtResource("8_vqexm"), ExtResource("13_ymu0v"), ExtResource("9_wy2jw"), ExtResource("15_hu4rv"), ExtResource("16_xgkqp"), ExtResource("17_26or8"), ExtResource("10_0bq42"), ExtResource("18_4hft2"), ExtResource("20_x5y4b"), ExtResource("15_vqexm"), ExtResource("23_4hft2")])
+battle_relic_pool = Array[ExtResource("4_txvia")]([ExtResource("5_4hft2"), ExtResource("11_wgm62"), ExtResource("12_psst2"), ExtResource("14_ymu0v"), ExtResource("5_u2bn2"), ExtResource("6_psst2"), ExtResource("11_x5y4b"), ExtResource("7_ymu0v"), ExtResource("8_vqexm"), ExtResource("13_ymu0v"), ExtResource("9_wy2jw"), ExtResource("15_hu4rv"), ExtResource("16_xgkqp"), ExtResource("17_26or8"), ExtResource("10_0bq42"), ExtResource("18_4hft2"), ExtResource("20_x5y4b"), ExtResource("15_vqexm"), ExtResource("23_4hft2"), ExtResource("24_6w2u5"), ExtResource("25_tbe7a"), ExtResource("26_tbe7a")])
 
 [node name="Map" parent="." unique_id=1692311060 instance=ExtResource("1_7xwwf")]
 
@@ -202,5 +205,6 @@ layer = 4
 visible = false
 
 [node name="TooltipLayer" type="CanvasLayer" parent="." unique_id=793714722]
+layer = 10
 
 [node name="HoverTooltip" parent="TooltipLayer" unique_id=984338624 instance=ExtResource("33_x5y4b")]

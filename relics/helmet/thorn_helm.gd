@@ -1,4 +1,4 @@
-class_name ThornPlate
+class_name ThornHelm
 extends Relic
 
 const THORN_STATUS = preload("res://statuses/status_thorns.tres")

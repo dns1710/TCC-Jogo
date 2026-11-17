@@ -382,8 +382,8 @@ func _on_shop_exited() -> void:
 	var score: int = stats.dda_score
 	var relic_count: int = relic_handler.get_all_relics().size()
 	
-	#SE COMPRA TODOS OS ITENS DA LOJA E POSSUI +4 ITENS: Troca shop por combate
-	if !dda_shop_changed and score >= 55 and relic_count == (shop_entered_items+3) and relic_count >= 4:
+	#SE COMPRA TODOS OS ITENS DA LOJA E POSSUI 6+ ITENS: Troca shop por combate
+	if !dda_shop_changed and score >= 55 and relic_count == (shop_entered_items+3) and relic_count >= 6:
 		map.change_room(Room.Type.SHOP, Room.Type.MONSTER)
 		dda_shop_changed = true
 	
@@ -414,7 +414,7 @@ func _on_battle_won() -> void:
 	if score >= 65:
 		var relic_count: int = relic_handler.get_all_relics().size()
 		
-		if relic_count >= 4 and dda_shop_changed == false:
+		if relic_count >= 6 and dda_shop_changed == false:
 			map.change_room(Room.Type.SHOP, Room.Type.MONSTER)
 			dda_shop_changed = true
 		elif hp_percentage >= 0.5:

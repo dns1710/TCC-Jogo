@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("2_dvqyj")
-relic_name = "weirdly small shield"
-id = "escudo"
+relic_name = "Weirdly Small Shield"
+id = "shield"
 equip = 3
 icon = ExtResource("1_1mc5a")
 tooltip = "+1 BLOCK"

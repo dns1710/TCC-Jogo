@@ -16,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://bnhppnqmysrne" path="res://relics/weapon/acha.tres" id="10_k5co3"]
 [ext_resource type="Resource" uid="uid://c3b0enh4cm5e2" path="res://relics/weapon/thornsword.tres" id="11_6kbe7"]
 [ext_resource type="PackedScene" uid="uid://ctvxie3ni1ik4" path="res://scenes/modifier_handler/modifier_handler.tscn" id="11_863hj"]
+[ext_resource type="Resource" uid="uid://d3ft8s0c5go3t" path="res://relics/armor/thorn_plate.tres" id="12_hbyua"]
 [ext_resource type="PackedScene" uid="uid://bqefj5q31b84i" path="res://scenes/modifier_handler/modifier.tscn" id="12_xf6l8"]
 
 [sub_resource type="Gradient" id="Gradient_sv6qe"]
@@ -79,7 +80,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_oqoy8")
-shop_relics = Array[ExtResource("2_dww4p")]([ExtResource("3_g6lcs"), ExtResource("4_131kw"), ExtResource("5_xoc10"), ExtResource("6_k5co3"), ExtResource("7_g6lcs"), ExtResource("8_131kw"), ExtResource("9_xoc10"), ExtResource("10_k5co3"), ExtResource("11_6kbe7")])
+shop_relics = Array[ExtResource("2_dww4p")]([ExtResource("3_g6lcs"), ExtResource("4_131kw"), ExtResource("5_xoc10"), ExtResource("6_k5co3"), ExtResource("7_g6lcs"), ExtResource("8_131kw"), ExtResource("9_xoc10"), ExtResource("10_k5co3"), ExtResource("11_6kbe7"), ExtResource("12_hbyua")])
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=1845713156]
 layer = 0
