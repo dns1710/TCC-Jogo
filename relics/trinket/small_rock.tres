@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://cm2er3fxu166l"]
+
+[ext_resource type="Texture2D" uid="uid://cy4rjq2ofu27v" path="res://art/verdadeira arte/items/small_rock_relic.png" id="1_7a5tq"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="1_y1uto"]
+
+[resource]
+script = ExtResource("1_y1uto")
+relic_name = "Small Rock"
+id = "SmallRock"
+equip = 3
+icon = ExtResource("1_7a5tq")
+tooltip = "+1 Block"
+bonus_blk = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

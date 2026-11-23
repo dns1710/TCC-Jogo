@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://f1gfawphkce7"]
+
+[ext_resource type="Texture2D" uid="uid://oe7v35ii8vrs" path="res://art/tile_0102.png" id="1_70mru"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="1_qvrwe"]
+
+[resource]
+script = ExtResource("1_qvrwe")
+relic_name = "Coat"
+id = "coat"
+icon = ExtResource("1_70mru")
+tooltip = "Coat
+
++2 block"
+bonus_blk = 2
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

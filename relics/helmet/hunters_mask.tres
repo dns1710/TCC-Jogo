@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="HuntersMask" format=3 uid="uid://da377yk2u33hd"]
+
+[ext_resource type="Texture2D" uid="uid://ce5pxxln1q5ci" path="res://art/verdadeira arte/items/hunters_mask_relic.png" id="1_83mwh"]
+[ext_resource type="Script" uid="uid://dirltuc1c4705" path="res://relics/helmet/hunters_mask.gd" id="1_te5hi"]
+
+[resource]
+script = ExtResource("1_te5hi")
+dice_amount = 1
+dice_value = 6
+relic_name = "Hunter's Mask"
+id = "HunterSMask"
+type = 5
+equip = 1
+rarity = 2
+icon = ExtResource("1_83mwh")
+tooltip = "+1 BLOCK, +1 ATTACK
+
+When an enemy dies, heal 1d6"
+bonus_blk = 1
+bonus_atk = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

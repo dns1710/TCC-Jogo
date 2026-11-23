@@ -1,5 +1,7 @@
 extends EnemyAction
 
+@export var block = 2
+
 const ATTACK_STATUS = preload("res://statuses/status_attack_up.tres")
 
 func is_performable() -> bool:
@@ -12,10 +14,15 @@ func perform_action() -> void:
 	if not enemy:
 		return
 	
+	var block_effect := BlockEffect.new()
+	block_effect.amount = block
+	block_effect.sound = sound
+	block_effect.execute([enemy])
 	var status_effect := StatusEffect.new()
 	var attack := ATTACK_STATUS.duplicate()
 	status_effect.status = attack
 	status_effect.execute([enemy])
+	
 	
 	SFXPlayer.play(sound)
 	

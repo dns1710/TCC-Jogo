@@ -12,13 +12,18 @@ extends Node2D
 @onready var player: Player = $Player 
 @onready var atb_manager: ATBManager = $ATBManager
 
+const BATTLE_OVER_DELAY := 1.0
+var player_lost := false
+var panel_shown := false
+
 func _ready() -> void: 
 	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed)
 	Events.player_atb_ready.connect(_on_player_atb_ready)
 	Events.player_action_completed.connect(_on_player_action_completed)
 	Events.player_died.connect(_on_player_died) 
 	
-func start_battle() -> void: 
+func start_battle() -> void:
+	Events.battle_start.emit()
 	get_tree().paused = false 
 	MusicPlayer.play(music, true) 
 	battle_ui.char_stats = char_stats
@@ -41,10 +46,12 @@ func _on_player_atb_ready() -> void:
 func _on_player_action_completed() -> void:
 	player_handler.player_action_finished()
 	
-func _on_player_died() -> void: 
-	Events.battle_over_screen_requested.emit("Game Over!", BattleOverPanel.Type.LOSE)
+func _on_player_died() -> void:
+	player_lost = true
+	#Events.battle_over_screen_requested.emit("Game Over!", BattleOverPanel.Type.LOSE)
 	SaveGame.delete_data() 
-
+	_show_battle_over("GAME OVER!", BattleOverPanel.Type.LOSE)
+	
 func _on_relics_activated(type: Relic.Type) -> void: 
 	match type: 
 		Relic.Type.START_OF_COMBAT: 
@@ -52,4 +59,22 @@ func _on_relics_activated(type: Relic.Type) -> void:
 		Relic.Type.END_OF_COMBAT:
 			char_stats.set_block(0)
 			MusicPlayer.play(map_music, true)
-			Events.battle_over_screen_requested.emit("Victorious!", BattleOverPanel.Type.WIN)
+			#Events.battle_over_screen_requested.emit("Victorious!", BattleOverPanel.Type.WIN)
+			_show_battle_over("BATTLE WON!", BattleOverPanel.Type.WIN)
+			
+	
+func _show_battle_over(text: String, type: BattleOverPanel.Type) -> void:
+	atb_manager.battle_running = false
+	if is_instance_valid(player):
+		player.can_act = false
+	
+	await get_tree().create_timer(BATTLE_OVER_DELAY,false).timeout
+	
+	if not is_inside_tree():
+		return
+	
+	if type == BattleOverPanel.Type.WIN and (player_lost or panel_shown):
+		return
+	
+	panel_shown = true
+	Events.battle_over_screen_requested.emit(text,type)

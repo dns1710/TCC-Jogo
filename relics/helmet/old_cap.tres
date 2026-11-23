@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://mmgrfiitup8x"]
+
+[ext_resource type="Texture2D" uid="uid://cxoyxfms36twh" path="res://art/verdadeira arte/items/old_cap_relic.png" id="1_8bdxh"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_qapvj"]
+
+[resource]
+script = ExtResource("2_qapvj")
+relic_name = "Old Cap"
+id = "OldCap"
+equip = 1
+icon = ExtResource("1_8bdxh")
+tooltip = "+1 BLOCK"
+bonus_blk = 1

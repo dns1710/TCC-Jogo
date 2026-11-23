@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ThornSword" format=3 uid="uid://bxd66bhmpl5tv"]
+
+[ext_resource type="Texture2D" uid="uid://cij4xrrnheguy" path="res://art/verdadeira arte/items/thorn_sword_relic.png" id="1_ydhc1"]
+[ext_resource type="Script" uid="uid://dvkf5vwuupfuw" path="res://relics/weapon/thorn_sword.gd" id="2_ydhc1"]
+
+[resource]
+script = ExtResource("2_ydhc1")
+relic_name = "Thorn Sword"
+id = "ThornSword"
+type = 2
+rarity = 1
+icon = ExtResource("1_ydhc1")
+tooltip = "1d8 weapon damage
+
++2 THORNS"
+weapon_dice_attack = 8
+weapon_dice_amount = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

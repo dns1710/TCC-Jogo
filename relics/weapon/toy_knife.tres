@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://bssg3cf58abfw"]
+
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="1_domu2"]
+[ext_resource type="Texture2D" uid="uid://opsvlng0aoxs" path="res://art/verdadeira arte/items/toy_knife_relic.png" id="1_laqcn"]
+
+[resource]
+script = ExtResource("1_domu2")
+relic_name = "Toy Knife"
+id = "ToyKnife"
+icon = ExtResource("1_laqcn")
+tooltip = "1d6 weapon damage
+
++1 SPEED"
+bonus_spd = 1
+weapon_dice_attack = 6
+weapon_dice_amount = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"
