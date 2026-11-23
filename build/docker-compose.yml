@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  godot-web:
+    image: caddy:2-alpine
+    container_name: godot_caddy_server
+    ports:
+      - "3000:80"
+    volumes:
+      - ./web-export:/usr/share/caddy
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    restart: unless-stopped
