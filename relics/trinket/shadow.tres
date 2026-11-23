@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://cqgt7umb3uxo"]
+
+[ext_resource type="Texture2D" uid="uid://c24y6l0ivlqp7" path="res://art/tile_0108.png" id="1_u46fr"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="1_whkoh"]
+
+[resource]
+script = ExtResource("1_whkoh")
+relic_name = "Shadow sneakers"
+id = "shadow"
+equip = 3
+rarity = 2
+icon = ExtResource("1_u46fr")
+tooltip = "Gotta go fast
+
++3 speed"
+bonus_spd = 3
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"
