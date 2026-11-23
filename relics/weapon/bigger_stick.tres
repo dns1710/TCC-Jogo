@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BiggerStick" format=3 uid="uid://c11fdadbrr4pw"]
+
+[ext_resource type="Texture2D" uid="uid://c41un7d4e0kew" path="res://art/verdadeira arte/items/bigger_stick_relic.png" id="1_e88py"]
+[ext_resource type="Script" uid="uid://g2r6ry0h8o5v" path="res://relics/weapon/bigger_stick.gd" id="2_vnlm5"]
+
+[resource]
+script = ExtResource("2_vnlm5")
+relic_name = "Bigger Stick"
+id = "BiggerStick"
+type = 2
+rarity = 2
+icon = ExtResource("1_e88py")
+tooltip = "1d10 weapon damage
+
+Your first attack every combat deals +1d10 damage."
+weapon_dice_attack = 10
+weapon_dice_amount = 1

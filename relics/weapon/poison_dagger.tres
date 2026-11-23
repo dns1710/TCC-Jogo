@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PoisonDagger" format=3 uid="uid://b6i161oysb15r"]
+
+[ext_resource type="Texture2D" uid="uid://c0fo0qke2mbed" path="res://art/verdadeira arte/items/poison_dagger_relic.png" id="1_gy480"]
+[ext_resource type="Script" uid="uid://dog1shcxeor26" path="res://relics/weapon/poison_dagger.gd" id="2_gy480"]
+
+[resource]
+script = ExtResource("2_gy480")
+relic_name = "Poison Dagger"
+id = "PoisonDagger"
+rarity = 2
+icon = ExtResource("1_gy480")
+tooltip = "1d6 weapon damage
+
+When you attack an enemy, apply POISON to it"
+weapon_dice_attack = 6
+weapon_dice_amount = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

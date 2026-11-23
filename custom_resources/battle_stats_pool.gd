@@ -3,7 +3,7 @@ extends Resource
 
 @export var pool: Array[BattleStats]
 
-var total_weights_by_tier := [0.0, 0.0, 0.0]
+var total_weights_by_tier := [0.0, 0.0, 0.0, 0.0]
 
 
 func _get_all_battles_for_tier(tier: int) -> Array[BattleStats]:
@@ -34,5 +34,5 @@ func get_random_battle_for_tier(tier: int) -> BattleStats:
 
 
 func setup() -> void:
-	for i in 3:
+	for i in 4:
 		_setup_weight_for_tier(i)

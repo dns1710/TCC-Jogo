@@ -10,17 +10,34 @@ const SHOP_RELIC = preload("res://scenes/shop/shop_relic.tscn")
 @export var relic_handler: RelicHandler
 
 @onready var cards: HBoxContainer = %Cards
-@onready var relics: HBoxContainer = %Relics
+@onready var relics_row_1: HBoxContainer = %Row1
+@onready var relics_row_2: HBoxContainer = %Row2
 @onready var shop_keeper_animation: AnimationPlayer = %ShopkeeperAnimation
 @onready var blink_timer: Timer = %BlinkTimer
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
+@onready var tier = RNG.instance.randi_range(1,3)
 
+var row_1_range: int
+var row_2_range: int
 
 func _ready() -> void:
+	if tier == 1:
+		row_1_range = 2
+		row_2_range = 1
+	elif tier == 2:
+		row_1_range = 2
+		row_2_range = 2
+	elif tier == 3:
+		row_1_range = 3
+		row_2_range = 2
+		
 	for shop_card: ShopCard in cards.get_children():
 		shop_card.queue_free()
 		
-	for shop_relic: ShopRelic in relics.get_children():
+	for shop_relic: ShopRelic in relics_row_1.get_children():
+		shop_relic.queue_free()
+	
+	for shop_relic: ShopRelic in relics_row_2.get_children():
 		shop_relic.queue_free()
 		
 	Events.shop_relic_bought.connect(_on_shop_relic_bought)
@@ -31,6 +48,7 @@ func _ready() -> void:
 
 
 func populate_shop() -> void:
+	_clear_relic_rows()
 	_generate_shop_relics()
 
 
@@ -38,21 +56,77 @@ func _blink_timer_setup() -> void:
 	blink_timer.wait_time = randf_range(1.0, 5.0)
 	blink_timer.start()
 
+
+func _clear_relic_rows() -> void:
+	for child in relics_row_1.get_children():
+		relics_row_1.remove_child(child)
+		child.queue_free()
+
+	for child in relics_row_2.get_children():
+		relics_row_2.remove_child(child)
+		child.queue_free()
+		
+		
 func _generate_shop_relics() -> void:
-	var shop_relics_array: Array[Relic] = []
-	var available_relics := shop_relics.filter(
-		func(relic: Relic):
-			var can_appear := relic.can_appear_as_reward(char_stats)
-			var already_had_it := relic_handler.has_relic(relic.id)
-			return can_appear and not already_had_it
-	)
+	var available_relics: Dictionary = {
+		Relic.Rarity.COMMON: [],
+		Relic.Rarity.UNCOMMON: [],
+		Relic.Rarity.RARE: [],
+		Relic.Rarity.MYTHIC: []
+	}
 	
-	RNG.array_shuffle(available_relics)
-	shop_relics_array = available_relics.slice(0, 3)
+	for relic: Relic in shop_relics:
+		if relic == null:
+			continue
+		if not relic.can_appear_as_reward(char_stats):
+			continue
+		if relic_handler.has_relic(relic.id):
+			continue
+		available_relics[relic.rarity].append(relic)
+	
+	var rarity_weights: Dictionary = {
+		Relic.Rarity.COMMON: 40,
+		Relic.Rarity.UNCOMMON: 35,
+		Relic.Rarity.RARE: 20,
+		Relic.Rarity.MYTHIC: 5
+	}
+	
+	var shop_relics_array: Array[Relic] = []
+	
+	for i in range(row_1_range + row_2_range):
+		var total_weight := 0
+		var available_rarities: Array[int] = []
+		for rarity: int in rarity_weights:
+			if not available_relics[rarity].is_empty():
+				available_rarities.append(rarity)
+				total_weight += rarity_weights[rarity]
+		if available_rarities.is_empty():
+			break
+		var roll := RNG.pick_random(1,total_weight)
+		var selected_rarity := -1
+		for rarity: int in available_rarities:
+			roll -= rarity_weights[rarity]
+			if roll <= 0:
+				selected_rarity = rarity
+				break
+		var selected_relic: Relic = RNG.array_pick_random(
+			available_relics[selected_rarity]
+		)
+		
+		shop_relics_array.append(selected_relic)
+		available_relics[selected_rarity].erase(selected_relic)
+	
+	var row_1_count := 0
+	var row_2_count := 0
 	
 	for relic: Relic in shop_relics_array:
 		var new_shop_relic := SHOP_RELIC.instantiate() as ShopRelic
-		relics.add_child(new_shop_relic)
+		
+		if row_1_count < row_1_range:
+			relics_row_1.add_child(new_shop_relic)
+			row_1_count += 1
+		else:
+			relics_row_2.add_child(new_shop_relic)
 		new_shop_relic.relic = relic
 		new_shop_relic.gold_cost = _get_updated_shop_cost(new_shop_relic.gold_cost)
 		new_shop_relic.update(run_stats)
@@ -62,7 +136,10 @@ func _update_items() -> void:
 	for shop_card: ShopCard in cards.get_children():
 		shop_card.update(run_stats)
 
-	for shop_relic: ShopRelic in relics.get_children():
+	for shop_relic: ShopRelic in relics_row_1.get_children():
+		shop_relic.update(run_stats)
+	
+	for shop_relic: ShopRelic in relics_row_2.get_children():
 		shop_relic.update(run_stats)
 
 
@@ -71,7 +148,11 @@ func _update_item_costs() -> void:
 		shop_card.gold_cost = _get_updated_shop_cost(shop_card.gold_cost)
 		shop_card.update(run_stats)
 
-	for shop_relic: ShopRelic in relics.get_children():
+	for shop_relic: ShopRelic in relics_row_1.get_children():
+		shop_relic.gold_cost = _get_updated_shop_cost(shop_relic.gold_cost)
+		shop_relic.update(run_stats)
+	
+	for shop_relic: ShopRelic in relics_row_2.get_children():
 		shop_relic.gold_cost = _get_updated_shop_cost(shop_relic.gold_cost)
 		shop_relic.update(run_stats)
 

@@ -18,11 +18,13 @@ const MAP_WIDTH := 3
 
 var map_data: Array[Array]
 
-
+func _ready() -> void:
+	battle_stats_pool.setup()
+	
 func generate_map() -> Array[Array]:
 	map_data = _generate_initial_grid()
 
-	battle_stats_pool.setup()
+	#battle_stats_pool.setup()
 
 	# Primeira região: andares 0 até 12
 	_generate_region(
@@ -161,7 +163,7 @@ func _generate_region(
 	_set_room_type(
 		boss_room,
 		Room.Type.BOSS,
-		battle_stats_pool.get_random_battle_for_tier(2)
+		battle_stats_pool.get_random_battle_for_tier(3)
 	)
 
 	# Conecta os últimos caminhos ao Boss

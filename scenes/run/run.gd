@@ -18,6 +18,8 @@ const MAIN_MENU_PATH := "res://scenes/ui/main_menu.tscn"
 @onready var relic_handler: RelicHandler = %RelicHandler
 @onready var relic_tooltip: RelicTooltip = %RelicTooltip
 @onready var pause_menu: PauseMenu = $PauseMenu
+@onready var inventory_button: Button = %InventoryButton
+@onready var inventory: Inventory = $InventoryLayer/Inventory
 
 @onready var battle_button: Button = %BattleButton
 @onready var campfire_button: Button = %CampfireButton
@@ -26,15 +28,20 @@ const MAIN_MENU_PATH := "res://scenes/ui/main_menu.tscn"
 @onready var shop_button: Button = %ShopButton
 @onready var treasure_button: Button = %TreasureButton
 
+@export var battle_relic_pool: Array[Relic]
+
 var stats: RunStats
 var character: CharacterStats
 var save_data: SaveGame
 var dda := DDA.new()
 
+#var inventory_open := false
+
 var shop_entered_items: int
 var dda_shop_changed := false
 var dda_treasure_spawned := false
 var dda_treasure_pending := false
+
 
 func _ready() -> void:
 	if not run_startup:
@@ -59,7 +66,11 @@ func _start_new_run() -> void:
 
 	relic_handler.run_stats = stats
 	relic_handler.character_stats = character
-
+	
+	#var starter_relic := preload("res://relics/weapon/lighter.tres")
+	#relic_handler.add_relic(starter_relic,false)
+	#relic_handler.equip_relic(starter_relic)
+	
 	map.run_stats = stats
 	
 	_setup_top_bar()
@@ -73,8 +84,28 @@ func _start_new_run() -> void:
 
 func _save_run(was_on_map: bool) -> void:
 	save_data.run_stats = stats
-	save_data.char_stats = character
+	
+	var saved_character: CharacterStats = character.duplicate(true)
+	
+	for relic: Relic in relic_handler.get_equipped_relics():
+		saved_character.max_block -= relic.bonus_blk
+		saved_character.max_attack -= relic.bonus_atk
+		saved_character.max_speed -= relic.bonus_spd
+	
+	save_data.char_stats = saved_character
+	
 	save_data.relics = relic_handler.get_all_relics()
+	save_data.equipped_weapon_id = relic_handler.equipped_weapon.id if relic_handler.equipped_weapon else ""
+	save_data.equipped_helmet_id = relic_handler.equipped_helmet.id if relic_handler.equipped_helmet else ""
+	save_data.equipped_armor_id = relic_handler.equipped_armor.id if relic_handler.equipped_armor else ""
+	save_data.equipped_trinket_1_id = relic_handler.equipped_trinkets[0].id if relic_handler.equipped_trinkets[0] else ""
+	save_data.equipped_trinket_2_id = relic_handler.equipped_trinkets[1].id if relic_handler.equipped_trinkets[1] else ""
+	
+	save_data.dda_shop_changed = dda_shop_changed
+	save_data.dda_treasure_spawned = dda_treasure_spawned
+	save_data.dda_treasure_pending = dda_treasure_pending
+	save_data.shop_entered_items = shop_entered_items
+	
 	save_data.last_room = map.last_room
 	save_data.map_data = map.map_data.duplicate()
 	save_data.floors_climbed = map.floors_climbed
@@ -89,12 +120,26 @@ func _load_run() -> void:
 	save_data = SaveGame.load_data()
 	
 	RNG.set_from_save_data(save_data.rng_seed, save_data.rng_state)
+	
 	stats = save_data.run_stats
 	character = save_data.char_stats
 	map.run_stats = stats
-	relic_handler.add_relics(save_data.relics)
+	
 	relic_handler.run_stats = stats
 	relic_handler.character_stats = character
+	
+	relic_handler.add_relics(save_data.relics, false)
+	
+	relic_handler.restore_equipment(
+		save_data.equipped_weapon_id,
+		save_data.equipped_helmet_id,
+		save_data.equipped_armor_id,
+		save_data.equipped_trinket_1_id,
+		save_data.equipped_trinket_2_id
+	)
+	#relic_handler.add_relics(save_data.relics)
+	#relic_handler.run_stats = stats
+	#relic_handler.character_stats = character
 	_setup_top_bar()
 	
 	map.load_map(save_data.map_data, save_data.floors_climbed, save_data.last_room)
@@ -102,6 +147,7 @@ func _load_run() -> void:
 		map.show_map()
 	elif save_data.last_room:
 		_on_map_exited(save_data.last_room)
+		
 	
 func _setup_top_bar() -> void:
 	_connect_character_signals()
@@ -110,6 +156,7 @@ func _setup_top_bar() -> void:
 
 
 func _connect_ui_signals() -> void:
+	_safe_connect(inventory_button.pressed, _on_inventory_button_pressed)
 	_safe_connect(battle_button.pressed, func(): _change_view(BATTLE_SCENE))
 	_safe_connect(campfire_button.pressed, func(): _change_view(CAMPFIRE_SCENE))
 	_safe_connect(map_button.pressed, _show_map)
@@ -181,18 +228,130 @@ func _go_to_main_menu() -> void:
 	get_tree().change_scene_to_file(MAIN_MENU_PATH)
 
 
+func _on_inventory_button_pressed() -> void:
+	if inventory.visible:
+		inventory.close_inventory()
+	else:
+		inventory.open_inventory(relic_handler)
+
 func _show_regular_battle_rewards() -> void:
 	var reward := _change_view(BATTLE_REWARD_SCENE) as BattleReward
 	reward.run_stats = stats
 	reward.character_stats = character
+	reward.relic_handler = relic_handler
+	reward.add_gold_reward(map.last_room.battle_stats.roll_gold_reward())
+	
+	#var relic_reward := _get_random_relic_reward()
+	var tier := map.last_room.battle_stats.battle_tier
+	var relic_reward := _get_random_relic_reward(-1, false, _get_battle_reward_weights(tier))
+	if relic_reward:
+		reward.add_relic_reward(relic_reward)
+
+
+func _show_first_battle_reward()-> void:
+	var reward := _change_view(BATTLE_REWARD_SCENE) as BattleReward
+	reward.run_stats = stats
+	reward.character_stats = character
+	reward.relic_handler = relic_handler
 	reward.add_gold_reward(map.last_room.battle_stats.roll_gold_reward())
 
+	# Arma: 65% comum, 35% incomum
+	var weapon_reward := _get_random_relic_reward(Relic.Equip.WEAPON, false, {Relic.Rarity.COMMON: 65, Relic.Rarity.UNCOMMON: 35})
+
+	# Outro equipamento: 100% comum, excluindo armas
+	var secondary_reward := _get_random_relic_reward(-1, true, {Relic.Rarity.COMMON: 100})
+
+	if weapon_reward:
+		reward.add_relic_reward(weapon_reward)
+
+	if secondary_reward:
+		reward.add_relic_reward(secondary_reward)
+
+func _get_random_relic_reward(
+	required_equip: int = -1,
+	exclude_weapon: bool = false,
+	rarity_weights: Dictionary = {}) -> Relic:
+	if rarity_weights.is_empty():
+		rarity_weights = _get_battle_reward_weights(1)
+		#rarity_weights = {
+		#	Relic.Rarity.COMMON:50,
+		#	Relic.Rarity.UNCOMMON: 35,
+		#	Relic.Rarity.RARE: 15
+		#}
+	var available_relics: Dictionary = {
+		Relic.Rarity.COMMON: [],
+		Relic.Rarity.UNCOMMON: [],
+		Relic.Rarity.RARE: [],
+		Relic.Rarity.MYTHIC: []
+	}
+	
+	for relic: Relic in battle_relic_pool:
+		if relic == null:
+			continue
+		if not relic.can_appear_as_reward(character):
+			continue
+		if relic_handler.has_relic(relic.id):
+			continue
+		if required_equip != -1 and relic.equip != required_equip:
+			continue
+		if exclude_weapon and relic.equip == Relic.Equip.WEAPON:
+			continue
+		available_relics[relic.rarity].append(relic)
+	
+	var total_weight := 0
+	var available_rarities: Array[int] = []
+	
+	for rarity: int in rarity_weights:
+		if not available_relics[rarity].is_empty():
+			available_rarities.append(rarity)
+			total_weight += rarity_weights[rarity]
+	
+	if available_rarities.is_empty():
+		return null
+	
+	var roll := RNG.pick_random(1,total_weight)
+	
+	for rarity: int in available_rarities:
+		roll -= rarity_weights[rarity]
+		if roll <= 0:
+			return RNG.array_pick_random(available_relics[rarity])
+	
+	return null
+	
+
+func _get_battle_reward_weights(tier: int) -> Dictionary:
+	if tier == 2:
+		return {
+			Relic.Rarity.UNCOMMON: 55,
+			Relic.Rarity.RARE: 35,
+			Relic.Rarity.MYTHIC: 10
+		}
+	return {
+		Relic.Rarity.COMMON: 50,
+		Relic.Rarity.UNCOMMON: 35,
+		Relic.Rarity.RARE: 15
+	}
+	
+	
 func _on_battle_room_entered(room: Room) -> void:
 	var battle := _change_view(BATTLE_SCENE) as Battle
 	battle.char_stats = character
 	battle.battle_stats = room.battle_stats
 	battle.relics = relic_handler
 	battle.start_battle()
+	
+
+func _prepare_battle(room:Room) -> void:
+	if room.type != Room.Type.MONSTER or not room.battle_stats:
+		return
+	
+	if room.battle_stats.battle_tier != 1:
+		return
+	
+	if stats.dda_score >= 75:
+		var tier_2 := map.map_generator.battle_stats_pool.get_random_battle_for_tier(2)
+		if tier_2:
+			room.battle_stats = tier_2
 
 func _on_treasure_room_entered() -> void:
 	var treasure := _change_view(TREASURE_SCENE) as Treasure
@@ -202,7 +361,6 @@ func _on_treasure_room_entered() -> void:
 	shop_entered_items = relic_handler.get_all_relics().size()
 
 func _on_treasure_room_exited(relic: Relic) -> void:
-	print("EXITES TREASURE")
 	var reward := _change_view(BATTLE_REWARD_SCENE) as BattleReward
 	var gold_reward_min = 40
 	var gold_reward_max = 50
@@ -240,7 +398,6 @@ func _on_campfire_exited() -> void:
 
 func _on_shop_entered() -> void:
 	shop_entered_items = relic_handler.get_all_relics().size()
-	print("ITENS ATUAIS: ", shop_entered_items)
 	
 	var shop := _change_view(SHOP_SCENE) as Shop
 	shop.char_stats = character
@@ -255,8 +412,8 @@ func _on_shop_exited() -> void:
 	var score: int = stats.dda_score
 	var relic_count: int = relic_handler.get_all_relics().size()
 	
-	#SE COMPRA TODOS OS ITENS DA LOJA E POSSUI +4 ITENS: Troca shop por combate
-	if !dda_shop_changed and score >= 55 and relic_count == (shop_entered_items+3) and relic_count >= 4:
+	#SE COMPRA TODOS OS ITENS DA LOJA E POSSUI 6+ ITENS: Troca shop por combate
+	if !dda_shop_changed and score >= 55 and relic_count == (shop_entered_items+3) and relic_count >= 6:
 		map.change_room(Room.Type.SHOP, Room.Type.MONSTER)
 		dda_shop_changed = true
 	
@@ -287,7 +444,7 @@ func _on_battle_won() -> void:
 	if score >= 65:
 		var relic_count: int = relic_handler.get_all_relics().size()
 		
-		if relic_count >= 4 and dda_shop_changed == false:
+		if relic_count >= 6 and dda_shop_changed == false:
 			map.change_room(Room.Type.SHOP, Room.Type.MONSTER)
 			dda_shop_changed = true
 		elif hp_percentage >= 0.5:
@@ -305,10 +462,14 @@ func _on_battle_won() -> void:
 	if map.floors_climbed == MapGenerator.FLOORS:
 		var win_screen := _change_view(WIN_SCREEN_SCENE) as WinScreen
 		win_screen.character = character
+	elif map.last_room.row == 0:
+		_show_first_battle_reward()
 	else:
 		_show_regular_battle_rewards()
 
 func _on_map_exited(room: Room) -> void:
+	_prepare_battle(room)
+	
 	_save_run(false)
 	
 	match room.type:

@@ -78,6 +78,7 @@ layout_mode = 0
 offset_right = 16.0
 offset_bottom = 16.0
 pivot_offset = Vector2(8, 8)
+mouse_filter = 2
 texture = ExtResource("1_3654h")
 expand_mode = 1
 stretch_mode = 5
@@ -85,4 +86,5 @@ stretch_mode = 5
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1820558920]
 libraries/ = SubResource("AnimationLibrary_mnii6")
 
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

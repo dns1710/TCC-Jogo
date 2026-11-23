@@ -45,6 +45,10 @@ window/size/window_height_override=1080
 window/stretch/mode="viewport"
 mouse_cursor/custom_image="uid://b2f3dmjka4kfq"
 
+[global_group]
+
+global_tooltip=""
+
 [gui]
 
 theme/custom="res://main_theme.tres"

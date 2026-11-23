@@ -3,14 +3,48 @@
 [ext_resource type="PackedScene" uid="uid://cuwuwco4sf0y6" path="res://scenes/map/map.tscn" id="1_7xwwf"]
 [ext_resource type="Script" uid="uid://navyj5kh57n2" path="res://scenes/run/run.gd" id="1_bedv1"]
 [ext_resource type="Resource" uid="uid://bd874b0h1q8n1" path="res://scenes/run/run_startup.tres" id="2_wgfut"]
-[ext_resource type="AudioStream" uid="uid://cqdmj8pt6dmxh" path="res://art/verdadeira arte/Amarantos.mp3" id="3_yeia0"]
+[ext_resource type="AudioStream" uid="uid://cqdmj8pt6dmxh" path="res://art/verdadeira arte/track/Amarantos.mp3" id="3_yeia0"]
 [ext_resource type="Script" uid="uid://d3tgwm71tnlw5" path="res://scenes/run/reroll_button.gd" id="4_cnkn7"]
 [ext_resource type="PackedScene" uid="uid://jfu1yenfdod5" path="res://scenes/ui/gold_ui.tscn" id="4_dtarl"]
 [ext_resource type="PackedScene" uid="uid://b3dkx1dqlo0eo" path="res://scenes/ui/health_ui.tscn" id="4_k05q4"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="4_x53nd"]
+[ext_resource type="Resource" uid="uid://cf07wiytx0wxh" path="res://relics/armor/old_shirt.tres" id="5_6w2u5"]
+[ext_resource type="Resource" uid="uid://b7qnlirflf3r8" path="res://relics/trinket/bean.tres" id="5_l6p45"]
+[ext_resource type="Resource" uid="uid://ddvwvwkec6euc" path="res://relics/trinket/thorn_ring.tres" id="5_x53nd"]
 [ext_resource type="PackedScene" uid="uid://bltkcscivnh8p" path="res://scenes/relic_handler/relic_handler.tscn" id="6_f8fbw"]
+[ext_resource type="Resource" uid="uid://bb6abg7a0w0ra" path="res://relics/armor/armadura.tres" id="6_tbe7a"]
+[ext_resource type="Resource" uid="uid://d3ft8s0c5go3t" path="res://relics/armor/thorn_plate.tres" id="7_a0b37"]
+[ext_resource type="Resource" uid="uid://mmgrfiitup8x" path="res://relics/helmet/old_cap.tres" id="8_2foro"]
+[ext_resource type="Resource" uid="uid://d3piv68i0huvr" path="res://relics/helmet/thorn_helm.tres" id="9_l4vn1"]
+[ext_resource type="Resource" uid="uid://ccras23p4omub" path="res://relics/trinket/attack_badge.tres" id="10_ctna3"]
 [ext_resource type="PackedScene" uid="uid://bwtke8nmynqt2" path="res://scenes/relic_handler/relic_tooltip.tscn" id="10_xh4qt"]
 [ext_resource type="Script" uid="uid://d1oh2kro3uncj" path="res://scenes/run/pause_menu.gd" id="11_a4w7h"]
+[ext_resource type="Resource" uid="uid://decraqxknmau8" path="res://relics/trinket/block_badge.tres" id="11_axhcw"]
 [ext_resource type="Script" uid="uid://cx11e86cw681" path="res://scenes/run/sound_slider.gd" id="11_g42ja"]
+[ext_resource type="PackedScene" uid="uid://cauqxs6fypdeu" path="res://scenes/inventory/inventory.tscn" id="12_cnkn7"]
+[ext_resource type="Resource" uid="uid://dnn4mqdh6l1y" path="res://relics/trinket/flordelis.tres" id="12_dfo0u"]
+[ext_resource type="Resource" uid="uid://sjue6ufyig07" path="res://relics/trinket/boot.tres" id="14_n0yky"]
+[ext_resource type="Resource" uid="uid://bbrll5h8git80" path="res://relics/trinket/golden_clover.tres" id="15_yey0w"]
+[ext_resource type="Resource" uid="uid://dl0v7eqbpxyqi" path="res://relics/trinket/healing_badge.tres" id="16_ev4fb"]
+[ext_resource type="Resource" uid="uid://cm2er3fxu166l" path="res://relics/trinket/small_rock.tres" id="17_ik8qf"]
+[ext_resource type="Resource" uid="uid://c1g6p1lp2ebmn" path="res://relics/trinket/smore.tres" id="18_rxc36"]
+[ext_resource type="Resource" uid="uid://cnh2f7px1vx1e" path="res://relics/trinket/speed_badge.tres" id="19_omd4m"]
+[ext_resource type="Resource" uid="uid://bnhppnqmysrne" path="res://relics/weapon/acha.tres" id="21_82xe7"]
+[ext_resource type="Resource" uid="uid://c11fdadbrr4pw" path="res://relics/weapon/bigger_stick.tres" id="22_yj3lc"]
+[ext_resource type="Resource" uid="uid://btn8ie46m7kio" path="res://relics/weapon/pan.tres" id="23_4aki2"]
+[ext_resource type="Resource" uid="uid://c8allik0xhrv2" path="res://relics/weapon/stick.tres" id="24_8fhq7"]
+[ext_resource type="Resource" uid="uid://bssg3cf58abfw" path="res://relics/weapon/toy_knife.tres" id="25_x3nam"]
+[ext_resource type="Resource" uid="uid://c8hvt1m71l1lm" path="res://relics/helmet/horned_headband.tres" id="26_tbe7a"]
+[ext_resource type="Resource" uid="uid://khurts4ucb8e" path="res://relics/armor/heavy_helmet.tres" id="27_2foro"]
+[ext_resource type="Resource" uid="uid://do4sl4riycrqy" path="res://relics/armor/heavy_plate.tres" id="28_l4vn1"]
+[ext_resource type="Resource" uid="uid://dwfkkqlyh7071" path="res://relics/helmet/berserker_helmet.tres" id="29_l4vn1"]
+[ext_resource type="Resource" uid="uid://da377yk2u33hd" path="res://relics/helmet/hunters_mask.tres" id="30_axhcw"]
+[ext_resource type="Resource" uid="uid://b6i161oysb15r" path="res://relics/weapon/poison_dagger.tres" id="31_dfo0u"]
+[ext_resource type="Resource" uid="uid://bxd66bhmpl5tv" path="res://relics/weapon/thorn_sword.tres" id="32_dfo0u"]
+[ext_resource type="Resource" uid="uid://dt2uifiimy2yf" path="res://relics/weapon/needle.tres" id="33_n0yky"]
+[ext_resource type="PackedScene" uid="uid://hotalxr27hiu" path="res://scenes/ui/hover_tooltip.tscn" id="33_x5y4b"]
+[ext_resource type="Resource" uid="uid://cod8vq41wqtrm" path="res://relics/armor/red_mantle.tres" id="34_ev4fb"]
+[ext_resource type="Resource" uid="uid://bn37c523s1iao" path="res://relics/weapon/lighter.tres" id="35_ik8qf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_68deg"]
 
@@ -18,6 +52,7 @@
 script = ExtResource("1_bedv1")
 run_startup = ExtResource("2_wgfut")
 music = ExtResource("3_yeia0")
+battle_relic_pool = Array[ExtResource("4_x53nd")]([ExtResource("5_6w2u5"), ExtResource("6_tbe7a"), ExtResource("7_a0b37"), ExtResource("8_2foro"), ExtResource("9_l4vn1"), ExtResource("10_ctna3"), ExtResource("11_axhcw"), ExtResource("12_dfo0u"), ExtResource("5_l6p45"), ExtResource("14_n0yky"), ExtResource("15_yey0w"), ExtResource("16_ev4fb"), ExtResource("17_ik8qf"), ExtResource("18_rxc36"), ExtResource("19_omd4m"), ExtResource("5_x53nd"), ExtResource("21_82xe7"), ExtResource("22_yj3lc"), ExtResource("23_4aki2"), ExtResource("24_8fhq7"), ExtResource("25_x3nam"), ExtResource("26_tbe7a"), ExtResource("27_2foro"), ExtResource("28_l4vn1"), ExtResource("29_l4vn1"), ExtResource("30_axhcw"), ExtResource("31_dfo0u"), ExtResource("32_dfo0u"), ExtResource("33_n0yky"), ExtResource("34_ev4fb"), ExtResource("35_ik8qf")])
 
 [node name="Map" parent="." unique_id=1692311060 instance=ExtResource("1_7xwwf")]
 
@@ -84,6 +119,11 @@ custom_minimum_size = Vector2(0, 18)
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
+
+[node name="InventoryButton" type="Button" parent="TopBar/BarItems" unique_id=1339542851]
+unique_name_in_owner = true
+layout_mode = 2
+text = "BACKPACK"
 
 [node name="HealthUI" parent="TopBar/BarItems" unique_id=1678639630 instance=ExtResource("4_k05q4")]
 unique_name_in_owner = true
@@ -166,3 +206,14 @@ max_value = 1.0
 step = 0.001
 script = ExtResource("11_g42ja")
 audio_bus = "Master"
+
+[node name="InventoryLayer" type="CanvasLayer" parent="." unique_id=1780744133]
+layer = 4
+
+[node name="Inventory" parent="InventoryLayer" unique_id=1979637531 instance=ExtResource("12_cnkn7")]
+visible = false
+
+[node name="TooltipLayer" type="CanvasLayer" parent="." unique_id=793714722]
+layer = 10
+
+[node name="HoverTooltip" parent="TooltipLayer" unique_id=984338624 instance=ExtResource("33_x5y4b")]

@@ -19,7 +19,7 @@ var floors_climbed := 0
 var last_room: Room = null
 var camera_edge_y := 0.0
 var map_camera_start_position: Vector2 = Vector2.ZERO
-var animation_lock := false
+var animation_lock : bool = false
 
 var dragging := false
 var last_mouse_pos := Vector2.ZERO
@@ -29,7 +29,7 @@ var reroll_mode := false
 
 var run_stats: RunStats
 
-var adaptation_cutscene_active: bool = false
+#var adaptation_cutscene_active: bool = false
 
 
 func _ready() -> void:
@@ -37,13 +37,18 @@ func _ready() -> void:
 
 	camera_edge_x = MapGenerator.Y_DIST * (MapGenerator.MAP_WIDTH - 1)
 	hide_map()
-
+	
+	Events.animation_dda_lock.connect(_animation_lock_check)
+	
 	if reroll_button:
 		reroll_button.pressed.connect(_on_reroll_button_pressed)
 	else:
 		push_warning("RerollButton não encontrado!")
 
 
+func _animation_lock_check(value: bool) -> void:
+	animation_lock = value
+	
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
 		return
@@ -426,9 +431,11 @@ func room_change_animation(
 
 	if room == null or room.type == new_type:
 		return false
-
-	animation_lock = true
-
+	
+	#animation_lock = true
+	
+	Events.animation_dda_lock.emit(true)
+	
 	var map_room: MapRoom = null
 
 	for current_map_room: MapRoom in rooms.get_children():
@@ -509,6 +516,8 @@ func room_change_animation(
 		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 		await tween.finished
-
-	animation_lock = false
+	
+	#animation_lock = false
+	Events.animation_dda_lock.emit(false)
+	
 	return true

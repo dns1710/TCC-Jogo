@@ -1,0 +1,18 @@
+[gd_resource type="Resource" format=3 uid="uid://dwfkkqlyh7071"]
+
+[ext_resource type="Texture2D" uid="uid://dyh6fv42u6q5m" path="res://art/verdadeira arte/items/berserker_helmet.png" id="1_d6hwj"]
+[ext_resource type="Script" uid="uid://dj0ako4vmnne2" path="res://relics/helmet/berserker_helmet.gd" id="2_3q5y7"]
+
+[resource]
+script = ExtResource("2_3q5y7")
+relic_name = "Berserker Helmet"
+id = "BerserkerHelmet"
+type = 5
+equip = 1
+rarity = 2
+icon = ExtResource("1_d6hwj")
+tooltip = "+2 BLOCK
+
+When you take damage, gain 1 ATTACK UP"
+bonus_blk = 2
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

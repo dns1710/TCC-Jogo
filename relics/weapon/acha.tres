@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="GreatAxe" format=3 uid="uid://bnhppnqmysrne"]
+
+[ext_resource type="Texture2D" uid="uid://ew8orgffrci1" path="res://art/verdadeira arte/items/great_axe_relic.png" id="1_ntv8m"]
+[ext_resource type="Script" uid="uid://dwg4n3sifs3hc" path="res://relics/weapon/acha.gd" id="2_ntv8m"]
+
+[resource]
+script = ExtResource("2_ntv8m")
+relic_name = "Great Axe"
+id = "GreatAxe"
+type = 5
+rarity = 2
+icon = ExtResource("1_ntv8m")
+tooltip = "1d12 weapon damage
+
+The first time you take damage in combat, gain 1d4 BLOCK"
+weapon_dice_attack = 12
+weapon_dice_amount = 1

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="HornedHeadband" format=3 uid="uid://c8hvt1m71l1lm"]
+
+[ext_resource type="Texture2D" uid="uid://bmlds3s5vs4e1" path="res://art/verdadeira arte/items/horn_headband.png" id="1_xx6ij"]
+[ext_resource type="Script" uid="uid://bpe11vrkujppx" path="res://relics/helmet/horned_headband.gd" id="2_xx6ij"]
+
+[resource]
+script = ExtResource("2_xx6ij")
+relic_name = "Horned Headband"
+id = "HornedHeadband"
+type = 2
+equip = 1
+icon = ExtResource("1_xx6ij")
+tooltip = "+2 THORNS"
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

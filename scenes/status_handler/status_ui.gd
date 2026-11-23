@@ -7,7 +7,11 @@ extends Control
 @onready var duration: Label = $Duration
 @onready var stacks: Label = $Stacks
 
+var hover_tooltip = HoverTooltip
 
+func _ready() -> void:
+	hover_tooltip = get_tree().get_first_node_in_group("global_tooltip") as HoverTooltip
+	
 func set_status(new_status: Status) -> void:
 	if not is_node_ready():
 		await ready
@@ -41,3 +45,13 @@ func _on_status_changed() -> void:
 
 	duration.text = str(status.duration)
 	stacks.text = str(status.stacks)
+	
+
+func _on_mouse_entered() -> void:
+	if not status or not hover_tooltip:
+		return
+	hover_tooltip.show_tooltip(status.name, status.get_tooltip())
+
+func _on_mouse_exited() -> void:
+	if hover_tooltip:
+		hover_tooltip.hide_tooltip()

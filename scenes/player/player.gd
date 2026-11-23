@@ -1,18 +1,19 @@
-class_name Player extends Node2D 
+class_name Player
+extends Node2D 
 const WHITE_SPRITE_MATERIAL := preload("res://art/white_sprite_material.tres") 
 
-@export var stats: CharacterStats : set = set_character_stats 
+@export var stats: CharacterStats : set = set_character_stats
 @onready var sprite_2d: Sprite2D = $Sprite2D 
 @onready var stats_ui: StatsUI = $StatsUI 
 @onready var status_handler: StatusHandler = $StatusHandler 
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
 @onready var atb_progress: TextureProgressBar = $ATBProgress
-
 const POPUP = preload("res://scenes/ui/popup.tscn")
 const ATB_MAX := 30.0
 
 var atb: float = 0.0
 var can_act := false
+#var relic_handler: RelicHandler
 
 func _ready() -> void: 
 	status_handler.status_owner = self

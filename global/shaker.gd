@@ -7,7 +7,7 @@ func shake(thing: Node2D, strength: float, duration: float = 0.2) -> void:
 
 	var orig_pos := thing.position
 	var shake_count := 10
-	var tween := create_tween()
+	var tween := thing.create_tween()
 	
 	for i in shake_count:
 		var shake_offset := Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0))

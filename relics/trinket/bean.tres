@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BeanCan" format=3 uid="uid://b7qnlirflf3r8"]
+
+[ext_resource type="Script" uid="uid://b6g6ikkmob86s" path="res://relics/trinket/bean.gd" id="1_fptr5"]
+[ext_resource type="Texture2D" uid="uid://dtvf3ca61mx0r" path="res://art/verdadeira arte/items/bean_relic.png" id="1_vyl1m"]
+
+[resource]
+script = ExtResource("1_fptr5")
+relic_name = "Can of Beans"
+id = "BeanCan"
+type = 2
+equip = 3
+icon = ExtResource("1_vyl1m")
+tooltip = "Heal 2d6 and gain POISON at the start of combat."
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

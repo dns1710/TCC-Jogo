@@ -1,6 +1,6 @@
 extends EnemyAction
 
-@export var dice_value := 8
+@export var dice_value := 6
 @export var dice_amount := 1
 
 func perform_action() -> void:
