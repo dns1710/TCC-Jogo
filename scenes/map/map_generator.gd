@@ -4,7 +4,7 @@ extends Node
 const X_DIST := 50
 const Y_DIST := 35
 const PLACEMENT_RANDOMNESS := 0
-const FLOORS := 13
+const FLOORS := 14
 const MAP_WIDTH := 3
 
 @export var battle_stats_pool: BattleStatsPool
@@ -111,21 +111,27 @@ func generate_map() -> Array[Array]:
 		current_rooms = next_rooms
 
 
-	var treasure_floor := int(FLOORS / 2)
-
+	var treasure_floor := int((FLOORS / 2)-1)
+	var boss_campfire_floor := FLOORS - 2
+	
 	for floor in range(1, FLOORS - 1):
 		for room in map_data[floor]:
 
 			if not room.active:
 				continue
-
+				
 			# Sala do meio sempre é tesouro
 			if floor == treasure_floor:
 				_set_room_type(room, Room.Type.TREASURE)
 				continue
-
+			
+			# Sala antes do boss é sempre cura
+			if floor == boss_campfire_floor:
+				_set_room_type(room, Room.Type.CAMPFIRE)
+				continue
+				
 			_assign_random_type(room)
-
+	
 	var boss_room: Room = map_data[FLOORS - 1][mid]
 
 	boss_room.active = true
