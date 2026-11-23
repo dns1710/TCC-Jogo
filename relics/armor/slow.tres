@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://5gcorcnmcrw"]
+
+[ext_resource type="Texture2D" uid="uid://duwwkdf3yi0e6" path="res://icon.png" id="1_c2iuf"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="1_l330s"]
+
+[resource]
+script = ExtResource("1_l330s")
+relic_name = "Heavier than heavy armor"
+id = "slow"
+equip = 2
+rarity = 2
+icon = ExtResource("1_c2iuf")
+tooltip = "Heavier than heavy armor
++8 block, -2 speed
+
+Slow start"
+bonus_blk = 8
+bonus_spd = -2
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"
