@@ -71,7 +71,8 @@ func _generate_shop_relics() -> void:
 	var available_relics: Dictionary = {
 		Relic.Rarity.COMMON: [],
 		Relic.Rarity.UNCOMMON: [],
-		Relic.Rarity.RARE: []
+		Relic.Rarity.RARE: [],
+		Relic.Rarity.MYTHIC: []
 	}
 	
 	for relic: Relic in shop_relics:
@@ -84,9 +85,10 @@ func _generate_shop_relics() -> void:
 		available_relics[relic.rarity].append(relic)
 	
 	var rarity_weights: Dictionary = {
-		Relic.Rarity.COMMON: 50,
+		Relic.Rarity.COMMON: 40,
 		Relic.Rarity.UNCOMMON: 35,
-		Relic.Rarity.RARE: 15
+		Relic.Rarity.RARE: 20,
+		Relic.Rarity.MYTHIC: 5
 	}
 	
 	var shop_relics_array: Array[Relic] = []

@@ -67,9 +67,9 @@ func _start_new_run() -> void:
 	relic_handler.run_stats = stats
 	relic_handler.character_stats = character
 	
-	var starter_relic := preload("res://relics/helmet/hunters_mask.tres")
-	relic_handler.add_relic(starter_relic,false)
-	relic_handler.equip_relic(starter_relic)
+	#var starter_relic := preload("res://relics/weapon/lighter.tres")
+	#relic_handler.add_relic(starter_relic,false)
+	#relic_handler.equip_relic(starter_relic)
 	
 	map.run_stats = stats
 	
@@ -241,7 +241,9 @@ func _show_regular_battle_rewards() -> void:
 	reward.relic_handler = relic_handler
 	reward.add_gold_reward(map.last_room.battle_stats.roll_gold_reward())
 	
-	var relic_reward := _get_random_relic_reward()
+	#var relic_reward := _get_random_relic_reward()
+	var tier := map.last_room.battle_stats.battle_tier
+	var relic_reward := _get_random_relic_reward(-1, false, _get_battle_reward_weights(tier))
 	if relic_reward:
 		reward.add_relic_reward(relic_reward)
 
@@ -270,15 +272,17 @@ func _get_random_relic_reward(
 	exclude_weapon: bool = false,
 	rarity_weights: Dictionary = {}) -> Relic:
 	if rarity_weights.is_empty():
-		rarity_weights = {
-			Relic.Rarity.COMMON:50,
-			Relic.Rarity.UNCOMMON: 35,
-			Relic.Rarity.RARE: 15
-		}
+		rarity_weights = _get_battle_reward_weights(1)
+		#rarity_weights = {
+		#	Relic.Rarity.COMMON:50,
+		#	Relic.Rarity.UNCOMMON: 35,
+		#	Relic.Rarity.RARE: 15
+		#}
 	var available_relics: Dictionary = {
 		Relic.Rarity.COMMON: [],
 		Relic.Rarity.UNCOMMON: [],
-		Relic.Rarity.RARE: []
+		Relic.Rarity.RARE: [],
+		Relic.Rarity.MYTHIC: []
 	}
 	
 	for relic: Relic in battle_relic_pool:
@@ -315,19 +319,21 @@ func _get_random_relic_reward(
 	return null
 	
 
+func _get_battle_reward_weights(tier: int) -> Dictionary:
+	if tier == 2:
+		return {
+			Relic.Rarity.UNCOMMON: 55,
+			Relic.Rarity.RARE: 35,
+			Relic.Rarity.MYTHIC: 10
+		}
+	return {
+		Relic.Rarity.COMMON: 50,
+		Relic.Rarity.UNCOMMON: 35,
+		Relic.Rarity.RARE: 15
+	}
+	
+	
 func _on_battle_room_entered(room: Room) -> void:
-	#var tier: int
-	
-	#if room.type == Room.Type.BOSS:
-	#	tier = 3
-	#elif room.row == 0:
-	#	tier = 0
-	#elif stats.dda_score >= 75:
-	#	tier = 2
-	#else:
-	#	tier = 1
-	
-	#room.battle_stats = map.map_generator.battle_stats_pool.get_random_battle_for_tier(tier)
 	var battle := _change_view(BATTLE_SCENE) as Battle
 	battle.char_stats = character
 	battle.battle_stats = room.battle_stats

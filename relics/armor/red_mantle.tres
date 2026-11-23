@@ -1,0 +1,18 @@
+[gd_resource type="Resource" format=3 uid="uid://cod8vq41wqtrm"]
+
+[ext_resource type="Script" uid="uid://bdgvrckhewupq" path="res://relics/armor/red_mantle.gd" id="1_7bmbc"]
+[ext_resource type="Texture2D" uid="uid://bvx0f7yitj8qa" path="res://art/verdadeira arte/items/red_mantle.png" id="1_hrs7x"]
+
+[resource]
+script = ExtResource("1_7bmbc")
+relic_name = "Red Mantle"
+id = "RedMantle"
+type = 2
+equip = 2
+rarity = 3
+icon = ExtResource("1_hrs7x")
+tooltip = "+1 SPEED
+
+At the start of combat, gain 1 BLOCK for every 2 SPEED you have"
+bonus_spd = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

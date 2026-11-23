@@ -12,7 +12,8 @@ var found_relic: Relic
 func generate_relic() -> void:
 	var available_relics: Dictionary = {
 		Relic.Rarity.UNCOMMON: [],
-		Relic.Rarity.RARE: []
+		Relic.Rarity.RARE: [],
+		Relic.Rarity.MYTHIC: []
 	}
 	
 	for relic: Relic in treasure_relic_pool:
@@ -28,8 +29,9 @@ func generate_relic() -> void:
 		available_relics[relic.rarity].append(relic)
 	
 	var rarity_weights: Dictionary = {
-		Relic.Rarity.UNCOMMON: 60,
-		Relic.Rarity.RARE: 40
+		Relic.Rarity.UNCOMMON: 50,
+		Relic.Rarity.RARE: 40,
+		Relic.Rarity.MYTHIC: 10
 	}
 	
 	var total_weight := 0

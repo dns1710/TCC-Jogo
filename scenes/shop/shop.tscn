@@ -25,6 +25,9 @@
 [ext_resource type="Resource" uid="uid://da377yk2u33hd" path="res://relics/helmet/hunters_mask.tres" id="17_bnu54"]
 [ext_resource type="Resource" uid="uid://b6i161oysb15r" path="res://relics/weapon/poison_dagger.tres" id="18_noimi"]
 [ext_resource type="Resource" uid="uid://bxd66bhmpl5tv" path="res://relics/weapon/thorn_sword.tres" id="19_f8gqx"]
+[ext_resource type="Resource" uid="uid://dt2uifiimy2yf" path="res://relics/weapon/needle.tres" id="20_8jxaa"]
+[ext_resource type="Resource" uid="uid://cod8vq41wqtrm" path="res://relics/armor/red_mantle.tres" id="21_ncc2j"]
+[ext_resource type="Resource" uid="uid://bn37c523s1iao" path="res://relics/weapon/lighter.tres" id="22_a1v00"]
 
 [sub_resource type="Gradient" id="Gradient_sv6qe"]
 offsets = PackedFloat32Array(0.2125, 1)
@@ -87,7 +90,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_oqoy8")
-shop_relics = Array[ExtResource("2_dww4p")]([ExtResource("3_hbyua"), ExtResource("4_36j3v"), ExtResource("5_5y7fm"), ExtResource("6_toxgp"), ExtResource("7_u2jek"), ExtResource("8_bnu54"), ExtResource("3_tp26b"), ExtResource("10_noimi"), ExtResource("3_8qn5i"), ExtResource("5_g6lcs"), ExtResource("13_36j3v"), ExtResource("14_toxgp"), ExtResource("15_u2jek"), ExtResource("16_u2jek"), ExtResource("17_bnu54"), ExtResource("18_noimi"), ExtResource("19_f8gqx")])
+shop_relics = Array[ExtResource("2_dww4p")]([ExtResource("3_hbyua"), ExtResource("4_36j3v"), ExtResource("5_5y7fm"), ExtResource("6_toxgp"), ExtResource("7_u2jek"), ExtResource("8_bnu54"), ExtResource("3_tp26b"), ExtResource("10_noimi"), ExtResource("3_8qn5i"), ExtResource("5_g6lcs"), ExtResource("13_36j3v"), ExtResource("14_toxgp"), ExtResource("15_u2jek"), ExtResource("16_u2jek"), ExtResource("17_bnu54"), ExtResource("18_noimi"), ExtResource("19_f8gqx"), ExtResource("20_8jxaa"), ExtResource("21_ncc2j"), ExtResource("22_a1v00")])
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=1845713156]
 layer = 0

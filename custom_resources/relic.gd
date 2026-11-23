@@ -3,7 +3,7 @@ extends Resource
 
 enum Type {PASSIVE_STATS, START_OF_TURN, START_OF_COMBAT, END_OF_TURN, END_OF_COMBAT, EVENT_BASED}
 enum Equip {WEAPON, HELMET, ARMOR, TRINKET}
-enum Rarity {COMMON, UNCOMMON, RARE}
+enum Rarity {COMMON, UNCOMMON, RARE, MYTHIC}
 enum CharacterType {ALL}
 
 @export var relic_name: String
@@ -67,6 +67,8 @@ func get_rarity() -> String:
 			relic_rarity = "Uncommon"
 		Relic.Rarity.RARE:
 			relic_rarity = "Rare"
+		Relic.Rarity.MYTHIC:
+			relic_rarity = "Mythic"
 	
 	return relic_rarity
 	

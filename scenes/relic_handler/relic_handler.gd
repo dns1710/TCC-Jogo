@@ -50,6 +50,8 @@ func add_relic(relic: Relic, affect_score := true) -> void:
 				rarity_score = 3
 			Relic.Rarity.RARE:
 				rarity_score = 5
+			Relic.Rarity.MYTHIC:
+				rarity_score = 8
 			
 		run_stats.dda_score = clampi(run_stats.dda_score + rarity_score, 0, 100)
 		print("ADD RELIC. SCORE: ", run_stats.dda_score)

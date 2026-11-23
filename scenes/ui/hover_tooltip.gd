@@ -63,6 +63,8 @@ func _on_hover_timer_timeout() -> void:
 			type_label.modulate = Color.ORANGE
 		"Rare":
 			type_label.modulate = Color.RED
+		"Mythic":
+			type_label.modulate = Color.DEEP_PINK
 	
 	description_label.text = pending_description
 	description_label.update_minimum_size()

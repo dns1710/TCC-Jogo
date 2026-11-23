@@ -20,6 +20,9 @@
 [ext_resource type="Resource" uid="uid://da377yk2u33hd" path="res://relics/helmet/hunters_mask.tres" id="13_50sti"]
 [ext_resource type="Resource" uid="uid://b6i161oysb15r" path="res://relics/weapon/poison_dagger.tres" id="14_ethah"]
 [ext_resource type="Resource" uid="uid://bxd66bhmpl5tv" path="res://relics/weapon/thorn_sword.tres" id="15_betos"]
+[ext_resource type="Resource" uid="uid://dt2uifiimy2yf" path="res://relics/weapon/needle.tres" id="16_kt3tj"]
+[ext_resource type="Resource" uid="uid://cod8vq41wqtrm" path="res://relics/armor/red_mantle.tres" id="17_xln5j"]
+[ext_resource type="Resource" uid="uid://bn37c523s1iao" path="res://relics/weapon/lighter.tres" id="18_t6xji"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8a2h2"]
 font_size = 12
@@ -162,7 +165,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_0dgmn")
-treasure_relic_pool = Array[ExtResource("2_mn6fe")]([ExtResource("3_8auyv"), ExtResource("4_bbvtr"), ExtResource("5_ko1oj"), ExtResource("6_ab3yx"), ExtResource("7_odogb"), ExtResource("8_2i7av"), ExtResource("9_wp70s"), ExtResource("10_2i7av"), ExtResource("11_wp70s"), ExtResource("12_wp70s"), ExtResource("13_50sti"), ExtResource("14_ethah"), ExtResource("15_betos")])
+treasure_relic_pool = Array[ExtResource("2_mn6fe")]([ExtResource("3_8auyv"), ExtResource("4_bbvtr"), ExtResource("5_ko1oj"), ExtResource("6_ab3yx"), ExtResource("7_odogb"), ExtResource("8_2i7av"), ExtResource("9_wp70s"), ExtResource("10_2i7av"), ExtResource("11_wp70s"), ExtResource("12_wp70s"), ExtResource("13_50sti"), ExtResource("14_ethah"), ExtResource("15_betos"), ExtResource("16_kt3tj"), ExtResource("17_xln5j"), ExtResource("18_t6xji")])
 
 [node name="Background" type="TextureRect" parent="." unique_id=1895505380]
 layout_mode = 1

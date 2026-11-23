@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Needle" format=3 uid="uid://dt2uifiimy2yf"]
+
+[ext_resource type="Texture2D" uid="uid://croeagyw6vs34" path="res://art/verdadeira arte/items/needle_relic.png" id="1_evsos"]
+[ext_resource type="Script" uid="uid://dhukxmjixbyfw" path="res://relics/weapon/needle.gd" id="2_evsos"]
+
+[resource]
+script = ExtResource("2_evsos")
+relic_name = "Needle"
+id = "Needle"
+type = 2
+rarity = 3
+icon = ExtResource("1_evsos")
+tooltip = "1d4 weapon damage
+
+This weapon deals +1d4 damage for every 2 SPEED you have"
+weapon_dice_amount = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"
