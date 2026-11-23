@@ -8,6 +8,11 @@ extends Control
 @onready var helmet_slot: Button = %HelmetSlot
 @onready var armor_slot: Button = %ArmorSlot
 
+@onready var health_icon: TextureRect = %HealthIcon
+@onready var block_icon: TextureRect = %BlockIcon
+@onready var attack_icon: TextureRect = %AttackIcon
+@onready var speed_icon: TextureRect = %SpeedIcon
+	
 @onready var health_label: Label = %HealthLabel
 @onready var block_label: Label = %BlockLabel
 @onready var attack_label: Label = %AttackLabel
@@ -19,8 +24,10 @@ extends Control
 var relic_handler: RelicHandler
 var hover_tooltip: HoverTooltip
 var empty_slot_icons: Dictionary = {}
+var empty_slot_tooltips: Dictionary = {}
 var animation_lock: bool = false
 var battle_lock: bool = false
+
 
 func _ready() -> void:
 	hover_tooltip = get_tree().get_first_node_in_group("global_tooltip") as HoverTooltip
@@ -41,6 +48,46 @@ func _ready() -> void:
 	empty_slot_icons[armor_slot] = armor_slot.icon
 	empty_slot_icons[trinket_slot_1] = trinket_slot_1.icon
 	empty_slot_icons[trinket_slot_2] = trinket_slot_2.icon
+	
+	empty_slot_tooltips[weapon_slot] = {
+		"title": "Weapon Slot",
+		"description": "Empty\n\n1d4 weapon damage",
+	}
+	empty_slot_tooltips[helmet_slot] = {
+		"title": "Helmet Slot",
+		"description": "Empty"
+	}
+	empty_slot_tooltips[armor_slot] = {
+		"title": "Armor Slot",
+		"description": "Empty"
+	}
+	for trinket_slot in [trinket_slot_1, trinket_slot_2]:
+		empty_slot_tooltips[trinket_slot] = {
+			"title": "Trinket Slot",
+			"description": "Empty"
+		}
+	
+	_setup_stat_tooltip(
+		health_icon,
+		"Health",
+		"Your health. Don't let it reach 0!"
+	)
+	_setup_stat_tooltip(
+		block_icon,
+		"Block",
+		"How much block you start a combat
+		\nBlock prevents incoming damage"
+	)
+	_setup_stat_tooltip(
+		attack_icon,
+		"Attack",
+		"The higher your attack, the stronger your strikes"
+	)
+	_setup_stat_tooltip(
+		speed_icon,
+		"Speed",
+		"The faster you are, the more you act in battle"
+	)
 	
 	weapon_slot.mouse_entered.connect(_on_equipment_mouse_entered.bind(weapon_slot))
 	helmet_slot.mouse_entered.connect(_on_equipment_mouse_entered.bind(helmet_slot))
@@ -140,19 +187,19 @@ func _on_equipment_slot_pressed(slot: Button) -> void:
 		print("Can't change items on battle!")
 		return
 		
-	var relic: Relic
+	#var relic: Relic
 
-	if slot == weapon_slot:
-		relic = relic_handler.equipped_weapon
-	elif slot == helmet_slot:
-		relic = relic_handler.equipped_helmet
-	elif slot == armor_slot:
-		relic = relic_handler.equipped_armor
-	elif slot == trinket_slot_1:
-		relic = relic_handler.equipped_trinkets[0]
-	elif slot == trinket_slot_2:
-		relic = relic_handler.equipped_trinkets[1]
-
+	#if slot == weapon_slot:
+	#	relic = relic_handler.equipped_weapon
+	#elif slot == helmet_slot:
+	#	relic = relic_handler.equipped_helmet
+	#elif slot == armor_slot:
+	#	relic = relic_handler.equipped_armor
+	#elif slot == trinket_slot_1:
+	#	relic = relic_handler.equipped_trinkets[0]
+	#elif slot == trinket_slot_2:
+	#	relic = relic_handler.equipped_trinkets[1]
+	var relic := _get_slot_relic(slot)
 	if relic == null:
 		return
 
@@ -160,6 +207,8 @@ func _on_equipment_slot_pressed(slot: Button) -> void:
 		update_inventory()
 		update_equipment_slots()
 		update_player_stats()
+		_on_relic_mouse_exited()
+		_on_equipment_mouse_entered(slot)
 	
 	
 func _on_relic_mouse_entered(relic: Relic) -> void:
@@ -169,23 +218,62 @@ func _on_relic_mouse_entered(relic: Relic) -> void:
 	hover_tooltip.show_tooltip(relic.relic_name, relic.get_tooltip(), relic.get_rarity(), relic.get_equip())
 
 
-func _on_equipment_mouse_entered(slot: Button) -> void:
-	var relic: Relic
-	
+func _get_slot_relic(slot: Button) -> Relic:
 	if slot == weapon_slot:
-		relic = relic_handler.equipped_weapon
-	elif slot == helmet_slot:
-		relic = relic_handler.equipped_helmet
-	elif slot == armor_slot:
-		relic = relic_handler.equipped_armor
-	elif slot == trinket_slot_1:
-		relic = relic_handler.equipped_trinkets[0]
-	elif slot == trinket_slot_2:
-		relic = relic_handler.equipped_trinkets[1]
-	
+		return relic_handler.equipped_weapon
+	if slot == helmet_slot:
+		return relic_handler.equipped_helmet
+	if slot == armor_slot:
+		return relic_handler.equipped_armor
+	if slot == trinket_slot_1:
+		return relic_handler.equipped_trinkets[0]
+	if slot == trinket_slot_2:
+		return relic_handler.equipped_trinkets[1]
+	return null
+
+
+func _show_empty_slot_tooltip(slot: Button) -> void:
+	if not hover_tooltip or not empty_slot_tooltips.has(slot):
+		return
+	var data: Dictionary = empty_slot_tooltips[slot]
+	hover_tooltip.show_tooltip(data["title"], data["description"])
+
+
+func _on_equipment_mouse_entered(slot: Button) -> void:
+	var relic := _get_slot_relic(slot)
 	if relic:
 		_on_relic_mouse_entered(relic)
-		
+	else:
+		_show_empty_slot_tooltip(slot)
+	#var relic: Relic
+	
+	#if slot == weapon_slot:
+	#	relic = relic_handler.equipped_weapon
+	#elif slot == helmet_slot:
+	#	relic = relic_handler.equipped_helmet
+	#elif slot == armor_slot:
+	#	relic = relic_handler.equipped_armor
+	#elif slot == trinket_slot_1:
+	#	relic = relic_handler.equipped_trinkets[0]
+	#elif slot == trinket_slot_2:
+	#	relic = relic_handler.equipped_trinkets[1]
+	
+	#if relic:
+	#	_on_relic_mouse_entered(relic)
+
+
 func _on_relic_mouse_exited() -> void:
 	if hover_tooltip:
 		hover_tooltip.hide_tooltip()
+
+
+func _setup_stat_tooltip(icon: Control, title: String, description: String) -> void:
+	icon.mouse_filter = Control.MOUSE_FILTER_STOP
+	icon.mouse_entered.connect(_on_stat_mouse_entered.bind(title, description))
+	icon.mouse_exited.connect(_on_relic_mouse_exited)
+
+
+func _on_stat_mouse_entered(title: String, description: String) -> void:
+	if hover_tooltip:
+		hover_tooltip.show_tooltip(title, description)
+	

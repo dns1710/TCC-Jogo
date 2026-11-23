@@ -5,12 +5,7 @@ extends Node
 const X_DIST := 50
 const Y_DIST := 35
 const PLACEMENT_RANDOMNESS := 0
-
-# Configuração das regiões
-const FLOORS_PER_REGION := 13
-const REGION_COUNT := 2
-const FLOORS := FLOORS_PER_REGION * REGION_COUNT
-
+const FLOORS := 14
 const MAP_WIDTH := 3
 
 @export var battle_stats_pool: BattleStatsPool
@@ -143,20 +138,28 @@ func _generate_region(
 	# Cada região possui seu próprio andar de tesouro.
 	var treasure_floor := start_floor + int(FLOORS_PER_REGION / 2)
 
-	for floor in range(initial_floor, boss_floor):
+	var treasure_floor := int((FLOORS / 2)-1)
+	var boss_campfire_floor := FLOORS - 2
+	
+	for floor in range(1, FLOORS - 1):
 		for room in map_data[floor]:
 
 			if not room.active:
 				continue
-
+				
+			# Sala do meio sempre é tesouro
 			if floor == treasure_floor:
 				_set_room_type(room, Room.Type.TREASURE)
 				continue
-
+			
+			# Sala antes do boss é sempre cura
+			if floor == boss_campfire_floor:
+				_set_room_type(room, Room.Type.CAMPFIRE)
+				continue
+				
 			_assign_random_type(room)
-
-	# Boss da região
-	var boss_room: Room = map_data[boss_floor][mid]
+	
+	var boss_room: Room = map_data[FLOORS - 1][mid]
 
 	boss_room.active = true
 

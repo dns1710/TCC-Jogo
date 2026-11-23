@@ -62,21 +62,21 @@ custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 icon = ExtResource("3_tvok8")
 
-[node name="ArmorSlot" type="Button" parent="EquipSlotsVBox/MainSlots" unique_id=1737863131]
+[node name="TrinketSlot1" type="Button" parent="EquipSlotsVBox/MainSlots" unique_id=484292632]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
-icon = ExtResource("3_el5y6")
+icon = ExtResource("2_4axmw")
 
 [node name="TrinketSlots" type="HBoxContainer" parent="EquipSlotsVBox" unique_id=281994280]
 layout_mode = 2
 alignment = 1
 
-[node name="TrinketSlot1" type="Button" parent="EquipSlotsVBox/TrinketSlots" unique_id=484292632]
+[node name="ArmorSlot" type="Button" parent="EquipSlotsVBox/TrinketSlots" unique_id=1737863131]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
-icon = ExtResource("2_4axmw")
+icon = ExtResource("3_el5y6")
 
 [node name="TrinketSlot2" type="Button" parent="EquipSlotsVBox/TrinketSlots" unique_id=663266950]
 unique_name_in_owner = true
@@ -129,7 +129,8 @@ theme_override_constants/separation = 12
 [node name="Health" type="HBoxContainer" parent="StatsVBox/HBoxContainer" unique_id=878824045]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="StatsVBox/HBoxContainer/Health" unique_id=1353835641]
+[node name="HealthIcon" type="TextureRect" parent="StatsVBox/HBoxContainer/Health" unique_id=1353835641]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("7_efxst")
 
@@ -143,7 +144,8 @@ text = "99"
 [node name="Attack" type="HBoxContainer" parent="StatsVBox/HBoxContainer" unique_id=923954601]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="StatsVBox/HBoxContainer/Attack" unique_id=992308557]
+[node name="AttackIcon" type="TextureRect" parent="StatsVBox/HBoxContainer/Attack" unique_id=992308557]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("8_g1nyl")
 stretch_mode = 3
@@ -164,7 +166,8 @@ theme_override_constants/separation = 12
 [node name="Block" type="HBoxContainer" parent="StatsVBox/HBoxContainer2" unique_id=609839808]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="StatsVBox/HBoxContainer2/Block" unique_id=552573673]
+[node name="BlockIcon" type="TextureRect" parent="StatsVBox/HBoxContainer2/Block" unique_id=552573673]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("9_j21gq")
 
@@ -178,7 +181,8 @@ text = "99"
 [node name="Speed" type="HBoxContainer" parent="StatsVBox/HBoxContainer2" unique_id=1462367294]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="StatsVBox/HBoxContainer2/Speed" unique_id=738217753]
+[node name="SpeedIcon" type="TextureRect" parent="StatsVBox/HBoxContainer2/Speed" unique_id=738217753]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("10_ll4hh")
 stretch_mode = 3
