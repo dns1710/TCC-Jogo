@@ -6,12 +6,12 @@
 [resource]
 script = ExtResource("1_vcchg")
 relic_name = "Shining Armor"
-id = "armadura"
+id = "Armadura"
 type = 1
 equip = 2
 rarity = 1
 icon = ExtResource("1_w5iwp")
 tooltip = "+1 BLOCK
-Gain +1 BLOCK at the start of every other turn"
+Gain +1 BLOCK at the start of every other turn."
 bonus_blk = 1
 metadata/_custom_type_script = "uid://doman22hrts78"

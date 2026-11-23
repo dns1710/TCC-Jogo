@@ -1,17 +1,18 @@
 [gd_resource type="Resource" script_class="Relic" format=3 uid="uid://btn8ie46m7kio"]
 
-[ext_resource type="Texture2D" uid="uid://dytq0eumwvky6" path="res://art/tile_0074.png" id="1_h65x5"]
+[ext_resource type="Texture2D" uid="uid://buyvxu7jhrt5o" path="res://art/verdadeira arte/items/frying_pan.png" id="1_h65x5"]
 [ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_dsthr"]
 
 [resource]
 script = ExtResource("2_dsthr")
 relic_name = "Frying Pan"
-id = "pan"
+id = "FryingPan"
 type = 4
 icon = ExtResource("1_h65x5")
-tooltip = "1D4 Weapon damage
+tooltip = "1d6 weapon damage
+
 +2 BLOCK"
 bonus_blk = 2
-weapon_dice_attack = 4
+weapon_dice_attack = 6
 weapon_dice_amount = 1
 metadata/_custom_type_script = "uid://dkxx27kqb6tnm"

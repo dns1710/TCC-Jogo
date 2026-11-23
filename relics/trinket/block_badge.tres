@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_8rnob")
 relic_name = "Badge of Resilience"
-id = "block_badge"
+id = "BlockBadge"
 equip = 3
 rarity = 1
 icon = ExtResource("1_s2nau")

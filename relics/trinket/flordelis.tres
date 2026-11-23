@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_rfm6m")
 relic_name = "Fleur-De-Lis"
-id = "flordelis"
+id = "FleurDeLis"
 equip = 3
 rarity = 2
 icon = ExtResource("1_lnygp")

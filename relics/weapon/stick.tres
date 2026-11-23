@@ -1,15 +1,17 @@
-[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://c8allik0xhrv2"]
+[gd_resource type="Resource" script_class="Stick" format=3 uid="uid://c8allik0xhrv2"]
 
-[ext_resource type="Texture2D" uid="uid://dojlh80rte165" path="res://art/tile_0107.png" id="1_70sgs"]
-[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_70sgs"]
+[ext_resource type="Texture2D" uid="uid://5aqo12n1xrta" path="res://art/verdadeira arte/items/stick_relic.png" id="1_70sgs"]
+[ext_resource type="Script" uid="uid://bmjw4lfkv513w" path="res://relics/weapon/stick.gd" id="2_70sgs"]
 
 [resource]
 script = ExtResource("2_70sgs")
 relic_name = "Stick"
-id = "stick"
-type = 4
+id = "Stick"
+type = 2
 icon = ExtResource("1_70sgs")
-tooltip = "1D6 Weapon damage"
+tooltip = "1d6 weapon damage
+
+Your first attack every combat deals +1d6 damage."
 weapon_dice_attack = 6
 weapon_dice_amount = 1
 metadata/_custom_type_script = "uid://dkxx27kqb6tnm"

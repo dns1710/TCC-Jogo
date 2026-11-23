@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://dc0pmb1jphx2g" path="res://scenes/ui/tooltip.gd" id="2_ifbwr"]
 
 [node name="Tooltip" type="PanelContainer" unique_id=855762759 groups=["global_tooltip"]]
-custom_minimum_size = Vector2(100, 0)
 clip_contents = true
+custom_minimum_size = Vector2(100, 0)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

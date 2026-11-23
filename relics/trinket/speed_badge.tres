@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_s656y")
 relic_name = "Badge of Swiftness"
-id = "speed_badge"
+id = "SpeedBadge"
 equip = 3
 rarity = 1
 icon = ExtResource("1_l2qng")

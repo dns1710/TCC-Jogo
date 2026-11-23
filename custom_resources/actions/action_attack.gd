@@ -5,9 +5,14 @@ func apply_effects(targets: Array[Node]) -> void:
 	var relic_handler := player.get_tree().get_first_node_in_group("relic_handler")
 	
 	var damage = relic_handler.get_weapon_damage()
+	if relic_handler.equipped_weapon:
+		damage += relic_handler.equipped_weapon.get_weapon_bonus_damage()
+	
 	var damage_effect := DamageEffect.new()
 	damage_effect.amount = damage
-	#await player.attack_animation()
 	damage_effect.execute(targets)
 	
+	if relic_handler.equipped_weapon:
+		relic_handler.equipped_weapon.on_attack_hit(targets)
+		
 	Events.player_action_completed.emit()

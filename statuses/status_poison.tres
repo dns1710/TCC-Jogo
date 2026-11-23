@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StatusPoison" format=3 uid="uid://cfpxlaxplrtoi"]
+
+[ext_resource type="Texture2D" uid="uid://2s4ingwi1soi" path="res://art/verdadeira arte/status/status_poison.png" id="1_2g0bf"]
+[ext_resource type="Script" uid="uid://dn411ak5fypph" path="res://statuses/status_poison.gd" id="2_2g0bf"]
+
+[resource]
+script = ExtResource("2_2g0bf")
+name = "Poison"
+id = "Poison"
+type = 1
+icon = ExtResource("1_2g0bf")
+tooltip = "Takes 1d4 damage at the end of turn
+
+From the third turn on, there's a chance to cure the poison at the end of every turn"
+metadata/_custom_type_script = "uid://cabgjq2uy7l61"

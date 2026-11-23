@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_1n3fk")
 relic_name = "Old Shirt"
-id = "old_shirt"
+id = "OldShirt"
 equip = 2
 icon = ExtResource("1_qlm1x")
 tooltip = "+1 BLOCK"

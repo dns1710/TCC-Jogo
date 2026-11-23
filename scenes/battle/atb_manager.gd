@@ -6,6 +6,8 @@ var enemy_handler: EnemyHandler
 
 var battle_running := false
 
+var current_enemy: Enemy = null
+
 var waiting_for_player := false
 var enemy_acting := false
 var enemy_queue: Array[Enemy] = []
@@ -71,11 +73,13 @@ func _start_next_enemy_action() -> void:
 		return
 
 	enemy_acting = true
-
+	current_enemy = enemy
 	enemy.can_act = false
 	enemy.reset_atb()
-
-	enemy.do_action()
+	if not enemy.do_action():
+		_on_enemy_action_completed(enemy)
+	#current_enemy = enemy
+	#enemy.do_action()
 
 func _on_player_action_completed() -> void:
 	player.reset_atb()
@@ -83,6 +87,7 @@ func _on_player_action_completed() -> void:
 	
 func _on_enemy_action_completed(enemy: Enemy) -> void:
 	enemy_acting = false
+	current_enemy = null
 	
 	if is_instance_valid(enemy):
 		enemy.atb_cooldown = randf_range(0.0,1.0)
@@ -93,8 +98,9 @@ func _on_enemy_action_completed(enemy: Enemy) -> void:
 func _on_enemy_died(enemy: Enemy) -> void:
 	enemy_queue.erase(enemy)
 
-	if enemy_acting:
+	if enemy_acting and enemy == current_enemy:
 		enemy_acting = false
+		current_enemy = null
 
 		if not enemy_queue.is_empty():
 			_start_next_enemy_action()

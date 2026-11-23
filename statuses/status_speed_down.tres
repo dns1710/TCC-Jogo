@@ -6,11 +6,10 @@
 [resource]
 script = ExtResource("2_rxpmr")
 name = "Speed Down"
-id = "speeddown"
+id = "SpeedDown"
 type = 2
 stack_type = 1
 stacks = 1
 icon = ExtResource("1_rxpmr")
-tooltip = "[color=\"ffdf00\"]SPEED DOWN[/color]
-Lowers [color=\"#ffa500\"]SPEED[/color]"
+tooltip = "Lowers SPEED"
 metadata/_custom_type_script = "uid://cabgjq2uy7l61"

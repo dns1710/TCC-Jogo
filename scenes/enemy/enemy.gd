@@ -96,12 +96,14 @@ func update_enemy() -> void:
 	setup_ai()
 	update_stats()
 
-func do_action() -> void:
+func do_action() -> bool:
 	current_action = null
 	update_action()
 	if not current_action:
-		return
+		push_warning("Sem ação parea executar")
+		return false
 	current_action.perform_action()
+	return true
 	#if not current_action:
 	#	return
 	

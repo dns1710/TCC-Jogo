@@ -17,11 +17,14 @@ extends Control
 @onready var trinket_slot_2: Button = %TrinketSlot2
 
 var relic_handler: RelicHandler
+var hover_tooltip: HoverTooltip
 var empty_slot_icons: Dictionary = {}
 var animation_lock: bool = false
 var battle_lock: bool = false
 
 func _ready() -> void:
+	hover_tooltip = get_tree().get_first_node_in_group("global_tooltip") as HoverTooltip
+	
 	Events.animation_dda_lock.connect(_animation_lock_check)
 	Events.battle_start.connect(_on_battle_start)
 	Events.battle_over_screen_requested.connect(_on_battle_over)
@@ -38,6 +41,18 @@ func _ready() -> void:
 	empty_slot_icons[armor_slot] = armor_slot.icon
 	empty_slot_icons[trinket_slot_1] = trinket_slot_1.icon
 	empty_slot_icons[trinket_slot_2] = trinket_slot_2.icon
+	
+	weapon_slot.mouse_entered.connect(_on_equipment_mouse_entered.bind(weapon_slot))
+	helmet_slot.mouse_entered.connect(_on_equipment_mouse_entered.bind(helmet_slot))
+	armor_slot.mouse_entered.connect(_on_equipment_mouse_entered.bind(armor_slot))
+	trinket_slot_1.mouse_entered.connect(_on_equipment_mouse_entered.bind(trinket_slot_1))
+	trinket_slot_2.mouse_entered.connect(_on_equipment_mouse_entered.bind(trinket_slot_2))
+
+	weapon_slot.mouse_exited.connect(_on_relic_mouse_exited)
+	helmet_slot.mouse_exited.connect(_on_relic_mouse_exited)
+	armor_slot.mouse_exited.connect(_on_relic_mouse_exited)
+	trinket_slot_1.mouse_exited.connect(_on_relic_mouse_exited)
+	trinket_slot_2.mouse_exited.connect(_on_relic_mouse_exited)
 
 func _animation_lock_check(value: bool) -> void:
 	animation_lock = value
@@ -53,8 +68,6 @@ func open_inventory(handler: RelicHandler) -> void:
 		return
 		
 	relic_handler = handler
-	print("INVENTÁRIO ABERTO")
-	print("Quantidade de itens: ", relic_handler.get_all_relics().size())
 	show()
 	update_inventory()
 	update_equipment_slots()
@@ -62,7 +75,10 @@ func open_inventory(handler: RelicHandler) -> void:
 	await get_tree().process_frame
 
 func close_inventory() -> void:
+	if hover_tooltip:
+		hover_tooltip.hide_tooltip()
 	hide()
+	
 
 func update_inventory() -> void:
 	for child in inventory_grid.get_children():
@@ -76,12 +92,8 @@ func update_inventory() -> void:
 		item_button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		inventory_grid.add_child(item_button)
 		item_button.pressed.connect(_on_relic_button_pressed.bind(relic))
-		#var item_icon := TextureRect.new()
-		#item_icon.texture = relic.icon
-		#item_icon.custom_minimum_size = Vector2(16, 16)
-		#item_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		#item_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		#inventory_grid.add_child(item_icon)
+		item_button.mouse_entered.connect(_on_relic_mouse_entered.bind(relic))
+		item_button.mouse_exited.connect(_on_relic_mouse_exited)
 
 
 func update_player_stats() -> void:
@@ -148,3 +160,32 @@ func _on_equipment_slot_pressed(slot: Button) -> void:
 		update_inventory()
 		update_equipment_slots()
 		update_player_stats()
+	
+	
+func _on_relic_mouse_entered(relic: Relic) -> void:
+	if not relic or not hover_tooltip:
+		return
+		
+	hover_tooltip.show_tooltip(relic.relic_name, relic.get_tooltip(), relic.get_rarity(), relic.get_equip())
+
+
+func _on_equipment_mouse_entered(slot: Button) -> void:
+	var relic: Relic
+	
+	if slot == weapon_slot:
+		relic = relic_handler.equipped_weapon
+	elif slot == helmet_slot:
+		relic = relic_handler.equipped_helmet
+	elif slot == armor_slot:
+		relic = relic_handler.equipped_armor
+	elif slot == trinket_slot_1:
+		relic = relic_handler.equipped_trinkets[0]
+	elif slot == trinket_slot_2:
+		relic = relic_handler.equipped_trinkets[1]
+	
+	if relic:
+		_on_relic_mouse_entered(relic)
+		
+func _on_relic_mouse_exited() -> void:
+	if hover_tooltip:
+		hover_tooltip.hide_tooltip()

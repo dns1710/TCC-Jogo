@@ -26,12 +26,12 @@ func _ready() -> void:
 
 #-------INVENTÁRIO-------
 
-func add_relics(relics_array: Array[Relic]) -> void:
+func add_relics(relics_array: Array[Relic], affect_score := true) -> void:
 	for relic: Relic in relics_array:
-		add_relic(relic)
+		add_relic(relic, affect_score)
 
 
-func add_relic(relic: Relic) -> void:
+func add_relic(relic: Relic, affect_score := true) -> void:
 	if relic == null:
 		push_error("Tentou adicionar relic NULL")
 		return
@@ -41,7 +41,7 @@ func add_relic(relic: Relic) -> void:
 	
 	inventory.append(relic)
 	
-	if run_stats:
+	if affect_score and run_stats:
 		var rarity_score
 		match relic.rarity:
 			Relic.Rarity.COMMON:

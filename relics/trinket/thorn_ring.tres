@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_si6pb")
 relic_name = "Thorn Ring"
-id = "thornring"
+id = "ThornRing"
 type = 2
 equip = 3
 rarity = 1

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="HealingBadge" format=3 uid="uid://dl0v7eqbpxyqi"]
+
+[ext_resource type="Texture2D" uid="uid://cd7p1dusnbc2p" path="res://art/verdadeira arte/items/healing_badge_relic.png" id="1_m5c8b"]
+[ext_resource type="Script" uid="uid://dkxx27kqb6tnm" path="res://relics/trinket/healing_badge.gd" id="2_23esy"]
+
+[resource]
+script = ExtResource("2_23esy")
+relic_name = "Badge of Health"
+id = "HealingBadge"
+type = 4
+equip = 3
+icon = ExtResource("1_m5c8b")
+tooltip = "Heal 2d4 at the end of combat."
+metadata/_custom_type_script = "uid://dkxx27kqb6tnm"

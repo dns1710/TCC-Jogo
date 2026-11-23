@@ -28,11 +28,18 @@ func _ready() -> void:
 	hover_timer.timeout.connect(_on_hover_timer_timeout)
 
 
-func show_tooltip(title: String, description: String, rarity: String = "", equip: String = "") -> void:
+func show_tooltip(
+	title: String,
+	description: String,
+	rarity: String = "",
+	equip: String = ""
+	) -> void:
+		
 	pending_title = title.to_upper()
 	pending_rarity = rarity
 	pending_equip = equip
 	pending_description = description
+	
 	hover_timer.start()
 
 
@@ -43,21 +50,21 @@ func hide_tooltip() -> void:
 
 func _on_hover_timer_timeout() -> void:
 	title_label.text = pending_title
-	type_label.text = pending_rarity + " " + pending_equip
-	if type_label.text == "":
+	
+	if pending_rarity == "":
 		type_label.hide()
 	else:
 		type_label.show()
-	description_label.text = pending_description
-	
+	type_label.text = pending_rarity + " " + pending_equip
 	match pending_rarity:
 		"Common":
-			type_label.modulate = Color.CORNFLOWER_BLUE
+			type_label.modulate = Color.CYAN
 		"Uncommon":
 			type_label.modulate = Color.ORANGE
 		"Rare":
-			type_label.modulate = Color.CRIMSON
-
+			type_label.modulate = Color.RED
+	
+	description_label.text = pending_description
 	description_label.update_minimum_size()
 	update_minimum_size()
 	

@@ -119,10 +119,6 @@ func _generate_shop_relics() -> void:
 	
 	for relic: Relic in shop_relics_array:
 		var new_shop_relic := SHOP_RELIC.instantiate() as ShopRelic
-		print("ROW 1 LIMIT:", row_1_range)
-		print("ROW 2 LIMIT:", row_2_range)
-		print("ROW 1:", relics_row_1.get_child_count())
-		print("ROW 2:", relics_row_2.get_child_count())
 		
 		if row_1_count < row_1_range:
 			relics_row_1.add_child(new_shop_relic)
@@ -132,24 +128,6 @@ func _generate_shop_relics() -> void:
 		new_shop_relic.relic = relic
 		new_shop_relic.gold_cost = _get_updated_shop_cost(new_shop_relic.gold_cost)
 		new_shop_relic.update(run_stats)
-	
-	#var shop_relics_array: Array[Relic] = []
-	#var available_relics := shop_relics.filter(
-	#	func(relic: Relic):
-	#		var can_appear := relic.can_appear_as_reward(char_stats)
-	#		var already_had_it := relic_handler.has_relic(relic.id)
-	#		return can_appear and not already_had_it
-	#)
-	
-	#RNG.array_shuffle(available_relics)
-	#shop_relics_array = available_relics.slice(0, 3)
-	
-	#for relic: Relic in shop_relics_array:
-	#	var new_shop_relic := SHOP_RELIC.instantiate() as ShopRelic
-	#	relics.add_child(new_shop_relic)
-	#	new_shop_relic.relic = relic
-	#	new_shop_relic.gold_cost = _get_updated_shop_cost(new_shop_relic.gold_cost)
-	#	new_shop_relic.update(run_stats)
 
 
 func _update_items() -> void:

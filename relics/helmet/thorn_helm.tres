@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ThornPlate" format=3 uid="uid://d3piv68i0huvr"]
+[gd_resource type="Resource" script_class="ThornHelm" format=3 uid="uid://d3piv68i0huvr"]
 
 [ext_resource type="Texture2D" uid="uid://df4pvnlsbwrn1" path="res://art/verdadeira arte/items/thorn_helm_relic.png" id="1_56ft7"]
 [ext_resource type="Script" uid="uid://b51bqefqg1wxq" path="res://relics/helmet/thorn_helm.gd" id="2_7jrfj"]
@@ -6,8 +6,8 @@
 [resource]
 script = ExtResource("2_7jrfj")
 relic_name = "Thorn Helm"
-id = "thornhelm"
-type = 5
+id = "ThornHelm"
+type = 2
 equip = 1
 rarity = 1
 icon = ExtResource("1_56ft7")

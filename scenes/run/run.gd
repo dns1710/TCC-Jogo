@@ -42,6 +42,7 @@ var dda_shop_changed := false
 var dda_treasure_spawned := false
 var dda_treasure_pending := false
 
+
 func _ready() -> void:
 	if not run_startup:
 		return
@@ -65,7 +66,11 @@ func _start_new_run() -> void:
 
 	relic_handler.run_stats = stats
 	relic_handler.character_stats = character
-
+	
+	var starter_relic := preload("res://relics/helmet/hunters_mask.tres")
+	relic_handler.add_relic(starter_relic,false)
+	relic_handler.equip_relic(starter_relic)
+	
 	map.run_stats = stats
 	
 	_setup_top_bar()
@@ -96,6 +101,11 @@ func _save_run(was_on_map: bool) -> void:
 	save_data.equipped_trinket_1_id = relic_handler.equipped_trinkets[0].id if relic_handler.equipped_trinkets[0] else ""
 	save_data.equipped_trinket_2_id = relic_handler.equipped_trinkets[1].id if relic_handler.equipped_trinkets[1] else ""
 	
+	save_data.dda_shop_changed = dda_shop_changed
+	save_data.dda_treasure_spawned = dda_treasure_spawned
+	save_data.dda_treasure_pending = dda_treasure_pending
+	save_data.shop_entered_items = shop_entered_items
+	
 	save_data.last_room = map.last_room
 	save_data.map_data = map.map_data.duplicate()
 	save_data.floors_climbed = map.floors_climbed
@@ -118,7 +128,7 @@ func _load_run() -> void:
 	relic_handler.run_stats = stats
 	relic_handler.character_stats = character
 	
-	relic_handler.add_relics(save_data.relics)
+	relic_handler.add_relics(save_data.relics, false)
 	
 	relic_handler.restore_equipment(
 		save_data.equipped_weapon_id,
@@ -137,6 +147,7 @@ func _load_run() -> void:
 		map.show_map()
 	elif save_data.last_room:
 		_on_map_exited(save_data.last_room)
+		
 	
 func _setup_top_bar() -> void:
 	_connect_character_signals()
@@ -322,6 +333,19 @@ func _on_battle_room_entered(room: Room) -> void:
 	battle.battle_stats = room.battle_stats
 	battle.relics = relic_handler
 	battle.start_battle()
+	
+
+func _prepare_battle(room:Room) -> void:
+	if room.type != Room.Type.MONSTER or not room.battle_stats:
+		return
+	
+	if room.battle_stats.battle_tier != 1:
+		return
+	
+	if stats.dda_score >= 75:
+		var tier_2 := map.map_generator.battle_stats_pool.get_random_battle_for_tier(2)
+		if tier_2:
+			room.battle_stats = tier_2
 
 func _on_treasure_room_entered() -> void:
 	var treasure := _change_view(TREASURE_SCENE) as Treasure
@@ -438,6 +462,8 @@ func _on_battle_won() -> void:
 		_show_regular_battle_rewards()
 
 func _on_map_exited(room: Room) -> void:
+	_prepare_battle(room)
+	
 	_save_run(false)
 	
 	match room.type:

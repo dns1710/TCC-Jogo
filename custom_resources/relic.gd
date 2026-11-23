@@ -35,6 +35,12 @@ func deactivate_relic(_owner: RelicUI) -> void:
 func get_tooltip() -> String:
 	return tooltip
 
+func get_weapon_bonus_damage() -> int:
+	return 0
+
+func on_attack_hit(_targets: Array[Node]) -> void:
+	pass
+
 func get_equip() -> String:
 	var relic_equip: String
 	

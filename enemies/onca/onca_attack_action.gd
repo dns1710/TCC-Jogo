@@ -1,7 +1,7 @@
 extends EnemyAction
 
-@export var dice_value := 6
-@export var dice_amount := 1
+@export var dice_value := 4
+@export var dice_amount := 2
 
 func perform_action() -> void:
 	if not enemy or not target:

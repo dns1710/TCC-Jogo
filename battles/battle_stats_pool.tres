@@ -10,12 +10,10 @@
 [ext_resource type="Resource" uid="uid://bdtdha5bcquni" path="res://battles/map1/tier1/tier_1_2zscout.tres" id="7_jfc4n"]
 [ext_resource type="Resource" uid="uid://dsccuois3d6mq" path="res://battles/map1/tier1/tier_1_zscout_zbomb.tres" id="8_pqmnr"]
 [ext_resource type="Resource" uid="uid://bec17e8ii33lq" path="res://battles/map1/tier2/tier_2_onca.tres" id="9_iajyq"]
-[ext_resource type="Resource" uid="uid://cmgajwlifirt3" path="res://battles/map1/tier2/tier_2_3zscout.tres" id="10_pbp3f"]
 [ext_resource type="Resource" uid="uid://drkm2hck7jy15" path="res://battles/map1/tier2/tier_2_2croc.tres" id="11_avrxc"]
-[ext_resource type="Resource" uid="uid://cev10nq6k4luq" path="res://battles/map1/tier2/tier_2_2zscout_1zbomb.tres" id="11_smtvb"]
 [ext_resource type="Resource" uid="uid://cppw54nfm84mw" path="res://battles/map1/tier3/tier_3_bear_boss.tres" id="12_hfjhm"]
 [ext_resource type="Resource" uid="uid://bwlryxgi23gxl" path="res://battles/map1/tier3/tier_3_big_chicken_boss.tres" id="13_hnmhw"]
 
 [resource]
 script = ExtResource("1_c0dve")
-pool = Array[ExtResource("1_k3ygp")]([ExtResource("2_ycppb"), ExtResource("3_smtvb"), ExtResource("4_6x4eu"), ExtResource("5_r64ow"), ExtResource("6_imvag"), ExtResource("7_jfc4n"), ExtResource("8_pqmnr"), ExtResource("9_iajyq"), ExtResource("10_pbp3f"), ExtResource("11_smtvb"), ExtResource("11_avrxc"), ExtResource("12_hfjhm"), ExtResource("13_hnmhw")])
+pool = Array[ExtResource("1_k3ygp")]([ExtResource("2_ycppb"), ExtResource("3_smtvb"), ExtResource("4_6x4eu"), ExtResource("5_r64ow"), ExtResource("6_imvag"), ExtResource("7_jfc4n"), ExtResource("8_pqmnr"), ExtResource("9_iajyq"), ExtResource("11_avrxc"), ExtResource("12_hfjhm"), ExtResource("13_hnmhw")])
