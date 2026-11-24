@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="EventDefinition" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+
+[sub_resource type="Resource" id="Outcome_1"]
+script = ExtResource("3_out")
+text = "They acknowledge you and press a purse into your hands."
+gold = 60
+
+[sub_resource type="Resource" id="Outcome_2"]
+script = ExtResource("3_out")
+text = "You are burned before the dance ends."
+hp = -6
+
+[sub_resource type="Resource" id="Outcome_3"]
+script = ExtResource("3_out")
+text = "You rest as the drums beat."
+hp = 4
+
+[sub_resource type="Resource" id="Choice_1"]
+script = ExtResource("2_choice")
+label = "Join the dance (speed check)"
+check_stat = 3
+check_base = 0.3
+check_per_point = 0.1
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1"), SubResource("Outcome_2")])
+
+[sub_resource type="Resource" id="Choice_2"]
+script = ExtResource("2_choice")
+label = "Watch"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_3")])
+
+[resource]
+script = ExtResource("1_def")
+title = "The War Dance"
+body = "Warriors dance around a ceremonial fire and dare outsiders to join. Failure is painful."
+choices = Array[ExtResource("2_choice")]([SubResource("Choice_1"), SubResource("Choice_2")])

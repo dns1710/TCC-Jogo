@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="EventDefinition" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+
+[sub_resource type="Resource" id="Outcome_1"]
+script = ExtResource("3_out")
+text = "It is sweet and strengthening."
+max_hp = 4
+
+[sub_resource type="Resource" id="Outcome_2"]
+script = ExtResource("3_out")
+text = "The fruit nourishes you deeply."
+weight = 3.0
+max_hp = 8
+dda = 5
+
+[sub_resource type="Resource" id="Outcome_3"]
+script = ExtResource("3_out")
+text = "It burns as it goes down. You pay for your greed."
+weight = 2.0
+hp = -8
+
+[sub_resource type="Resource" id="Outcome_4"]
+script = ExtResource("3_out")
+text = "Nothing grows here without a cost."
+
+[sub_resource type="Resource" id="Choice_1"]
+script = ExtResource("2_choice")
+label = "Eat one carefully"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1")])
+
+[sub_resource type="Resource" id="Choice_2"]
+script = ExtResource("2_choice")
+label = "Eat your fill"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_2"), SubResource("Outcome_3")])
+
+[sub_resource type="Resource" id="Choice_3"]
+script = ExtResource("2_choice")
+label = "Leave them"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_4")])
+
+[resource]
+script = ExtResource("1_def")
+title = "The Ember Garden"
+body = "Fruit trees grow around vents of warm ash, their fruit ripe against all reason."
+choices = Array[ExtResource("2_choice")]([SubResource("Choice_1"), SubResource("Choice_2"), SubResource("Choice_3")])

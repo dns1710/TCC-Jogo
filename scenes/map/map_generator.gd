@@ -155,7 +155,7 @@ func generate_map(act: Act = null) -> Array[Array]:
 func _assign_random_type(room: Room) -> void:
 	var roll := randf()
 
-	if roll < 0.50:
+	if roll < 0.57:
 		_set_room_type(
 			room,
 			Room.Type.MONSTER,
@@ -166,7 +166,7 @@ func _assign_random_type(room: Room) -> void:
 		_set_room_type(
 			room,
 			Room.Type.EVENT,
-			event_room_pool.get_random()
+			null
 		)
 
 	elif roll < 0.83:

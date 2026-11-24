@@ -34,6 +34,10 @@ func _ready() -> void:
 			_check_map(run, map_data)
 			_check_act_pools(run, map_data, act)
 
+	var share := float(_event_rooms) / maxf(1.0, _random_rooms)
+	if absf(share - 0.18) > 0.02:
+		_failures.append("event share %.3f is not 18%% (+-2 points)" % share)
+
 	if _failures.is_empty():
 		print("MAP CHECK OK: %d maps per act x %d acts, 0 violations" % [RUNS, ACT_PATHS.size()])
 		get_tree().quit(0)
@@ -49,13 +53,30 @@ func _fail(run: int, message: String) -> void:
 	_failures.append("map %d: %s" % [run, message])
 
 
+var _random_rooms := 0
+var _event_rooms := 0
+
+
+func _count_random_rooms(map_data: Array[Array]) -> void:
+	for floor_index in range(1, BOSS_FLOOR - 1):
+		if floor_index == TREASURE_FLOOR or floor_index == CAMPFIRE_FLOOR:
+			continue
+		for room: Room in _active_rooms(map_data[floor_index]):
+			_random_rooms += 1
+			if room.type == Room.Type.EVENT:
+				_event_rooms += 1
+
+
 func _check_act_pools(run: int, map_data: Array[Array], act: Act) -> void:
+	_count_random_rooms(map_data)
 	for floor_rooms in map_data:
 		for room: Room in _active_rooms(floor_rooms):
 			if room.battle_stats != null and not act.battle_stats_pool.pool.has(room.battle_stats):
 				_fail(run, "%s: battle from outside the act pool" % act.act_name)
-			if room.event_scene != null and not act.event_room_pool.event_rooms.has(room.event_scene):
-				_fail(run, "%s: event from outside the act pool" % act.act_name)
+			if room.event_scene != null:
+				_fail(run, "%s: events must be chosen on entry, not baked into rooms" % act.act_name)
+			if act.event_room_pool == null or act.event_room_pool.events.is_empty():
+				_fail(run, "%s: act has no event pool" % act.act_name)
 
 
 func _active_rooms(floor_rooms: Array) -> Array[Room]:

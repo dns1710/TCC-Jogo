@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://custom_resources/act.gd" id="1_act"]
 [ext_resource type="Resource" path="res://battles/battle_stats_pool.tres" id="2_battles"]
-[ext_resource type="Resource" path="res://scenes/event_rooms/event_room_pool.tres" id="3_events"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/pools/ice_events.tres" id="3_events"]
 
 [resource]
 script = ExtResource("1_act")

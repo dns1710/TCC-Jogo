@@ -13,6 +13,8 @@ const BASE_RARE_WEIGHT := 0.3
 @export var gold := STARTING_GOLD : set = set_gold
 
 @export var rerolls := STARTING_REROLLS
+## Events already seen in the current act (resource paths); reset each act.
+@export var seen_events: Array[String] = []
 
 @export_range(0, 100) var dda_score: int = STARTING_DDA_SCORE
 @export_range(0.0, 10.0) var common_weight := BASE_COMMON_WEIGHT

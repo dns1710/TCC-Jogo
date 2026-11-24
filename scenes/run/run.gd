@@ -7,6 +7,7 @@ const CAMPFIRE_SCENE := preload("res://scenes/campfire/campfire.tscn")
 const SHOP_SCENE := preload("res://scenes/shop/shop.tscn")
 const TREASURE_SCENE := preload("res://scenes/treasure/treasure.tscn")
 const WIN_SCREEN_SCENE := preload("res://scenes/win_screen/win_screen.tscn")
+const CHOICE_EVENT_SCENE := preload("res://scenes/event_rooms/choice_event.tscn")
 const ACT_TRANSITION_SCENE := preload("res://scenes/act_transition/act_transition.tscn")
 const MAIN_MENU_PATH := "res://scenes/ui/main_menu.tscn"
 const ACTS := [
@@ -215,6 +216,7 @@ func _change_view(scene: PackedScene) -> Node:
 func _start_next_act() -> void:
 	act_index = mini(act_index + 1, ACTS.size() - 1)
 	character.heal(character.max_health)
+	stats.seen_events.clear()
 
 	for child in current_view.get_children():
 		child.queue_free()
@@ -456,10 +458,25 @@ func _on_shop_exited() -> void:
 		dda_treasure_spawned = true
 		dda_shop_changed = true
 
-func _on_event_room_entered(room: Room) -> void:
-	var event_room := _change_view(room.event_scene) as EventRoom
+func _on_event_room_entered(_room: Room) -> void:
+	var pool := map.get_event_pool()
+	var definition := pool.pick(stats.seen_events) if pool else null
+	if definition == null:
+		push_warning("No event available; skipping the room.")
+		Events.event_room_exited.emit()
+		return
+
+	if not stats.seen_events.has(definition.resource_path):
+		stats.seen_events.append(definition.resource_path)
+
+	var scene := definition.custom_scene if definition.custom_scene else CHOICE_EVENT_SCENE
+	var event_room := _change_view(scene) as EventRoom
+	event_room.definition = definition
 	event_room.character_stats = character
 	event_room.run_stats = stats
+	event_room.relic_handler = relic_handler
+	event_room.map = map
+	event_room.relic_pool = battle_relic_pool
 	event_room.setup()
 
 func _on_battle_won() -> void:

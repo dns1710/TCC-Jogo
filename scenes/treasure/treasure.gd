@@ -42,8 +42,10 @@ func generate_relic() -> void:
 			available_rarities.append(rarity)
 			total_weight += rarity_weights[rarity]
 	
+	# Nothing left to give: the chest only holds gold (the run handles a null relic).
 	if available_rarities.is_empty():
 		found_relic = null
+		return
 	
 	var roll := RNG.pick_random(1,total_weight)
 	
@@ -52,8 +54,6 @@ func generate_relic() -> void:
 		if roll <= 0:
 			found_relic = RNG.array_pick_random(available_relics[rarity])
 			break
-	print("POOL SIZE:", treasure_relic_pool.size())
-	print("FOUND RELIC:", found_relic.relic_name)
 	
 	
 func _on_treasure_opened() -> void:
