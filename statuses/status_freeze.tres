@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="FreezeStatus" format=3]
+
+[ext_resource type="Script" path="res://statuses/status_freeze.gd" id="1_s"]
+[ext_resource type="Texture2D" path="res://art/placeholders/status_freeze_placeholder.png" id="2_i"]
+
+[resource]
+script = ExtResource("1_s")
+name = "Freeze"
+id = "Freeze"
+type = 2
+stack_type = 0
+can_expire = true
+duration = 1
+stacks = 0
+icon = ExtResource("2_i")
+tooltip = "Turn bar stopped for 1.5 seconds, then immune to Freeze for 4 seconds."

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BrittleStatus" format=3]
+
+[ext_resource type="Script" path="res://statuses/status_brittle.gd" id="1_s"]
+[ext_resource type="Texture2D" path="res://art/placeholders/status_brittle_placeholder.png" id="2_i"]
+
+[resource]
+script = ExtResource("1_s")
+name = "Brittle"
+id = "Brittle"
+type = 2
+stack_type = 0
+can_expire = true
+duration = 1
+stacks = 0
+icon = ExtResource("2_i")
+tooltip = "The next hit taken deals 50% more damage."
