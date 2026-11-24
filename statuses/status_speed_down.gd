@@ -5,12 +5,13 @@ extends Status
 ## one stack every time it completes an action, so a slow wears off.
 
 const RATE_PER_STACK := 0.85
+const SOURCE := "speed_down"
 
 var _target: Node
 
 
 func initialize_status(target: Node) -> void:
-	assert(target.get("atb_rate_multiplier") != null, "No turn bar on %s" % target)
+	assert(target.get("atb_mods") != null, "No turn bar on %s" % target)
 	_target = target
 	status_changed.connect(_on_status_changed)
 
@@ -31,7 +32,10 @@ func get_tooltip() -> String:
 
 func _on_status_changed() -> void:
 	if is_instance_valid(_target):
-		_target.atb_rate_multiplier = pow(RATE_PER_STACK, maxi(stacks, 0))
+		if stacks > 0:
+			_target.atb_mods.set_factor(SOURCE, pow(RATE_PER_STACK, stacks))
+		else:
+			_target.atb_mods.clear_factor(SOURCE)
 
 	if stacks <= 0:
 		_disconnect_events()

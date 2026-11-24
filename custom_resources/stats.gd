@@ -52,6 +52,12 @@ func take_damage(damage: int) -> void:
 	block = clampi(block - initial_damage, 0, block)
 	health -= damage
 
+## Hit straight to health, leaving block untouched (Sunder).
+func take_unblocked_damage(damage: int) -> void:
+	if damage <= 0:
+		return
+	health -= damage
+
 func heal(amount : int) -> void:
 	health += amount
 

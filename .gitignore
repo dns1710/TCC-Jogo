@@ -5,3 +5,5 @@
 # Godot editor autosave leftovers
 *.tmp
 /openspec
+art/ART_REQUESTS.md
+HANDOFF.md

@@ -21,7 +21,16 @@ const ATB_MAX := ATBConfig.MAX
 var atb: float = 0.0
 var can_act := false
 ## Multiplied into turn-bar progress; slows (Speed Down) lower it below 1.0.
-var atb_rate_multiplier := 1.0
+var atb_mods := ATBModifiers.new()
+var atb_rate_multiplier: float:
+	get:
+		return atb_mods.product()
+## Multiplied into block gained (Ashen halves it).
+var block_gain_multiplier := 1.0
+## Set by Sunder: the next hit skips block.
+var ignore_block_next_hit := false
+signal damage_received(amount: int, which_modifier: Modifier.Type)
+
 var atb_cooldown: float = 0.0
 
 func _ready() -> void:
@@ -35,6 +44,7 @@ func reset_atb() -> void:
 	atb_progress.value = atb
 
 func add_atb(delta: float) -> void:
+	atb_mods.tick(delta)
 	if can_act:
 		return
 	
@@ -56,7 +66,8 @@ func set_current_action(value: EnemyAction) -> void:
 
 func set_enemy_stats(value: EnemyStats) -> void:
 	stats = value.create_instance()
-	
+	atb_mods.freeze_immune = stats.freeze_immune
+
 	if not stats.stats_changed.is_connected(update_stats):
 		stats.stats_changed.connect(update_stats)
 		stats.stats_changed.connect(update_action)
@@ -118,9 +129,16 @@ func take_damage(damage: int, which_modifier: Modifier.Type, _source = null) -> 
 	sprite_2d.material = WHITE_SPRITE_MATERIAL
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	_spawn_popup(str(modified_damage), Color.FIREBRICK)
+	var ignore_block := ignore_block_next_hit and which_modifier == Modifier.Type.DMG_TAKEN
+	if ignore_block:
+		ignore_block_next_hit = false
+	damage_received.emit(modified_damage, which_modifier)
 	var tween := create_tween()
 	tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
-	tween.tween_callback(stats.take_damage.bind(modified_damage))
+	if ignore_block:
+		tween.tween_callback(stats.take_unblocked_damage.bind(modified_damage))
+	else:
+		tween.tween_callback(stats.take_damage.bind(modified_damage))
 	tween.tween_interval(0.17)
 
 	tween.finished.connect(
