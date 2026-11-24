@@ -153,6 +153,7 @@ func _block() -> void:
 
 func _run() -> void:
 	await _check_ward()
+	await _check_brittle()
 	await _check_hooks()
 	await _check_commons_uncommons()
 	await _check_rares()
@@ -207,6 +208,42 @@ func _check_ward() -> void:
 	var ward := _status("status_ward")
 	_expect(ward.get_tooltip().to_lower().contains("debuff"), "Ward tooltip does not mention debuffs")
 	_expect(ward.icon != null, "Ward has no icon")
+
+
+# ------------------------------------------------------------------ Brittle rolls one extra die
+
+func _check_brittle() -> void:
+	await _setup()
+	for actor: Node in [player, enemies[0]]:
+		var tag := " (%s)" % ("player" if actor == player else "enemy")
+		_apply(actor, "status_brittle")
+		_expect(_has(actor, "Brittle"), "Brittle was not applied" + tag)
+		var seen := []
+		actor.damage_received.connect(func(amount: int, _m): seen.append(amount))
+		# Flat hits (no die) neither use nor spend Brittle.
+		actor.take_damage(5, Modifier.Type.DMG_TAKEN)
+		await _settle(0.1)
+		_expect(seen == [5] and _has(actor, "Brittle"), "a flat hit must not touch Brittle, got %s" % [seen] + tag)
+		# Ticks that skip modifiers do not spend it either.
+		actor.take_damage(3, Modifier.Type.NO_MODIFIER, null, 6)
+		await _settle(0.1)
+		_expect(_has(actor, "Brittle"), "a no-modifier hit spent Brittle" + tag)
+		# A d6 hit rolls one more d6: 5 -> 6..11, then Brittle ends.
+		seen.clear()
+		actor.take_damage(5, Modifier.Type.DMG_TAKEN, null, 6)
+		await _settle(0.2)
+		_expect(seen.size() == 1 and seen[0] >= 6 and seen[0] <= 11, "Brittle should add one d6 (6..11), got %s" % [seen] + tag)
+		_expect(not _has(actor, "Brittle"), "Brittle should end after the die hit" + tag)
+		seen.clear()
+		actor.take_damage(5, Modifier.Type.DMG_TAKEN, null, 6)
+		await _settle(0.1)
+		_expect(seen == [5], "the second die hit must not be boosted, got %s" % [seen] + tag)
+	# The weapon attack reports its die, so a Brittle enemy loses Brittle to a normal attack.
+	await _setup()
+	_apply(enemies[0], "status_brittle")
+	_attack(enemies[0])
+	await _settle(0.3)
+	_expect(not _has(enemies[0], "Brittle"), "a weapon attack should spend Brittle")
 
 
 # ------------------------------------------------------------------ hooks
@@ -407,11 +444,15 @@ func _check_rares() -> void:
 	# Bulwark Maul
 	await _setup()
 	var maul := _equip("weapon/bulwark_maul")
+	player.stats.block = 4
+	_expect(maul.get_weapon_bonus_damage() == 0, "Bulwark Maul gave a bonus below 5 block")
 	player.stats.block = 12
-	_expect(maul.get_weapon_bonus_damage() == 6, "Bulwark Maul bonus for 12 block should be 6")
+	var maul_bonus := maul.get_weapon_bonus_damage()
+	_expect(maul_bonus >= 2 and maul_bonus <= 8, "Bulwark Maul with 12 block should roll 2d4, got %d" % maul_bonus)
 	_expect(player.stats.block == 12, "Bulwark Maul spent block")
-	player.stats.block = 40
-	_expect(maul.get_weapon_bonus_damage() == 10, "Bulwark Maul bonus must cap at 10")
+	player.stats.block = 60
+	maul_bonus = maul.get_weapon_bonus_damage()
+	_expect(maul_bonus >= 3 and maul_bonus <= 12, "Bulwark Maul must cap at 3d4, got %d" % maul_bonus)
 
 	# Cracked Visor
 	await _setup()
@@ -544,7 +585,7 @@ func _check_mythics() -> void:
 	await _setup()
 	_equip("trinket/glass_heart")
 	_expect(_has(player, "Brittle"), "Glass Heart should start Brittle")
-	player.take_damage(1, Modifier.Type.DMG_TAKEN)
+	player.take_damage(1, Modifier.Type.DMG_TAKEN, null, 6)
 	await _settle(0.3)
 	_expect(not _has(player, "Brittle"), "the hit should consume Brittle")
 	Events.player_action_completed.emit()

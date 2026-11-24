@@ -23,5 +23,5 @@ func _on_player_attacked(targets: Array, _damage: int) -> void:
 	if player == null or not ItemFx.has_status(player, "Brittle"):
 		return
 	for target in targets:
-		ItemFx.hit(target, Dice.roll(1, bonus_dice))
+		ItemFx.hit(target, Dice.roll(1, bonus_dice), null, bonus_dice)
 	ItemFx.flash(relic_ui)

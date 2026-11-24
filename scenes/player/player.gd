@@ -22,6 +22,8 @@ var atb_rate_multiplier: float:
 var block_gain_multiplier := 1.0
 ## Set by Sunder: the next hit skips block.
 var ignore_block_next_hit := false
+## Set by Brittle: the next hit rolled with dice gains one extra die of its size.
+var brittle_next_hit := false
 ## Speed Down has no effect while set (Fur-Lined Cap).
 var slow_immune := false
 ## Return true to veto a lethal hit (the callable must restore health itself).
@@ -87,12 +89,13 @@ func update_player() -> void:
 func update_stats() -> void: 
 	stats_ui.update_stats(stats) 
 
-func take_damage(damage: int, which_modifier: Modifier.Type, source = null) -> void: 
+func take_damage(damage: int, which_modifier: Modifier.Type, source = null, die_sides := 0) -> void: 
 	if stats.health <= 0: 
 		return 
 	
-	sprite_2d.material = WHITE_SPRITE_MATERIAL 
-	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier) 
+	sprite_2d.material = WHITE_SPRITE_MATERIAL
+	damage += _consume_brittle(which_modifier, die_sides)
+	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	_spawn_popup(str(modified_damage), Color.FIREBRICK)
 	var ignore_block := ignore_block_next_hit and which_modifier == Modifier.Type.DMG_TAKEN
 	if ignore_block:
@@ -116,6 +119,13 @@ func take_damage(damage: int, which_modifier: Modifier.Type, source = null) -> v
 				Events.player_died.emit() 
 				queue_free() 
 	)
+
+## Brittle: a hit rolled with dice (die_sides > 0) gains one extra die of the same size, once.
+func _consume_brittle(which_modifier: Modifier.Type, die_sides: int) -> int:
+	if not brittle_next_hit or which_modifier != Modifier.Type.DMG_TAKEN or die_sides <= 0:
+		return 0
+	brittle_next_hit = false
+	return randi_range(1, die_sides)
 
 func heal(amount:int) -> void:
 	stats.heal(amount)

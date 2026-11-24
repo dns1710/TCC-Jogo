@@ -13,4 +13,4 @@ can_expire = true
 duration = 1
 stacks = 0
 icon = ExtResource("2_i")
-tooltip = "The next hit taken deals 50% more damage."
+tooltip = "The next hit taken rolls one extra die of its own size."

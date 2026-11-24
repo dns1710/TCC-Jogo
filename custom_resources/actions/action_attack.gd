@@ -10,6 +10,7 @@ func apply_effects(targets: Array[Node]) -> void:
 	
 	var damage_effect := DamageEffect.new()
 	damage_effect.amount = damage
+	damage_effect.die_sides = relic_handler.equipped_weapon.weapon_dice_attack if relic_handler.equipped_weapon else 4
 	damage_effect.execute(targets)
 	
 	if relic_handler.equipped_weapon:

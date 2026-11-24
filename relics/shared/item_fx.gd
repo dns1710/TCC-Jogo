@@ -74,12 +74,14 @@ static func get_status(actor: Node, id: String) -> Status:
 	return status
 
 
-static func hit(target: Node, amount: int, source: Node = null) -> void:
+## die_sides is the die the amount was rolled with (0 for flat damage); Brittle adds one more die of it.
+static func hit(target: Node, amount: int, source: Node = null, die_sides := 0) -> void:
 	if not is_alive(target) or amount <= 0:
 		return
 	var effect := DamageEffect.new()
 	effect.amount = amount
 	effect.source = source
+	effect.die_sides = die_sides
 	effect.execute([target])
 
 

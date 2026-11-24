@@ -61,6 +61,7 @@ func _hit() -> void:
 		return
 	var damage_effect := DamageEffect.new()
 	damage_effect.amount = roll_damage()
+	damage_effect.die_sides = dice_value
 	damage_effect.sound = sound
 	damage_effect.source = enemy
 	var targets: Array[Node] = [target]

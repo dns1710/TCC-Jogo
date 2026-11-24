@@ -27,6 +27,6 @@ func _on_player_damaged(attacker: Node, damage: int) -> void:
 	var block := player.stats.block
 	if block <= 0 or damage < block:
 		return
-	ItemFx.hit(attacker, Dice.roll(dice_amount, dice_value))
+	ItemFx.hit(attacker, Dice.roll(dice_amount, dice_value), null, dice_value)
 	ItemFx.apply(attacker, ItemFx.BRITTLE)
 	ItemFx.flash(relic_ui)

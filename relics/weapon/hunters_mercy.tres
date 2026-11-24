@@ -12,6 +12,6 @@ rarity = 3
 icon = ExtResource("1_icon")
 tooltip = "1d8 weapon damage
 
-Enemies left under 30% health are executed. Bosses take +50% damage instead. A kill fills your turn bar to 50%"
+Enemies left under 30% health are executed. Bosses under 30% health take an extra 1d8 instead. A kill fills your turn bar to 50%"
 weapon_dice_attack = 8
 weapon_dice_amount = 1

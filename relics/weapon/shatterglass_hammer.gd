@@ -21,7 +21,7 @@ func on_attack_hit(targets: Array[Node]) -> void:
 		if not ItemFx.is_alive(target):
 			continue
 		if target.atb_mods.is_frozen():
-			ItemFx.hit(target, Dice.roll(1, shatter_dice))
+			ItemFx.hit(target, Dice.roll(1, shatter_dice), null, shatter_dice)
 			ItemFx.apply(target, ItemFx.BRITTLE)
 			ItemFx.flash(relic_ui)
 		elif third:

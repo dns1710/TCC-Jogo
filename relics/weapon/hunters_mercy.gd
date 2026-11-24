@@ -1,10 +1,9 @@
 class_name HuntersMercy
 extends Relic
 ## Executes enemies left under 30% health by your hit. Bosses cannot be executed: a hit on a boss
-## already under 30% deals 50% more instead. A kill raises your turn bar to at least 50%.
+## already under 30% takes one extra weapon die instead. A kill raises your turn bar to at least 50%.
 
 @export var execute_share := 0.3
-@export var boss_bonus := 0.5
 @export var kill_bar := 0.5
 ## Window after an attack in which an enemy death counts as that attack's kill.
 const KILL_WINDOW_MS := 1200
@@ -49,8 +48,14 @@ func _on_player_attacked(targets: Array, damage: int) -> void:
 	for target in targets:
 		if ItemFx.is_alive(target) and ItemFx.is_boss(target) \
 				and target.stats.health <= target.stats.max_health * execute_share:
-			ItemFx.hit(target, int(damage * boss_bonus))
+			var die := weapon_die()
+			ItemFx.hit(target, Dice.roll(1, die), null, die)
 			ItemFx.flash(relic_ui)
+
+
+## Sides of the equipped weapon's die (this weapon's own die when it is the one equipped).
+func weapon_die() -> int:
+	return weapon_dice_attack
 
 
 func _on_enemy_died(_enemy: Enemy) -> void:

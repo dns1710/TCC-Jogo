@@ -147,18 +147,19 @@ func _check_actor(kind: String) -> void:
 		_apply(boss, "Freeze")
 		_near(boss.atb_rate_multiplier, 1.0, 0.0001, "immune boss unaffected" + tag)
 
-	# Brittle: 8 becomes 12 once, then 8; reapply does not stack.
+	# Brittle: a d6 hit of 8 rolls one more d6 once (9..14), then Brittle ends; reapply does not stack.
 	var c := _make_actor(kind)
 	await _frames()
 	_apply(c, "Brittle")
 	_apply(c, "Brittle")
 	var hp: int = c.stats.health
-	c.take_damage(8, Modifier.Type.DMG_TAKEN)
+	c.take_damage(8, Modifier.Type.DMG_TAKEN, null, 6)
 	await get_tree().create_timer(0.4).timeout
-	_expect(hp - c.stats.health == 12, "brittle hit deals 12, got %d%s" % [hp - c.stats.health, tag])
+	var dealt: int = hp - c.stats.health
+	_expect(dealt >= 9 and dealt <= 14, "brittle hit deals 9 to 14, got %d%s" % [dealt, tag])
 	_expect(not _has(c, "Brittle"), "brittle consumed" + tag)
 	hp = c.stats.health
-	c.take_damage(8, Modifier.Type.DMG_TAKEN)
+	c.take_damage(8, Modifier.Type.DMG_TAKEN, null, 6)
 	await get_tree().create_timer(0.4).timeout
 	_expect(hp - c.stats.health == 8, "second hit deals 8, got %d%s" % [hp - c.stats.health, tag])
 
@@ -230,4 +231,4 @@ func _check_tooltips() -> void:
 			_expect(status.icon != null, "icon for %s must be set" % status_name)
 	var brittle := _status("Brittle")
 	if brittle:
-		_expect(brittle.get_tooltip().contains("50%"), "brittle tooltip must state 50%")
+		_expect(brittle.get_tooltip().contains("extra die"), "brittle tooltip must state the extra die")
