@@ -17,6 +17,8 @@ const BASE_RARE_WEIGHT := 0.3
 @export var seen_events: Array[String] = []
 
 @export_range(0, 100) var dda_score: int = STARTING_DDA_SCORE
+## Flags and score history of the difficulty adjustment (saved with the run).
+@export var dda_state := DDAState.new()
 @export_range(0.0, 10.0) var common_weight := BASE_COMMON_WEIGHT
 @export_range(0.0, 10.0) var uncommon_weight := BASE_UNCOMMON_WEIGHT
 @export_range(0.0, 10.0) var rare_weight := BASE_RARE_WEIGHT
