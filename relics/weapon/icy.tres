@@ -1,19 +1,18 @@
 [gd_resource type="Resource" script_class="Icy" format=3 uid="uid://dr46wfbvum0ws"]
 
-[ext_resource type="Texture2D" uid="uid://du7r7v1iaahuo" path="res://art/rarity.png" id="1_bs0d6"]
+[ext_resource type="Texture2D" uid="uid://bu4xpd6sc0cdm" path="res://art/verdadeira arte/items/snow_balls.png" id="1_bs0d6"]
 [ext_resource type="Script" uid="uid://be1i5tfmxw2e1" path="res://relics/weapon/icy.gd" id="2_bs0d6"]
 
 [resource]
 script = ExtResource("2_bs0d6")
-relic_name = "Fica frio ai"
+relic_name = "Snow Balls"
 id = "icy"
 type = 5
 rarity = 1
 icon = ExtResource("1_bs0d6")
-tooltip = "Big Chill
-1d6 weapon damage
+tooltip = "1d6 weapon damage
 
-Inflicts speed down on enemies"
+When you attack an enemy, apply SPEED DOWN"
 weapon_dice_attack = 6
 weapon_dice_amount = 1
 metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"
