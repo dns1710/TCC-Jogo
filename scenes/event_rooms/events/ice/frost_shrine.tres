@@ -1,23 +1,13 @@
-[gd_resource type="Resource" script_class="EventDefinition" load_steps=10 format=3]
+[gd_resource type="Resource" script_class="EventDefinition" format=3 uid="uid://bwa7rmjvq5ixa"]
 
-[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
-[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
-[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+[ext_resource type="Script" uid="uid://desiy8wf3acbw" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" uid="uid://yye6j07ydsqo" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" uid="uid://cjo14r42mr810" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
 
 [sub_resource type="Resource" id="Outcome_1"]
 script = ExtResource("3_out")
 text = "The cold takes its price. Your strikes grow heavier."
 attack = 1
-
-[sub_resource type="Resource" id="Outcome_2"]
-script = ExtResource("3_out")
-text = "You move slower, but every blow lands harder."
-attack = 2
-speed = -1
-
-[sub_resource type="Resource" id="Outcome_3"]
-script = ExtResource("3_out")
-text = "The voice falls silent."
 
 [sub_resource type="Resource" id="Choice_1"]
 script = ExtResource("2_choice")
@@ -25,10 +15,20 @@ label = "Give your warmth (-12 HP)"
 cost_hp = 12
 outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1")])
 
+[sub_resource type="Resource" id="Outcome_2"]
+script = ExtResource("3_out")
+text = "You move slower, but every blow lands harder."
+attack = 2
+speed = -1
+
 [sub_resource type="Resource" id="Choice_2"]
 script = ExtResource("2_choice")
 label = "Give your speed"
 outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_2")])
+
+[sub_resource type="Resource" id="Outcome_3"]
+script = ExtResource("3_out")
+text = "The voice falls silent."
 
 [sub_resource type="Resource" id="Choice_3"]
 script = ExtResource("2_choice")

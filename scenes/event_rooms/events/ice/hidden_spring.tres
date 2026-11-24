@@ -1,13 +1,19 @@
-[gd_resource type="Resource" script_class="EventDefinition" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="EventDefinition" format=3 uid="uid://dtt3mqa1o4w2g"]
 
-[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
-[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
-[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+[ext_resource type="Script" uid="uid://desiy8wf3acbw" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" uid="uid://yye6j07ydsqo" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" uid="uid://cjo14r42mr810" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
 
 [sub_resource type="Resource" id="Outcome_1"]
 script = ExtResource("3_out")
 text = "You rest in the warm water. Your strength returns."
 heal_share = 0.6
+
+[sub_resource type="Resource" id="Choice_1"]
+script = ExtResource("2_choice")
+label = "Pay the hermit (30g)"
+cost_gold = 30
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1")])
 
 [sub_resource type="Resource" id="Outcome_2"]
 script = ExtResource("3_out")
@@ -19,20 +25,14 @@ script = ExtResource("3_out")
 text = "The hermit finds you and drives you off."
 hp = -6
 
-[sub_resource type="Resource" id="Outcome_4"]
-script = ExtResource("3_out")
-text = "You nod to the hermit and continue."
-
-[sub_resource type="Resource" id="Choice_1"]
-script = ExtResource("2_choice")
-label = "Pay the hermit (30g)"
-cost_gold = 30
-outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1")])
-
 [sub_resource type="Resource" id="Choice_2"]
 script = ExtResource("2_choice")
 label = "Bathe unseen"
 outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_2"), SubResource("Outcome_3")])
+
+[sub_resource type="Resource" id="Outcome_4"]
+script = ExtResource("3_out")
+text = "You nod to the hermit and continue."
 
 [sub_resource type="Resource" id="Choice_3"]
 script = ExtResource("2_choice")

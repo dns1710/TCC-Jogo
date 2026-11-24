@@ -1,13 +1,18 @@
-[gd_resource type="Resource" script_class="EventDefinition" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="EventDefinition" format=3 uid="uid://btdcqxvi8mllg"]
 
-[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
-[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
-[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+[ext_resource type="Script" uid="uid://desiy8wf3acbw" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" uid="uid://yye6j07ydsqo" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" uid="uid://cjo14r42mr810" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
 
 [sub_resource type="Resource" id="Outcome_1"]
 script = ExtResource("3_out")
 text = "It is sweet and strengthening."
 max_hp = 4
+
+[sub_resource type="Resource" id="Choice_1"]
+script = ExtResource("2_choice")
+label = "Eat one carefully"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1")])
 
 [sub_resource type="Resource" id="Outcome_2"]
 script = ExtResource("3_out")
@@ -22,19 +27,14 @@ text = "It burns as it goes down. You pay for your greed."
 weight = 2.0
 hp = -8
 
-[sub_resource type="Resource" id="Outcome_4"]
-script = ExtResource("3_out")
-text = "Nothing grows here without a cost."
-
-[sub_resource type="Resource" id="Choice_1"]
-script = ExtResource("2_choice")
-label = "Eat one carefully"
-outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1")])
-
 [sub_resource type="Resource" id="Choice_2"]
 script = ExtResource("2_choice")
 label = "Eat your fill"
 outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_2"), SubResource("Outcome_3")])
+
+[sub_resource type="Resource" id="Outcome_4"]
+script = ExtResource("3_out")
+text = "Nothing grows here without a cost."
 
 [sub_resource type="Resource" id="Choice_3"]
 script = ExtResource("2_choice")

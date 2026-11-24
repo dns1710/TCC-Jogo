@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="EventDefinition" load_steps=12 format=3]
+[gd_resource type="Resource" script_class="EventDefinition" format=3 uid="uid://bgkcdckdfrlqc"]
 
-[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
-[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
-[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+[ext_resource type="Script" uid="uid://desiy8wf3acbw" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" uid="uid://yye6j07ydsqo" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" uid="uid://cjo14r42mr810" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
 
 [sub_resource type="Resource" id="Outcome_1"]
 script = ExtResource("3_out")
@@ -14,6 +14,14 @@ script = ExtResource("3_out")
 text = "The slide buries you. You dig out slowly."
 hp = -9
 
+[sub_resource type="Resource" id="Choice_1"]
+script = ExtResource("2_choice")
+label = "Brace behind your guard"
+check_stat = 2
+check_base = 0.3
+check_per_point = 0.04
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1"), SubResource("Outcome_2")])
+
 [sub_resource type="Resource" id="Outcome_3"]
 script = ExtResource("3_out")
 text = "You clear the slide and find a hidden path."
@@ -24,19 +32,6 @@ script = ExtResource("3_out")
 text = "The snow catches you before you reach safety."
 hp = -9
 
-[sub_resource type="Resource" id="Outcome_5"]
-script = ExtResource("3_out")
-text = "You find shelter and recover."
-hp = 5
-
-[sub_resource type="Resource" id="Choice_1"]
-script = ExtResource("2_choice")
-label = "Brace behind your guard"
-check_stat = 2
-check_base = 0.3
-check_per_point = 0.04
-outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1"), SubResource("Outcome_2")])
-
 [sub_resource type="Resource" id="Choice_2"]
 script = ExtResource("2_choice")
 label = "Run for open ground"
@@ -44,6 +39,11 @@ check_stat = 3
 check_base = 0.2
 check_per_point = 0.12
 outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_3"), SubResource("Outcome_4")])
+
+[sub_resource type="Resource" id="Outcome_5"]
+script = ExtResource("3_out")
+text = "You find shelter and recover."
+hp = 5
 
 [sub_resource type="Resource" id="Choice_3"]
 script = ExtResource("2_choice")
