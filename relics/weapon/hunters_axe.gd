@@ -25,3 +25,4 @@ func _on_enemy_died(_enemy: Enemy) -> void:
 	var attack_up := StatusEffect.new()
 	attack_up.status = ATTACK_UP_STATUS.duplicate()
 	attack_up.execute([player])
+	relic_ui.flash()

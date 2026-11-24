@@ -28,6 +28,9 @@ var camera_edge_x := 0.0
 var reroll_mode := false
 
 var run_stats: RunStats
+## Rooms already converted in the data whose change animation has not played yet.
+var _pending_conversions: Array[Room] = []
+var _playing_conversions := false
 var current_act: Act
 
 #var adaptation_cutscene_active: bool = false
@@ -182,6 +185,8 @@ func show_map() -> void:
 		unlock_floor(0)
 	else:
 		unlock_next_rooms()
+
+	play_pending_conversions()
 
 
 func hide_map() -> void:
@@ -339,7 +344,11 @@ func _update_reroll_button() -> void:
 	reroll_button.disabled = run_stats.rerolls <= 0
 
 
-func change_room(original_type: Room.Type, new_type: Room.Type, amount: int = 1) -> int:
+## Changes eligible rooms right away (the data first, so a save made now already
+## has them) and returns the rooms that changed. The visual change is cosmetic:
+## it plays now if the map is shown, otherwise the next time it is.
+func convert_rooms(original_type: Room.Type, new_type: Room.Type, amount: int = 1) -> Array[Room]:
+	var changed: Array[Room] = []
 	var candidates: Array[Room] = []
 	var reachable_rooms: Array[Room] = get_reachable_rooms()
 
@@ -363,7 +372,7 @@ func change_room(original_type: Room.Type, new_type: Room.Type, amount: int = 1)
 			candidates.append(room)
 
 	if candidates.is_empty():
-		return 0
+		return changed
 
 	var reference_position: Vector2 = Vector2.ZERO
 
@@ -390,25 +399,38 @@ func change_room(original_type: Room.Type, new_type: Room.Type, amount: int = 1)
 			)
 	)
 
-	var changed_count := 0
-	var rooms_to_change: int = mini(amount, candidates.size())
-	var initial_camera_position: Vector2 = camera_2d.position
+	for i in mini(amount, candidates.size()):
+		_apply_room_type(candidates[i], new_type)
+		changed.append(candidates[i])
 
-	for i in range(rooms_to_change):
-		var target_room: Room = candidates[i]
-		var is_last_room: bool = i == rooms_to_change - 1
+	_pending_conversions.append_array(changed)
+	if is_visible_in_tree():
+		play_pending_conversions()
 
-		var changed: bool = await room_change_animation(
-			target_room,
-			new_type,
-			is_last_room,
-			initial_camera_position
-		)
+	return changed
 
-		if changed:
-			changed_count += 1
 
-	return changed_count
+## For callers that only need how many rooms changed (event rooms).
+func change_room(original_type: Room.Type, new_type: Room.Type, amount: int = 1) -> int:
+	return convert_rooms(original_type, new_type, amount).size()
+
+
+func _apply_room_type(room: Room, new_type: Room.Type) -> void:
+	room.type = new_type
+	room.original_type = new_type
+
+	match new_type:
+		Room.Type.MONSTER:
+			room.battle_stats = get_battle_pool().get_random_battle_for_tier(1)
+			room.event_scene = null
+
+		Room.Type.EVENT:
+			room.event_scene = null
+			room.battle_stats = null
+
+		_:
+			room.battle_stats = null
+			room.event_scene = null
 
 
 func get_reachable_rooms() -> Array[Room]:
@@ -439,20 +461,36 @@ func get_reachable_rooms() -> Array[Room]:
 	return reachable
 
 
-func room_change_animation(
-	room: Room,
-	new_type: Room.Type,
-	return_camera: bool = true,
-	return_position: Vector2 = Vector2.ZERO
-) -> bool:
+## Plays the change animation for rooms converted since the map was last shown.
+## Purely visual: the room data already changed when it was converted.
+func play_pending_conversions() -> void:
+	if _playing_conversions or _pending_conversions.is_empty():
+		return
 
-	if room == null or room.type == new_type:
-		return false
-	
-	#animation_lock = true
-	
+	_playing_conversions = true
+	var rooms_to_play: Array[Room] = _pending_conversions.duplicate()
+	_pending_conversions.clear()
+	var initial_camera_position: Vector2 = camera_2d.position
+
 	Events.animation_dda_lock.emit(true)
-	
+	for i in rooms_to_play.size():
+		await _animate_room_change(
+			rooms_to_play[i],
+			i == rooms_to_play.size() - 1,
+			initial_camera_position
+		)
+	Events.animation_dda_lock.emit(false)
+
+	_playing_conversions = false
+	if not _pending_conversions.is_empty():
+		play_pending_conversions()
+
+
+func _animate_room_change(
+	room: Room,
+	return_camera: bool,
+	return_position: Vector2
+) -> void:
 	var map_room: MapRoom = null
 
 	for current_map_room: MapRoom in rooms.get_children():
@@ -461,8 +499,7 @@ func room_change_animation(
 			break
 
 	if map_room == null:
-		animation_lock = false
-		return false
+		return
 
 	var room_position: Vector2 = to_local(map_room.global_position)
 	var desired_position := room_position - camera_2d.offset
@@ -492,22 +529,6 @@ func room_change_animation(
 
 	await tween.finished
 
-	room.type = new_type
-	room.original_type = new_type
-
-	match new_type:
-		Room.Type.MONSTER:
-			room.battle_stats = get_battle_pool().get_random_battle_for_tier(1)
-			room.event_scene = null
-
-		Room.Type.EVENT:
-			room.event_scene = null
-			room.battle_stats = null
-
-		_:
-			room.battle_stats = null
-			room.event_scene = null
-
 	map_room.update_visual()
 	map_room.flash()
 
@@ -533,8 +554,3 @@ func room_change_animation(
 		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 		await tween.finished
-	
-	#animation_lock = false
-	Events.animation_dda_lock.emit(false)
-	
-	return true

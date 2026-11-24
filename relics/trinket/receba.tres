@@ -9,7 +9,6 @@ relic_name = "Gloves"
 id = "receba"
 equip = 3
 icon = ExtResource("1_emerd")
-tooltip = "+1 attack 
-RECEBA"
+tooltip = "You [wave amp=3.0 freq=5.0][color=#ffd04d]receive[/color][/wave] unexplainable confidence, +1 attack"
 bonus_atk = 1
 metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

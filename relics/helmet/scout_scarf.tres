@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://b04tgm3s73l56"]
+
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="1_b5soi"]
+[ext_resource type="Texture2D" uid="uid://bjnm0t83m1st0" path="res://art/verdadeira arte/items/scout_scarf.png" id="1_idom5"]
+
+[resource]
+script = ExtResource("1_b5soi")
+relic_name = "Scout Scarf"
+id = "ScoutScarf"
+equip = 1
+rarity = 2
+icon = ExtResource("1_idom5")
+tooltip = "+1 BLOCK, +1 ATTACK, +1 SPEED"
+bonus_blk = 1
+bonus_atk = 1
+bonus_spd = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

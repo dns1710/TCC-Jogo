@@ -5,15 +5,12 @@
 
 [resource]
 script = ExtResource("1_l330s")
-relic_name = "Heavier than heavy armor"
-id = "slow"
+relic_name = "Heavier Armor"
+id = "HeavierArmor"
 equip = 2
 rarity = 2
 icon = ExtResource("1_c2iuf")
-tooltip = "Heavier than heavy armor
-+8 block, -2 speed
-
-Slow start"
+tooltip = "+8 BLOCK, -2 SPEED"
 bonus_blk = 8
 bonus_spd = -2
 metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

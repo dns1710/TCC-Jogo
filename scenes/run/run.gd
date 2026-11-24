@@ -45,10 +45,6 @@ var act_index := 0
 
 #var inventory_open := false
 
-var shop_entered_items: int
-var dda_shop_changed := false
-var dda_treasure_spawned := false
-var dda_treasure_pending := false
 
 
 func _ready() -> void:
@@ -110,11 +106,6 @@ func _save_run(was_on_map: bool) -> void:
 	save_data.equipped_armor_id = relic_handler.equipped_armor.id if relic_handler.equipped_armor else ""
 	save_data.equipped_trinket_1_id = relic_handler.equipped_trinkets[0].id if relic_handler.equipped_trinkets[0] else ""
 	save_data.equipped_trinket_2_id = relic_handler.equipped_trinkets[1].id if relic_handler.equipped_trinkets[1] else ""
-	
-	save_data.dda_shop_changed = dda_shop_changed
-	save_data.dda_treasure_spawned = dda_treasure_spawned
-	save_data.dda_treasure_pending = dda_treasure_pending
-	save_data.shop_entered_items = shop_entered_items
 	
 	save_data.act_index = act_index
 	save_data.last_room = map.last_room
@@ -217,6 +208,7 @@ func _start_next_act() -> void:
 	act_index = mini(act_index + 1, ACTS.size() - 1)
 	character.heal(character.max_health)
 	stats.seen_events.clear()
+	stats.dda_state.reset_for_act()
 
 	for child in current_view.get_children():
 		child.queue_free()
@@ -229,22 +221,25 @@ func _start_next_act() -> void:
 	_save_run(true)
 
 
+func _hp_share() -> float:
+	return float(character.health) / float(character.max_health) if character.max_health > 0 else 0.0
+
+
 func _show_map() -> void:
-	if dda_treasure_pending:
-		var score: int = stats.dda_score
-		var relic_count: int = relic_handler.get_all_relics().size()
-		var hp_percentage: float = (float(character.health)/float(character.max_health) if character.max_health > 0 else 0.0)
-		
-		if !dda_shop_changed and score >= 55 and relic_count > shop_entered_items and relic_count >= 4:
-			map.change_room(Room.Type.SHOP, Room.Type.MONSTER)
-			dda_shop_changed = true
-		elif score >= 70:
-			if hp_percentage > 0.5:
-				map.change_room(Room.Type.CAMPFIRE, Room.Type.MONSTER)
-			else:
-				map.change_room(Room.Type.EVENT, Room.Type.MONSTER)
-		dda_treasure_pending = false
-			
+	if stats.dda_state.treasure_pending:
+		stats.dda_state.treasure_pending = false
+		dda.execute(
+			dda.decide_after_treasure(
+				stats.dda_score,
+				_hp_share(),
+				relic_handler.get_all_relics().size(),
+				stats.dda_state.shop_entered_items,
+				stats.dda_state
+			),
+			map,
+			stats.dda_state
+		)
+
 	if current_view.get_child_count() > 0:
 		current_view.get_child(0).queue_free()
 
@@ -378,7 +373,7 @@ func _prepare_battle(room:Room) -> void:
 	if room.battle_stats.battle_tier != 1:
 		return
 	
-	if stats.dda_score >= 75:
+	if dda.should_upgrade_to_tier2(stats.dda_score):
 		var tier_2 := map.get_battle_pool().get_random_battle_for_tier(2)
 		if tier_2:
 			room.battle_stats = tier_2
@@ -388,7 +383,7 @@ func _on_treasure_room_entered() -> void:
 	treasure.relic_handler = relic_handler
 	treasure.char_stats = character
 	treasure.generate_relic()
-	shop_entered_items = relic_handler.get_all_relics().size()
+	stats.dda_state.shop_entered_items = relic_handler.get_all_relics().size()
 
 func _on_treasure_room_exited(relic: Relic) -> void:
 	var reward := _change_view(BATTLE_REWARD_SCENE) as BattleReward
@@ -399,35 +394,26 @@ func _on_treasure_room_exited(relic: Relic) -> void:
 	reward.relic_handler = relic_handler
 	reward.add_gold_reward(RNG.pick_random(gold_reward_min,gold_reward_max))
 	reward.add_relic_reward(relic)
-	dda_treasure_pending = true
+	stats.dda_state.treasure_pending = true
 
 func _on_campfire_entered() -> void:
+	# Read how hurt the player is before they rest, so resting cannot inflate the score.
+	stats.dda_state.campfire_arrival_hp = _hp_share()
+	dda.update_score_campfire(character.health, character.max_health, stats)
+
 	var campfire := _change_view(CAMPFIRE_SCENE) as Campfire
 	campfire.char_stats = character
 
 func _on_campfire_exited() -> void:
-	dda.update_score_campfire(character.health, character.max_health,stats)
-	var score: int = stats.dda_score
-	var hp_percentage: float = (float(character.health)/float(character.max_health) if character.max_health > 0 else 0.0)
-	
-	#SCORE ALTO: Se hp está alto, troca cura por combate. Se hp está baixo, troca evento por combate
-	if score >= 70:
-		if hp_percentage >= 0.5:
-			map.change_room(Room.Type.CAMPFIRE, Room.Type.MONSTER)
-		else:
-			map.change_room(Room.Type.EVENT, Room.Type.MONSTER)
-	
-	#SCORE BAIXO: Se hp está alto, troca evento por cura. Se hp estiver baixo, troca combate por cura
-	if score <= 30:
-		if hp_percentage >= 0.5:
-			map.change_room(Room.Type.EVENT, Room.Type.CAMPFIRE)
-		else:
-			map.change_room(Room.Type.MONSTER, Room.Type.CAMPFIRE)
-		
+	dda.execute(
+		dda.decide_after_campfire(stats.dda_score, stats.dda_state.campfire_arrival_hp),
+		map,
+		stats.dda_state
+	)
 	_show_map()
 
 func _on_shop_entered() -> void:
-	shop_entered_items = relic_handler.get_all_relics().size()
+	stats.dda_state.shop_entered_items = relic_handler.get_all_relics().size()
 	
 	var shop := _change_view(SHOP_SCENE) as Shop
 	shop.char_stats = character
@@ -437,26 +423,19 @@ func _on_shop_entered() -> void:
 	shop.populate_shop()
 	
 func _on_shop_exited() -> void:
+	# Convert first, so the map shown and the save made by _show_map already have the change.
+	dda.execute(
+		dda.decide_after_shop(
+			stats.dda_score,
+			relic_handler.get_all_relics().size(),
+			stats.dda_state.shop_entered_items,
+			stats.gold,
+			stats.dda_state
+		),
+		map,
+		stats.dda_state
+	)
 	_show_map()
-	
-	var score: int = stats.dda_score
-	var relic_count: int = relic_handler.get_all_relics().size()
-	
-	#SE COMPRA TODOS OS ITENS DA LOJA E POSSUI 6+ ITENS: Troca shop por combate
-	if !dda_shop_changed and score >= 55 and relic_count == (shop_entered_items+3) and relic_count >= 6:
-		map.change_room(Room.Type.SHOP, Room.Type.MONSTER)
-		dda_shop_changed = true
-	
-	#SE NÃO COMPRAR NENHUM ITEM DA LOJA POR FALTA DE DINHEIRO
-	if !dda_shop_changed and relic_count == shop_entered_items and stats.gold < 90:
-		#SCORE MUITO BAIXO: Muda combate para um tesouro
-		if score <= 15:
-			map.change_room(Room.Type.MONSTER, Room.Type.TREASURE)
-		#SCORE BAIXO: Muda evento para um tesouro
-		elif score <= 35:
-			map.change_room(Room.Type.EVENT, Room.Type.TREASURE)
-		dda_treasure_spawned = true
-		dda_shop_changed = true
 
 func _on_event_room_entered(_room: Room) -> void:
 	var pool := map.get_event_pool()
@@ -480,30 +459,19 @@ func _on_event_room_entered(_room: Room) -> void:
 	event_room.setup()
 
 func _on_battle_won() -> void:
-	dda.update_score_battle(character.health, character.max_health,stats)
-	
-	var hp_percentage: float = (float(character.health)/float(character.max_health) if character.max_health > 0 else 0.0)
-	var score: int = stats.dda_score
-	
-	#SCORE ALTO: Se tiver muitos itens, torca shop por combate. Se hp estiver alto, troca cura por combate. Se hp estiver baixo, troca evento por combate
-	if score >= 65:
-		var relic_count: int = relic_handler.get_all_relics().size()
-		
-		if relic_count >= 6 and dda_shop_changed == false:
-			map.change_room(Room.Type.SHOP, Room.Type.MONSTER)
-			dda_shop_changed = true
-		elif hp_percentage >= 0.5:
-			map.change_room(Room.Type.CAMPFIRE, Room.Type.MONSTER)
-		elif hp_percentage < 0.5:
-			map.change_room(Room.Type.EVENT, Room.Type.MONSTER)
-	
-	#SCORE BAIXO: Se gold e hp estiverem altos, troca combate por shop. Caso contrário, troca combate por cura
-	if score <= 35:
-		if stats.gold >= 150 and hp_percentage > 0.5:
-			map.change_room(Room.Type.MONSTER, Room.Type.SHOP)
-		else:
-			map.change_room(Room.Type.MONSTER, Room.Type.CAMPFIRE)
-		
+	dda.update_score_battle(character.health, character.max_health, stats)
+	dda.execute(
+		dda.decide_after_battle(
+			stats.dda_score,
+			_hp_share(),
+			relic_handler.get_all_relics().size(),
+			stats.gold,
+			stats.dda_state
+		),
+		map,
+		stats.dda_state
+	)
+
 	if map.floors_climbed == MapGenerator.FLOORS:
 		if act_index < ACTS.size() - 1:
 			var transition := _change_view(ACT_TRANSITION_SCENE) as ActTransition
