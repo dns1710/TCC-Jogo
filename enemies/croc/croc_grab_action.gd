@@ -2,6 +2,8 @@ extends EnemyAction
 
 @export var dice_value := 8
 @export var dice_amount := 1
+## Speed Down stacks applied by the opening grab.
+@export var grab_stacks := 2
 
 const SPEED_DOWN_STATUS = preload("res://statuses/status_speed_down.tres")
 var already_used = false
@@ -26,6 +28,7 @@ func perform_action() -> void:
 	
 	var status_effect := StatusEffect.new()
 	var speed_down := SPEED_DOWN_STATUS.duplicate()
+	speed_down.stacks = grab_stacks
 	status_effect.status = speed_down
 	
 	tween.tween_property(enemy, "global_position", end, 0.4)
