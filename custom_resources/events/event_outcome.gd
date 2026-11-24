@@ -71,7 +71,7 @@ func apply(event: EventRoom, bet := 0) -> Array[String]:
 		_add_line(lines, run.rerolls - before, "rerolls")
 
 	if dda != 0:
-		run.dda_score = clampi(run.dda_score + dda, 0, 100)
+		DDA.change_score(run, dda, "event")
 
 	if relic_rarity >= 0:
 		var relic := _pick_relic(event)

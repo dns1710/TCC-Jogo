@@ -22,12 +22,6 @@ const SAVE_PATH := "user://savegame.tres"
 @export var equipped_trinket_1_id: String = ""
 @export var equipped_trinket_2_id: String = ""
 
-@export_group("DDA")
-@export var dda_shop_changed := false
-@export var dda_treasure_spawned := false
-@export var dda_treasure_pending := false
-@export var shop_entered_items := 0
-
 func save_data() -> void:
 	var err := ResourceSaver.save(self, SAVE_PATH)
 	assert(err == OK, "Couldn't save the game!")

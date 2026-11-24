@@ -43,19 +43,8 @@ func add_relic(relic: Relic, affect_score := true) -> void:
 	inventory.append(relic)
 	
 	if affect_score and run_stats:
-		var rarity_score
-		match relic.rarity:
-			Relic.Rarity.COMMON:
-				rarity_score = 1
-			Relic.Rarity.UNCOMMON:
-				rarity_score = 3
-			Relic.Rarity.RARE:
-				rarity_score = 5
-			Relic.Rarity.MYTHIC:
-				rarity_score = 8
-			
-		run_stats.dda_score = clampi(run_stats.dda_score + rarity_score, 0, 100)
-		print("ADD RELIC. SCORE: ", run_stats.dda_score)
+		var rarity_name: String = Relic.Rarity.keys()[relic.rarity].to_lower()
+		DDA.change_score(run_stats, DDA.new().relic_score(relic.rarity), "relic " + rarity_name)
 	
 	#if relic.equip == Relic.Equip.TRINKET:
 	#	var trinket_slot := equipped_trinkets.find(null)
