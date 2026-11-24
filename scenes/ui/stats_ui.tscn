@@ -30,9 +30,19 @@ stretch_mode = 5
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_colors/font_outline_color = Color(0.12, 0.08, 0.1, 1)
+theme_override_constants/outline_size = 1
 text = "6"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Health" parent="." unique_id=238728012 instance=ExtResource("4_mspg2")]
 layout_mode = 2
+
+[node name="HealthLabel" parent="Health" index="1"]
+theme_override_colors/font_outline_color = Color(0.12, 0.08, 0.1, 1)
+theme_override_constants/outline_size = 1
+
+[node name="MaxHealthLabel" parent="Health" index="2"]
+theme_override_colors/font_outline_color = Color(0.12, 0.08, 0.1, 1)
+theme_override_constants/outline_size = 1
