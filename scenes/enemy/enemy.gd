@@ -201,5 +201,5 @@ func _on_area_exited(_area: Area2D) -> void:
 	arrow.hide()
 
 func _input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton and event.pressed:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		Events.enemy_selected.emit(self)
