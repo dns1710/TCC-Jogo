@@ -13,7 +13,8 @@
 [ext_resource type="Resource" uid="uid://drkm2hck7jy15" path="res://battles/map1/tier2/tier_2_2croc.tres" id="11_avrxc"]
 [ext_resource type="Resource" uid="uid://cppw54nfm84mw" path="res://battles/map1/tier3/tier_3_bear_boss.tres" id="12_hfjhm"]
 [ext_resource type="Resource" uid="uid://bwlryxgi23gxl" path="res://battles/map1/tier3/tier_3_big_chicken_boss.tres" id="13_hnmhw"]
+[ext_resource type="Resource" uid="uid://woq8ty771lrx" path="res://battles/map1/tier1/tier_1_snakes.tres" id="13_ycppb"]
 
 [resource]
 script = ExtResource("1_c0dve")
-pool = Array[ExtResource("1_k3ygp")]([ExtResource("2_ycppb"), ExtResource("3_smtvb"), ExtResource("4_6x4eu"), ExtResource("5_r64ow"), ExtResource("6_imvag"), ExtResource("7_jfc4n"), ExtResource("8_pqmnr"), ExtResource("9_iajyq"), ExtResource("11_avrxc"), ExtResource("12_hfjhm"), ExtResource("13_hnmhw")])
+pool = Array[ExtResource("1_k3ygp")]([ExtResource("2_ycppb"), ExtResource("3_smtvb"), ExtResource("4_6x4eu"), ExtResource("5_r64ow"), ExtResource("6_imvag"), ExtResource("7_jfc4n"), ExtResource("8_pqmnr"), ExtResource("9_iajyq"), ExtResource("11_avrxc"), ExtResource("12_hfjhm"), ExtResource("13_hnmhw"), ExtResource("13_ycppb")])

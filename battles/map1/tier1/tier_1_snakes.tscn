@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c32m0o485pmon"]
+
+[ext_resource type="PackedScene" uid="uid://d0efyathkfg74" path="res://scenes/enemy/enemy.tscn" id="1_k2fqx"]
+[ext_resource type="Resource" uid="uid://cmkpuo42bppqm" path="res://enemies/snake/snake.tres" id="2_u7kr6"]
+
+[node name="Tier1ZScoutZBomb" type="Node2D" unique_id=2128079672]
+
+[node name="Enemy" parent="." unique_id=1918534270 instance=ExtResource("1_k2fqx")]
+position = Vector2(164, 57)
+stats = ExtResource("2_u7kr6")
+
+[node name="Enemy2" parent="." unique_id=1180083846 instance=ExtResource("1_k2fqx")]
+position = Vector2(185, 93)
+stats = ExtResource("2_u7kr6")

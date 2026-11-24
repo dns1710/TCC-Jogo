@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://cmkpuo42bppqm"]
+
+[ext_resource type="PackedScene" uid="uid://bgpahrgucld47" path="res://enemies/snake/snake_ai.tscn" id="1_myx6f"]
+[ext_resource type="Texture2D" uid="uid://bv2wpbh3uv4x3" path="res://art/tile_0109.png" id="1_sjw1k"]
+[ext_resource type="Script" uid="uid://csml8orhg63vh" path="res://custom_resources/enemy_stats.gd" id="3_2xxbe"]
+
+[resource]
+script = ExtResource("3_2xxbe")
+ai = ExtResource("1_myx6f")
+max_health = 8
+max_attack = 1
+max_speed = 6
+art = ExtResource("1_sjw1k")
+metadata/_custom_type_script = "uid://csml8orhg63vh"
