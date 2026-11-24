@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://0gpw5vii3dkd" path="res://enemies/bear_boss/bear_boss_ai.tscn" id="1_1usp3"]
 [ext_resource type="Script" uid="uid://csml8orhg63vh" path="res://custom_resources/enemy_stats.gd" id="1_c2kga"]
-[ext_resource type="Texture2D" uid="uid://g6rlnmve6oys" path="res://art/verdadeira arte/enemy/bear_boss_sleep.png" id="2_1usp3"]
+[ext_resource type="Texture2D" uid="uid://o8ywdut5she5" path="res://art/verdadeira arte/enemy/bear_boss.png" id="2_1usp3"]
 
 [resource]
 script = ExtResource("1_c2kga")
