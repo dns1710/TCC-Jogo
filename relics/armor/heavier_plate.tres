@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://5gcorcnmcrw"]
+
+[ext_resource type="Texture2D" uid="uid://c5bxfff6qnonn" path="res://art/verdadeira arte/items/heavier_plate_relic.png" id="1_2c1uo"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_6lquj"]
+
+[resource]
+script = ExtResource("2_6lquj")
+relic_name = "Heavier Armor"
+id = "HeavierArmor"
+equip = 2
+rarity = 2
+icon = ExtResource("1_2c1uo")
+tooltip = "+8 BLOCK, -2 SPEED"
+bonus_blk = 8
+bonus_spd = -2
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

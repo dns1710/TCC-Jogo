@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://c0ew0ltbsgchx"]
+
+[ext_resource type="Texture2D" uid="uid://e3gvbrpo12xx" path="res://art/verdadeira arte/items/kid_hat.png" id="1_r3q17"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="1_trbxv"]
+
+[resource]
+script = ExtResource("1_trbxv")
+relic_name = "Kid Hat"
+id = "KidHat"
+icon = ExtResource("1_r3q17")
+tooltip = "-1 ATTACK, +2 SPEED"
+bonus_atk = -1
+bonus_spd = 2
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

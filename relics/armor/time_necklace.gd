@@ -4,7 +4,9 @@ extends Relic
 @export var block_bonus := 1
 var block_turn = false
 
-
+func initialize_relic(_owner: RelicUI) -> void:
+	block_turn = false
+	
 func activate_relic(owner: RelicUI) -> void:
 	if not block_turn:
 		block_turn = true

@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://b7qnlirflf3r8" path="res://relics/trinket/bean.tres" id="5_l6p45"]
 [ext_resource type="Resource" uid="uid://ddvwvwkec6euc" path="res://relics/trinket/thorn_ring.tres" id="5_x53nd"]
 [ext_resource type="PackedScene" uid="uid://bltkcscivnh8p" path="res://scenes/relic_handler/relic_handler.tscn" id="6_f8fbw"]
-[ext_resource type="Resource" uid="uid://bb6abg7a0w0ra" path="res://relics/armor/armadura.tres" id="6_tbe7a"]
+[ext_resource type="Resource" uid="uid://bb6abg7a0w0ra" path="res://relics/armor/time_necklace.tres" id="6_tbe7a"]
 [ext_resource type="Resource" uid="uid://d3ft8s0c5go3t" path="res://relics/armor/thorn_plate.tres" id="7_a0b37"]
 [ext_resource type="Resource" uid="uid://mmgrfiitup8x" path="res://relics/helmet/old_cap.tres" id="8_2foro"]
 [ext_resource type="Resource" uid="uid://d3piv68i0huvr" path="res://relics/helmet/thorn_helm.tres" id="9_l4vn1"]
@@ -48,11 +48,12 @@
 [ext_resource type="Resource" uid="uid://cq7calabkgq5g" path="res://relics/armor/scout_sash.tres" id="36_rxc36"]
 [ext_resource type="Resource" uid="uid://b04tgm3s73l56" path="res://relics/helmet/scout_scarf.tres" id="37_omd4m"]
 [ext_resource type="Resource" uid="uid://cl046c518vs52" path="res://relics/weapon/hunters_axe.tres" id="38_omd4m"]
-[ext_resource type="Resource" uid="uid://5gcorcnmcrw" path="res://relics/armor/slow.tres" id="pool_slow"]
-[ext_resource type="Resource" uid="uid://dojirvwbp0qjw" path="res://relics/armor/barbarian.tres" id="pool_barbarian"]
+[ext_resource type="Resource" uid="uid://c0ew0ltbsgchx" path="res://relics/helmet/kid_hat.tres" id="44_0rx4c"]
+[ext_resource type="Resource" uid="uid://dojirvwbp0qjw" path="res://relics/armor/barbarian_armor.tres" id="pool_barbarian"]
 [ext_resource type="Resource" uid="uid://dr46wfbvum0ws" path="res://relics/weapon/snowballs.tres" id="pool_icy"]
-[ext_resource type="Resource" uid="uid://cqgt7umb3uxo" path="res://relics/trinket/shadow.tres" id="pool_shadow"]
 [ext_resource type="Resource" uid="uid://cg6m8kypm42q6" path="res://relics/trinket/glove.tres" id="pool_receba"]
+[ext_resource type="Resource" uid="uid://cqgt7umb3uxo" path="res://relics/trinket/shadow.tres" id="pool_shadow"]
+[ext_resource type="Resource" uid="uid://5gcorcnmcrw" path="res://relics/armor/heavier_plate.tres" id="pool_slow"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_68deg"]
 
@@ -60,7 +61,7 @@
 script = ExtResource("1_bedv1")
 run_startup = ExtResource("2_wgfut")
 music = ExtResource("3_yeia0")
-battle_relic_pool = Array[ExtResource("4_x53nd")]([ExtResource("5_6w2u5"), ExtResource("6_tbe7a"), ExtResource("7_a0b37"), ExtResource("8_2foro"), ExtResource("9_l4vn1"), ExtResource("10_ctna3"), ExtResource("11_axhcw"), ExtResource("12_dfo0u"), ExtResource("5_l6p45"), ExtResource("14_n0yky"), ExtResource("15_yey0w"), ExtResource("16_ev4fb"), ExtResource("17_ik8qf"), ExtResource("18_rxc36"), ExtResource("19_omd4m"), ExtResource("5_x53nd"), ExtResource("21_82xe7"), ExtResource("22_yj3lc"), ExtResource("23_4aki2"), ExtResource("24_8fhq7"), ExtResource("25_x3nam"), ExtResource("26_tbe7a"), ExtResource("27_2foro"), ExtResource("28_l4vn1"), ExtResource("29_l4vn1"), ExtResource("30_axhcw"), ExtResource("31_dfo0u"), ExtResource("32_dfo0u"), ExtResource("33_n0yky"), ExtResource("34_ev4fb"), ExtResource("35_ik8qf"), ExtResource("36_rxc36"), ExtResource("37_omd4m"), ExtResource("38_omd4m"), ExtResource("pool_slow"), ExtResource("pool_barbarian"), ExtResource("pool_icy"), ExtResource("pool_shadow"), ExtResource("pool_receba")])
+battle_relic_pool = Array[ExtResource("4_x53nd")]([ExtResource("5_6w2u5"), ExtResource("6_tbe7a"), ExtResource("7_a0b37"), ExtResource("8_2foro"), ExtResource("9_l4vn1"), ExtResource("10_ctna3"), ExtResource("11_axhcw"), ExtResource("12_dfo0u"), ExtResource("5_l6p45"), ExtResource("14_n0yky"), ExtResource("15_yey0w"), ExtResource("16_ev4fb"), ExtResource("17_ik8qf"), ExtResource("18_rxc36"), ExtResource("19_omd4m"), ExtResource("5_x53nd"), ExtResource("21_82xe7"), ExtResource("22_yj3lc"), ExtResource("23_4aki2"), ExtResource("24_8fhq7"), ExtResource("25_x3nam"), ExtResource("26_tbe7a"), ExtResource("27_2foro"), ExtResource("28_l4vn1"), ExtResource("29_l4vn1"), ExtResource("30_axhcw"), ExtResource("31_dfo0u"), ExtResource("32_dfo0u"), ExtResource("33_n0yky"), ExtResource("34_ev4fb"), ExtResource("35_ik8qf"), ExtResource("36_rxc36"), ExtResource("37_omd4m"), ExtResource("38_omd4m"), ExtResource("pool_slow"), ExtResource("pool_barbarian"), ExtResource("pool_icy"), ExtResource("pool_shadow"), ExtResource("pool_receba"), ExtResource("44_0rx4c"), ExtResource("pool_barbarian")])
 
 [node name="Map" parent="." unique_id=1692311060 instance=ExtResource("1_7xwwf")]
 
@@ -208,7 +209,7 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = "Main Menu"
 
-[node name="TutorialButton" type="Button" parent="PauseMenu/VBoxContainer"]
+[node name="TutorialButton" type="Button" parent="PauseMenu/VBoxContainer" unique_id=1598873272]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2

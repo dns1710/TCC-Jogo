@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bj3im6egs4wxx" path="res://art/tile_0086.png" id="2_41omk"]
 [ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_dww4p"]
 [ext_resource type="Resource" uid="uid://btn8ie46m7kio" path="res://relics/weapon/pan.tres" id="3_8qn5i"]
-[ext_resource type="Resource" uid="uid://bb6abg7a0w0ra" path="res://relics/armor/armadura.tres" id="3_hbyua"]
+[ext_resource type="Resource" uid="uid://bb6abg7a0w0ra" path="res://relics/armor/time_necklace.tres" id="3_hbyua"]
 [ext_resource type="Resource" uid="uid://ddvwvwkec6euc" path="res://relics/trinket/thorn_ring.tres" id="3_tp26b"]
 [ext_resource type="Texture2D" uid="uid://cvtonr5sinxbx" path="res://art/shopkeeper_blink.png" id="3_uthr0"]
 [ext_resource type="PackedScene" uid="uid://d24w6bygugbhd" path="res://scenes/shop/shop_card.tscn" id="4_2u2et"]
@@ -29,11 +29,12 @@
 [ext_resource type="Resource" uid="uid://cod8vq41wqtrm" path="res://relics/armor/red_mantle.tres" id="21_ncc2j"]
 [ext_resource type="Resource" uid="uid://bn37c523s1iao" path="res://relics/weapon/lighter.tres" id="22_a1v00"]
 [ext_resource type="Resource" uid="uid://cl046c518vs52" path="res://relics/weapon/hunters_axe.tres" id="23_ncc2j"]
-[ext_resource type="Resource" uid="uid://5gcorcnmcrw" path="res://relics/armor/slow.tres" id="pool_slow"]
-[ext_resource type="Resource" uid="uid://dojirvwbp0qjw" path="res://relics/armor/barbarian.tres" id="pool_barbarian"]
+[ext_resource type="Resource" uid="uid://c0ew0ltbsgchx" path="res://relics/helmet/kid_hat.tres" id="29_p3vno"]
+[ext_resource type="Resource" uid="uid://dojirvwbp0qjw" path="res://relics/armor/barbarian_armor.tres" id="pool_barbarian"]
 [ext_resource type="Resource" uid="uid://dr46wfbvum0ws" path="res://relics/weapon/snowballs.tres" id="pool_icy"]
-[ext_resource type="Resource" uid="uid://cqgt7umb3uxo" path="res://relics/trinket/shadow.tres" id="pool_shadow"]
 [ext_resource type="Resource" uid="uid://cg6m8kypm42q6" path="res://relics/trinket/glove.tres" id="pool_receba"]
+[ext_resource type="Resource" uid="uid://cqgt7umb3uxo" path="res://relics/trinket/shadow.tres" id="pool_shadow"]
+[ext_resource type="Resource" uid="uid://5gcorcnmcrw" path="res://relics/armor/heavier_plate.tres" id="pool_slow"]
 
 [sub_resource type="Gradient" id="Gradient_sv6qe"]
 offsets = PackedFloat32Array(0.2125, 1)
@@ -96,7 +97,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_oqoy8")
-shop_relics = Array[ExtResource("2_dww4p")]([ExtResource("3_hbyua"), ExtResource("4_36j3v"), ExtResource("5_5y7fm"), ExtResource("6_toxgp"), ExtResource("7_u2jek"), ExtResource("8_bnu54"), ExtResource("3_tp26b"), ExtResource("10_noimi"), ExtResource("3_8qn5i"), ExtResource("5_g6lcs"), ExtResource("13_36j3v"), ExtResource("14_toxgp"), ExtResource("15_u2jek"), ExtResource("16_u2jek"), ExtResource("17_bnu54"), ExtResource("18_noimi"), ExtResource("19_f8gqx"), ExtResource("20_8jxaa"), ExtResource("21_ncc2j"), ExtResource("22_a1v00"), ExtResource("23_ncc2j"), ExtResource("pool_slow"), ExtResource("pool_barbarian"), ExtResource("pool_icy"), ExtResource("pool_shadow"), ExtResource("pool_receba")])
+shop_relics = Array[ExtResource("2_dww4p")]([ExtResource("3_hbyua"), ExtResource("4_36j3v"), ExtResource("5_5y7fm"), ExtResource("6_toxgp"), ExtResource("7_u2jek"), ExtResource("8_bnu54"), ExtResource("3_tp26b"), ExtResource("10_noimi"), ExtResource("3_8qn5i"), ExtResource("5_g6lcs"), ExtResource("13_36j3v"), ExtResource("14_toxgp"), ExtResource("15_u2jek"), ExtResource("16_u2jek"), ExtResource("17_bnu54"), ExtResource("18_noimi"), ExtResource("19_f8gqx"), ExtResource("20_8jxaa"), ExtResource("21_ncc2j"), ExtResource("22_a1v00"), ExtResource("23_ncc2j"), ExtResource("pool_slow"), ExtResource("pool_barbarian"), ExtResource("pool_icy"), ExtResource("pool_shadow"), ExtResource("pool_receba"), ExtResource("29_p3vno"), ExtResource("pool_barbarian")])
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=1845713156]
 layer = 0
