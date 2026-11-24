@@ -7,7 +7,14 @@ const CAMPFIRE_SCENE := preload("res://scenes/campfire/campfire.tscn")
 const SHOP_SCENE := preload("res://scenes/shop/shop.tscn")
 const TREASURE_SCENE := preload("res://scenes/treasure/treasure.tscn")
 const WIN_SCREEN_SCENE := preload("res://scenes/win_screen/win_screen.tscn")
+const CHOICE_EVENT_SCENE := preload("res://scenes/event_rooms/choice_event.tscn")
+const ACT_TRANSITION_SCENE := preload("res://scenes/act_transition/act_transition.tscn")
 const MAIN_MENU_PATH := "res://scenes/ui/main_menu.tscn"
+const ACTS := [
+	preload("res://acts/act_1_forest.tres"),
+	preload("res://acts/act_2_ice.tres"),
+	preload("res://acts/act_3_fire.tres"),
+]
 
 @export var run_startup: RunStartup
 @export var music: AudioStream
@@ -34,6 +41,7 @@ var stats: RunStats
 var character: CharacterStats
 var save_data: SaveGame
 var dda := DDA.new()
+var act_index := 0
 
 #var inventory_open := false
 
@@ -75,6 +83,8 @@ func _start_new_run() -> void:
 	
 	_setup_top_bar()
 
+	act_index = 0
+	map.set_act(ACTS[act_index])
 	map.generate_new_map()
 	map.unlock_floor(0)
 	map.show_map()
@@ -106,6 +116,7 @@ func _save_run(was_on_map: bool) -> void:
 	save_data.dda_treasure_pending = dda_treasure_pending
 	save_data.shop_entered_items = shop_entered_items
 	
+	save_data.act_index = act_index
 	save_data.last_room = map.last_room
 	save_data.map_data = map.map_data.duplicate()
 	save_data.floors_climbed = map.floors_climbed
@@ -142,6 +153,8 @@ func _load_run() -> void:
 	#relic_handler.character_stats = character
 	_setup_top_bar()
 	
+	act_index = clampi(save_data.act_index, 0, ACTS.size() - 1)
+	map.set_act(ACTS[act_index])
 	map.load_map(save_data.map_data, save_data.floors_climbed, save_data.last_room)
 	if save_data.was_on_map:
 		map.show_map()
@@ -173,6 +186,7 @@ func _connect_global_signals() -> void:
 	_safe_connect(Events.shop_exited, _on_shop_exited)
 	_safe_connect(Events.treasure_room_exited, _on_treasure_room_exited)
 	_safe_connect(Events.event_room_exited, _show_map)
+	_safe_connect(Events.act_transition_finished, _start_next_act)
 	_safe_connect(Events.relic_tooltip_requested, relic_tooltip.show_tooltip)
 
 
@@ -197,6 +211,22 @@ func _change_view(scene: PackedScene) -> Node:
 
 	map.hide_map()
 	return new_view
+
+
+func _start_next_act() -> void:
+	act_index = mini(act_index + 1, ACTS.size() - 1)
+	character.heal(character.max_health)
+	stats.seen_events.clear()
+
+	for child in current_view.get_children():
+		child.queue_free()
+
+	map.set_act(ACTS[act_index])
+	map.generate_new_map()
+	map.unlock_floor(0)
+	map.show_map()
+
+	_save_run(true)
 
 
 func _show_map() -> void:
@@ -349,7 +379,7 @@ func _prepare_battle(room:Room) -> void:
 		return
 	
 	if stats.dda_score >= 75:
-		var tier_2 := map.map_generator.battle_stats_pool.get_random_battle_for_tier(2)
+		var tier_2 := map.get_battle_pool().get_random_battle_for_tier(2)
 		if tier_2:
 			room.battle_stats = tier_2
 
@@ -428,10 +458,25 @@ func _on_shop_exited() -> void:
 		dda_treasure_spawned = true
 		dda_shop_changed = true
 
-func _on_event_room_entered(room: Room) -> void:
-	var event_room := _change_view(room.event_scene) as EventRoom
+func _on_event_room_entered(_room: Room) -> void:
+	var pool := map.get_event_pool()
+	var definition := pool.pick(stats.seen_events) if pool else null
+	if definition == null:
+		push_warning("No event available; skipping the room.")
+		Events.event_room_exited.emit()
+		return
+
+	if not stats.seen_events.has(definition.resource_path):
+		stats.seen_events.append(definition.resource_path)
+
+	var scene := definition.custom_scene if definition.custom_scene else CHOICE_EVENT_SCENE
+	var event_room := _change_view(scene) as EventRoom
+	event_room.definition = definition
 	event_room.character_stats = character
 	event_room.run_stats = stats
+	event_room.relic_handler = relic_handler
+	event_room.map = map
+	event_room.relic_pool = battle_relic_pool
 	event_room.setup()
 
 func _on_battle_won() -> void:
@@ -460,9 +505,13 @@ func _on_battle_won() -> void:
 			map.change_room(Room.Type.MONSTER, Room.Type.CAMPFIRE)
 		
 	if map.floors_climbed == MapGenerator.FLOORS:
-		var win_screen := _change_view(WIN_SCREEN_SCENE) as WinScreen
-		win_screen.character = character
-	elif map.last_room.row == 0:
+		if act_index < ACTS.size() - 1:
+			var transition := _change_view(ACT_TRANSITION_SCENE) as ActTransition
+			transition.setup(ACTS[act_index], ACTS[act_index + 1])
+		else:
+			var win_screen := _change_view(WIN_SCREEN_SCENE) as WinScreen
+			win_screen.character = character
+	elif act_index == 0 and map.last_room.row == 0:
 		_show_first_battle_reward()
 	else:
 		_show_regular_battle_rewards()

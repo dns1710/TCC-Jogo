@@ -3,7 +3,8 @@ extends HBoxContainer
 
 signal relics_activated(type: Relic.Type)
 
-const RELIC_APPLY_INTERVAL := 0.5
+const RELIC_APPLY_INTERVAL := 0.25
+const MAX_RELIC_PHASE_TIME := 1.5
 const RELIC_UI = preload("res://scenes/relic_handler/relic_ui.tscn")
 
 @export var run_stats: RunStats
@@ -296,12 +297,21 @@ func activate_relics_by_type(type: Relic.Type) -> void:
 		relics_activated.emit(type)
 		return
 	
+	var interval := get_apply_interval(relic_queue.size())
 	var tween := create_tween()
 	for relic_ui: RelicUI in relic_queue:
 		tween.tween_callback(relic_ui.relic.activate_relic.bind(relic_ui))
-		tween.tween_interval(RELIC_APPLY_INTERVAL)
-	
+		tween.tween_interval(interval)
+
 	tween.finished.connect(func(): relics_activated.emit(type))
+
+
+## Wait per relic: RELIC_APPLY_INTERVAL, compressed so a whole phase never
+## takes longer than MAX_RELIC_PHASE_TIME.
+static func get_apply_interval(relic_count: int) -> float:
+	if relic_count <= 0:
+		return RELIC_APPLY_INTERVAL
+	return minf(RELIC_APPLY_INTERVAL, MAX_RELIC_PHASE_TIME / relic_count)
 	
 
 func _get_all_relic_ui_nodes() -> Array[RelicUI]:

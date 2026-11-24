@@ -9,10 +9,12 @@ const WHITE_SPRITE_MATERIAL := preload("res://art/white_sprite_material.tres")
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
 @onready var atb_progress: TextureProgressBar = $ATBProgress
 const POPUP = preload("res://scenes/ui/popup.tscn")
-const ATB_MAX := 30.0
+const ATB_MAX := ATBConfig.MAX
 
 var atb: float = 0.0
 var can_act := false
+## Multiplied into turn-bar progress; slows (Speed Down) lower it below 1.0.
+var atb_rate_multiplier := 1.0
 #var relic_handler: RelicHandler
 
 func _ready() -> void: 
@@ -28,7 +30,7 @@ func reset_atb() -> void:
 func add_atb(delta: float) -> void:
 	if can_act:
 		return
-	atb += stats.speed * delta
+	atb += stats.speed * atb_rate_multiplier * delta
 	
 	if atb >= ATB_MAX:
 		atb = ATB_MAX

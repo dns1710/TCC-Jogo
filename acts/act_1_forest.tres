@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Act" format=3]
+
+[ext_resource type="Script" path="res://custom_resources/act.gd" id="1_act"]
+[ext_resource type="Resource" path="res://battles/battle_stats_pool.tres" id="2_battles"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/event_room_pool.tres" id="3_events"]
+
+[resource]
+script = ExtResource("1_act")
+act_name = "Act 1 - Forest"
+battle_stats_pool = ExtResource("2_battles")
+event_room_pool = ExtResource("3_events")
+transition_text = "The forest falls silent behind you. Ahead, the air turns bitter cold."

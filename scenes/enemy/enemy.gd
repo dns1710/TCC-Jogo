@@ -17,9 +17,11 @@ var special_state := ""
 
 const POPUP = preload("res://scenes/ui/popup.tscn")
 
-const ATB_MAX := 30.0
+const ATB_MAX := ATBConfig.MAX
 var atb: float = 0.0
 var can_act := false
+## Multiplied into turn-bar progress; slows (Speed Down) lower it below 1.0.
+var atb_rate_multiplier := 1.0
 var atb_cooldown: float = 0.0
 
 func _ready() -> void:
@@ -40,7 +42,7 @@ func add_atb(delta: float) -> void:
 		atb_cooldown = maxf(0.0, atb_cooldown - delta)
 		return
 		
-	atb += stats.speed * delta
+	atb += stats.speed * atb_rate_multiplier * delta
 	if atb >= ATB_MAX:
 		atb = ATB_MAX
 		can_act = true

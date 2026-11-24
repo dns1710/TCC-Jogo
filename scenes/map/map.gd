@@ -28,6 +28,7 @@ var camera_edge_x := 0.0
 var reroll_mode := false
 
 var run_stats: RunStats
+var current_act: Act
 
 #var adaptation_cutscene_active: bool = false
 
@@ -89,10 +90,28 @@ func get_clamped_camera_position(target: Vector2) -> Vector2:
 	)
 
 
+func set_act(act: Act) -> void:
+	current_act = act
+	map_generator.battle_stats_pool = act.battle_stats_pool
+	map_generator.event_room_pool = act.event_room_pool
+	act.battle_stats_pool.setup()
+
+	if act.background:
+		$MapBackground/Background.texture = act.background
+
+
+func get_battle_pool() -> BattleStatsPool:
+	return current_act.battle_stats_pool if current_act else map_generator.battle_stats_pool
+
+
+func get_event_pool() -> EventRoomPool:
+	return current_act.event_room_pool if current_act else map_generator.event_room_pool
+
+
 func generate_new_map() -> void:
 	floors_climbed = 0
 	last_room = null
-	map_data = map_generator.generate_map()
+	map_data = map_generator.generate_map(current_act)
 	create_map()
 
 
@@ -287,11 +306,11 @@ func _reroll_room(room: Room) -> bool:
 
 	match room.type:
 		Room.Type.MONSTER:
-			room.battle_stats = map_generator.battle_stats_pool.get_random_battle_for_tier(1)
+			room.battle_stats = get_battle_pool().get_random_battle_for_tier(1)
 			room.event_scene = null
 
 		Room.Type.EVENT:
-			room.event_scene = map_generator.event_room_pool.get_random()
+			room.event_scene = null
 			room.battle_stats = null
 
 		_:
@@ -478,11 +497,11 @@ func room_change_animation(
 
 	match new_type:
 		Room.Type.MONSTER:
-			room.battle_stats = map_generator.battle_stats_pool.get_random_battle_for_tier(1)
+			room.battle_stats = get_battle_pool().get_random_battle_for_tier(1)
 			room.event_scene = null
 
 		Room.Type.EVENT:
-			room.event_scene = map_generator.event_room_pool.get_random()
+			room.event_scene = null
 			room.battle_stats = null
 
 		_:

@@ -1,9 +1,16 @@
-[gd_resource type="Resource" script_class="EventRoomPool" format=3 uid="uid://bncylsfojpqyu"]
+[gd_resource type="Resource" script_class="EventRoomPool" load_steps=11 format=3 uid="uid://bncylsfojpqyu"]
 
-[ext_resource type="Script" uid="uid://dou2ed2lrpl47" path="res://custom_resources/event_room_pool.gd" id="1_nlwb2"]
-[ext_resource type="PackedScene" uid="uid://qd2lt374xj2l" path="res://scenes/event_rooms/marshmellow_event.tscn" id="1_qa6v2"]
-[ext_resource type="PackedScene" uid="uid://g8ya03t8eema" path="res://scenes/event_rooms/gamble_event.tscn" id="2_yy7kk"]
+[ext_resource type="Script" path="res://custom_resources/event_room_pool.gd" id="1_pool"]
+[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="0_def"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/forest/gamblers_stump.tres" id="e2"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/forest/abandoned_supplies.tres" id="e3"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/forest/peddler.tres" id="e4"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/forest/farmstead.tres" id="e5"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/forest/forest_guardian.tres" id="e6"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/forest/broken_bridge.tres" id="e7"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/forest/fallen_adventurer.tres" id="e8"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/forest/strange_fungi.tres" id="e9"]
 
 [resource]
-script = ExtResource("1_nlwb2")
-event_rooms = Array[PackedScene]([ExtResource("1_qa6v2"), ExtResource("2_yy7kk")])
+script = ExtResource("1_pool")
+events = Array[ExtResource("0_def")]([ExtResource("e2"), ExtResource("e3"), ExtResource("e4"), ExtResource("e5"), ExtResource("e6"), ExtResource("e7"), ExtResource("e8"), ExtResource("e9")])

@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="EventDefinition" load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+
+[sub_resource type="Resource" id="Outcome_1"]
+script = ExtResource("3_out")
+text = "Warmth fills you. Your strength grows."
+attack = 1
+
+[sub_resource type="Resource" id="Outcome_2"]
+script = ExtResource("3_out")
+text = "Calm settles over you. Your guard holds firm."
+block = 1
+
+[sub_resource type="Resource" id="Outcome_3"]
+script = ExtResource("3_out")
+text = "Your steps feel lighter."
+speed = 1
+
+[sub_resource type="Resource" id="Outcome_4"]
+script = ExtResource("3_out")
+text = "The lights fade into the night."
+
+[sub_resource type="Resource" id="Choice_1"]
+script = ExtResource("2_choice")
+label = "Reach for the red light"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1")])
+
+[sub_resource type="Resource" id="Choice_2"]
+script = ExtResource("2_choice")
+label = "Reach for the blue light"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_2")])
+
+[sub_resource type="Resource" id="Choice_3"]
+script = ExtResource("2_choice")
+label = "Reach for the green light"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_3")])
+
+[sub_resource type="Resource" id="Choice_4"]
+script = ExtResource("2_choice")
+label = "Turn away"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_4")])
+
+[resource]
+script = ExtResource("1_def")
+title = "The Aurora"
+body = "Three lights drift across the sky and settle near you. They seem to wait."
+choices = Array[ExtResource("2_choice")]([SubResource("Choice_1"), SubResource("Choice_2"), SubResource("Choice_3"), SubResource("Choice_4")])

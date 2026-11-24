@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="EventDefinition" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+
+[sub_resource type="Resource" id="Outcome_1"]
+script = ExtResource("3_out")
+text = "You rest in the warm water. Your strength returns."
+heal_share = 0.6
+
+[sub_resource type="Resource" id="Outcome_2"]
+script = ExtResource("3_out")
+text = "You rest briefly, undisturbed."
+heal_share = 0.4
+
+[sub_resource type="Resource" id="Outcome_3"]
+script = ExtResource("3_out")
+text = "The hermit finds you and drives you off."
+hp = -6
+
+[sub_resource type="Resource" id="Outcome_4"]
+script = ExtResource("3_out")
+text = "You nod to the hermit and continue."
+
+[sub_resource type="Resource" id="Choice_1"]
+script = ExtResource("2_choice")
+label = "Pay the hermit (30g)"
+cost_gold = 30
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1")])
+
+[sub_resource type="Resource" id="Choice_2"]
+script = ExtResource("2_choice")
+label = "Bathe unseen"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_2"), SubResource("Outcome_3")])
+
+[sub_resource type="Resource" id="Choice_3"]
+script = ExtResource("2_choice")
+label = "Move on"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_4")])
+
+[resource]
+script = ExtResource("1_def")
+title = "The Hidden Spring"
+body = "Warm water rises from the rock, a rare refuge in the cold. A hermit tends it."
+choices = Array[ExtResource("2_choice")]([SubResource("Choice_1"), SubResource("Choice_2"), SubResource("Choice_3")])

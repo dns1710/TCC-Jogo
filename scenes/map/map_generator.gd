@@ -15,7 +15,12 @@ var map_data: Array[Array]
 func _ready() -> void:
 	battle_stats_pool.setup()
 	
-func generate_map() -> Array[Array]:
+func generate_map(act: Act = null) -> Array[Array]:
+	if act:
+		battle_stats_pool = act.battle_stats_pool
+		event_room_pool = act.event_room_pool
+		battle_stats_pool.setup()
+
 	map_data = _generate_initial_grid()
 
 	#battle_stats_pool.setup()
@@ -150,7 +155,7 @@ func generate_map() -> Array[Array]:
 func _assign_random_type(room: Room) -> void:
 	var roll := randf()
 
-	if roll < 0.50:
+	if roll < 0.57:
 		_set_room_type(
 			room,
 			Room.Type.MONSTER,
@@ -161,7 +166,7 @@ func _assign_random_type(room: Room) -> void:
 		_set_room_type(
 			room,
 			Room.Type.EVENT,
-			event_room_pool.get_random()
+			null
 		)
 
 	elif roll < 0.83:
