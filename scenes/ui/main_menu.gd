@@ -23,5 +23,9 @@ func _on_new_run_pressed() -> void:
 	get_tree().change_scene_to_packed(RUN_SCENE)
 
 
+func _on_tutorial_pressed() -> void:
+	Events.tutorial_requested.emit()
+
+
 func _on_exit_pressed() -> void:
 	get_tree().quit()

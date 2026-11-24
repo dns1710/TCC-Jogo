@@ -53,3 +53,7 @@ signal event_room_exited
 
 # Act transition events
 signal act_transition_finished
+
+# Tutorial events
+signal tutorial_requested
+signal tutorial_finished

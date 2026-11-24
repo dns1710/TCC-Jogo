@@ -5,11 +5,13 @@ signal save_and_quit
 
 @onready var back_to_game_button: Button = %BackToGameButton
 @onready var save_and_quit_button: Button = %SaveAndQuitButton
+@onready var tutorial_button: Button = %TutorialButton
 
 
 func _ready() -> void:
 	back_to_game_button.pressed.connect(_unpause)
 	save_and_quit_button.pressed.connect(_on_save_and_quit_button_pressed)
+	tutorial_button.pressed.connect(func(): Events.tutorial_requested.emit())
 
 
 func _input(event: InputEvent) -> void:
