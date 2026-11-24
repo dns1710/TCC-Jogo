@@ -183,6 +183,7 @@ func show_map() -> void:
 
 	if reroll_button:
 		reroll_button.show()
+		_update_reroll_button()
 
 	if last_room == null:
 		unlock_floor(0)

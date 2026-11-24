@@ -1,4 +1,4 @@
-extends Node
+﻿extends Node
 ## Headless check of the ice-enemies, krampus-boss, fire-enemies and fire-dragon-boss specs:
 ## content validation, both battle pools, every enemy mechanic, and a smoke run of every
 ## Act 2 and Act 3 battle in the real battle scene.
@@ -9,7 +9,7 @@ const BATTLE_SCENE := preload("res://scenes/battle/battle.tscn")
 const RELICS_SCENE := preload("res://scenes/relic_handler/relic_handler.tscn")
 
 const ICE_ENEMIES := ["snow_wolf", "snow_wolf_alpha", "ice_spider", "snow_golem", "banshee", "yeti"]
-const FIRE_ENEMIES := ["campfire", "flames", "fire_salamander", "fire_imp", "ashen_warrior", "phoenix", "magma_golem"]
+const FIRE_ENEMIES := ["flames", "fire_salamander", "fire_imp", "ashen_warrior", "phoenix", "magma_golem"]
 const PATHS := {
 	"snow_wolf": "res://enemies/snow_wolf/snow_wolf.tres",
 	"snow_wolf_alpha": "res://enemies/snow_wolf_alpha/snow_wolf_alpha.tres",
@@ -188,7 +188,7 @@ func _check_pool_for(act_path: String, allowed: Array, boss_key: String, act_lab
 	_expect(act.battle_background != null, "%s must define a battle background" % act_label)
 	var pool: BattleStatsPool = act.battle_stats_pool
 	_expect(pool.pool != Array(load("res://battles/battle_stats_pool.tres").pool), "%s must not use Act 1's pool" % act_label)
-	var minimum := [3, 4, 2, 1]
+	var minimum := [3, 3, 2, 1]
 	for tier in 4:
 		var battles := pool.pool.filter(func(b: BattleStats): return b.battle_tier == tier)
 		_expect(battles.size() >= minimum[tier], "%s tier %d needs %d battles, has %d" % [act_label, tier, minimum[tier], battles.size()])
@@ -211,6 +211,11 @@ func _check_pool_for(act_path: String, allowed: Array, boss_key: String, act_lab
 func _check_pools() -> void:
 	_check_pool_for("res://acts/act_2_ice.tres", ICE_ENEMIES, "krampus", "Act 2")
 	_check_pool_for("res://acts/act_3_fire.tres", FIRE_ENEMIES, "fire_dragon", "Act 3")
+	var campfire_path := (load(PATHS["campfire"]) as EnemyStats).ai.resource_path
+	var act1: Act = load("res://acts/act_1_forest.tres")
+	var act3: Act = load("res://acts/act_3_fire.tres")
+	_expect(act1.battle_stats_pool.pool.any(func(b: BattleStats): return _battle_enemy_paths(b).has(campfire_path)), "Campfire battle must be in Act 1's pool")
+	_expect(not act3.battle_stats_pool.pool.any(func(b: BattleStats): return _battle_enemy_paths(b).has(campfire_path)), "Campfire battle must not be in Act 3's pool")
 
 
 # ---------------------------------------------------------------- Act 2
