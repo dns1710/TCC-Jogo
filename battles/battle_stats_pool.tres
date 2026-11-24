@@ -15,7 +15,7 @@
 [ext_resource type="Resource" uid="uid://bwlryxgi23gxl" path="res://battles/map1/tier3/tier_3_big_chicken_boss.tres" id="13_hnmhw"]
 [ext_resource type="Resource" uid="uid://woq8ty771lrx" path="res://battles/map1/tier1/tier_1_snakes.tres" id="13_ycppb"]
 
-[ext_resource type="Resource" path="res://battles/map1/tier1/tier_1_campfire.tres" id="14_campfire"]
+[ext_resource type="Resource" path="res://battles/map1/tier2/tier_2_campfire.tres" id="14_campfire"]
 
 [resource]
 script = ExtResource("1_c0dve")
