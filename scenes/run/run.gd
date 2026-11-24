@@ -363,6 +363,7 @@ func _on_battle_room_entered(room: Room) -> void:
 	battle.char_stats = character
 	battle.battle_stats = room.battle_stats
 	battle.relics = relic_handler
+	battle.battle_background = ACTS[act_index].battle_background
 	battle.start_battle()
 	
 

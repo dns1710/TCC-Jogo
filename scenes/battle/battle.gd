@@ -3,6 +3,8 @@ extends Node2D
 
 @export var battle_stats: BattleStats 
 @export var char_stats: CharacterStats
+## Set by the run from the current act; null keeps the forest background.
+@export var battle_background: Texture2D
 @export var music: AudioStream
 @export var map_music: AudioStream
 @export var relics: RelicHandler 
@@ -11,6 +13,9 @@ extends Node2D
 @onready var enemy_handler: EnemyHandler = $EnemyHandler 
 @onready var player: Player = $Player 
 @onready var atb_manager: ATBManager = $ATBManager
+@onready var background: Sprite2D = $Background
+
+const SCREEN_SIZE := Vector2(256, 144)
 
 const BATTLE_OVER_DELAY := 1.0
 var player_lost := false
@@ -22,7 +27,16 @@ func _ready() -> void:
 	Events.player_action_completed.connect(_on_player_action_completed)
 	Events.player_died.connect(_on_player_died) 
 	
+## Draws the act's background over the full screen; the forest stays when null.
+func apply_background() -> void:
+	if not battle_background:
+		return
+	background.texture = battle_background
+	background.scale = SCREEN_SIZE / battle_background.get_size()
+
+
 func start_battle() -> void:
+	apply_background()
 	Events.battle_start.emit()
 	get_tree().paused = false 
 	MusicPlayer.play(music, true) 

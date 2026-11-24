@@ -8,4 +8,6 @@ extends Resource
 @export var event_room_pool: EventRoomPool
 ## Optional. When null the map keeps its default background.
 @export var background: Texture2D
+## Optional. Background drawn behind this act's battles; null keeps the forest.
+@export var battle_background: Texture2D
 @export_multiline var transition_text: String = ""

@@ -14,6 +14,14 @@ const WHITE_SPRITE_MATERIAL := preload("res://art/white_sprite_material.tres")
 @onready var atb_progress: TextureProgressBar = $ATBProgress
 
 var special_state := ""
+## The enemy that spawned this one, if any (check with is_instance_valid).
+var summoner: Node = null
+## Set when the summoner died: this minion dies after its next action.
+var fizzling := false
+## True while one of this enemy's actions is running.
+var acting := false
+## Battle position, so the handler can tell which slots are occupied.
+var home_position := Vector2.ZERO
 
 const POPUP = preload("res://scenes/ui/popup.tscn")
 
@@ -115,8 +123,18 @@ func do_action() -> bool:
 	if not current_action:
 		push_warning("Sem ação parea executar")
 		return false
+	acting = true
 	current_action.perform_action()
 	return true
+
+## Dies without a hit (a minion whose summoner fell).
+func fizzle() -> void:
+	if is_queued_for_deletion() or stats.health <= 0:
+		return
+	can_act = false
+	_spawn_popup("FIZZLE", Color.GRAY)
+	Events.enemy_died.emit(self)
+	queue_free()
 	#if not current_action:
 	#	return
 	
