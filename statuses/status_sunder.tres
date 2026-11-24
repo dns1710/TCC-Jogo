@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="SunderStatus" format=3]
 
 [ext_resource type="Script" path="res://statuses/status_sunder.gd" id="1_s"]
-[ext_resource type="Texture2D" path="res://art/placeholders/status_sunder_placeholder.png" id="2_i"]
+[ext_resource type="Texture2D" path="res://art/arte nao tao verdadeira/status_sunder_placeholder.png" id="2_i"]
 
 [resource]
 script = ExtResource("1_s")

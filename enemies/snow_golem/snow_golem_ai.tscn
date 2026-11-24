@@ -1,0 +1,34 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="1_x"]
+[ext_resource type="Script" path="res://scenes/enemy/melee_attack_action.gd" id="2_x"]
+[ext_resource type="AudioStream" path="res://art/enemy_attack.ogg" id="3_x"]
+[ext_resource type="Script" path="res://scenes/enemy/gain_block_action.gd" id="4_x"]
+
+[node name="AI" type="Node"]
+script = ExtResource("1_x")
+
+[node name="Avalanche" type="Node" parent="."]
+script = ExtResource("2_x")
+sound = ExtResource("3_x")
+type = 0
+dice_amount = 2
+dice_value = 8
+requires_block = 20
+clear_block_on_hit = true
+
+[node name="PackSnow" type="Node" parent="."]
+script = ExtResource("4_x")
+type = 1
+chance_weight = 6.0
+amount = 4
+cap = 20
+sound = ExtResource("3_x")
+
+[node name="Snowball" type="Node" parent="."]
+script = ExtResource("2_x")
+sound = ExtResource("3_x")
+type = 1
+chance_weight = 4.0
+dice_amount = 1
+dice_value = 4

@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="1_x"]
+[ext_resource type="Script" path="res://enemies/fire_salamander/searing_hide.gd" id="2_x"]
+[ext_resource type="Script" path="res://scenes/enemy/melee_attack_action.gd" id="3_x"]
+[ext_resource type="AudioStream" path="res://art/enemy_attack.ogg" id="4_x"]
+
+[node name="AI" type="Node"]
+script = ExtResource("1_x")
+
+[node name="SearingHide" type="Node" parent="."]
+script = ExtResource("2_x")
+type = 0
+
+[node name="Bite" type="Node" parent="."]
+script = ExtResource("3_x")
+sound = ExtResource("4_x")
+type = 1
+chance_weight = 1.0
+dice_amount = 1
+dice_value = 6

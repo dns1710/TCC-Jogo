@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StatusBurn" format=3]
+
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/status/status_burn.png" id="1_cvxhm"]
+[ext_resource type="Script" path="res://statuses/status_burn.gd" id="1_i2ah3"]
+
+[resource]
+script = ExtResource("1_i2ah3")
+name = "Burn"
+id = "Burn"
+type = 1
+icon = ExtResource("1_cvxhm")
+dice_damage = 4
+tooltip = "Takes 1d4 damage at the end of turn
+
+Burn ends after 3 turns"
+metadata/_custom_type_script = "uid://cabgjq2uy7l61"

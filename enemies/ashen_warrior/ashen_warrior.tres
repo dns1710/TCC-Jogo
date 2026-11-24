@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3]
+
+[ext_resource type="Script" path="res://custom_resources/enemy_stats.gd" id="1_x"]
+[ext_resource type="PackedScene" path="res://enemies/ashen_warrior/ashen_warrior_ai.tscn" id="2_x"]
+[ext_resource type="Texture2D" path="res://art/arte nao tao verdadeira/enemy_ashen_warrior.png" id="3_x"]
+
+[resource]
+script = ExtResource("1_x")
+ai = ExtResource("2_x")
+max_health = 24
+max_attack = 3
+max_speed = 4
+art = ExtResource("3_x")

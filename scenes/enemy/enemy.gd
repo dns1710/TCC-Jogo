@@ -14,6 +14,16 @@ const WHITE_SPRITE_MATERIAL := preload("res://art/white_sprite_material.tres")
 @onready var atb_progress: TextureProgressBar = $ATBProgress
 
 var special_state := ""
+## Boss phase (1 until a phase threshold action raises it).
+var phase := 1
+## Speed Down has no effect while set (Yeti after its Roar).
+var slow_immune := false
+## Optional: name of a sibling enemy in the battle scene this one is bound to (fizzles with it).
+@export var bound_to_name := ""
+## Ticked by the turn manager while the battle runs (battle time).
+signal battle_tick(delta: float)
+## Return true to veto a lethal hit (the callable must restore health itself).
+var before_death: Callable
 ## The enemy that spawned this one, if any (check with is_instance_valid).
 var summoner: Node = null
 ## Set when the summoner died: this minion dies after its next action.
@@ -52,6 +62,7 @@ func reset_atb() -> void:
 	atb_progress.value = atb
 
 func add_atb(delta: float) -> void:
+	battle_tick.emit(delta)
 	atb_mods.tick(delta)
 	if can_act:
 		return
@@ -166,6 +177,8 @@ func take_damage(damage: int, which_modifier: Modifier.Type, _source = null) -> 
 			sprite_2d.material = null
 			
 			if stats.health <= 0:
+				if before_death.is_valid() and before_death.call():
+					return
 				can_act = false
 				Events.enemy_died.emit(self)
 				queue_free()

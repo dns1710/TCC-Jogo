@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="1_x"]
+[ext_resource type="Script" path="res://scenes/enemy/phase_threshold_action.gd" id="2_x"]
+[ext_resource type="Script" path="res://custom_resources/status.gd" id="3_x"]
+[ext_resource type="Resource" path="res://statuses/status_attack_up.tres" id="4_x"]
+[ext_resource type="AudioStream" path="res://art/enemy_attack.ogg" id="5_x"]
+[ext_resource type="Script" path="res://scenes/enemy/telegraphed_strike_action.gd" id="6_x"]
+[ext_resource type="Resource" path="res://statuses/status_speed_down.tres" id="7_x"]
+[ext_resource type="Script" path="res://scenes/enemy/melee_attack_action.gd" id="8_x"]
+[ext_resource type="Script" path="res://scenes/enemy/telegraph_action.gd" id="9_x"]
+[ext_resource type="Texture2D" path="res://art/arte nao tao verdadeira/enemy_yeti_prepare.png" id="10_x"]
+
+[node name="AI" type="Node"]
+script = ExtResource("1_x")
+
+[node name="Roar" type="Node" parent="."]
+script = ExtResource("2_x")
+type = 0
+threshold = 0.5
+phase_to = 2
+popup_text = "ROAR"
+self_statuses = Array[ExtResource("3_x")]([ExtResource("4_x")])
+self_stacks = Array[int]([3])
+grants_slow_immunity = true
+sound = ExtResource("5_x")
+
+[node name="GroundPound" type="Node" parent="."]
+script = ExtResource("6_x")
+type = 0
+dice_amount = 2
+dice_value = 8
+status = ExtResource("7_x")
+status_stacks = 2
+sound = ExtResource("5_x")
+
+[node name="Claw" type="Node" parent="."]
+script = ExtResource("8_x")
+sound = ExtResource("5_x")
+type = 1
+chance_weight = 6.0
+dice_amount = 1
+dice_value = 8
+
+[node name="Prepare" type="Node" parent="."]
+script = ExtResource("9_x")
+type = 1
+chance_weight = 4.0
+warning_text = "SLAM!"
+prepare_art = ExtResource("10_x")
+sound = ExtResource("5_x")

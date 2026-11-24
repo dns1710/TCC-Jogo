@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/enemy/enemy.tscn" id="1_x"]
+[ext_resource type="Resource" path="res://enemies/fire_salamander/fire_salamander.tres" id="2_x"]
+[ext_resource type="Resource" path="res://enemies/fire_imp/fire_imp.tres" id="3_x"]
+
+[node name="Tier0SalamanderImp" type="Node2D"]
+
+[node name="Enemy" parent="." instance=ExtResource("1_x")]
+position = Vector2(166, 72)
+stats = ExtResource("2_x")
+
+[node name="Enemy2" parent="." instance=ExtResource("1_x")]
+position = Vector2(196, 92)
+stats = ExtResource("3_x")

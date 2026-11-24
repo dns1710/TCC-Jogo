@@ -1,0 +1,37 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="1_x"]
+[ext_resource type="Script" path="res://scenes/enemy/telegraphed_strike_action.gd" id="2_x"]
+[ext_resource type="Resource" path="res://statuses/status_ashen.tres" id="3_x"]
+[ext_resource type="AudioStream" path="res://art/enemy_attack.ogg" id="4_x"]
+[ext_resource type="Script" path="res://scenes/enemy/telegraph_action.gd" id="5_x"]
+[ext_resource type="Texture2D" path="res://art/arte nao tao verdadeira/enemy_magma_golem_prepare.png" id="6_x"]
+[ext_resource type="Script" path="res://scenes/enemy/melee_attack_action.gd" id="7_x"]
+
+[node name="AI" type="Node"]
+script = ExtResource("1_x")
+
+[node name="Slam" type="Node" parent="."]
+script = ExtResource("2_x")
+type = 0
+dice_amount = 2
+dice_value = 8
+status = ExtResource("3_x")
+sound = ExtResource("4_x")
+
+[node name="Prepare" type="Node" parent="."]
+script = ExtResource("5_x")
+type = 1
+chance_weight = 4.0
+block = 8
+warning_text = "SLAM!"
+prepare_art = ExtResource("6_x")
+sound = ExtResource("4_x")
+
+[node name="CinderPunch" type="Node" parent="."]
+script = ExtResource("7_x")
+sound = ExtResource("4_x")
+type = 1
+chance_weight = 5.0
+dice_amount = 1
+dice_value = 6

@@ -7,6 +7,7 @@ extends EnemyAction
 @export var dice_value := 8
 @export var dice_amount := 2
 @export var status: Status
+@export var status_stacks := 1
 
 
 func is_performable() -> bool:
@@ -17,6 +18,7 @@ func perform_action() -> void:
 	if not enemy or not target:
 		return
 	enemy.special_state = ""
+	enemy.sprite_2d.texture = enemy.stats.art
 	var damage := Dice.roll(dice_amount, dice_value, enemy.stats.attack)
 	var damage_effect := DamageEffect.new()
 	damage_effect.amount = damage
@@ -31,8 +33,11 @@ func perform_action() -> void:
 	tween.tween_callback(damage_effect.execute.bind(targets))
 	if status:
 		tween.tween_callback(func():
+			var applied: Status = status.duplicate()
+			if applied.stack_type == Status.StackType.INTENSITY:
+				applied.stacks = status_stacks
 			var status_effect := StatusEffect.new()
-			status_effect.status = status
+			status_effect.status = applied
 			status_effect.execute(targets)
 		)
 	tween.tween_interval(0.25)

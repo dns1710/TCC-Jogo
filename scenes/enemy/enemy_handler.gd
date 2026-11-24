@@ -27,8 +27,10 @@ func setup_enemies(battle_stats: BattleStats) -> void:
 
 	var all_new_enemies := battle_stats.enemies.instantiate()
 
+	var by_name := {}
 	for new_enemy: Node2D in all_new_enemies.get_children():
 		var new_enemy_child := new_enemy.duplicate() as Enemy
+		by_name[new_enemy.name] = new_enemy_child
 		add_child(new_enemy_child)
 		new_enemy_child.home_position = new_enemy_child.position
 
@@ -36,6 +38,10 @@ func setup_enemies(battle_stats: BattleStats) -> void:
 			_on_enemy_statuses_applied.bind(new_enemy_child)
 		)
 		
+	for enemy: Enemy in by_name.values():
+		if enemy.bound_to_name != "" and by_name.has(enemy.bound_to_name):
+			enemy.summoner = by_name[enemy.bound_to_name]
+
 	all_new_enemies.queue_free()
 
 ## Living enemies, ignoring those already queued for deletion.

@@ -38,6 +38,10 @@ func is_frozen() -> bool:
 	return freeze_left > 0.0
 
 
+func can_freeze() -> bool:
+	return not (freeze_immune or freeze_left > 0.0 or immunity_left > 0.0)
+
+
 func try_freeze() -> bool:
 	if freeze_immune or freeze_left > 0.0 or immunity_left > 0.0:
 		return false

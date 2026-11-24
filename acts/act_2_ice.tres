@@ -1,12 +1,15 @@
 [gd_resource type="Resource" script_class="Act" format=3]
 
 [ext_resource type="Script" path="res://custom_resources/act.gd" id="1_act"]
-[ext_resource type="Resource" path="res://battles/battle_stats_pool.tres" id="2_battles"]
+[ext_resource type="Resource" path="res://battles/map2/battle_stats_pool.tres" id="2_battles"]
 [ext_resource type="Resource" path="res://scenes/event_rooms/pools/ice_events.tres" id="3_events"]
+
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/bg_neve_ato2.png" id="4_bg"]
 
 [resource]
 script = ExtResource("1_act")
 act_name = "Act 2 - Ice"
 battle_stats_pool = ExtResource("2_battles")
 event_room_pool = ExtResource("3_events")
+battle_background = ExtResource("4_bg")
 transition_text = "The ice cracks and gives way. Somewhere below, something burns."
