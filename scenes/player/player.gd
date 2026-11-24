@@ -22,6 +22,14 @@ var atb_rate_multiplier: float:
 var block_gain_multiplier := 1.0
 ## Set by Sunder: the next hit skips block.
 var ignore_block_next_hit := false
+## Set by Brittle: the next hit rolled with dice gains one extra die of its size.
+var brittle_next_hit := false
+## Speed Down has no effect while set (Fur-Lined Cap).
+var slow_immune := false
+## Return true to veto a lethal hit (the callable must restore health itself).
+var before_death: Callable
+## Share of the turn bar the next reset starts with, requested by items. Used once.
+var next_atb_start := 0.0
 signal damage_received(amount: int, which_modifier: Modifier.Type)
 
 #var relic_handler: RelicHandler
@@ -32,8 +40,23 @@ func _ready() -> void:
 	atb_progress.max_value = ATB_MAX
 	
 func reset_atb() -> void:
-	atb = 0.0
-	can_act = false
+	atb = ATB_MAX * clampf(next_atb_start, 0.0, 1.0)
+	next_atb_start = 0.0
+	can_act = atb >= ATB_MAX
+	atb_progress.value = atb
+
+## Asks for the next turn bar to start partly filled. Requests add up to at most a full bar.
+func request_atb_start(fraction: float) -> void:
+	next_atb_start = minf(1.0, next_atb_start + fraction)
+
+## Raises the turn bar right now to at least this share of full (never lowers it).
+func boost_atb(fraction: float) -> void:
+	if can_act:
+		return
+	atb = maxf(atb, ATB_MAX * clampf(fraction, 0.0, 1.0))
+	if atb >= ATB_MAX:
+		atb = ATB_MAX
+		can_act = true
 	atb_progress.value = atb
 
 func add_atb(delta: float) -> void:
@@ -66,12 +89,13 @@ func update_player() -> void:
 func update_stats() -> void: 
 	stats_ui.update_stats(stats) 
 
-func take_damage(damage: int, which_modifier: Modifier.Type, source = null) -> void: 
+func take_damage(damage: int, which_modifier: Modifier.Type, source = null, die_sides := 0) -> void: 
 	if stats.health <= 0: 
 		return 
 	
-	sprite_2d.material = WHITE_SPRITE_MATERIAL 
-	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier) 
+	sprite_2d.material = WHITE_SPRITE_MATERIAL
+	damage += _consume_brittle(which_modifier, die_sides)
+	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	_spawn_popup(str(modified_damage), Color.FIREBRICK)
 	var ignore_block := ignore_block_next_hit and which_modifier == Modifier.Type.DMG_TAKEN
 	if ignore_block:
@@ -90,9 +114,18 @@ func take_damage(damage: int, which_modifier: Modifier.Type, source = null) -> v
 		func(): 
 			sprite_2d.material = null 
 			if stats.health <= 0: 
+				if before_death.is_valid() and before_death.call():
+					return
 				Events.player_died.emit() 
 				queue_free() 
 	)
+
+## Brittle: a hit rolled with dice (die_sides > 0) gains one extra die of the same size, once.
+func _consume_brittle(which_modifier: Modifier.Type, die_sides: int) -> int:
+	if not brittle_next_hit or which_modifier != Modifier.Type.DMG_TAKEN or die_sides <= 0:
+		return 0
+	brittle_next_hit = false
+	return randi_range(1, die_sides)
 
 func heal(amount:int) -> void:
 	stats.heal(amount)
@@ -103,7 +136,7 @@ func _spawn_popup(poptext: String, color: Color) -> void:
 	var popup = POPUP.instantiate()
 	get_parent().add_child(popup)
 	popup.global_position = sprite_2d.global_position
-	popup.setup(poptext, color)
+	popup.setup(poptext, color, get_instance_id())
 
 #func attack_animation() -> void:
 #	var original_position := position

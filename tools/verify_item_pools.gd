@@ -19,6 +19,18 @@ const ADDED := {
 	"res://relics/trinket/receba.tres": ["reward", "shop"],
 }
 
+## Pool size after item-pool-expansion: common, uncommon, rare, mythic.
+const EXPECTED_RARITY_COUNTS := [14, 21, 19, 9]
+const EXPANSION := [
+	"weapon/breaker_pick", "weapon/riposte_foil", "weapon/shatterglass_hammer", "weapon/cinderbrand",
+	"weapon/bulwark_maul", "weapon/hunters_mercy", "weapon/frostfire_pike",
+	"helmet/fur_lined_cap", "helmet/frostborn_circlet", "helmet/cracked_visor", "helmet/warden_visage",
+	"armor/emberweave_tunic", "armor/sentinels_aegis", "armor/reactive_plate", "armor/mirrorscale_mail",
+	"trinket/kindling_bundle", "trinket/pine_tar_gloves", "trinket/warding_talisman", "trinket/rime_bead",
+	"trinket/hunters_snare", "trinket/carrion_thurible", "trinket/quicksilver_spurs",
+	"trinket/phoenix_feather", "trinket/glass_heart",
+]
+
 var _errors: Array[String] = []
 
 
@@ -124,6 +136,38 @@ func _check_items() -> void:
 		for name in ADDED[path]:
 			_expect(_in_pool(pools[name], relic), "%s is missing from the %s pool" % [_label(relic), name])
 
+	# item-pool-expansion: 24 new items, in every pool the rarity rules allow.
+	var counts := [0, 0, 0, 0]
+	for relic in relics:
+		counts[relic.rarity] += 1
+	_expect(counts == EXPECTED_RARITY_COUNTS, "rarity counts (common, uncommon, rare, mythic) are %s, expected %s" % [counts, EXPECTED_RARITY_COUNTS])
+	for entry in EXPANSION:
+		var relic := load("res://relics/%s.tres" % entry) as Relic
+		_expect(relic != null, "%s could not be loaded" % entry)
+		if relic == null:
+			continue
+		_expect(relic.icon != null, "%s has no icon" % _label(relic))
+		_expect(relic.tooltip.length() > 10, "%s has no tooltip" % _label(relic))
+		_check_tooltip_numbers(relic)
+		_expect(_in_pool(pools["reward"], relic), "%s is missing from the reward pool" % _label(relic))
+		_expect(_in_pool(pools["shop"], relic), "%s is missing from the shop pool" % _label(relic))
+		if relic.rarity != Relic.Rarity.COMMON:
+			_expect(_in_pool(pools["treasure"], relic), "%s is missing from the treasure pool" % _label(relic))
+
+
+
+## The first tooltip line must state exactly the item's stat bonuses and weapon dice.
+func _check_tooltip_numbers(relic: Relic) -> void:
+	var first := relic.tooltip.split("\n")[0]
+	var stats := {"BLOCK": relic.bonus_blk, "ATTACK": relic.bonus_atk, "SPEED": relic.bonus_spd}
+	for stat in stats:
+		var regex := RegEx.create_from_string("([+-]\\d+) " + stat)
+		var found := regex.search(first)
+		var stated := int(found.get_string(1)) if found else 0
+		_expect(stated == stats[stat], "%s tooltip says %d %s but the item gives %d" % [_label(relic), stated, stat, stats[stat]])
+	if relic.equip == Relic.Equip.WEAPON:
+		var expected := "%dd%d weapon damage" % [relic.weapon_dice_amount, relic.weapon_dice_attack]
+		_expect(first.begins_with(expected), "%s tooltip should start with '%s'" % [_label(relic), expected])
 
 
 # ---------------------------------------------------------------- chests never offer commons

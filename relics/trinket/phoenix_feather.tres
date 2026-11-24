@@ -1,0 +1,14 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/phoenix_feather.png" id="1_icon"]
+[ext_resource type="Script" path="res://relics/trinket/phoenix_feather.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Phoenix Feather"
+id = "PhoenixFeather"
+type = 2
+equip = 3
+rarity = 3
+icon = ExtResource("1_icon")
+tooltip = "A lethal hit leaves you at 30% health and applies 1 SCORCH to all enemies. The feather then fizzles out and is removed from your inventory"

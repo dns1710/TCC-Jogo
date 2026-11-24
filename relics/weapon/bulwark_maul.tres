@@ -1,0 +1,17 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/bulwark_maul.png" id="1_icon"]
+[ext_resource type="Script" path="res://relics/weapon/bulwark_maul.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Bulwark Maul"
+id = "BulwarkMaul"
+type = 2
+rarity = 2
+icon = ExtResource("1_icon")
+tooltip = "1d6 weapon damage
+
+Deals +1d4 damage for every 5 of your current BLOCK (max +3d4). Your BLOCK is not spent"
+weapon_dice_attack = 6
+weapon_dice_amount = 1

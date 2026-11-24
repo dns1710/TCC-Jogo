@@ -1,0 +1,14 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/warding_talisman.png" id="1_icon"]
+[ext_resource type="Script" path="res://relics/trinket/warding_talisman.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Warding Talisman"
+id = "WardingTalisman"
+type = 2
+equip = 3
+rarity = 1
+icon = ExtResource("1_icon")
+tooltip = "Start combat with WARD"

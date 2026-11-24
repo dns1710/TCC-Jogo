@@ -21,6 +21,7 @@ func perform_action() -> void:
 	var damage_effect := DamageEffect.new()
 	var target_array: Array[Node] = [target]
 	damage_effect.amount = damage
+	damage_effect.die_sides = dice_value
 	damage_effect.sound = sound
 	damage_effect.source = enemy
 	

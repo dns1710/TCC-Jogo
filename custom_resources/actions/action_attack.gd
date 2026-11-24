@@ -1,6 +1,7 @@
 extends Action
 
 func apply_effects(targets: Array[Node]) -> void:
+	Events.player_attack_started.emit(targets)
 	var player = targets[0].get_tree().get_first_node_in_group("player")
 	var relic_handler := player.get_tree().get_first_node_in_group("relic_handler")
 	
@@ -10,9 +11,11 @@ func apply_effects(targets: Array[Node]) -> void:
 	
 	var damage_effect := DamageEffect.new()
 	damage_effect.amount = damage
+	damage_effect.die_sides = relic_handler.equipped_weapon.weapon_dice_attack if relic_handler.equipped_weapon else 4
 	damage_effect.execute(targets)
 	
 	if relic_handler.equipped_weapon:
 		relic_handler.equipped_weapon.on_attack_hit(targets)
-		
+	Events.player_attacked.emit(targets, damage)
+	
 	Events.player_action_completed.emit()

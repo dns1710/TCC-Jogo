@@ -9,6 +9,10 @@ signal player_atb_ready
 signal player_action_completed
 signal player_damaged(attacker: Enemy, damage: int)
 signal player_health_changed(player: Player)
+## Before the player's attack lands: its targets, so items can read their state first.
+signal player_attack_started(targets: Array)
+## After the player's attack resolved: its targets and the weapon damage rolled.
+signal player_attacked(targets: Array, damage: int)
 
 # Enemy-related events
 signal enemy_action_completed(enemy: Enemy)
@@ -16,6 +20,11 @@ signal enemy_turn_ended
 signal enemy_turn_started
 signal enemy_died(enemy: Enemy)
 signal enemy_selected(enemy: Enemy)
+
+# Status-related events (the owner is the actor, Player or Enemy)
+signal status_added(owner: Node, status: Status)
+signal status_removed(owner: Node, status: Status)
+signal status_absorbed(owner: Node, status: Status)
 
 # Battle-related events
 signal battle_start

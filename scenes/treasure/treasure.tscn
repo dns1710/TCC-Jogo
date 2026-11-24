@@ -30,6 +30,28 @@
 [ext_resource type="Resource" uid="uid://dojirvwbp0qjw" path="res://relics/armor/barbarian.tres" id="pool_barbarian"]
 [ext_resource type="Resource" uid="uid://dr46wfbvum0ws" path="res://relics/weapon/icy.tres" id="pool_icy"]
 [ext_resource type="Resource" uid="uid://cqgt7umb3uxo" path="res://relics/trinket/shadow.tres" id="pool_shadow"]
+[ext_resource type="Resource" path="res://relics/weapon/breaker_pick.tres" id="ipx_breaker_pick"]
+[ext_resource type="Resource" path="res://relics/weapon/riposte_foil.tres" id="ipx_riposte_foil"]
+[ext_resource type="Resource" path="res://relics/weapon/shatterglass_hammer.tres" id="ipx_shatterglass_hammer"]
+[ext_resource type="Resource" path="res://relics/weapon/cinderbrand.tres" id="ipx_cinderbrand"]
+[ext_resource type="Resource" path="res://relics/weapon/bulwark_maul.tres" id="ipx_bulwark_maul"]
+[ext_resource type="Resource" path="res://relics/weapon/hunters_mercy.tres" id="ipx_hunters_mercy"]
+[ext_resource type="Resource" path="res://relics/weapon/frostfire_pike.tres" id="ipx_frostfire_pike"]
+[ext_resource type="Resource" path="res://relics/helmet/frostborn_circlet.tres" id="ipx_frostborn_circlet"]
+[ext_resource type="Resource" path="res://relics/helmet/cracked_visor.tres" id="ipx_cracked_visor"]
+[ext_resource type="Resource" path="res://relics/helmet/warden_visage.tres" id="ipx_warden_visage"]
+[ext_resource type="Resource" path="res://relics/armor/emberweave_tunic.tres" id="ipx_emberweave_tunic"]
+[ext_resource type="Resource" path="res://relics/armor/sentinels_aegis.tres" id="ipx_sentinels_aegis"]
+[ext_resource type="Resource" path="res://relics/armor/reactive_plate.tres" id="ipx_reactive_plate"]
+[ext_resource type="Resource" path="res://relics/armor/mirrorscale_mail.tres" id="ipx_mirrorscale_mail"]
+[ext_resource type="Resource" path="res://relics/trinket/warding_talisman.tres" id="ipx_warding_talisman"]
+[ext_resource type="Resource" path="res://relics/trinket/rime_bead.tres" id="ipx_rime_bead"]
+[ext_resource type="Resource" path="res://relics/trinket/pine_tar_gloves.tres" id="ipx_pine_tar_gloves"]
+[ext_resource type="Resource" path="res://relics/trinket/hunters_snare.tres" id="ipx_hunters_snare"]
+[ext_resource type="Resource" path="res://relics/trinket/carrion_thurible.tres" id="ipx_carrion_thurible"]
+[ext_resource type="Resource" path="res://relics/trinket/quicksilver_spurs.tres" id="ipx_quicksilver_spurs"]
+[ext_resource type="Resource" path="res://relics/trinket/phoenix_feather.tres" id="ipx_phoenix_feather"]
+[ext_resource type="Resource" path="res://relics/trinket/glass_heart.tres" id="ipx_glass_heart"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8a2h2"]
 font_size = 12
@@ -172,7 +194,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_0dgmn")
-treasure_relic_pool = Array[ExtResource("2_mn6fe")]([ExtResource("3_8auyv"), ExtResource("4_bbvtr"), ExtResource("5_ko1oj"), ExtResource("6_ab3yx"), ExtResource("7_odogb"), ExtResource("8_2i7av"), ExtResource("9_wp70s"), ExtResource("10_2i7av"), ExtResource("11_wp70s"), ExtResource("12_wp70s"), ExtResource("13_50sti"), ExtResource("14_ethah"), ExtResource("15_betos"), ExtResource("16_kt3tj"), ExtResource("17_xln5j"), ExtResource("18_t6xji"), ExtResource("19_t6xji"), ExtResource("20_uufkl"), ExtResource("21_uufkl"), ExtResource("pool_slow"), ExtResource("pool_barbarian"), ExtResource("pool_icy"), ExtResource("pool_shadow")])
+treasure_relic_pool = Array[ExtResource("2_mn6fe")]([ExtResource("3_8auyv"), ExtResource("4_bbvtr"), ExtResource("5_ko1oj"), ExtResource("6_ab3yx"), ExtResource("7_odogb"), ExtResource("8_2i7av"), ExtResource("9_wp70s"), ExtResource("10_2i7av"), ExtResource("11_wp70s"), ExtResource("12_wp70s"), ExtResource("13_50sti"), ExtResource("14_ethah"), ExtResource("15_betos"), ExtResource("16_kt3tj"), ExtResource("17_xln5j"), ExtResource("18_t6xji"), ExtResource("19_t6xji"), ExtResource("20_uufkl"), ExtResource("21_uufkl"), ExtResource("pool_slow"), ExtResource("pool_barbarian"), ExtResource("pool_icy"), ExtResource("pool_shadow"), ExtResource("ipx_breaker_pick"), ExtResource("ipx_riposte_foil"), ExtResource("ipx_shatterglass_hammer"), ExtResource("ipx_cinderbrand"), ExtResource("ipx_bulwark_maul"), ExtResource("ipx_hunters_mercy"), ExtResource("ipx_frostfire_pike"), ExtResource("ipx_frostborn_circlet"), ExtResource("ipx_cracked_visor"), ExtResource("ipx_warden_visage"), ExtResource("ipx_emberweave_tunic"), ExtResource("ipx_sentinels_aegis"), ExtResource("ipx_reactive_plate"), ExtResource("ipx_mirrorscale_mail"), ExtResource("ipx_warding_talisman"), ExtResource("ipx_rime_bead"), ExtResource("ipx_hunters_snare"), ExtResource("ipx_pine_tar_gloves"), ExtResource("ipx_carrion_thurible"), ExtResource("ipx_quicksilver_spurs"), ExtResource("ipx_phoenix_feather"), ExtResource("ipx_glass_heart")])
 
 [node name="Background" type="TextureRect" parent="." unique_id=1895505380]
 layout_mode = 1

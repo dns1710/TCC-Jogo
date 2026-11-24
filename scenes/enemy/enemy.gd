@@ -47,6 +47,8 @@ var atb_rate_multiplier: float:
 var block_gain_multiplier := 1.0
 ## Set by Sunder: the next hit skips block.
 var ignore_block_next_hit := false
+## Set by Brittle: the next hit rolled with dice gains one extra die of its size.
+var brittle_next_hit := false
 signal damage_received(amount: int, which_modifier: Modifier.Type)
 
 var atb_cooldown: float = 0.0
@@ -151,11 +153,12 @@ func fizzle() -> void:
 	
 	#current_action.perform_action()
 
-func take_damage(damage: int, which_modifier: Modifier.Type, _source = null) -> void:
+func take_damage(damage: int, which_modifier: Modifier.Type, _source = null, die_sides := 0) -> void:
 	if stats.health <= 0:
 		return
 	
 	sprite_2d.material = WHITE_SPRITE_MATERIAL
+	damage += _consume_brittle(which_modifier, die_sides)
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	_spawn_popup(str(modified_damage), Color.FIREBRICK)
 	var ignore_block := ignore_block_next_hit and which_modifier == Modifier.Type.DMG_TAKEN
@@ -184,6 +187,13 @@ func take_damage(damage: int, which_modifier: Modifier.Type, _source = null) -> 
 				queue_free()
 	)
 
+## Brittle: a hit rolled with dice (die_sides > 0) gains one extra die of the same size, once.
+func _consume_brittle(which_modifier: Modifier.Type, die_sides: int) -> int:
+	if not brittle_next_hit or which_modifier != Modifier.Type.DMG_TAKEN or die_sides <= 0:
+		return 0
+	brittle_next_hit = false
+	return randi_range(1, die_sides)
+
 func heal(amount:int) -> void:
 	stats.heal(amount)
 	_spawn_popup(str(amount), Color.LIME_GREEN)
@@ -192,7 +202,7 @@ func _spawn_popup(poptext: String, color: Color) -> void:
 	var popup = POPUP.instantiate()
 	get_parent().get_parent().add_child(popup)
 	popup.global_position = sprite_2d.global_position
-	popup.setup(poptext, color)
+	popup.setup(poptext, color, get_instance_id())
 
 func _on_area_entered(_area: Area2D) -> void:
 	arrow.show()

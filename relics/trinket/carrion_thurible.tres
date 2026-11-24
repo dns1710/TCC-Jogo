@@ -1,0 +1,14 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/carrion_thurible.png" id="1_icon"]
+[ext_resource type="Script" path="res://relics/trinket/carrion_thurible.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Carrion Thurible"
+id = "CarrionThurible"
+type = 5
+equip = 3
+rarity = 2
+icon = ExtResource("1_icon")
+tooltip = "When an enemy dies, its POISON, BURN and SCORCH jump to one random enemy"

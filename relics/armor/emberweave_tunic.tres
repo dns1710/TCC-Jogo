@@ -1,0 +1,17 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/emberweave_tunic.png" id="1_icon"]
+[ext_resource type="Script" path="res://relics/armor/emberweave_tunic.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Emberweave Tunic"
+id = "EmberweaveTunic"
+type = 5
+equip = 2
+rarity = 1
+icon = ExtResource("1_icon")
+tooltip = "+1 BLOCK
+
+When you gain SCORCH, gain 1d4 BLOCK per stack"
+bonus_blk = 1

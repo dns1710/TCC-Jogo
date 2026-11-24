@@ -1,0 +1,16 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/fur_lined_cap.png" id="1_icon"]
+[ext_resource type="Script" path="res://relics/helmet/fur_lined_cap.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Fur-Lined Cap"
+id = "FurLinedCap"
+type = 2
+equip = 1
+icon = ExtResource("1_icon")
+tooltip = "+1 BLOCK
+
+You are immune to SPEED DOWN"
+bonus_blk = 1

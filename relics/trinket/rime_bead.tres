@@ -1,0 +1,17 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/rime_bead.png" id="1_icon"]
+[ext_resource type="Script" path="res://relics/trinket/rime_bead.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Rime Bead"
+id = "RimeBead"
+type = 5
+equip = 3
+rarity = 1
+icon = ExtResource("1_icon")
+tooltip = "+1 SPEED
+
+Hitting an enemy with SPEED DOWN also makes it BRITTLE"
+bonus_spd = 1
