@@ -282,7 +282,7 @@ func _check_run() -> void:
 
 	# --- map: conversions change data at once and animate later
 	run.map.hide_map()
-	run.map.last_room = run.map.map_data[0][1]
+	run.map.last_room = run.map.map_data[0][MapGenerator.MAP_WIDTH / 2]
 	run.map.floors_climbed = 1
 	var target := _reachable_target(run)
 	_expect(target != null, "found a reachable room to convert")
