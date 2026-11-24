@@ -1,0 +1,17 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/sentinels_aegis.png" id="1_icon"]
+[ext_resource type="Script" path="res://relics/armor/sentinels_aegis.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Sentinel's Aegis"
+id = "SentinelsAegis"
+type = 2
+equip = 2
+rarity = 2
+icon = ExtResource("1_icon")
+tooltip = "+2 BLOCK
+
+Start combat with WARD. Regain it after every 3rd BLOCK"
+bonus_blk = 2

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/warden_visage.png" id="1_icon"]
+[ext_resource type="Script" path="res://relics/helmet/warden_visage.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Warden's Visage"
+id = "WardenVisage"
+type = 5
+equip = 1
+rarity = 3
+icon = ExtResource("1_icon")
+tooltip = "+1 SPEED
+
+SCORCH, SPEED DOWN and ATTACK DOWN you inflict gain +1 stack"
+bonus_spd = 1

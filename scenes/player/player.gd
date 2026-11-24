@@ -22,6 +22,12 @@ var atb_rate_multiplier: float:
 var block_gain_multiplier := 1.0
 ## Set by Sunder: the next hit skips block.
 var ignore_block_next_hit := false
+## Speed Down has no effect while set (Fur-Lined Cap).
+var slow_immune := false
+## Return true to veto a lethal hit (the callable must restore health itself).
+var before_death: Callable
+## Share of the turn bar the next reset starts with, requested by items. Used once.
+var next_atb_start := 0.0
 signal damage_received(amount: int, which_modifier: Modifier.Type)
 
 #var relic_handler: RelicHandler
@@ -32,8 +38,23 @@ func _ready() -> void:
 	atb_progress.max_value = ATB_MAX
 	
 func reset_atb() -> void:
-	atb = 0.0
-	can_act = false
+	atb = ATB_MAX * clampf(next_atb_start, 0.0, 1.0)
+	next_atb_start = 0.0
+	can_act = atb >= ATB_MAX
+	atb_progress.value = atb
+
+## Asks for the next turn bar to start partly filled. Requests add up to at most a full bar.
+func request_atb_start(fraction: float) -> void:
+	next_atb_start = minf(1.0, next_atb_start + fraction)
+
+## Raises the turn bar right now to at least this share of full (never lowers it).
+func boost_atb(fraction: float) -> void:
+	if can_act:
+		return
+	atb = maxf(atb, ATB_MAX * clampf(fraction, 0.0, 1.0))
+	if atb >= ATB_MAX:
+		atb = ATB_MAX
+		can_act = true
 	atb_progress.value = atb
 
 func add_atb(delta: float) -> void:
@@ -90,6 +111,8 @@ func take_damage(damage: int, which_modifier: Modifier.Type, source = null) -> v
 		func(): 
 			sprite_2d.material = null 
 			if stats.health <= 0: 
+				if before_death.is_valid() and before_death.call():
+					return
 				Events.player_died.emit() 
 				queue_free() 
 	)

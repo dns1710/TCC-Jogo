@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WardStatus" format=3]
+
+[ext_resource type="Script" path="res://statuses/status_ward.gd" id="1_s"]
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/status/status_ward.png" id="2_i"]
+
+[resource]
+script = ExtResource("1_s")
+name = "Ward"
+id = "Ward"
+type = 2
+stack_type = 0
+can_expire = false
+duration = 0
+stacks = 0
+icon = ExtResource("2_i")
+tooltip = "The next debuff applied is negated, then Ward ends."

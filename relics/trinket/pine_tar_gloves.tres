@@ -1,0 +1,16 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/pine_tar_gloves.png" id="1_icon"]
+[ext_resource type="Script" path="res://relics/trinket/pine_tar_gloves.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Pine-Tar Gloves"
+id = "PineTarGloves"
+type = 5
+equip = 3
+icon = ExtResource("1_icon")
+tooltip = "+1 ATTACK
+
+Your attacks deal +2 damage to POISONED or BURNING enemies"
+bonus_atk = 1

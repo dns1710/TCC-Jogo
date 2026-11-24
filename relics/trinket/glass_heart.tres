@@ -1,0 +1,18 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/glass_heart.png" id="1_icon"]
+[ext_resource type="Script" path="res://relics/trinket/glass_heart.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Glass Heart"
+id = "GlassHeart"
+type = 2
+equip = 3
+rarity = 3
+icon = ExtResource("1_icon")
+tooltip = "+4 ATTACK, +2 SPEED
+
+You are always BRITTLE. It returns 3 actions after a hit consumes it"
+bonus_atk = 4
+bonus_spd = 2

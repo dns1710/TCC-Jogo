@@ -14,5 +14,6 @@ func apply_effects(targets: Array[Node]) -> void:
 	
 	if relic_handler.equipped_weapon:
 		relic_handler.equipped_weapon.on_attack_hit(targets)
-		
+	Events.player_attacked.emit(targets, damage)
+	
 	Events.player_action_completed.emit()

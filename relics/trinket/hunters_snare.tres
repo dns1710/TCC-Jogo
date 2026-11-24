@@ -1,0 +1,17 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/hunters_snare.png" id="1_icon"]
+[ext_resource type="Script" path="res://relics/trinket/hunters_snare.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Hunter's Snare"
+id = "HuntersSnare"
+type = 2
+equip = 3
+rarity = 1
+icon = ExtResource("1_icon")
+tooltip = "+1 ATTACK
+
+Enemies start combat with 2 SPEED DOWN"
+bonus_atk = 1

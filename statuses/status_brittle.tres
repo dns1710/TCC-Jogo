@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BrittleStatus" format=3]
 
 [ext_resource type="Script" path="res://statuses/status_brittle.gd" id="1_s"]
-[ext_resource type="Texture2D" path="res://art/arte nao tao verdadeira/status_brittle_placeholder.png" id="2_i"]
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/status/status_brittle.png" id="2_i"]
 
 [resource]
 script = ExtResource("1_s")

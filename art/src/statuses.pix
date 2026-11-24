@@ -1,0 +1,73 @@
+# Status icons, 10x10. Shape-coded: every icon must be identifiable in greyscale.
+
+@status_freeze 10x10 status
+....cc....
+.c..ww..c.
+..c.ww.c..
+...cwwc...
+cwwwwwwwwc
+cwwwwwwwwc
+...cwwc...
+..c.ww.c..
+.c..ww..c.
+....cc....
+
+@status_brittle 10x10 status
+....WW....
+...WwwW...
+..WwwoWW..
+.WwwoiwWW.
+WwwwoWwwiW
+WwwiowWwiW
+.WwiowWiW.
+..WiowWi..
+...iowi...
+....ii....
+
+@status_sunder 10x10 status
+.oooooooo.
+oLLLLrSSSo
+oLLSrrSsSo
+oLLSrSSsso
+oLSSSrrSso
+.oSSSrSsso
+.oSSSrSsso
+..oSSrSso.
+...oSSso..
+....oo....
+
+@status_scorch 10x10 status
+....y.....
+...yy.....
+...gyy..y.
+..ggyyg...
+..ggyyg.g.
+.gggyygg..
+.ggGyyGg..
+.rgGYYGgr.
+..rggggr..
+...rrrr...
+
+@status_ashen 10x10 status
+..h....h..
+...h......
+....h..h..
+...aaaa...
+..aSShha..
+.aShhSSLa.
+aShSSLhhSa
+aShhSShSha
+.aSSShSSa.
+..aaaaaa..
+
+@status_ward 10x10 status
+...YYYY...
+..YWWWWY..
+.YWWWYWWY.
+YWWWWYWWWY
+YWYYYYYYWY
+YWWWWYWWWY
+.YWWWYWWY.
+..YWWYWY..
+...YYYY...
+....YY....

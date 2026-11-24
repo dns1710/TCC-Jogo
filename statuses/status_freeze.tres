@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="FreezeStatus" format=3]
 
 [ext_resource type="Script" path="res://statuses/status_freeze.gd" id="1_s"]
-[ext_resource type="Texture2D" path="res://art/arte nao tao verdadeira/status_freeze_placeholder.png" id="2_i"]
+[ext_resource type="Texture2D" path="res://art/verdadeira arte/status/status_freeze.png" id="2_i"]
 
 [resource]
 script = ExtResource("1_s")
