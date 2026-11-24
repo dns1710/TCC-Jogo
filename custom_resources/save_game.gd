@@ -12,6 +12,7 @@ const SAVE_PATH := "user://savegame.tres"
 @export var map_data: Array[Array]
 @export var last_room: Room
 @export var floors_climbed: int
+@export var act_index: int = 0
 @export var was_on_map: bool
 
 @export_group("Equipped Items")
