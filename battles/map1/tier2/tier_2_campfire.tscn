@@ -4,7 +4,7 @@
 [ext_resource type="Resource" path="res://enemies/living_flame/campfire.tres" id="2_x"]
 [ext_resource type="Resource" path="res://enemies/living_flame/flames.tres" id="3_x"]
 
-[node name="Tier1Campfire" type="Node2D"]
+[node name="Tier2Campfire" type="Node2D"]
 
 [node name="Enemy" parent="." instance=ExtResource("1_x")]
 position = Vector2(166, 72)
