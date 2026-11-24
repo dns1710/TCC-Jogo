@@ -3,6 +3,8 @@ class_name Map
 extends Node2D
 
 const SCROLL_SPEED := 15.0
+## Pushes the 7 lanes down a little so the top lane clears the top bar.
+const MAP_VERTICAL_OFFSET := 10.0
 const MAP_ROOM := preload("res://scenes/map/map_room.tscn")
 const MAP_LINE := preload("res://scenes/map/map_line.tscn")
 
@@ -74,17 +76,17 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _clamp_camera() -> void:
-	var min_x = 0
-	var max_x = MapGenerator.X_DIST * (MapGenerator.FLOORS - 1) - 250
+	var min_x = -MapGenerator.FRAME_GAP
+	var max_x = MapGenerator.X_DIST * (MapGenerator.FLOORS - 1) + MapGenerator.FRAME_GAP - 250
 
 	camera_2d.position.x = clamp(camera_2d.position.x, min_x, max_x)
 	camera_2d.position.y = map_camera_start_position.y
 
 
 func get_clamped_camera_position(target: Vector2) -> Vector2:
-	var min_x: float = 0.0
+	var min_x: float = -MapGenerator.FRAME_GAP
 	var max_x: float = float(
-		MapGenerator.X_DIST * (MapGenerator.FLOORS - 1) - 250
+		MapGenerator.X_DIST * (MapGenerator.FLOORS - 1) + MapGenerator.FRAME_GAP - 250
 	)
 
 	return Vector2(
@@ -142,13 +144,14 @@ func create_map() -> void:
 				_spawn_room(room)
 
 	# Posiciona a câmera no início da primeira região
-	var start_room: Room = map_data[0][int(MapGenerator.MAP_WIDTH / 2)]
+	# Uses the loaded map's own width, so saved maps from older versions (3 slots) still open.
+	var start_room: Room = map_data[0][int(map_data[0].size() / 2)]
 
 	map_camera_start_position = start_room.position
 	camera_2d.position = map_camera_start_position
 	camera_2d.zoom = Vector2(0.9, 0.9)
 
-	visuals.position.y = get_viewport_rect().size.y / 2.0
+	visuals.position.y = get_viewport_rect().size.y / 2.0 + MAP_VERTICAL_OFFSET
 
 
 func _clear_map() -> void:

@@ -95,7 +95,7 @@ func _run_checks() -> void:
 
 
 func _first_battle_reward_count(run: Run) -> int:
-	var start_room: Room = run.map.map_data[0][1]
+	var start_room: Room = run.map.map_data[0][MapGenerator.MAP_WIDTH / 2]
 	run.map.last_room = start_room
 	run.map.floors_climbed = 1
 	run._on_battle_won()
