@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="EventDefinition" load_steps=12 format=3]
+[gd_resource type="Resource" script_class="EventDefinition" format=3 uid="uid://bo63mnl15uqjc"]
 
-[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
-[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
-[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+[ext_resource type="Script" uid="uid://desiy8wf3acbw" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" uid="uid://yye6j07ydsqo" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" uid="uid://cjo14r42mr810" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
 
 [sub_resource type="Resource" id="Outcome_1"]
 script = ExtResource("3_out")
@@ -15,6 +15,12 @@ script = ExtResource("3_out")
 text = "The well stays silent."
 weight = 3.0
 
+[sub_resource type="Resource" id="Choice_1"]
+script = ExtResource("2_choice")
+label = "Offer 80 gold"
+cost_gold = 80
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1"), SubResource("Outcome_2")])
+
 [sub_resource type="Resource" id="Outcome_3"]
 script = ExtResource("3_out")
 text = "A small relic rises from the depths."
@@ -26,21 +32,15 @@ script = ExtResource("3_out")
 text = "Nothing answers. The coin is lost."
 weight = 4.0
 
-[sub_resource type="Resource" id="Outcome_5"]
-script = ExtResource("3_out")
-text = "You keep your gold and your caution."
-
-[sub_resource type="Resource" id="Choice_1"]
-script = ExtResource("2_choice")
-label = "Offer 80 gold"
-cost_gold = 80
-outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1"), SubResource("Outcome_2")])
-
 [sub_resource type="Resource" id="Choice_2"]
 script = ExtResource("2_choice")
 label = "Offer 40 gold"
 cost_gold = 40
 outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_3"), SubResource("Outcome_4")])
+
+[sub_resource type="Resource" id="Outcome_5"]
+script = ExtResource("3_out")
+text = "You keep your gold and your caution."
 
 [sub_resource type="Resource" id="Choice_3"]
 script = ExtResource("2_choice")

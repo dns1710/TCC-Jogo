@@ -1,27 +1,13 @@
-[gd_resource type="Resource" script_class="EventDefinition" load_steps=12 format=3]
+[gd_resource type="Resource" script_class="EventDefinition" format=3 uid="uid://ciko8e7xbhkbd"]
 
-[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
-[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
-[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+[ext_resource type="Script" uid="uid://desiy8wf3acbw" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" uid="uid://yye6j07ydsqo" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" uid="uid://cjo14r42mr810" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
 
 [sub_resource type="Resource" id="Outcome_1"]
 script = ExtResource("3_out")
 text = "Well-made leather. It will serve you."
 block = 1
-
-[sub_resource type="Resource" id="Outcome_2"]
-script = ExtResource("3_out")
-text = "They fit well, and your steps feel lighter."
-speed = 1
-
-[sub_resource type="Resource" id="Outcome_3"]
-script = ExtResource("3_out")
-text = "He sharpens your blade himself."
-attack = 1
-
-[sub_resource type="Resource" id="Outcome_4"]
-script = ExtResource("3_out")
-text = "The peddler nods and continues on his way."
 
 [sub_resource type="Resource" id="Choice_1"]
 script = ExtResource("2_choice")
@@ -29,17 +15,31 @@ label = "Shield strap (45g, +1 BLOCK)"
 cost_gold = 45
 outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1")])
 
+[sub_resource type="Resource" id="Outcome_2"]
+script = ExtResource("3_out")
+text = "They fit well, and your steps feel lighter."
+speed = 1
+
 [sub_resource type="Resource" id="Choice_2"]
 script = ExtResource("2_choice")
 label = "Light boots (55g, +1 SPEED)"
 cost_gold = 55
 outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_2")])
 
+[sub_resource type="Resource" id="Outcome_3"]
+script = ExtResource("3_out")
+text = "He sharpens your blade himself."
+attack = 1
+
 [sub_resource type="Resource" id="Choice_3"]
 script = ExtResource("2_choice")
 label = "Whetstone (70g, +1 ATTACK)"
 cost_gold = 70
 outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_3")])
+
+[sub_resource type="Resource" id="Outcome_4"]
+script = ExtResource("3_out")
+text = "The peddler nods and continues on his way."
 
 [sub_resource type="Resource" id="Choice_4"]
 script = ExtResource("2_choice")

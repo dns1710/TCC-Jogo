@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://dhhwkce7h68so"]
+
+[ext_resource type="PackedScene" uid="uid://b0xdmg3pmbjw2" path="res://enemies/living_flame/flames_ai.tscn" id="1_nkhww"]
+[ext_resource type="Script" uid="uid://csml8orhg63vh" path="res://custom_resources/enemy_stats.gd" id="1_waxat"]
+
+[resource]
+script = ExtResource("1_waxat")
+ai = ExtResource("1_nkhww")
+max_health = 13
+max_speed = 5
+metadata/_custom_type_script = "uid://csml8orhg63vh"

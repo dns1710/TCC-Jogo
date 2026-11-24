@@ -1,13 +1,19 @@
-[gd_resource type="Resource" script_class="EventDefinition" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="EventDefinition" format=3 uid="uid://bcf552fg35pbg"]
 
-[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
-[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
-[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+[ext_resource type="Script" uid="uid://desiy8wf3acbw" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" uid="uid://yye6j07ydsqo" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" uid="uid://cjo14r42mr810" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
 
 [sub_resource type="Resource" id="Outcome_1"]
 script = ExtResource("3_out")
 text = "He accepts. The paths open before you."
 speed = 1
+
+[sub_resource type="Resource" id="Choice_1"]
+script = ExtResource("2_choice")
+label = "Leave an offering (30 gold)"
+cost_gold = 30
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1")])
 
 [sub_resource type="Resource" id="Outcome_2"]
 script = ExtResource("3_out")
@@ -19,20 +25,14 @@ script = ExtResource("3_out")
 text = "The tracks lead in circles. You emerge scratched and tired."
 hp = -5
 
-[sub_resource type="Resource" id="Outcome_4"]
-script = ExtResource("3_out")
-text = "He watches you go until the trees close in."
-
-[sub_resource type="Resource" id="Choice_1"]
-script = ExtResource("2_choice")
-label = "Leave an offering (30 gold)"
-cost_gold = 30
-outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1")])
-
 [sub_resource type="Resource" id="Choice_2"]
 script = ExtResource("2_choice")
 label = "Follow his tracks"
 outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_2"), SubResource("Outcome_3")])
+
+[sub_resource type="Resource" id="Outcome_4"]
+script = ExtResource("3_out")
+text = "He watches you go until the trees close in."
 
 [sub_resource type="Resource" id="Choice_3"]
 script = ExtResource("2_choice")

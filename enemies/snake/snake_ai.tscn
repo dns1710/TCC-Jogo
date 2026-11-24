@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bgpahrgucld47"]
+
+[ext_resource type="Script" uid="uid://dnhcysun6wq2l" path="res://scenes/enemy/enemy_action_picker.gd" id="1_idkgx"]
+[ext_resource type="Script" uid="uid://l4wa50q6kver" path="res://enemies/snake/snake_attack_action.gd" id="2_4dcdb"]
+[ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="3_1vpwe"]
+
+[node name="SnakeAI" type="Node" unique_id=72654407]
+script = ExtResource("1_idkgx")
+
+[node name="Attack" type="Node" parent="." unique_id=82602394]
+script = ExtResource("2_4dcdb")
+sound = ExtResource("3_1vpwe")
+type = 1
+chance_weight = 10.0

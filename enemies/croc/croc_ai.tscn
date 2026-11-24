@@ -11,7 +11,6 @@ script = ExtResource("1_3ub35")
 
 [node name="AttackAction" type="Node" parent="." unique_id=2056035828]
 script = ExtResource("3_5gm4s")
-dice_value = 6
 sound = ExtResource("5_msmtb")
 type = 1
 chance_weight = 10.0
