@@ -15,7 +15,12 @@ var map_data: Array[Array]
 func _ready() -> void:
 	battle_stats_pool.setup()
 	
-func generate_map() -> Array[Array]:
+func generate_map(act: Act = null) -> Array[Array]:
+	if act:
+		battle_stats_pool = act.battle_stats_pool
+		event_room_pool = act.event_room_pool
+		battle_stats_pool.setup()
+
 	map_data = _generate_initial_grid()
 
 	#battle_stats_pool.setup()

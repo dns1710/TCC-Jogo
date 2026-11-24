@@ -5,6 +5,11 @@ extends Node
 ## Must run as a scene (not --script) because the game scripts use autoloads.
 
 const RUNS := 1000
+const ACT_PATHS := [
+	"res://acts/act_1_forest.tres",
+	"res://acts/act_2_ice.tres",
+	"res://acts/act_3_fire.tres",
+]
 const EXPECTED_FLOORS := 14
 const EXPECTED_WIDTH := 3
 const TREASURE_FLOOR := 6
@@ -22,12 +27,15 @@ func _ready() -> void:
 	generator.event_room_pool = load("res://scenes/event_rooms/event_room_pool.tres")
 	add_child(generator) # _ready() sets up the battle pool weights
 
-	for run in RUNS:
-		var map_data: Array[Array] = generator.generate_map()
-		_check_map(run, map_data)
+	for act_path in ACT_PATHS:
+		var act: Act = load(act_path)
+		for run in RUNS:
+			var map_data: Array[Array] = generator.generate_map(act)
+			_check_map(run, map_data)
+			_check_act_pools(run, map_data, act)
 
 	if _failures.is_empty():
-		print("MAP CHECK OK: %d maps, 0 violations" % RUNS)
+		print("MAP CHECK OK: %d maps per act x %d acts, 0 violations" % [RUNS, ACT_PATHS.size()])
 		get_tree().quit(0)
 		return
 
@@ -39,6 +47,15 @@ func _ready() -> void:
 
 func _fail(run: int, message: String) -> void:
 	_failures.append("map %d: %s" % [run, message])
+
+
+func _check_act_pools(run: int, map_data: Array[Array], act: Act) -> void:
+	for floor_rooms in map_data:
+		for room: Room in _active_rooms(floor_rooms):
+			if room.battle_stats != null and not act.battle_stats_pool.pool.has(room.battle_stats):
+				_fail(run, "%s: battle from outside the act pool" % act.act_name)
+			if room.event_scene != null and not act.event_room_pool.event_rooms.has(room.event_scene):
+				_fail(run, "%s: event from outside the act pool" % act.act_name)
 
 
 func _active_rooms(floor_rooms: Array) -> Array[Room]:
