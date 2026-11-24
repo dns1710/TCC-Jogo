@@ -20,10 +20,10 @@ func _ready() -> void:
 func start_battle(p_player: Player, p_enemy_handler: EnemyHandler) -> void:
 	player = p_player
 	enemy_handler = p_enemy_handler
-	player.atb = player.ATB_MAX * 0.5
+	player.atb = ATBConfig.MAX * ATBConfig.PLAYER_START_RATIO
 	
 	for enemy: Enemy in enemy_handler.get_children():
-		enemy.atb = randf_range(0.0, 10.0)
+		enemy.atb = randf_range(0.0, ATBConfig.MAX * ATBConfig.ENEMY_START_MAX_RATIO)
 		enemy.atb_progress.value = enemy.atb
 	battle_running = true
 
