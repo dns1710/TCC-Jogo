@@ -1,8 +1,8 @@
 class_name GoldenClover
 extends Relic
 
-@export var min_extra_gold := 15
-@export var max_extra_gold := 25
+@export var min_extra_gold := 8
+@export var max_extra_gold := 13
 
 func activate_relic(owner: RelicUI) -> void:
 	var relic_handler := owner.get_parent().get_parent().get_parent() as RelicHandler

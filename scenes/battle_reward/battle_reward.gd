@@ -36,27 +36,6 @@ func add_relic_reward(relic: Relic) -> void:
 	relic_reward.pressed.connect(_on_relic_reward_taken.bind(relic))
 	rewards.add_child.call_deferred(relic_reward)
 
-## Offers several relics of which the player takes exactly one; taking one removes the rest.
-func add_relic_choice(relics: Array[Relic]) -> void:
-	var buttons: Array[RewardButton] = []
-	for relic in relics:
-		if relic == null:
-			continue
-		var button := REWARD_BUTTON.instantiate() as RewardButton
-		button.reward_icon = relic.icon
-		button.reward_text = relic.relic_name
-		button.pressed.connect(_on_relic_choice_taken.bind(relic, button, buttons))
-		buttons.append(button)
-		rewards.add_child.call_deferred(button)
-
-
-func _on_relic_choice_taken(relic: Relic, taken: RewardButton, buttons: Array[RewardButton]) -> void:
-	for other in buttons:
-		if other != taken and is_instance_valid(other):
-			other.queue_free()
-	_on_relic_reward_taken(relic)
-
-
 func _on_gold_reward_taken(amount: int) -> void:
 	if not run_stats:
 		return

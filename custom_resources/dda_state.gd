@@ -11,6 +11,8 @@ const MAX_HISTORY := 100
 @export var treasure_pending := false
 ## Relic count when the player entered the last shop or treasure room.
 @export var shop_entered_items := 0
+## Relics the last shop stocked (0 when none was recorded).
+@export var shop_offered_items := 0
 ## HP share when the player arrived at the current campfire, before resting.
 @export var campfire_arrival_hp := 1.0
 ## Every score change with its reason, newest last (capped).
@@ -21,6 +23,7 @@ func reset_for_act() -> void:
 	shop_changed = false
 	treasure_pending = false
 	shop_entered_items = 0
+	shop_offered_items = 0
 
 
 func record(reason: String, amount: int, new_score: int) -> void:

@@ -76,6 +76,17 @@ func _low_band_delta(hp_percentage: float) -> int:
 
 # ---------------------------------------------------------------- decisions
 
+## How many relics a shop stocks: a weighted roll whose weights lean small for a strong
+## run and large for a struggling one. `roll` (1..sum) can be passed for tests.
+func shop_stock_size(score: int, roll := -1) -> int:
+	var weights := config.shop_size_weights_mid
+	if score >= config.shop_size_high_score:
+		weights = config.shop_size_weights_high
+	elif score <= config.shop_size_low_score:
+		weights = config.shop_size_weights_low
+	return config.shop_size_min + RewardRules.weighted_index(weights, roll)
+
+
 func should_upgrade_to_tier2(score: int) -> bool:
 	return score >= config.tier2_upgrade_score
 
@@ -128,7 +139,8 @@ func decide_after_shop(score: int, relic_count: int, entered_items: int, gold: i
 
 	# Bought everything on offer and loaded with relics: the shop becomes a battle.
 	if (score >= config.shop_swap_score
-			and relic_count == entered_items + config.shop_all_bought_items
+			and state.shop_offered_items > 0
+			and relic_count == entered_items + state.shop_offered_items
 			and relic_count >= config.shop_swap_relics_after_shop):
 		result.append(DDAConversion.make(Room.Type.SHOP, Room.Type.MONSTER, true))
 	# Bought nothing because of too little gold: help with a treasure room.

@@ -31,6 +31,7 @@ func _ready() -> void:
 	await _check_score()
 	_check_score_tables()
 	_check_decisions()
+	_check_shop_size()
 	_check_flags()
 	_check_state_and_saves()
 	await _check_run()
@@ -74,12 +75,12 @@ func _check_config() -> void:
 	var c := dda.config
 	_expect(c.tier2_upgrade_score == 75 and c.battle_high_score == 65 and c.battle_low_score == 35, "default battle thresholds")
 	_expect(c.campfire_high_score == 70 and c.campfire_low_score == 30, "default campfire thresholds")
-	_expect(c.shop_swap_score == 55 and c.broke_gold == 90 and c.broke_very_low_score == 15, "default shop thresholds")
+	_expect(c.shop_swap_score == 55 and c.broke_gold == 45 and c.broke_very_low_score == 15, "default shop thresholds")
 	_expect(c.relic_rarity_scores == PackedInt32Array([1, 3, 5, 8]), "default relic scores")
 	_expect(RunStats.new().dda_score == 50, "score starts at 50")
-	var rewards: RewardConfig = load("res://custom_resources/reward_config.tres")
-	_expect(c.shop_all_bought_items == rewards.shop_relic_count,
-		"'bought everything on offer' (%d) must equal the shop's relic count (%d)" % [c.shop_all_bought_items, rewards.shop_relic_count])
+	_expect(c.battle_low_gold == 75, "the low-gold shop offer follows the halved economy")
+	_expect(c.shop_size_min == 3 and c.shop_size_weights_high.size() == 3 and c.shop_size_weights_mid.size() == 3 and c.shop_size_weights_low.size() == 3,
+		"shop size is rolled over 3 sizes starting at 3")
 
 
 func _check_relic_scoring() -> void:
@@ -163,10 +164,36 @@ func _check_score_tables() -> void:
 
 # ---------------------------------------------------------------- decision tables
 
+func _check_shop_size() -> void:
+	# Weights lean small for a strong run, middle for an average one, large for a struggling one.
+	var cases := [["strong", 80, 3], ["average", 50, 4], ["struggling", 20, 5]]
+	for case in cases:
+		var counts := {3: 0, 4: 0, 5: 0}
+		RNG.instance.seed = 777
+		for i in 3000:
+			counts[dda.shop_stock_size(case[1])] += 1
+		var best := 3
+		for size in counts:
+			if counts[size] > counts[best]:
+				best = size
+		_expect(best == case[2], "a %s run (score %d) most often gets a %d-relic shop, counts %s" % [case[0], case[1], case[2], counts])
+		_expect(counts[3] + counts[4] + counts[5] == 3000, "shop size is always 3 to 5")
+	# Explicit rolls land in the matching bucket (1..sum of weights).
+	_expect(dda.shop_stock_size(80, 1) == 3 and dda.shop_stock_size(80, 100) == 5, "high score: first roll gives 3, last gives 5")
+	_expect(dda.shop_stock_size(20, 1) == 3 and dda.shop_stock_size(20, 100) == 5, "low score: first roll gives 3, last gives 5")
+	_expect(dda.shop_stock_size(65, 100) == 5 and dda.shop_stock_size(36, 25) == 3 and dda.shop_stock_size(36, 26) == 4, "thresholds are inclusive, the middle bucket sits between them")
+
+
 func _check_decisions() -> void:
 	var fresh := DDAState.new()
 	var used := DDAState.new()
 	used.shop_changed = true
+	var two_offered := DDAState.new()
+	two_offered.shop_offered_items = 2
+	var three_offered := DDAState.new()
+	three_offered.shop_offered_items = 3
+	var five_offered := DDAState.new()
+	five_offered.shop_offered_items = 5
 
 	# After a battle (score, hp, relics, gold, state) -> conversions
 	var cases := [
@@ -175,7 +202,7 @@ func _check_decisions() -> void:
 		["battle hi, relics, flag free", dda.decide_after_battle(70, 0.8, 6, 50, fresh), "SHOP->MONSTER*"],
 		["battle hi, relics, flag used", dda.decide_after_battle(70, 0.8, 6, 50, used), "CAMPFIRE->MONSTER"],
 		["battle lo, rich", dda.decide_after_battle(30, 0.8, 3, 200, fresh), "MONSTER->SHOP"],
-		["battle lo, poor", dda.decide_after_battle(30, 0.8, 3, 100, fresh), "MONSTER->CAMPFIRE"],
+		["battle lo, poor", dda.decide_after_battle(30, 0.8, 3, 50, fresh), "MONSTER->CAMPFIRE"],
 		["battle lo, rich but hurt", dda.decide_after_battle(30, 0.4, 3, 200, fresh), "MONSTER->CAMPFIRE"],
 		["battle mid", dda.decide_after_battle(50, 0.8, 9, 500, fresh), ""],
 		["campfire hi, arrived healthy", dda.decide_after_campfire(75, 0.6), "CAMPFIRE->MONSTER"],
@@ -183,12 +210,16 @@ func _check_decisions() -> void:
 		["campfire lo, arrived healthy", dda.decide_after_campfire(25, 0.6), "EVENT->CAMPFIRE"],
 		["campfire lo, arrived hurt", dda.decide_after_campfire(25, 0.4), "MONSTER->CAMPFIRE"],
 		["campfire mid", dda.decide_after_campfire(50, 0.4), ""],
-		["shop bought all, loaded", dda.decide_after_shop(60, 8, 6, 10, fresh), "SHOP->MONSTER*"],
-		["shop bought some", dda.decide_after_shop(60, 7, 6, 10, fresh), ""],
-		["shop broke, very low", dda.decide_after_shop(10, 6, 6, 50, fresh), "MONSTER->TREASURE*"],
-		["shop broke, low", dda.decide_after_shop(30, 6, 6, 50, fresh), "EVENT->TREASURE*"],
-		["shop broke, ok score", dda.decide_after_shop(40, 6, 6, 50, fresh), ""],
-		["shop with flag used", dda.decide_after_shop(10, 6, 6, 50, used), ""],
+		["shop bought all (2 of 2), loaded", dda.decide_after_shop(60, 8, 6, 10, two_offered), "SHOP->MONSTER*"],
+		["shop bought all (3 of 3), loaded", dda.decide_after_shop(60, 9, 6, 10, three_offered), "SHOP->MONSTER*"],
+		["shop bought 3 of 5", dda.decide_after_shop(60, 9, 6, 10, five_offered), ""],
+		["shop bought 5 of 5, loaded", dda.decide_after_shop(60, 11, 6, 10, five_offered), "SHOP->MONSTER*"],
+		["shop bought some", dda.decide_after_shop(60, 7, 6, 10, two_offered), ""],
+		["shop size not recorded", dda.decide_after_shop(60, 8, 6, 10, fresh), ""],
+		["shop broke, very low", dda.decide_after_shop(10, 6, 6, 30, fresh), "MONSTER->TREASURE*"],
+		["shop broke, low", dda.decide_after_shop(30, 6, 6, 30, fresh), "EVENT->TREASURE*"],
+		["shop broke, ok score", dda.decide_after_shop(40, 6, 6, 30, fresh), ""],
+		["shop with flag used", dda.decide_after_shop(10, 6, 6, 30, used), ""],
 		["treasure, relics grew", dda.decide_after_treasure(60, 0.8, 5, 4, fresh), "SHOP->MONSTER*"],
 		["treasure hi, healthy", dda.decide_after_treasure(75, 0.6, 3, 3, fresh), "CAMPFIRE->MONSTER"],
 		["treasure hi, exactly half", dda.decide_after_treasure(75, 0.5, 3, 3, fresh), "EVENT->MONSTER"],
@@ -343,7 +374,7 @@ func _check_run() -> void:
 		event_room.type = Room.Type.EVENT
 		event_room.original_type = Room.Type.EVENT
 	run.stats.dda_score = 30
-	run.stats.gold = 50
+	run.stats.gold = 30
 	run.stats.dda_state.shop_changed = false
 	run.stats.dda_state.shop_entered_items = run.relic_handler.get_all_relics().size()
 	var map_treasure_before := _count_type(run.map.map_data, T)

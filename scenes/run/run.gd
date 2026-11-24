@@ -69,6 +69,7 @@ func _ready() -> void:
 
 func _start_new_run() -> void:
 	stats = RunStats.new()
+	stats.gold = RewardRules.starting_gold(REWARD_CONFIG)
 	character = run_startup.picked_character.create_instance()
 
 	relic_handler.run_stats = stats
@@ -288,7 +289,9 @@ func _show_boss_rewards() -> void:
 	reward.character_stats = character
 	reward.relic_handler = relic_handler
 	reward.add_gold_reward(map.last_room.battle_stats.roll_gold_reward())
-	reward.add_relic_choice(_get_boss_relic_choices())
+	var boss_relic := _get_random_relic_reward(-1, false, RewardRules.weights_from(REWARD_CONFIG.boss_weights))
+	if boss_relic:
+		reward.add_relic_reward(boss_relic)
 
 
 func _show_first_battle_reward()-> void:
@@ -365,33 +368,6 @@ func _get_random_relic_reward(
 	return null
 	
 
-## The relics a boss offers: the first is rare or mythic, the rest differ in rarity where the pool allows.
-func _get_boss_relic_choices() -> Array[Relic]:
-	var choices: Array[Relic] = []
-	var used_rarities: Array[int] = []
-	var top := _get_random_relic_reward(-1, false, RewardRules.weights_from(REWARD_CONFIG.boss_top_weights), choices)
-	if top:
-		choices.append(top)
-		used_rarities.append(top.rarity)
-	var order: Array[int] = [Relic.Rarity.UNCOMMON, Relic.Rarity.RARE, Relic.Rarity.MYTHIC, Relic.Rarity.COMMON]
-	while choices.size() < REWARD_CONFIG.boss_choices:
-		var pick: Relic = null
-		for rarity in order:
-			if used_rarities.has(rarity):
-				continue
-			pick = _get_random_relic_reward(-1, false, {rarity: 1}, choices)
-			if pick:
-				break
-		if pick == null:
-			# Every rarity is already shown: fill with anything left.
-			pick = _get_random_relic_reward(-1, false, {Relic.Rarity.COMMON: 1, Relic.Rarity.UNCOMMON: 1, Relic.Rarity.RARE: 1, Relic.Rarity.MYTHIC: 1}, choices)
-		if pick == null:
-			break
-		choices.append(pick)
-		used_rarities.append(pick.rarity)
-	return choices
-
-
 func _on_battle_room_entered(room: Room) -> void:
 	var battle := _change_view(BATTLE_SCENE) as Battle
 	battle.char_stats = character
@@ -428,7 +404,7 @@ func _on_treasure_room_exited(relic: Relic) -> void:
 	reward.run_stats = stats
 	reward.character_stats = character
 	reward.relic_handler = relic_handler
-	reward.add_gold_reward(RNG.pick_random(gold_reward_min,gold_reward_max))
+	reward.add_gold_reward(RewardRules.scale_gold(REWARD_CONFIG, RNG.pick_random(gold_reward_min, gold_reward_max)))
 	reward.add_relic_reward(relic)
 	stats.dda_state.treasure_pending = true
 

@@ -9,7 +9,8 @@ const RELIC_UI = preload("res://scenes/relic_handler/relic_ui.tscn")
 @onready var price: HBoxContainer = %Price
 @onready var price_label: Label = %PriceLabel
 @onready var buy_button: Button = %BuyButton
-@onready var gold_cost = RNG.instance.randi_range(90, 120)
+## Set by the shop from the price band of the relic's rarity.
+var gold_cost := 0
 	
 func update(run_stats: RunStats) -> void:
 	if not relic_container or not price or not buy_button:

@@ -29,18 +29,27 @@ extends Resource
 @export var battle_high_score := 65
 @export var battle_low_score := 35
 @export var battle_shop_swap_relics := 6
-@export var battle_low_gold := 150
+@export var battle_low_gold := 75
 
 @export var campfire_high_score := 70
 @export var campfire_low_score := 30
 
 @export var shop_swap_score := 55
 @export var shop_swap_relics_after_shop := 6
-## Buying everything the shop offered means gaining this many relics.
-@export var shop_all_bought_items := 3
-@export var broke_gold := 90
+@export var broke_gold := 45
 @export var broke_very_low_score := 15
 @export var broke_low_score := 35
 
 @export var treasure_high_score := 70
 @export var treasure_shop_swap_relics := 4
+
+@export_group("Shop size (3, 4 or 5 relics) by score")
+## Score at or above this: the run is doing well, shops lean small.
+@export var shop_size_high_score := 65
+## Score at or below this: the run is struggling, shops lean large.
+@export var shop_size_low_score := 35
+@export var shop_size_weights_high := PackedInt32Array([60, 30, 10])
+@export var shop_size_weights_mid := PackedInt32Array([25, 50, 25])
+@export var shop_size_weights_low := PackedInt32Array([10, 30, 60])
+## Smallest shop; the weights above are for this size, this size + 1, and so on.
+@export var shop_size_min := 3

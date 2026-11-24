@@ -12,6 +12,7 @@ var CONFIG: RewardConfig = preload("res://custom_resources/reward_config.tres")
 
 var _errors: Array[String] = []
 var _saved_config := {}
+var sizes_by_case := {}
 
 
 func _ready() -> void:
@@ -22,6 +23,7 @@ func _ready() -> void:
 
 	_check_defaults()
 	_check_rules()
+	_check_economy_rules()
 	_check_saving()
 	await _check_run()
 
@@ -54,7 +56,7 @@ func _frames(count := 3) -> void:
 
 
 func _remember_config() -> void:
-	for prop in ["battle_drop_chance", "pity_misses", "tier2_drop_chance", "miss_gold_bonus", "boss_choices", "shop_relic_count", "shop_price_multiplier"]:
+	for prop in ["battle_drop_chance", "pity_misses", "tier2_drop_chance", "miss_gold_bonus", "income_scale", "boss_weights", "shop_rarity_weights", "shop_price_bands"]:
 		_saved_config[prop] = CONFIG.get(prop)
 
 
@@ -66,11 +68,13 @@ func _restore_config() -> void:
 # ---------------------------------------------------------------- config and rules
 
 func _check_defaults() -> void:
-	_expect(CONFIG.shop_relic_count >= 1 and CONFIG.shop_price_multiplier >= 1.0, "shop defaults make sense")
+	_expect(CONFIG.shop_rarity_weights.size() == 4 and CONFIG.shop_rarity_weights[Relic.Rarity.MYTHIC] >= 8, "mythic relics are weighted at 8 or more in shops")
+	_expect(CONFIG.shop_price_bands.size() == 8, "a price band per rarity")
 	_expect(CONFIG.battle_drop_chance > 0.0 and CONFIG.battle_drop_chance < 1.0, "regular battles drop by chance, not always or never")
 	_expect(CONFIG.pity_misses >= 1, "the pity counter is on")
 	_expect(is_equal_approx(CONFIG.tier2_drop_chance, 1.0), "tier 2 always drops")
-	_expect(CONFIG.boss_choices >= 2, "a boss offers a choice")
+	_expect(CONFIG.boss_weights[Relic.Rarity.COMMON] == 0 and CONFIG.boss_weights[Relic.Rarity.RARE] > 0, "a boss never drops a common")
+	_expect(is_equal_approx(CONFIG.income_scale, 0.5), "income is halved")
 	_expect(RewardRules.regular_weights(CONFIG, 2).has(Relic.Rarity.UNCOMMON) and not RewardRules.regular_weights(CONFIG, 2).has(Relic.Rarity.COMMON),
 		"tier-2 weights start at uncommon")
 
@@ -118,6 +122,57 @@ func _check_rules() -> void:
 	CONFIG.pity_misses = _saved_config["pity_misses"]
 
 
+func _check_economy_rules() -> void:
+	# Price bands: no overlap, mythic is a splurge (3x a common).
+	var mins: Array[int] = []
+	var maxs: Array[int] = []
+	for rarity in 4:
+		mins.append(CONFIG.shop_price_bands[rarity * 2])
+		maxs.append(CONFIG.shop_price_bands[rarity * 2 + 1])
+		_expect(mins[rarity] <= maxs[rarity], "band %d is ordered" % rarity)
+	for rarity in 3:
+		_expect(maxs[rarity] < mins[rarity + 1], "every rarity %d price is below every rarity %d price (%d vs %d)" % [rarity, rarity + 1, maxs[rarity], mins[rarity + 1]])
+	_expect(mins[Relic.Rarity.MYTHIC] >= 170, "a mythic costs at least 170")
+	_expect(float(mins[Relic.Rarity.MYTHIC] + maxs[Relic.Rarity.MYTHIC]) >= 2.9 * float(mins[Relic.Rarity.COMMON] + maxs[Relic.Rarity.COMMON]), "mythic is about 3x a common on average")
+	RNG.instance.seed = 99
+	for rarity in 4:
+		for i in 200:
+			var price := RewardRules.shop_price(CONFIG, rarity)
+			_expect(price >= mins[rarity] and price <= maxs[rarity], "price %d is inside the rarity %d band" % [price, rarity])
+
+	# Income scale: a 60-70 gold battle pays 30-35, costs are untouched, start gold halves.
+	_expect(RewardRules.scale_gold(CONFIG, 60) == 30 and RewardRules.scale_gold(CONFIG, 70) == 35, "a 60-70 battle pays 30-35")
+	_expect(RewardRules.starting_gold(CONFIG) == 35, "a new run starts with half the v2 purse")
+	_expect(RewardRules.scale_gold(CONFIG, -40) == -40 and RewardRules.scale_gold(CONFIG, 0) == 0, "gold lost or zero is not scaled")
+	_expect(RewardRules.scale_gold(CONFIG, 1) >= 1, "a positive payout never rounds to nothing")
+	var bs := BattleStats.new()
+	bs.gold_reward_min = 60
+	bs.gold_reward_max = 70
+	for i in 50:
+		var gold := bs.roll_gold_reward()
+		_expect(gold >= 30 and gold <= 35, "roll_gold_reward scales to 30-35, got %d" % gold)
+
+	# Gold gained in events follows the scale; gold lost and costs do not.
+	var gain := EventOutcome.new()
+	gain.gold = 50
+	var loss := EventOutcome.new()
+	loss.gold = -40
+	var rs := RunStats.new()
+	rs.gold = 100
+	var fake_event := EventRoom.new()
+	fake_event.run_stats = rs
+	fake_event.character_stats = CharacterStats.new()
+	gain.apply(fake_event)
+	_expect(rs.gold == 125, "a +50 outcome gives +25, gold is %d" % rs.gold)
+	loss.apply(fake_event)
+	_expect(rs.gold == 85, "a -40 outcome costs 40, gold is %d" % rs.gold)
+	fake_event.free()
+
+	# Golden Clover pays about half of v2.
+	var clover := GoldenClover.new()
+	_expect(clover.min_extra_gold == 8 and clover.max_extra_gold == 13, "Golden Clover pays 8-13")
+
+
 func _check_saving() -> void:
 	_expect(RunStats.new().relic_drop_misses == 0, "a fresh or old save starts the pity counter at 0")
 	var stats := RunStats.new()
@@ -159,8 +214,8 @@ func _check_run() -> void:
 	var battle: BattleStats = room.battle_stats
 	_expect(battle != null, "the start room has battle stats")
 	run.map.last_room = room
-	var low := battle.gold_reward_min
-	var high := battle.gold_reward_max
+	var low := RewardRules.scale_gold(CONFIG, battle.gold_reward_min)
+	var high := RewardRules.scale_gold(CONFIG, battle.gold_reward_max)
 
 	# --- regular battle: misses give boosted gold only, pity forces a relic
 	CONFIG.battle_drop_chance = 0.0
@@ -213,52 +268,82 @@ func _check_run() -> void:
 		_expect(weapon != null and weapon.equip == Relic.Equip.WEAPON, "first reward is a weapon")
 		_expect(other != null and other.equip != Relic.Equip.WEAPON and other.rarity == Relic.Rarity.COMMON, "second first-battle reward is a common non-weapon")
 
-	# --- boss: choose one of several, different rarities, one rare or mythic
-	CONFIG.boss_choices = 3
-	for attempt in 20:
-		var choices := run._get_boss_relic_choices()
-		_expect(choices.size() == 3, "boss offers 3 relics, got %d" % choices.size())
-		var rarities: Array[int] = []
-		var ids: Array[String] = []
-		for relic in choices:
-			rarities.append(relic.rarity)
-			ids.append(relic.id)
-		_expect(rarities.any(func(r: int) -> bool: return r >= Relic.Rarity.RARE), "a boss offers a rare or mythic relic")
-		_expect(_unique_count(rarities) == rarities.size(), "boss relics differ in rarity: %s" % [rarities])
-		_expect(_unique_count(ids) == ids.size(), "boss relics are distinct")
+	# --- boss: gold plus exactly one relic, never common, better odds than tier 2
 	run._boss_reward_pending = false
 	var held_before := run.relic_handler.get_all_relics().size()
 	run._show_boss_rewards()
 	await _frames()
 	var boss_reward := _reward_view(run)
 	var boss_buttons := _relic_buttons(boss_reward)
-	_expect(boss_buttons.size() == 3, "the boss screen shows 3 relics, got %d" % boss_buttons.size())
+	_expect(boss_buttons.size() == 1, "the boss screen shows exactly 1 relic, got %d" % boss_buttons.size())
+	_expect(_gold_amount(boss_reward) >= 0, "the boss screen shows gold")
 	_expect(run._boss_reward_pending, "leaving the boss screen is routed to the act change")
-	if boss_buttons.size() == 3:
-		boss_buttons[1].pressed.emit()
+	if boss_buttons.size() == 1:
+		boss_buttons[0].pressed.emit()
 		await _frames()
-		_expect(_relic_buttons(boss_reward).is_empty(), "taking one boss relic removes the others")
-		_expect(run.relic_handler.get_all_relics().size() == held_before + 1, "exactly one boss relic was taken")
+		_expect(run.relic_handler.get_all_relics().size() == held_before + 1, "the boss relic was taken")
 	Events.battle_reward_exited.emit()
 	await _frames()
 	_expect(not run._boss_reward_pending, "the pending flag clears on exit")
 	_expect(run.current_view.get_child_count() > 0 and run.current_view.get_child(0) is ActTransition, "leaving the boss reward shows the act transition")
 
-	# --- shop: configured count and price
-	CONFIG.shop_relic_count = 2
-	CONFIG.shop_price_multiplier = 1.25
+	var boss_weights := RewardRules.weights_from(CONFIG.boss_weights)
+	var tier2_weights := RewardRules.regular_weights(CONFIG, 2)
+	var boss_high := 0
+	var tier2_high := 0
+	var boss_common := 0
+	var rolls := 400
+	RNG.instance.seed = 31337
+	for i in rolls:
+		var boss_relic := run._get_random_relic_reward(-1, false, boss_weights)
+		var tier2_relic := run._get_random_relic_reward(-1, false, tier2_weights)
+		if boss_relic:
+			boss_common += 1 if boss_relic.rarity == Relic.Rarity.COMMON else 0
+			boss_high += 1 if boss_relic.rarity >= Relic.Rarity.RARE else 0
+		if tier2_relic:
+			tier2_high += 1 if tier2_relic.rarity >= Relic.Rarity.RARE else 0
+	_expect(boss_common == 0, "boss drops are never common over %d rolls" % rolls)
+	_expect(boss_high > tier2_high, "a boss gives more rare and mythic relics (%d) than tier 2 (%d)" % [boss_high, tier2_high])
+
+	# --- shops: 3 to 5 relics by score, banded prices, size recorded for DDA
+	for case in [["strong", 85], ["average", 50], ["struggling", 15]]:
+		run.stats.dda_score = case[1]
+		var sizes := {}
+		var banded := true
+		for visit in 25:
+			run._on_shop_entered()
+			await _frames(3)
+			var shop := run.current_view.get_child(0) as Shop
+			var shop_relics: Array[ShopRelic] = []
+			if shop:
+				for row in [shop.relics_row_1, shop.relics_row_2]:
+					for node in row.get_children():
+						if node is ShopRelic and not node.is_queued_for_deletion():
+							shop_relics.append(node)
+			sizes[shop_relics.size()] = int(sizes.get(shop_relics.size(), 0)) + 1
+			_expect(shop_relics.size() >= 3 and shop_relics.size() <= 5, "the %s shop stocks 3 to 5 relics, got %d" % [case[0], shop_relics.size()])
+			_expect(run.stats.dda_state.shop_offered_items == shop_relics.size(), "the shop records its size (%d vs %d)" % [run.stats.dda_state.shop_offered_items, shop_relics.size()])
+			for item in shop_relics:
+				var band_low: int = CONFIG.shop_price_bands[item.relic.rarity * 2]
+				var band_high: int = CONFIG.shop_price_bands[item.relic.rarity * 2 + 1]
+				banded = banded and item.gold_cost >= band_low and item.gold_cost <= band_high
+		_expect(banded, "every %s shop relic is priced inside its rarity band" % case[0])
+		sizes_by_case[case[0]] = sizes
+	_expect(_average_size(sizes_by_case["strong"]) < _average_size(sizes_by_case["average"]), "strong runs get smaller shops than average ones %s" % [sizes_by_case])
+	_expect(_average_size(sizes_by_case["average"]) < _average_size(sizes_by_case["struggling"]), "struggling runs get larger shops than average ones %s" % [sizes_by_case])
+
+	# --- a shop cost discount (the legacy Coupons relic uses it) still applies on top of banded prices
 	run._on_shop_entered()
-	await _frames(4)
-	var shop := run.current_view.get_child(0) as Shop
-	var shop_relics: Array[ShopRelic] = []
-	if shop:
-		for row in [shop.relics_row_1, shop.relics_row_2]:
-			for node in row.get_children():
-				if node is ShopRelic:
-					shop_relics.append(node)
-	_expect(shop_relics.size() == 2, "the shop offers 2 relics, got %d" % shop_relics.size())
-	for item in shop_relics:
-		_expect(item.gold_cost >= roundi(90 * 1.25) and item.gold_cost <= roundi(120 * 1.25), "shop price %d should be 90..120 times 1.25" % item.gold_cost)
+	await _frames(3)
+	var discount_shop := run.current_view.get_child(0) as Shop
+	if discount_shop:
+		var cost_modifier := discount_shop.modifier_handler.get_modifier(Modifier.Type.SHOP_COST)
+		var coupon := ModifierValue.create_new_modifier("coupons", ModifierValue.Type.PERCENT_BASED)
+		coupon.percent_value = -0.5
+		cost_modifier.add_new_value(coupon)
+		_expect(discount_shop._get_updated_shop_cost(200) == 100, "a 50% shop discount halves a banded price")
+	else:
+		_expect(false, "a shop opened for the discount check")
 
 	run.queue_free()
 
@@ -268,6 +353,15 @@ func _find_relic(run: Run, relic_name: String) -> Relic:
 		if relic and relic.relic_name == relic_name:
 			return relic
 	return null
+
+
+func _average_size(sizes: Dictionary) -> float:
+	var total := 0.0
+	var count := 0
+	for size in sizes:
+		total += size * sizes[size]
+		count += sizes[size]
+	return total / maxf(count, 1)
 
 
 func _unique_count(items: Array) -> int:
