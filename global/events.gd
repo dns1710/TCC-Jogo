@@ -50,3 +50,6 @@ signal relic_tooltip_requested(relic: Relic)
 
 # Random Event room-related events
 signal event_room_exited
+
+# Act transition events
+signal act_transition_finished
