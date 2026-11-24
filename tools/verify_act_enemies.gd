@@ -666,6 +666,7 @@ func _check_smoke_battles() -> void:
 	Events.player_atb_ready.connect(on_ready)
 	var on_action := func(_e): _smoke_actions += 1
 	Events.enemy_action_completed.connect(on_action)
+	TutorialManager.disable_auto_show()
 	Engine.time_scale = 4.0
 	for act_path in ["res://acts/act_2_ice.tres", "res://acts/act_3_fire.tres"]:
 		var act: Act = load(act_path)
@@ -682,7 +683,7 @@ func _check_smoke_battles() -> void:
 			battle.relics = relics
 			battle.battle_background = act.battle_background
 			battle.start_battle()
-			await _wait(10.0) # 10 s of battle time (2.5 s real at 4x)
+			await _wait(13.0) # 13 s of battle time (slow enemies need up to ~10 s for a first action)
 			var name := battle_stats.resource_path.get_file()
 			_expect(battle.enemy_handler.get_child_count() > 0, "%s: enemies must be present" % name)
 			_expect(_smoke_actions > 0, "%s: enemies must act during the smoke run" % name)
