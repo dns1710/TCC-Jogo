@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="1_x"]
+[ext_resource type="Script" path="res://scenes/enemy/status_action.gd" id="2_x"]
+[ext_resource type="Script" path="res://custom_resources/status.gd" id="3_x"]
+[ext_resource type="Resource" path="res://statuses/status_speed_up.tres" id="4_x"]
+[ext_resource type="AudioStream" path="res://art/enemy_attack.ogg" id="5_x"]
+[ext_resource type="Script" path="res://scenes/enemy/melee_attack_action.gd" id="6_x"]
+
+[node name="AI" type="Node"]
+script = ExtResource("1_x")
+
+[node name="Howl" type="Node" parent="."]
+script = ExtResource("2_x")
+type = 0
+conditional = true
+targets_kind = 3
+ally_tag = "wolf"
+statuses = Array[ExtResource("3_x")]([ExtResource("4_x")])
+stack_counts = Array[int]([1])
+cooldown_actions = 4
+warning_text = "HOWL"
+sound = ExtResource("5_x")
+
+[node name="Bite" type="Node" parent="."]
+script = ExtResource("6_x")
+sound = ExtResource("5_x")
+type = 1
+chance_weight = 6.0
+dice_amount = 1
+dice_value = 6
+pack_tag = "wolf"

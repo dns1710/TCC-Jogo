@@ -1,0 +1,39 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="1_x"]
+[ext_resource type="Script" path="res://scenes/enemy/status_action.gd" id="2_x"]
+[ext_resource type="Script" path="res://custom_resources/status.gd" id="3_x"]
+[ext_resource type="Resource" path="res://statuses/status_freeze.tres" id="4_x"]
+[ext_resource type="AudioStream" path="res://art/enemy_attack.ogg" id="5_x"]
+[ext_resource type="Resource" path="res://statuses/status_brittle.tres" id="6_x"]
+[ext_resource type="Script" path="res://scenes/enemy/melee_attack_action.gd" id="7_x"]
+
+[node name="AI" type="Node"]
+script = ExtResource("1_x")
+
+[node name="FrostWail" type="Node" parent="."]
+script = ExtResource("2_x")
+type = 0
+conditional = true
+statuses = Array[ExtResource("3_x")]([ExtResource("4_x")])
+cooldown_actions = 5
+requires_player_status = "Brittle"
+requires_freezable = true
+warning_text = "WAIL"
+sound = ExtResource("5_x")
+
+[node name="Haunt" type="Node" parent="."]
+script = ExtResource("2_x")
+type = 1
+chance_weight = 5.0
+statuses = Array[ExtResource("3_x")]([ExtResource("6_x")])
+warning_text = "HAUNT"
+sound = ExtResource("5_x")
+
+[node name="ChillTouch" type="Node" parent="."]
+script = ExtResource("7_x")
+sound = ExtResource("5_x")
+type = 1
+chance_weight = 3.0
+dice_amount = 1
+dice_value = 4

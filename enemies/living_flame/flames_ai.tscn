@@ -1,14 +1,18 @@
 [gd_scene format=3 uid="uid://b0xdmg3pmbjw2"]
 
-[ext_resource type="Script" uid="uid://dnhcysun6wq2l" path="res://scenes/enemy/enemy_action_picker.gd" id="1_e8y01"]
-[ext_resource type="Script" uid="uid://c2i5wx5hy4min" path="res://enemies/living_flame/flames_burn_attack.gd" id="2_qjjro"]
-[ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="3_6hq8r"]
+[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="1_x"]
+[ext_resource type="Script" path="res://enemies/living_flame/flames_burn_attack.gd" id="2_x"]
+[ext_resource type="Resource" path="res://statuses/status_burn_weak.tres" id="3_x"]
+[ext_resource type="AudioStream" path="res://art/enemy_attack.ogg" id="4_x"]
 
-[node name="FlamesAI" type="Node" unique_id=72654407]
-script = ExtResource("1_e8y01")
+[node name="FlamesAI" type="Node"]
+script = ExtResource("1_x")
 
-[node name="Burn" type="Node" parent="." unique_id=82602394]
-script = ExtResource("2_qjjro")
-sound = ExtResource("3_6hq8r")
+[node name="Burn" type="Node" parent="."]
+script = ExtResource("2_x")
 type = 1
 chance_weight = 10.0
+dice_amount = 1
+dice_value = 4
+status = ExtResource("3_x")
+sound = ExtResource("4_x")

@@ -13,6 +13,9 @@ var _target: Node
 func initialize_status(target: Node) -> void:
 	assert(target.get("atb_mods") != null, "No turn bar on %s" % target)
 	_target = target
+	if target.get("slow_immune"):
+		stacks = 0
+		return
 	status_changed.connect(_on_status_changed)
 
 	if target is Enemy:

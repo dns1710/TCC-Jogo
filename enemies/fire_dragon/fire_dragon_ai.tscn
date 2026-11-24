@@ -1,0 +1,78 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="1_x"]
+[ext_resource type="Script" path="res://scenes/enemy/phase_threshold_action.gd" id="2_x"]
+[ext_resource type="Script" path="res://custom_resources/status.gd" id="3_x"]
+[ext_resource type="Resource" path="res://statuses/status_attack_up.tres" id="4_x"]
+[ext_resource type="AudioStream" path="res://art/enemy_attack.ogg" id="5_x"]
+[ext_resource type="Resource" path="res://statuses/status_speed_up.tres" id="6_x"]
+[ext_resource type="Script" path="res://scenes/enemy/telegraphed_strike_action.gd" id="7_x"]
+[ext_resource type="Resource" path="res://statuses/status_scorch.tres" id="8_x"]
+[ext_resource type="Script" path="res://scenes/enemy/summon_action.gd" id="9_x"]
+[ext_resource type="Resource" path="res://enemies/fire_imp/fire_imp.tres" id="10_x"]
+[ext_resource type="Script" path="res://enemies/fire_dragon/ember_field.gd" id="11_x"]
+[ext_resource type="Script" path="res://scenes/enemy/melee_attack_action.gd" id="12_x"]
+[ext_resource type="Script" path="res://scenes/enemy/telegraph_action.gd" id="13_x"]
+[ext_resource type="Texture2D" path="res://art/arte nao tao verdadeira/enemy_fire_dragon_breath_prepare.png" id="14_x"]
+
+[node name="AI" type="Node"]
+script = ExtResource("1_x")
+
+[node name="Roar" type="Node" parent="."]
+script = ExtResource("2_x")
+type = 0
+threshold = 0.6
+phase_to = 2
+popup_text = "ROAR"
+all_enemies_statuses = Array[ExtResource("3_x")]([ExtResource("4_x")])
+all_enemies_stacks = Array[int]([1])
+sound = ExtResource("5_x")
+
+[node name="Phase3" type="Node" parent="."]
+script = ExtResource("2_x")
+type = 0
+threshold = 0.3
+phase_to = 3
+popup_text = "EMBERS"
+self_statuses = Array[ExtResource("3_x")]([ExtResource("6_x")])
+self_stacks = Array[int]([2])
+sound = ExtResource("5_x")
+
+[node name="FireBreath" type="Node" parent="."]
+script = ExtResource("7_x")
+type = 0
+dice_amount = 3
+dice_value = 6
+status = ExtResource("8_x")
+status_stacks = 2
+sound = ExtResource("5_x")
+
+[node name="SummonImps" type="Node" parent="."]
+script = ExtResource("9_x")
+type = 0
+minion_stats = ExtResource("10_x")
+max_alive = 2
+cooldown_actions = 4
+summon_count = 2
+min_phase = 2
+sound = ExtResource("5_x")
+
+[node name="EmberField" type="Node" parent="."]
+script = ExtResource("11_x")
+type = 0
+
+[node name="Claw" type="Node" parent="."]
+script = ExtResource("12_x")
+sound = ExtResource("5_x")
+type = 1
+chance_weight = 6.0
+dice_amount = 2
+dice_value = 6
+
+[node name="BreathPrepare" type="Node" parent="."]
+script = ExtResource("13_x")
+type = 1
+chance_weight = 4.0
+warning_text = "BREATH!"
+prepare_art = ExtResource("14_x")
+sound = ExtResource("5_x")

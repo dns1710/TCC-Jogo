@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BattleStatsPool" format=3]
+
+[ext_resource type="Script" path="res://custom_resources/battle_stats_pool.gd" id="1_x"]
+[ext_resource type="Script" path="res://custom_resources/battle_stats.gd" id="2_x"]
+[ext_resource type="Resource" path="res://battles/map3/tier0/tier_0_3imp.tres" id="3_x"]
+[ext_resource type="Resource" path="res://battles/map3/tier0/tier_0_salamander_imp.tres" id="4_x"]
+[ext_resource type="Resource" path="res://battles/map3/tier0/tier_0_2salamander.tres" id="5_x"]
+[ext_resource type="Resource" path="res://battles/map3/tier1/tier_1_campfire.tres" id="6_x"]
+[ext_resource type="Resource" path="res://battles/map3/tier1/tier_1_warrior_2imp.tres" id="7_x"]
+[ext_resource type="Resource" path="res://battles/map3/tier1/tier_1_salamander_2imp.tres" id="8_x"]
+[ext_resource type="Resource" path="res://battles/map3/tier1/tier_1_warrior_salamander.tres" id="9_x"]
+[ext_resource type="Resource" path="res://battles/map3/tier2/tier_2_magma_golem.tres" id="10_x"]
+[ext_resource type="Resource" path="res://battles/map3/tier2/tier_2_phoenix_imp.tres" id="11_x"]
+[ext_resource type="Resource" path="res://battles/map3/tier3/tier_3_fire_dragon.tres" id="12_x"]
+
+[resource]
+script = ExtResource("1_x")
+pool = Array[ExtResource("2_x")]([ExtResource("3_x"), ExtResource("4_x"), ExtResource("5_x"), ExtResource("6_x"), ExtResource("7_x"), ExtResource("8_x"), ExtResource("9_x"), ExtResource("10_x"), ExtResource("11_x"), ExtResource("12_x")])

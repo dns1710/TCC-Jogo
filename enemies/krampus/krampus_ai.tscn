@@ -1,0 +1,83 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="1_x"]
+[ext_resource type="Script" path="res://scenes/enemy/phase_threshold_action.gd" id="2_x"]
+[ext_resource type="AudioStream" path="res://art/enemy_attack.ogg" id="3_x"]
+[ext_resource type="Script" path="res://custom_resources/status.gd" id="4_x"]
+[ext_resource type="Resource" path="res://statuses/status_speed_up.tres" id="5_x"]
+[ext_resource type="Script" path="res://scenes/enemy/telegraphed_strike_action.gd" id="6_x"]
+[ext_resource type="Resource" path="res://statuses/status_freeze.tres" id="7_x"]
+[ext_resource type="Script" path="res://scenes/enemy/telegraph_action.gd" id="8_x"]
+[ext_resource type="Texture2D" path="res://art/arte nao tao verdadeira/enemy_krampus_wrath_prepare.png" id="9_x"]
+[ext_resource type="Script" path="res://scenes/enemy/summon_action.gd" id="10_x"]
+[ext_resource type="Resource" path="res://enemies/snow_wolf/snow_wolf.tres" id="11_x"]
+[ext_resource type="Script" path="res://scenes/enemy/melee_attack_action.gd" id="12_x"]
+[ext_resource type="Script" path="res://scenes/enemy/status_action.gd" id="13_x"]
+[ext_resource type="Resource" path="res://statuses/status_speed_down.tres" id="14_x"]
+[ext_resource type="Resource" path="res://statuses/status_brittle.tres" id="15_x"]
+
+[node name="AI" type="Node"]
+script = ExtResource("1_x")
+
+[node name="Phase2" type="Node" parent="."]
+script = ExtResource("2_x")
+type = 0
+threshold = 0.5
+phase_to = 2
+popup_text = "WOLVES"
+sound = ExtResource("3_x")
+
+[node name="Phase3" type="Node" parent="."]
+script = ExtResource("2_x")
+type = 0
+threshold = 0.25
+phase_to = 3
+popup_text = "WRATH"
+self_statuses = Array[ExtResource("4_x")]([ExtResource("5_x")])
+self_stacks = Array[int]([1])
+sound = ExtResource("3_x")
+
+[node name="WrathStrike" type="Node" parent="."]
+script = ExtResource("6_x")
+type = 0
+dice_amount = 3
+dice_value = 8
+status = ExtResource("7_x")
+sound = ExtResource("3_x")
+
+[node name="WrathPrepare" type="Node" parent="."]
+script = ExtResource("8_x")
+type = 0
+normal_actions_between = 2
+min_phase = 3
+warning_text = "WRATH!"
+prepare_art = ExtResource("9_x")
+sound = ExtResource("3_x")
+
+[node name="SummonWolves" type="Node" parent="."]
+script = ExtResource("10_x")
+type = 0
+minion_stats = ExtResource("11_x")
+max_alive = 2
+cooldown_actions = 3
+summon_count = 2
+min_phase = 2
+sound = ExtResource("3_x")
+
+[node name="BirchSwitch" type="Node" parent="."]
+script = ExtResource("12_x")
+sound = ExtResource("3_x")
+type = 1
+chance_weight = 6.0
+dice_amount = 1
+dice_value = 4
+hits = 2
+
+[node name="ChainPull" type="Node" parent="."]
+script = ExtResource("13_x")
+type = 1
+chance_weight = 4.0
+statuses = Array[ExtResource("4_x")]([ExtResource("14_x"), ExtResource("15_x")])
+stack_counts = Array[int]([3, 1])
+warning_text = "CHAINS"
+sound = ExtResource("3_x")

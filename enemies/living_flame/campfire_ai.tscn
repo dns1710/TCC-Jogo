@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="1_x"]
+[ext_resource type="Script" path="res://scenes/enemy/summon_action.gd" id="2_x"]
+[ext_resource type="Resource" path="res://enemies/living_flame/flames.tres" id="3_x"]
+[ext_resource type="AudioStream" path="res://art/enemy_attack.ogg" id="4_x"]
+[ext_resource type="Script" path="res://enemies/living_flame/campfire_heal.gd" id="5_x"]
+[ext_resource type="Script" path="res://scenes/enemy/idle_action.gd" id="6_x"]
+
+[node name="CampfireAI" type="Node"]
+script = ExtResource("1_x")
+
+[node name="Spawn" type="Node" parent="."]
+script = ExtResource("2_x")
+type = 0
+minion_stats = ExtResource("3_x")
+max_alive = 2
+cooldown_actions = 2
+sound = ExtResource("4_x")
+
+[node name="Stoke" type="Node" parent="."]
+script = ExtResource("5_x")
+type = 0
+amount = 6
+sound = ExtResource("4_x")
+
+[node name="Smolder" type="Node" parent="."]
+script = ExtResource("6_x")
+type = 1
+chance_weight = 2.0

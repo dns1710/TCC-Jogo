@@ -1,0 +1,34 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="1_x"]
+[ext_resource type="Script" path="res://enemies/phoenix/rebirth.gd" id="2_x"]
+[ext_resource type="Texture2D" path="res://art/arte nao tao verdadeira/enemy_phoenix_ash.png" id="3_x"]
+[ext_resource type="Script" path="res://scenes/enemy/melee_attack_action.gd" id="4_x"]
+[ext_resource type="AudioStream" path="res://art/enemy_attack.ogg" id="5_x"]
+[ext_resource type="Resource" path="res://statuses/status_scorch.tres" id="6_x"]
+
+[node name="AI" type="Node"]
+script = ExtResource("1_x")
+
+[node name="Rebirth" type="Node" parent="."]
+script = ExtResource("2_x")
+type = 0
+ash_art = ExtResource("3_x")
+
+[node name="Gale" type="Node" parent="."]
+script = ExtResource("4_x")
+sound = ExtResource("5_x")
+type = 1
+chance_weight = 6.0
+dice_amount = 1
+dice_value = 6
+status = ExtResource("6_x")
+status_stacks = 1
+
+[node name="EmberDive" type="Node" parent="."]
+script = ExtResource("4_x")
+sound = ExtResource("5_x")
+type = 1
+chance_weight = 3.0
+dice_amount = 1
+dice_value = 8

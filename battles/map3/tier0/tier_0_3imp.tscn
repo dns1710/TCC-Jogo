@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/enemy/enemy.tscn" id="1_x"]
+[ext_resource type="Resource" path="res://enemies/fire_imp/fire_imp.tres" id="2_x"]
+
+[node name="Tier03Imps" type="Node2D"]
+
+[node name="Enemy" parent="." instance=ExtResource("1_x")]
+position = Vector2(166, 70)
+stats = ExtResource("2_x")
+
+[node name="Enemy2" parent="." instance=ExtResource("1_x")]
+position = Vector2(196, 82)
+stats = ExtResource("2_x")
+
+[node name="Enemy3" parent="." instance=ExtResource("1_x")]
+position = Vector2(166, 98)
+stats = ExtResource("2_x")

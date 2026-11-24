@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BattleStats" format=3]
+
+[ext_resource type="Script" path="res://custom_resources/battle_stats.gd" id="1_x"]
+[ext_resource type="PackedScene" path="res://battles/map3/tier2/tier_2_magma_golem.tscn" id="2_x"]
+
+[resource]
+script = ExtResource("1_x")
+battle_tier = 2
+weight = 1.0
+gold_reward_min = 60
+gold_reward_max = 70
+enemies = ExtResource("2_x")
