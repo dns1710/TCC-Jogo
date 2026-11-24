@@ -50,6 +50,16 @@ func try_freeze() -> bool:
 	return true
 
 
+## Ends a running freeze right now (the immunity window starts as if it had run out).
+func break_freeze() -> void:
+	if freeze_left <= 0.0:
+		return
+	freeze_left = 0.0
+	_factors.erase(FREEZE_SOURCE)
+	immunity_left = FREEZE_IMMUNITY
+	freeze_ended.emit()
+
+
 func tick(delta: float) -> void:
 	if freeze_left > 0.0:
 		freeze_left -= delta

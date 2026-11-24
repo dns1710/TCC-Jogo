@@ -9,8 +9,9 @@ relic_name = "Pine-Tar Gloves"
 id = "PineTarGloves"
 type = 5
 equip = 3
+rarity = 1
 icon = ExtResource("1_icon")
 tooltip = "+1 ATTACK
 
-Your attacks deal +2 damage to POISONED or BURNING enemies"
+Your attacks deal +1d4 damage to enemies that already had a debuff before the hit"
 bonus_atk = 1

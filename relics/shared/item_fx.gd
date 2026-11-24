@@ -56,6 +56,14 @@ static func apply(target: Node, status: Status, stacks := 0) -> void:
 	effect.execute([target])
 
 
+## True when the actor carries any debuff (the ones Ward would negate).
+static func is_afflicted(actor: Node) -> bool:
+	for id in StatusHandler.DEBUFF_IDS:
+		if has_status(actor, id):
+			return true
+	return false
+
+
 static func has_status(actor: Node, id: String) -> bool:
 	var status := get_status(actor, id)
 	return status != null

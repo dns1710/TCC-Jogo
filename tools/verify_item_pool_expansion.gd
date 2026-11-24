@@ -329,13 +329,25 @@ func _check_commons_uncommons() -> void:
 	_apply(enemies[0], "status_poison")
 	_attack(enemies[0])
 	await _settle()
-	_expect(hits.size() == 2 and hits.has(2), "Pine-Tar Gloves should add a 2 damage hit on Poisoned, got %s" % [hits])
+	_expect(hits.size() == 2 and hits[1] >= 1 and hits[1] <= 4, "Pine-Tar Gloves should add 1d4 on an already Poisoned enemy, got %s" % [hits])
 	hits.clear()
 	enemies[0].status_handler.remove_status("Poison")
-	_apply(enemies[0], "status_burn")
+	_apply(enemies[0], "status_speed_down", 1)
 	_attack(enemies[0])
 	await _settle()
-	_expect(hits.size() == 2 and hits.has(2), "Pine-Tar Gloves should add a 2 damage hit on Burning, got %s" % [hits])
+	_expect(hits.size() == 2, "Pine-Tar Gloves should count any debuff (Speed Down), got %s" % [hits])
+	# A debuff applied by the hit itself must not count.
+	await _setup()
+	_equip("trinket/pine_tar_gloves")
+	_equip("weapon/poison_dagger")
+	hits = _watch(enemies[0])
+	_attack(enemies[0])
+	await _settle()
+	_expect(hits.size() == 1 and _has(enemies[0], "Poison"), "Pine-Tar Gloves added damage for a debuff the hit itself applied, got %s" % [hits])
+	hits.clear()
+	_attack(enemies[0])
+	await _settle()
+	_expect(hits.size() == 2, "Pine-Tar Gloves should add damage once the target already had Poison, got %s" % [hits])
 
 	# Fur-Lined Cap
 	await _setup()
@@ -384,7 +396,7 @@ func _check_commons_uncommons() -> void:
 	_equip("armor/emberweave_tunic")
 	player.stats.block = 0
 	_apply(player, "status_scorch", 2)
-	_expect(player.stats.block == 4, "Emberweave Tunic should give 4 block for 2 Scorch, got %d" % player.stats.block)
+	_expect(player.stats.block >= 2 and player.stats.block <= 8, "Emberweave Tunic should give 1d4 block per Scorch stack (2..8), got %d" % player.stats.block)
 
 	# Rime Bead
 	await _setup()
@@ -410,21 +422,26 @@ func _check_rares() -> void:
 	# Shatterglass Hammer
 	await _setup()
 	_equip("weapon/shatterglass_hammer")
-	_attack(enemies[0])
-	_attack(enemies[0])
+	for i in 3:
+		_attack(enemies[0])
 	await _settle()
-	_expect(not enemies[0].atb_mods.is_frozen(), "Shatterglass froze before the third attack")
+	_expect(not enemies[0].atb_mods.is_frozen(), "Shatterglass froze before the fourth attack")
 	_attack(enemies[0])
 	await _settle(0.2)
-	_expect(enemies[0].atb_mods.is_frozen(), "Shatterglass third attack should Freeze")
+	_expect(enemies[0].atb_mods.is_frozen(), "Shatterglass fourth attack should Freeze")
 	var hits := _watch(enemies[0])
 	_attack(enemies[0])
 	await _settle(0.2)
 	_expect(_has(enemies[0], "Brittle") and hits.size() == 2, "Shatterglass should shatter a Frozen enemy (Brittle, extra hit), got %s" % [hits])
+	_expect(not enemies[0].atb_mods.is_frozen() and not enemies[0].atb_mods.can_freeze(), "the shatter should end the Freeze and start its immunity")
+	hits.clear()
+	_attack(enemies[0])
+	await _settle(0.2)
+	_expect(hits.size() == 1, "a shattered enemy must not shatter again, got %s" % [hits])
 	await _setup()
 	_equip("weapon/shatterglass_hammer")
 	enemies[0].atb_mods.freeze_immune = true
-	for i in 3:
+	for i in 4:
 		_attack(enemies[0])
 	await _settle(0.2)
 	_expect(_has(enemies[0], "Brittle") and not enemies[0].atb_mods.is_frozen(), "Shatterglass boss fallback should be Brittle, not Freeze")
@@ -439,7 +456,11 @@ func _check_rares() -> void:
 	hits = _watch(enemies[0])
 	_attack(enemies[0])
 	await _settle(0.2)
-	_expect(hits.has(9) and not _has(enemies[0], "Scorch"), "Cinderbrand should detonate 3 Scorch for 9 and clear it, got %s" % [hits])
+	var detonation := 0
+	for h in hits:
+		if h >= 3 and h <= 12:
+			detonation = h
+	_expect(detonation > 0 and hits.size() == 2 and not _has(enemies[0], "Scorch"), "Cinderbrand should detonate 3 Scorch for 3d4 and clear it, got %s" % [hits])
 
 	# Bulwark Maul
 	await _setup()
@@ -486,7 +507,16 @@ func _check_rares() -> void:
 	enemies[0].take_damage(999, Modifier.Type.NO_MODIFIER)
 	await _settle(0.5)
 	_expect(_has(enemies[1], "Poison"), "Carrion Thurible should pass Poison on")
-	_expect(player.stats.health == 52, "Carrion Thurible should heal 2, got %d" % player.stats.health)
+	_expect(player.stats.health == 50, "Carrion Thurible must not heal, got %d" % player.stats.health)
+	await _setup(4, 100)
+	_equip("trinket/carrion_thurible")
+	_apply(enemies[0], "status_poison")
+	_apply(enemies[0], "status_scorch", 2)
+	enemies[0].take_damage(999, Modifier.Type.NO_MODIFIER)
+	await _settle(0.5)
+	var poisoned := enemies.slice(1).filter(func(e): return _has(e, "Poison")).size()
+	var scorched := enemies.slice(1).filter(func(e): return _stacks(e, "Scorch") == 2).size()
+	_expect(poisoned == 1 and scorched == 1, "Carrion Thurible should pass the statuses to exactly one random enemy, got %d poisoned and %d scorched" % [poisoned, scorched])
 
 	# Quicksilver Spurs
 	await _setup()
@@ -539,17 +569,12 @@ func _check_mythics() -> void:
 	await _settle(0.5)
 	_expect(is_instance_valid(player) and _died == 0 and player.stats.health == 30, "Phoenix Feather should leave the player at 30, got %s" % player.stats.health)
 	for e in enemies:
-		_expect(_stacks(e, "Scorch") == 3, "Phoenix Feather should give 3 Scorch, got %d" % _stacks(e, "Scorch"))
+		_expect(_stacks(e, "Scorch") == 1, "Phoenix Feather should give 1 Scorch, got %d" % _stacks(e, "Scorch"))
+	_expect(not handler.has_relic("PhoenixFeather") and not handler.is_equipped(load("res://relics/trinket/phoenix_feather.tres")), "Phoenix Feather should be removed from the inventory after it triggers")
 	player.take_damage(999, Modifier.Type.NO_MODIFIER)
 	await _settle(0.5)
-	_expect(_died == 1, "Phoenix Feather must only save the player once per combat")
+	_expect(_died == 1, "Phoenix Feather must only save the player once")
 	player = null
-	await _setup(1, 100)
-	_equip("trinket/phoenix_feather")
-	_died = 0
-	player.take_damage(999, Modifier.Type.NO_MODIFIER)
-	await _settle(0.5)
-	_expect(_died == 0, "Phoenix Feather should work again in a new combat")
 
 	# Hunter's Mercy
 	await _setup(1, 100)
@@ -574,12 +599,28 @@ func _check_mythics() -> void:
 	_equip("weapon/frostfire_pike")
 	_attack(enemies[0])
 	await _settle(0.2)
-	_expect(_stacks(enemies[0], "Scorch") == 2 and not _has(enemies[0], "SpeedDown"), "Pike's first hit should apply 2 Scorch")
+	_expect(_stacks(enemies[0], "Scorch") == 1 and not _has(enemies[0], "SpeedDown"), "Pike's first hit should apply 1 Scorch")
 	_expect(not _has(enemies[0], "Brittle"), "Pike shocked a target holding only Scorch")
 	_attack(enemies[0])
 	await _settle(0.2)
-	_expect(_stacks(enemies[0], "SpeedDown") == 2, "Pike's second hit should apply 2 Speed Down")
+	_expect(_stacks(enemies[0], "SpeedDown") == 1, "Pike's second hit should apply 1 Speed Down")
 	_expect(_has(enemies[0], "Brittle") and _has(enemies[0], "Sunder"), "Pike should shock a target with Scorch and Speed Down")
+	# The shock fires once: clear it and hit again, it must not come back while both statuses stay.
+	enemies[0].status_handler.remove_status("Brittle")
+	enemies[0].status_handler.remove_status("Sunder")
+	_attack(enemies[0])
+	await _settle(0.2)
+	_attack(enemies[0])
+	await _settle(0.2)
+	_expect(not _has(enemies[0], "Brittle") and not _has(enemies[0], "Sunder"), "Pike shocked a target that still held both statuses")
+	# After Speed Down wears off the shock can happen again.
+	enemies[0].status_handler.remove_status("SpeedDown")
+	_attack(enemies[0])
+	await _settle(0.2)
+	_expect(not _has(enemies[0], "Brittle"), "Pike shocked without both statuses")
+	_attack(enemies[0])
+	await _settle(0.2)
+	_expect(_has(enemies[0], "Brittle") and _has(enemies[0], "Sunder"), "Pike should shock again after a status wore off")
 
 	# Glass Heart
 	await _setup()

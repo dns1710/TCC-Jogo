@@ -12,7 +12,7 @@ rarity = 2
 icon = ExtResource("1_icon")
 tooltip = "1d6 weapon damage, +1 ATTACK
 
-Each hit adds 1 SCORCH. Hitting an enemy with 3 or more SCORCH detonates it for 3 damage per stack"
+Each hit adds 1 SCORCH. Hitting an enemy with 3 or more SCORCH detonates it for 1d4 damage per stack"
 bonus_atk = 1
 weapon_dice_attack = 6
 weapon_dice_amount = 1

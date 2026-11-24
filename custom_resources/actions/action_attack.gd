@@ -1,6 +1,7 @@
 extends Action
 
 func apply_effects(targets: Array[Node]) -> void:
+	Events.player_attack_started.emit(targets)
 	var player = targets[0].get_tree().get_first_node_in_group("player")
 	var relic_handler := player.get_tree().get_first_node_in_group("relic_handler")
 	

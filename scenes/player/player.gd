@@ -136,7 +136,7 @@ func _spawn_popup(poptext: String, color: Color) -> void:
 	var popup = POPUP.instantiate()
 	get_parent().add_child(popup)
 	popup.global_position = sprite_2d.global_position
-	popup.setup(poptext, color)
+	popup.setup(poptext, color, get_instance_id())
 
 #func attack_animation() -> void:
 #	var original_position := position

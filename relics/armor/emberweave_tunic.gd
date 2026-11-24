@@ -1,8 +1,8 @@
 class_name EmberweaveTunic
 extends Relic
-## When you gain Scorch, gain 2 block per stack gained.
+## When you gain Scorch, gain 1d4 block for every stack gained.
 
-@export var block_per_stack := 2
+@export var block_die := 4
 
 var relic_ui: RelicUI
 
@@ -21,5 +21,5 @@ func deactivate_relic(_owner: RelicUI) -> void:
 func _on_status_added(owner: Node, status: Status) -> void:
 	if not owner is Player or status.id != "Scorch":
 		return
-	ItemFx.block(owner, maxi(status.stacks, 1) * block_per_stack)
+	ItemFx.block(owner, Dice.roll(maxi(status.stacks, 1), block_die))
 	ItemFx.flash(relic_ui)

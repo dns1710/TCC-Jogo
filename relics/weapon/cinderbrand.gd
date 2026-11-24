@@ -1,10 +1,10 @@
 class_name Cinderbrand
 extends Relic
 ## Each hit adds 1 Scorch. Hitting a target that already holds 3 or more stacks detonates
-## them for stacks x 3 damage and clears the Scorch.
+## them for 1d4 damage per stack and clears the Scorch.
 
 @export var detonate_at := 3
-@export var damage_per_stack := 3
+@export var damage_die := 4
 
 var relic_ui: RelicUI
 
@@ -21,7 +21,7 @@ func on_attack_hit(targets: Array[Node]) -> void:
 		if scorch and scorch.stacks >= detonate_at:
 			var stacks := scorch.stacks
 			target.status_handler.remove_status("Scorch")
-			ItemFx.hit(target, stacks * damage_per_stack)
+			ItemFx.hit(target, Dice.roll(stacks, damage_die), null, damage_die)
 		else:
 			ItemFx.apply(target, ItemFx.SCORCH, 1)
 		ItemFx.flash(relic_ui)

@@ -11,4 +11,4 @@ type = 5
 equip = 3
 rarity = 2
 icon = ExtResource("1_icon")
-tooltip = "When an enemy dies, its POISON, BURN and SCORCH jump to all other enemies and you heal 2"
+tooltip = "When an enemy dies, its POISON, BURN and SCORCH jump to one random enemy"

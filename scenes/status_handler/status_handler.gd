@@ -144,11 +144,11 @@ func _spawn_popup_text(text: String, color: Color) -> void:
 	var popup := POPUP.instantiate()
 	get_tree().current_scene.add_child(popup)
 	popup.global_position = status_owner.global_position
-	popup.setup(text, color)
+	popup.setup(text, color, status_owner.get_instance_id())
 
 
 func _spawn_status_popup(status: Status) -> void:
 	var popup := POPUP.instantiate()
 	get_tree().current_scene.add_child(popup)
 	popup.global_position = status_owner.global_position
-	popup.setup(status.name.to_upper(), Color.GOLD)
+	popup.setup(status.name.to_upper(), Color.GOLD, status_owner.get_instance_id())

@@ -11,7 +11,4 @@ type = 2
 equip = 3
 rarity = 2
 icon = ExtResource("1_icon")
-tooltip = "+1 ATTACK
-
-Enemies start combat with 1 SPEED DOWN"
-bonus_atk = 1
+tooltip = "Enemies start combat with 1 SPEED DOWN"

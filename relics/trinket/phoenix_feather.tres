@@ -11,4 +11,4 @@ type = 2
 equip = 3
 rarity = 3
 icon = ExtResource("1_icon")
-tooltip = "Once per combat, a lethal hit leaves you at 30% health and applies 3 SCORCH to all enemies"
+tooltip = "A lethal hit leaves you at 30% health and applies 1 SCORCH to all enemies. The feather then fizzles out and is removed from your inventory"

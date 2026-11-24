@@ -144,6 +144,14 @@ func unequip_trinket(slot: int) -> void:
 		equipped_trinkets[slot] = null
 
 
+## Uses an item up: it leaves the equipment and the inventory, and can drop again later.
+func consume_relic(relic: Relic) -> void:
+	if relic == null:
+		return
+	unequip_relic_instance(relic)
+	inventory.erase(relic)
+
+
 func unequip_relic_instance(relic: Relic) -> bool:
 	if relic == null:
 		return false

@@ -1,10 +1,10 @@
 class_name PhoenixFeather
 extends Relic
-## Once per combat a lethal hit is cancelled: you return to 30% of your maximum health and
-## every enemy gains 3 Scorch.
+## A lethal hit is cancelled once: you return to 30% of your maximum health and every enemy gains
+## 1 Scorch. The feather then fizzles out and is removed from your inventory (it can drop again).
 
 @export var revive_share := 0.3
-@export var scorch_stacks := 3
+@export var scorch_stacks := 1
 
 var used := false
 var relic_ui: RelicUI
@@ -39,4 +39,8 @@ func _on_lethal_hit() -> bool:
 	for enemy in ItemFx.enemies(relic_ui):
 		ItemFx.apply(enemy, ItemFx.SCORCH, scorch_stacks)
 	ItemFx.flash(relic_ui)
+	player._spawn_popup("FIZZLE", Color.GRAY)
+	var handler := relic_ui.get_tree().get_first_node_in_group("relic_handler") as RelicHandler
+	if handler:
+		handler.consume_relic.call_deferred(self)
 	return true

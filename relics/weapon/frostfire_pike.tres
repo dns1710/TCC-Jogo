@@ -12,6 +12,6 @@ rarity = 3
 icon = ExtResource("1_icon")
 tooltip = "1d8 weapon damage
 
-Hits alternate between 2 SCORCH and 2 SPEED DOWN. An enemy with both is BRITTLE and SUNDERED"
+Hits alternate between 1 SCORCH and 1 SPEED DOWN. The hit that leaves an enemy with both makes it BRITTLE and SUNDERED. It can happen again only after one of them wears off"
 weapon_dice_attack = 8
 weapon_dice_amount = 1

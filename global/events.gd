@@ -9,6 +9,8 @@ signal player_atb_ready
 signal player_action_completed
 signal player_damaged(attacker: Enemy, damage: int)
 signal player_health_changed(player: Player)
+## Before the player's attack lands: its targets, so items can read their state first.
+signal player_attack_started(targets: Array)
 ## After the player's attack resolved: its targets and the weapon damage rolled.
 signal player_attacked(targets: Array, damage: int)
 
