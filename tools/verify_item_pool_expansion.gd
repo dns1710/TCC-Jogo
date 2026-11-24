@@ -401,7 +401,7 @@ func _check_commons_uncommons() -> void:
 	await _setup(2)
 	_equip("trinket/hunters_snare")
 	for e in enemies:
-		_expect(_stacks(e, "SpeedDown") == 2, "Hunter's Snare should give 2 Speed Down, got %d" % _stacks(e, "SpeedDown"))
+		_expect(_stacks(e, "SpeedDown") == 1, "Hunter's Snare should give 1 Speed Down, got %d" % _stacks(e, "SpeedDown"))
 
 
 # ------------------------------------------------------------------ rare

@@ -20,7 +20,7 @@ const ADDED := {
 }
 
 ## Pool size after item-pool-expansion: common, uncommon, rare, mythic.
-const EXPECTED_RARITY_COUNTS := [15, 21, 19, 8]
+const EXPECTED_RARITY_COUNTS := [15, 20, 20, 8]
 const EXPANSION := [
 	"weapon/breaker_pick", "weapon/riposte_foil", "weapon/shatterglass_hammer", "weapon/cinderbrand",
 	"weapon/bulwark_maul", "weapon/hunters_mercy", "weapon/frostfire_pike",

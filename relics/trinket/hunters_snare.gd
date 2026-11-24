@@ -1,8 +1,8 @@
 class_name HuntersSnare
 extends Relic
-## Every enemy starts the combat with 2 Speed Down.
+## Every enemy starts the combat with 1 Speed Down.
 
-@export var stacks := 2
+@export var stacks := 1
 
 
 func activate_relic(owner: RelicUI) -> void:
