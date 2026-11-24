@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SpeedUpStatus" format=3 uid="uid://b374g1p8mhfk0"]
+
+[ext_resource type="Texture2D" uid="uid://dvqfht80ap3cl" path="res://art/verdadeira arte/status/status_speed_down.png" id="1_a6gbx"]
+[ext_resource type="Script" uid="uid://de8kwll2soa24" path="res://statuses/status_true_speed_down.gd" id="2_a6gbx"]
+
+[resource]
+script = ExtResource("2_a6gbx")
+name = "Speed Down"
+id = "SpeedDown"
+type = 2
+stack_type = 1
+stacks = 1
+icon = ExtResource("1_a6gbx")
+tooltip = "Lowers SPEED"
+metadata/_custom_type_script = "uid://cabgjq2uy7l61"

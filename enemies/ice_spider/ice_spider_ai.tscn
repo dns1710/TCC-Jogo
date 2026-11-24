@@ -1,11 +1,11 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="1_x"]
-[ext_resource type="Script" path="res://scenes/enemy/status_action.gd" id="2_x"]
-[ext_resource type="Script" path="res://custom_resources/status.gd" id="3_x"]
-[ext_resource type="Resource" path="res://statuses/status_speed_down.tres" id="4_x"]
-[ext_resource type="AudioStream" path="res://art/enemy_attack.ogg" id="5_x"]
-[ext_resource type="Script" path="res://scenes/enemy/melee_attack_action.gd" id="6_x"]
+[ext_resource type="Script" uid="uid://dnhcysun6wq2l" path="res://scenes/enemy/enemy_action_picker.gd" id="1_x"]
+[ext_resource type="Script" uid="uid://bftbwev0ypoo2" path="res://scenes/enemy/status_action.gd" id="2_x"]
+[ext_resource type="Script" uid="uid://cabgjq2uy7l61" path="res://custom_resources/status.gd" id="3_x"]
+[ext_resource type="Resource" uid="uid://v7klund0glvg" path="res://statuses/status_speed_down.tres" id="4_x"]
+[ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="5_x"]
+[ext_resource type="Script" uid="uid://do33tnmtege1a" path="res://scenes/enemy/melee_attack_action.gd" id="6_x"]
 
 [node name="AI" type="Node"]
 script = ExtResource("1_x")
