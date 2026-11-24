@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EventRoomPool" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://custom_resources/event_room_pool.gd" id="1_pool"]
+[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="0_def"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/ice/frozen_traveler.tres" id="e2"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/ice/hunters_wager.tres" id="e3"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/ice/aurora.tres" id="e4"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/ice/frost_shrine.tres" id="e5"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/ice/avalanche.tres" id="e6"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/ice/hidden_spring.tres" id="e7"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/ice/orphaned_cub.tres" id="e8"]
+[ext_resource type="Resource" path="res://scenes/event_rooms/events/ice/abandoned_camp.tres" id="e9"]
+
+[resource]
+script = ExtResource("1_pool")
+events = Array[ExtResource("0_def")]([ExtResource("e2"), ExtResource("e3"), ExtResource("e4"), ExtResource("e5"), ExtResource("e6"), ExtResource("e7"), ExtResource("e8"), ExtResource("e9")])

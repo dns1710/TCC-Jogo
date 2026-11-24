@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="EventDefinition" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+
+[sub_resource type="Resource" id="Outcome_1"]
+script = ExtResource("3_out")
+text = "The embers take their due. Your strikes burn brighter."
+max_hp = -8
+attack = 2
+
+[sub_resource type="Resource" id="Outcome_2"]
+script = ExtResource("3_out")
+text = "The embers accept your payment."
+attack = 1
+
+[sub_resource type="Resource" id="Outcome_3"]
+script = ExtResource("3_out")
+text = "The voice fades into the crackling."
+
+[sub_resource type="Resource" id="Choice_1"]
+script = ExtResource("2_choice")
+label = "Give 8 max HP"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1")])
+
+[sub_resource type="Resource" id="Choice_2"]
+script = ExtResource("2_choice")
+label = "Give 50 gold"
+cost_gold = 50
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_2")])
+
+[sub_resource type="Resource" id="Choice_3"]
+script = ExtResource("2_choice")
+label = "Decline"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_3")])
+
+[resource]
+script = ExtResource("1_def")
+title = "Pact of Embers"
+body = "A voice in the embers: 'Give me something, and I will give you more.'"
+choices = Array[ExtResource("2_choice")]([SubResource("Choice_1"), SubResource("Choice_2"), SubResource("Choice_3")])

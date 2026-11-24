@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="EventDefinition" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+
+[sub_resource type="Resource" id="Outcome_1"]
+script = ExtResource("3_out")
+text = "You take what he no longer needs."
+gold = 45
+
+[sub_resource type="Resource" id="Outcome_2"]
+script = ExtResource("3_out")
+text = "You give him a proper rest. It feels right."
+max_hp = 3
+dda = 5
+
+[sub_resource type="Resource" id="Outcome_3"]
+script = ExtResource("3_out")
+text = "His notes describe the road north. Useful."
+rerolls = 1
+
+[sub_resource type="Resource" id="Choice_1"]
+script = ExtResource("2_choice")
+label = "Take his belongings"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1")])
+
+[sub_resource type="Resource" id="Choice_2"]
+script = ExtResource("2_choice")
+label = "Bury him"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_2")])
+
+[sub_resource type="Resource" id="Choice_3"]
+script = ExtResource("2_choice")
+label = "Read his journal"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_3")])
+
+[resource]
+script = ExtResource("1_def")
+title = "Fallen Adventurer"
+body = "A dead adventurer lies beside the road, his pack and journal still with him."
+choices = Array[ExtResource("2_choice")]([SubResource("Choice_1"), SubResource("Choice_2"), SubResource("Choice_3")])

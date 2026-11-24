@@ -310,7 +310,7 @@ func _reroll_room(room: Room) -> bool:
 			room.event_scene = null
 
 		Room.Type.EVENT:
-			room.event_scene = get_event_pool().get_random()
+			room.event_scene = null
 			room.battle_stats = null
 
 		_:
@@ -501,7 +501,7 @@ func room_change_animation(
 			room.event_scene = null
 
 		Room.Type.EVENT:
-			room.event_scene = get_event_pool().get_random()
+			room.event_scene = null
 			room.battle_stats = null
 
 		_:

@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="EventDefinition" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+
+[sub_resource type="Resource" id="Outcome_1"]
+script = ExtResource("3_out")
+text = "You find the expedition's savings."
+weight = 7.0
+gold = 40
+
+[sub_resource type="Resource" id="Outcome_2"]
+script = ExtResource("3_out")
+text = "The cold bites through your gloves."
+weight = 3.0
+hp = -5
+
+[sub_resource type="Resource" id="Outcome_3"]
+script = ExtResource("3_out")
+text = "Its glow reveals a safer way ahead."
+convert_from = 1
+convert_to = 3
+convert_count = 1
+
+[sub_resource type="Resource" id="Outcome_4"]
+script = ExtResource("3_out")
+text = "You rest a while out of the wind."
+hp = 4
+
+[sub_resource type="Resource" id="Choice_1"]
+script = ExtResource("2_choice")
+label = "Search the tents"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1"), SubResource("Outcome_2")])
+
+[sub_resource type="Resource" id="Choice_2"]
+script = ExtResource("2_choice")
+label = "Light the lantern"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_3")])
+
+[sub_resource type="Resource" id="Choice_3"]
+script = ExtResource("2_choice")
+label = "Rest in the ruins"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_4")])
+
+[resource]
+script = ExtResource("1_def")
+title = "The Abandoned Camp"
+body = "An abandoned expedition camp. The tents are torn, but one lantern is intact."
+choices = Array[ExtResource("2_choice")]([SubResource("Choice_1"), SubResource("Choice_2"), SubResource("Choice_3")])

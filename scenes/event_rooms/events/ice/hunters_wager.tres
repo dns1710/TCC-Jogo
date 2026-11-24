@@ -1,0 +1,70 @@
+[gd_resource type="Resource" script_class="EventDefinition" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://custom_resources/events/event_definition.gd" id="1_def"]
+[ext_resource type="Script" path="res://custom_resources/events/event_choice.gd" id="2_choice"]
+[ext_resource type="Script" path="res://custom_resources/events/event_outcome.gd" id="3_out"]
+
+[sub_resource type="Resource" id="Outcome_1"]
+script = ExtResource("3_out")
+text = "Ash takes the lead and holds it."
+weight = 7.0
+gold = 52
+
+[sub_resource type="Resource" id="Outcome_2"]
+script = ExtResource("3_out")
+text = "Ash falters near the end."
+weight = 3.0
+
+[sub_resource type="Resource" id="Outcome_3"]
+script = ExtResource("3_out")
+text = "Ember surges ahead at the last moment."
+weight = 4.0
+gold = 88
+
+[sub_resource type="Resource" id="Outcome_4"]
+script = ExtResource("3_out")
+text = "Ember loses the pace."
+weight = 6.0
+
+[sub_resource type="Resource" id="Outcome_5"]
+script = ExtResource("3_out")
+text = "Ghost runs like the wind. The hunters fall silent."
+gold = 320
+
+[sub_resource type="Resource" id="Outcome_6"]
+script = ExtResource("3_out")
+text = "Ghost never finds its stride."
+weight = 9.0
+
+[sub_resource type="Resource" id="Outcome_7"]
+script = ExtResource("3_out")
+text = "You watch from the shore."
+
+[sub_resource type="Resource" id="Choice_1"]
+script = ExtResource("2_choice")
+label = "Back Ash, the favorite (40g)"
+cost_gold = 40
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_1"), SubResource("Outcome_2")])
+
+[sub_resource type="Resource" id="Choice_2"]
+script = ExtResource("2_choice")
+label = "Back Ember, even odds (40g)"
+cost_gold = 40
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_3"), SubResource("Outcome_4")])
+
+[sub_resource type="Resource" id="Choice_3"]
+script = ExtResource("2_choice")
+label = "Back Ghost, the long shot (40g)"
+cost_gold = 40
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_5"), SubResource("Outcome_6")])
+
+[sub_resource type="Resource" id="Choice_4"]
+script = ExtResource("2_choice")
+label = "Watch the race"
+outcomes = Array[ExtResource("3_out")]([SubResource("Outcome_7")])
+
+[resource]
+script = ExtResource("1_def")
+title = "The Hunters' Wager"
+body = "Hunters bet on which of three sled dogs will cross the frozen lake first."
+choices = Array[ExtResource("2_choice")]([SubResource("Choice_1"), SubResource("Choice_2"), SubResource("Choice_3"), SubResource("Choice_4")])
