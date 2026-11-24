@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://cg6m8kypm42q6"]
+
+[ext_resource type="Texture2D" uid="uid://dturhntpcmjpy" path="res://art/verdadeira arte/items/RECEBA.png" id="1_5crp0"]
+[ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_0avvn"]
+
+[resource]
+script = ExtResource("2_0avvn")
+relic_name = "Glove"
+id = "Glove"
+equip = 3
+icon = ExtResource("1_5crp0")
+tooltip = "You [wave amp=3.0 freq=5.0][color=#ffd04d]receive[/color][/wave] +1 ATTACK"
+bonus_atk = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

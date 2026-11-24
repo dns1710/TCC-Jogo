@@ -1,6 +1,7 @@
 extends EnemyAction
 
 @export var block = 3
+@export var prepare_art: Texture2D
 var already_used := false
 	
 func perform_action() -> void:
@@ -14,6 +15,8 @@ func perform_action() -> void:
 	block_effect.amount = block
 	block_effect.sound = sound
 	block_effect.execute([enemy])
+	
+	#enemy.change_sprite(prepare_art)
 	
 	get_tree().create_timer(0.6, false).timeout.connect(
 		func():

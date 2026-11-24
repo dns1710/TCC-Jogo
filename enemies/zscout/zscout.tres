@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d3jmf05haw1mq" path="res://enemies/zscout/zscout_ai.tscn" id="1_6y80n"]
 [ext_resource type="Script" uid="uid://csml8orhg63vh" path="res://custom_resources/enemy_stats.gd" id="1_8cu52"]
-[ext_resource type="Texture2D" uid="uid://bub76qc3f5hk7" path="res://art/verdadeira arte/enemy/zscout.png" id="2_g6jrd"]
+[ext_resource type="Texture2D" uid="uid://d2a3jr6rt6xp4" path="res://art/verdadeira arte/enemy/z_scout.png" id="2_g6jrd"]
 
 [resource]
 script = ExtResource("1_8cu52")

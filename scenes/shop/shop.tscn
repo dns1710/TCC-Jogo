@@ -31,9 +31,9 @@
 [ext_resource type="Resource" uid="uid://cl046c518vs52" path="res://relics/weapon/hunters_axe.tres" id="23_ncc2j"]
 [ext_resource type="Resource" uid="uid://5gcorcnmcrw" path="res://relics/armor/slow.tres" id="pool_slow"]
 [ext_resource type="Resource" uid="uid://dojirvwbp0qjw" path="res://relics/armor/barbarian.tres" id="pool_barbarian"]
-[ext_resource type="Resource" uid="uid://dr46wfbvum0ws" path="res://relics/weapon/icy.tres" id="pool_icy"]
+[ext_resource type="Resource" uid="uid://dr46wfbvum0ws" path="res://relics/weapon/snowballs.tres" id="pool_icy"]
 [ext_resource type="Resource" uid="uid://cqgt7umb3uxo" path="res://relics/trinket/shadow.tres" id="pool_shadow"]
-[ext_resource type="Resource" uid="uid://cg6m8kypm42q6" path="res://relics/trinket/receba.tres" id="pool_receba"]
+[ext_resource type="Resource" uid="uid://cg6m8kypm42q6" path="res://relics/trinket/glove.tres" id="pool_receba"]
 
 [sub_resource type="Gradient" id="Gradient_sv6qe"]
 offsets = PackedFloat32Array(0.2125, 1)

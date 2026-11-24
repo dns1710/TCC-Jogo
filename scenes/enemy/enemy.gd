@@ -55,6 +55,14 @@ func _ready() -> void:
 	status_handler.status_owner = self
 	atb_progress.min_value = 0
 	atb_progress.max_value = ATB_MAX
+
+func update_offset()-> void:
+	if sprite_2d.texture:
+		sprite_2d.offset.y = -sprite_2d.texture.get_height()/2.0
+
+func change_sprite(new_sprite: Texture2D) -> void:
+	sprite_2d.texture = new_sprite
+	update_offset()
 	
 func reset_atb() -> void:
 	atb = 0.0

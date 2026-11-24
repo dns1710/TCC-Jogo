@@ -28,7 +28,7 @@
 [ext_resource type="Resource" uid="uid://cl046c518vs52" path="res://relics/weapon/hunters_axe.tres" id="21_uufkl"]
 [ext_resource type="Resource" uid="uid://5gcorcnmcrw" path="res://relics/armor/slow.tres" id="pool_slow"]
 [ext_resource type="Resource" uid="uid://dojirvwbp0qjw" path="res://relics/armor/barbarian.tres" id="pool_barbarian"]
-[ext_resource type="Resource" uid="uid://dr46wfbvum0ws" path="res://relics/weapon/icy.tres" id="pool_icy"]
+[ext_resource type="Resource" uid="uid://dr46wfbvum0ws" path="res://relics/weapon/snowballs.tres" id="pool_icy"]
 [ext_resource type="Resource" uid="uid://cqgt7umb3uxo" path="res://relics/trinket/shadow.tres" id="pool_shadow"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8a2h2"]

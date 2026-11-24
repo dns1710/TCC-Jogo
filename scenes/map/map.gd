@@ -30,12 +30,10 @@ var camera_edge_x := 0.0
 var reroll_mode := false
 
 var run_stats: RunStats
-## Rooms already converted in the data whose change animation has not played yet.
+
 var _pending_conversions: Array[Room] = []
 var _playing_conversions := false
 var current_act: Act
-
-#var adaptation_cutscene_active: bool = false
 
 
 func _ready() -> void:

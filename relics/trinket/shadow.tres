@@ -10,7 +10,7 @@ id = "shadow"
 equip = 3
 rarity = 2
 icon = ExtResource("1_u46fr")
-tooltip = "Gotta go fast
+tooltip = "[wave amp=3.0 freq=5.0][color=#ffd04d]gotta go fast[/color][/wave]
 
 +3 speed"
 bonus_spd = 3
