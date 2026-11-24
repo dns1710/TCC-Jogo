@@ -26,6 +26,10 @@
 [ext_resource type="Resource" uid="uid://cq7calabkgq5g" path="res://relics/armor/scout_sash.tres" id="19_t6xji"]
 [ext_resource type="Resource" uid="uid://b04tgm3s73l56" path="res://relics/helmet/scout_scarf.tres" id="20_uufkl"]
 [ext_resource type="Resource" uid="uid://cl046c518vs52" path="res://relics/weapon/hunters_axe.tres" id="21_uufkl"]
+[ext_resource type="Resource" uid="uid://5gcorcnmcrw" path="res://relics/armor/slow.tres" id="pool_slow"]
+[ext_resource type="Resource" uid="uid://dojirvwbp0qjw" path="res://relics/armor/barbarian.tres" id="pool_barbarian"]
+[ext_resource type="Resource" uid="uid://dr46wfbvum0ws" path="res://relics/weapon/icy.tres" id="pool_icy"]
+[ext_resource type="Resource" uid="uid://cqgt7umb3uxo" path="res://relics/trinket/shadow.tres" id="pool_shadow"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8a2h2"]
 font_size = 12
@@ -168,7 +172,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_0dgmn")
-treasure_relic_pool = Array[ExtResource("2_mn6fe")]([ExtResource("3_8auyv"), ExtResource("4_bbvtr"), ExtResource("5_ko1oj"), ExtResource("6_ab3yx"), ExtResource("7_odogb"), ExtResource("8_2i7av"), ExtResource("9_wp70s"), ExtResource("10_2i7av"), ExtResource("11_wp70s"), ExtResource("12_wp70s"), ExtResource("13_50sti"), ExtResource("14_ethah"), ExtResource("15_betos"), ExtResource("16_kt3tj"), ExtResource("17_xln5j"), ExtResource("18_t6xji"), ExtResource("19_t6xji"), ExtResource("20_uufkl"), ExtResource("21_uufkl")])
+treasure_relic_pool = Array[ExtResource("2_mn6fe")]([ExtResource("3_8auyv"), ExtResource("4_bbvtr"), ExtResource("5_ko1oj"), ExtResource("6_ab3yx"), ExtResource("7_odogb"), ExtResource("8_2i7av"), ExtResource("9_wp70s"), ExtResource("10_2i7av"), ExtResource("11_wp70s"), ExtResource("12_wp70s"), ExtResource("13_50sti"), ExtResource("14_ethah"), ExtResource("15_betos"), ExtResource("16_kt3tj"), ExtResource("17_xln5j"), ExtResource("18_t6xji"), ExtResource("19_t6xji"), ExtResource("20_uufkl"), ExtResource("21_uufkl"), ExtResource("pool_slow"), ExtResource("pool_barbarian"), ExtResource("pool_icy"), ExtResource("pool_shadow")])
 
 [node name="Background" type="TextureRect" parent="." unique_id=1895505380]
 layout_mode = 1

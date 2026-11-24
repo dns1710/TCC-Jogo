@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_bs0d6")
-relic_name = "Snow Balls"
+relic_name = "Snowballs"
 id = "icy"
 type = 5
 rarity = 1

@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_vdnxq")
-relic_name = "Barbaridade"
+relic_name = "Barbarian Armor"
 id = "barbarian"
 equip = 2
 rarity = 1

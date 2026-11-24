@@ -9,7 +9,7 @@ relic_name = "Hunter's Axe"
 id = "HuntersAxe"
 type = 5
 rarity = 2
-starter_relic = true
+starter_relic = false
 icon = ExtResource("1_nu5hp")
 tooltip = "1d10 weapon damage
 

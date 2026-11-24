@@ -71,10 +71,7 @@ func _start_new_run() -> void:
 	relic_handler.run_stats = stats
 	relic_handler.character_stats = character
 	
-	var starter_relic := preload("res://relics/helmet/scout_scarf.tres")
-	relic_handler.add_relic(starter_relic,false)
-	relic_handler.equip_relic(starter_relic)
-	
+	# New runs start itemless: the first items come from the first-battle reward.
 	map.run_stats = stats
 	
 	_setup_top_bar()
