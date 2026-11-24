@@ -27,7 +27,7 @@ func is_performable() -> bool:
 
 
 func roll_damage() -> int:
-	var damage := Dice.roll(dice_amount, dice_value, enemy.stats.attack)
+	var damage := roll_attack(dice_amount, dice_value)
 	if pack_tag != "":
 		damage += pack_bonus * _other_pack_members()
 	if bonus_vs_status != "" and target.status_handler._has_status(bonus_vs_status):

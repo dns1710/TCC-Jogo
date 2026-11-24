@@ -11,8 +11,8 @@ type = 2
 equip = 3
 rarity = 3
 icon = ExtResource("1_icon")
-tooltip = "+4 ATTACK, +2 SPEED
+tooltip = "+3 ATTACK, +2 SPEED
 
 You are always BRITTLE. It returns 3 actions after a hit consumes it"
-bonus_atk = 4
+bonus_atk = 3
 bonus_spd = 2

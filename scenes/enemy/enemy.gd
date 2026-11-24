@@ -49,6 +49,8 @@ var block_gain_multiplier := 1.0
 var ignore_block_next_hit := false
 ## Set by Brittle: the next hit rolled with dice gains one extra die of its size.
 var brittle_next_hit := false
+## Extra dice this enemy's attacks roll (set from the act for bosses).
+var extra_attack_dice := 0
 signal damage_received(amount: int, which_modifier: Modifier.Type)
 
 var atb_cooldown: float = 0.0

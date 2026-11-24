@@ -15,22 +15,16 @@ const SHOP_RELIC = preload("res://scenes/shop/shop_relic.tscn")
 @onready var shop_keeper_animation: AnimationPlayer = %ShopkeeperAnimation
 @onready var blink_timer: Timer = %BlinkTimer
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
-@onready var tier = RNG.instance.randi_range(1,3)
+const REWARD_CONFIG: RewardConfig = preload("res://custom_resources/reward_config.tres")
+const ROW_1_MAX := 3
 
 var row_1_range: int
 var row_2_range: int
 
 func _ready() -> void:
-	if tier == 1:
-		row_1_range = 2
-		row_2_range = 1
-	elif tier == 2:
-		row_1_range = 2
-		row_2_range = 2
-	elif tier == 3:
-		row_1_range = 3
-		row_2_range = 2
-		
+	row_1_range = mini(REWARD_CONFIG.shop_relic_count, ROW_1_MAX)
+	row_2_range = maxi(REWARD_CONFIG.shop_relic_count - ROW_1_MAX, 0)
+
 	for shop_card: ShopCard in cards.get_children():
 		shop_card.queue_free()
 		
@@ -128,7 +122,7 @@ func _generate_shop_relics() -> void:
 		else:
 			relics_row_2.add_child(new_shop_relic)
 		new_shop_relic.relic = relic
-		new_shop_relic.gold_cost = _get_updated_shop_cost(new_shop_relic.gold_cost)
+		new_shop_relic.gold_cost = _get_updated_shop_cost(roundi(new_shop_relic.gold_cost * REWARD_CONFIG.shop_price_multiplier))
 		new_shop_relic.update(run_stats)
 
 

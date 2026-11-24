@@ -11,3 +11,11 @@ extends Resource
 ## Optional. Background drawn behind this act's battles; null keeps the forest.
 @export var battle_background: Texture2D
 @export_multiline var transition_text: String = ""
+
+@export_group("Enemy scaling")
+## Multiplier on every enemy's maximum health in this act (rounded up). 1.0 leaves enemies as defined.
+@export var enemy_health_scale := 1.0
+## Flat amount added to every enemy's attack stat in this act (the flat part of its dice rolls).
+@export var enemy_attack_bonus := 0
+## Extra dice that boss attacks roll in this act, of the attack's own die size.
+@export var boss_extra_dice := 0

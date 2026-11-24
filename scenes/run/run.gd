@@ -10,6 +10,7 @@ const WIN_SCREEN_SCENE := preload("res://scenes/win_screen/win_screen.tscn")
 const CHOICE_EVENT_SCENE := preload("res://scenes/event_rooms/choice_event.tscn")
 const ACT_TRANSITION_SCENE := preload("res://scenes/act_transition/act_transition.tscn")
 const MAIN_MENU_PATH := "res://scenes/ui/main_menu.tscn"
+const REWARD_CONFIG: RewardConfig = preload("res://custom_resources/reward_config.tres")
 const ACTS := [
 	preload("res://acts/act_1_forest.tres"),
 	preload("res://acts/act_2_ice.tres"),
@@ -42,6 +43,8 @@ var character: CharacterStats
 var save_data: SaveGame
 var dda := DDA.new()
 var act_index := 0
+## A boss was beaten and its relic choice is on screen; leaving it continues to the act change.
+var _boss_reward_pending := false
 
 #var inventory_open := false
 
@@ -171,7 +174,7 @@ func _connect_ui_signals() -> void:
 
 func _connect_global_signals() -> void:
 	_safe_connect(Events.battle_won, _on_battle_won)
-	_safe_connect(Events.battle_reward_exited, _show_map)
+	_safe_connect(Events.battle_reward_exited, _on_battle_reward_exited)
 	_safe_connect(Events.campfire_exited, _on_campfire_exited)
 	_safe_connect(Events.map_exited, _on_map_exited)
 	_safe_connect(Events.shop_exited, _on_shop_exited)
@@ -264,13 +267,28 @@ func _show_regular_battle_rewards() -> void:
 	reward.run_stats = stats
 	reward.character_stats = character
 	reward.relic_handler = relic_handler
-	reward.add_gold_reward(map.last_room.battle_stats.roll_gold_reward())
-	
-	#var relic_reward := _get_random_relic_reward()
+	var gold: int = map.last_room.battle_stats.roll_gold_reward()
+
 	var tier := map.last_room.battle_stats.battle_tier
-	var relic_reward := _get_random_relic_reward(-1, false, _get_battle_reward_weights(tier))
+	var relic_reward: Relic = null
+	if RewardRules.battle_drops_relic(REWARD_CONFIG, tier, stats):
+		relic_reward = _get_random_relic_reward(-1, false, RewardRules.regular_weights(REWARD_CONFIG, tier))
 	if relic_reward:
+		reward.add_gold_reward(gold)
 		reward.add_relic_reward(relic_reward)
+	else:
+		# No relic this time (or nothing left to give): gold is the consolation.
+		reward.add_gold_reward(RewardRules.miss_gold(REWARD_CONFIG, gold))
+
+
+func _show_boss_rewards() -> void:
+	_boss_reward_pending = true
+	var reward := _change_view(BATTLE_REWARD_SCENE) as BattleReward
+	reward.run_stats = stats
+	reward.character_stats = character
+	reward.relic_handler = relic_handler
+	reward.add_gold_reward(map.last_room.battle_stats.roll_gold_reward())
+	reward.add_relic_choice(_get_boss_relic_choices())
 
 
 func _show_first_battle_reward()-> void:
@@ -295,9 +313,10 @@ func _show_first_battle_reward()-> void:
 func _get_random_relic_reward(
 	required_equip: int = -1,
 	exclude_weapon: bool = false,
-	rarity_weights: Dictionary = {}) -> Relic:
+	rarity_weights: Dictionary = {},
+	excluded: Array[Relic] = []) -> Relic:
 	if rarity_weights.is_empty():
-		rarity_weights = _get_battle_reward_weights(1)
+		rarity_weights = RewardRules.regular_weights(REWARD_CONFIG, 1)
 		#rarity_weights = {
 		#	Relic.Rarity.COMMON:50,
 		#	Relic.Rarity.UNCOMMON: 35,
@@ -316,6 +335,8 @@ func _get_random_relic_reward(
 		if not relic.can_appear_as_reward(character):
 			continue
 		if relic_handler.has_relic(relic.id):
+			continue
+		if excluded.has(relic):
 			continue
 		if required_equip != -1 and relic.equip != required_equip:
 			continue
@@ -344,26 +365,40 @@ func _get_random_relic_reward(
 	return null
 	
 
-func _get_battle_reward_weights(tier: int) -> Dictionary:
-	if tier == 2:
-		return {
-			Relic.Rarity.UNCOMMON: 55,
-			Relic.Rarity.RARE: 35,
-			Relic.Rarity.MYTHIC: 10
-		}
-	return {
-		Relic.Rarity.COMMON: 50,
-		Relic.Rarity.UNCOMMON: 35,
-		Relic.Rarity.RARE: 15
-	}
-	
-	
+## The relics a boss offers: the first is rare or mythic, the rest differ in rarity where the pool allows.
+func _get_boss_relic_choices() -> Array[Relic]:
+	var choices: Array[Relic] = []
+	var used_rarities: Array[int] = []
+	var top := _get_random_relic_reward(-1, false, RewardRules.weights_from(REWARD_CONFIG.boss_top_weights), choices)
+	if top:
+		choices.append(top)
+		used_rarities.append(top.rarity)
+	var order: Array[int] = [Relic.Rarity.UNCOMMON, Relic.Rarity.RARE, Relic.Rarity.MYTHIC, Relic.Rarity.COMMON]
+	while choices.size() < REWARD_CONFIG.boss_choices:
+		var pick: Relic = null
+		for rarity in order:
+			if used_rarities.has(rarity):
+				continue
+			pick = _get_random_relic_reward(-1, false, {rarity: 1}, choices)
+			if pick:
+				break
+		if pick == null:
+			# Every rarity is already shown: fill with anything left.
+			pick = _get_random_relic_reward(-1, false, {Relic.Rarity.COMMON: 1, Relic.Rarity.UNCOMMON: 1, Relic.Rarity.RARE: 1, Relic.Rarity.MYTHIC: 1}, choices)
+		if pick == null:
+			break
+		choices.append(pick)
+		used_rarities.append(pick.rarity)
+	return choices
+
+
 func _on_battle_room_entered(room: Room) -> void:
 	var battle := _change_view(BATTLE_SCENE) as Battle
 	battle.char_stats = character
 	battle.battle_stats = room.battle_stats
 	battle.relics = relic_handler
 	battle.battle_background = ACTS[act_index].battle_background
+	battle.act = ACTS[act_index]
 	battle.start_battle()
 	
 
@@ -475,8 +510,7 @@ func _on_battle_won() -> void:
 
 	if map.floors_climbed == MapGenerator.FLOORS:
 		if act_index < ACTS.size() - 1:
-			var transition := _change_view(ACT_TRANSITION_SCENE) as ActTransition
-			transition.setup(ACTS[act_index], ACTS[act_index + 1])
+			_show_boss_rewards()
 		else:
 			var win_screen := _change_view(WIN_SCREEN_SCENE) as WinScreen
 			win_screen.character = character
@@ -484,6 +518,15 @@ func _on_battle_won() -> void:
 		_show_first_battle_reward()
 	else:
 		_show_regular_battle_rewards()
+
+
+func _on_battle_reward_exited() -> void:
+	if _boss_reward_pending:
+		_boss_reward_pending = false
+		var transition := _change_view(ACT_TRANSITION_SCENE) as ActTransition
+		transition.setup(ACTS[act_index], ACTS[act_index + 1])
+		return
+	_show_map()
 
 func _on_map_exited(room: Room) -> void:
 	_prepare_battle(room)

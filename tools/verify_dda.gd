@@ -27,6 +27,7 @@ func _ready() -> void:
 	Events.animation_dda_lock.connect(func(value: bool): _lock_events.append(value))
 
 	_check_config()
+	_check_relic_scoring()
 	await _check_score()
 	_check_score_tables()
 	_check_decisions()
@@ -76,6 +77,26 @@ func _check_config() -> void:
 	_expect(c.shop_swap_score == 55 and c.broke_gold == 90 and c.broke_very_low_score == 15, "default shop thresholds")
 	_expect(c.relic_rarity_scores == PackedInt32Array([1, 3, 5, 8]), "default relic scores")
 	_expect(RunStats.new().dda_score == 50, "score starts at 50")
+	var rewards: RewardConfig = load("res://custom_resources/reward_config.tres")
+	_expect(c.shop_all_bought_items == rewards.shop_relic_count,
+		"'bought everything on offer' (%d) must equal the shop's relic count (%d)" % [c.shop_all_bought_items, rewards.shop_relic_count])
+
+
+func _check_relic_scoring() -> void:
+	var rs := RunStats.new()
+	var handler := (load("res://scenes/relic_handler/relic_handler.tscn") as PackedScene).instantiate() as RelicHandler
+	handler.run_stats = rs
+	var rare := load("res://relics/weapon/cinderbrand.tres") as Relic
+	var before := rs.dda_score
+	handler.add_relic(rare)
+	var gained: int = rs.dda_score - before
+	_expect(gained == dda.relic_score(rare.rarity), "picking up a relic adds its rarity score, got %d" % gained)
+	var after_pick := rs.dda_score
+	var count_before := handler.get_all_relics().size()
+	handler.consume_relic(rare)
+	_expect(rs.dda_score == after_pick, "consuming a relic keeps the score earned for it")
+	_expect(handler.get_all_relics().size() == count_before - 1, "held-relic checks use the live count after consumption")
+	handler.free()
 
 
 # ---------------------------------------------------------------- one score function
@@ -162,8 +183,8 @@ func _check_decisions() -> void:
 		["campfire lo, arrived healthy", dda.decide_after_campfire(25, 0.6), "EVENT->CAMPFIRE"],
 		["campfire lo, arrived hurt", dda.decide_after_campfire(25, 0.4), "MONSTER->CAMPFIRE"],
 		["campfire mid", dda.decide_after_campfire(50, 0.4), ""],
-		["shop bought all, loaded", dda.decide_after_shop(60, 9, 6, 10, fresh), "SHOP->MONSTER*"],
-		["shop bought some", dda.decide_after_shop(60, 8, 6, 10, fresh), ""],
+		["shop bought all, loaded", dda.decide_after_shop(60, 8, 6, 10, fresh), "SHOP->MONSTER*"],
+		["shop bought some", dda.decide_after_shop(60, 7, 6, 10, fresh), ""],
 		["shop broke, very low", dda.decide_after_shop(10, 6, 6, 50, fresh), "MONSTER->TREASURE*"],
 		["shop broke, low", dda.decide_after_shop(30, 6, 6, 50, fresh), "EVENT->TREASURE*"],
 		["shop broke, ok score", dda.decide_after_shop(40, 6, 6, 50, fresh), ""],
