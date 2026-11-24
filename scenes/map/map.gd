@@ -252,8 +252,6 @@ func _update_reroll_visuals() -> void:
 func _is_protected_floor(row: int) -> bool:
 	return (
 		row == 0
-		or row == MapGenerator.FLOORS_PER_REGION - 1
-		or row == MapGenerator.FLOORS_PER_REGION
 		or row == MapGenerator.FLOORS - 1
 	)
 
