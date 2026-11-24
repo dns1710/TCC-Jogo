@@ -45,6 +45,9 @@
 [ext_resource type="PackedScene" uid="uid://hotalxr27hiu" path="res://scenes/ui/hover_tooltip.tscn" id="33_x5y4b"]
 [ext_resource type="Resource" uid="uid://cod8vq41wqtrm" path="res://relics/armor/red_mantle.tres" id="34_ev4fb"]
 [ext_resource type="Resource" uid="uid://bn37c523s1iao" path="res://relics/weapon/lighter.tres" id="35_ik8qf"]
+[ext_resource type="Resource" uid="uid://cq7calabkgq5g" path="res://relics/armor/scout_sash.tres" id="36_rxc36"]
+[ext_resource type="Resource" uid="uid://b04tgm3s73l56" path="res://relics/helmet/scout_scarf.tres" id="37_omd4m"]
+[ext_resource type="Resource" uid="uid://cl046c518vs52" path="res://relics/weapon/hunters_axe.tres" id="38_omd4m"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_68deg"]
 
@@ -52,7 +55,7 @@
 script = ExtResource("1_bedv1")
 run_startup = ExtResource("2_wgfut")
 music = ExtResource("3_yeia0")
-battle_relic_pool = Array[ExtResource("4_x53nd")]([ExtResource("5_6w2u5"), ExtResource("6_tbe7a"), ExtResource("7_a0b37"), ExtResource("8_2foro"), ExtResource("9_l4vn1"), ExtResource("10_ctna3"), ExtResource("11_axhcw"), ExtResource("12_dfo0u"), ExtResource("5_l6p45"), ExtResource("14_n0yky"), ExtResource("15_yey0w"), ExtResource("16_ev4fb"), ExtResource("17_ik8qf"), ExtResource("18_rxc36"), ExtResource("19_omd4m"), ExtResource("5_x53nd"), ExtResource("21_82xe7"), ExtResource("22_yj3lc"), ExtResource("23_4aki2"), ExtResource("24_8fhq7"), ExtResource("25_x3nam"), ExtResource("26_tbe7a"), ExtResource("27_2foro"), ExtResource("28_l4vn1"), ExtResource("29_l4vn1"), ExtResource("30_axhcw"), ExtResource("31_dfo0u"), ExtResource("32_dfo0u"), ExtResource("33_n0yky"), ExtResource("34_ev4fb"), ExtResource("35_ik8qf")])
+battle_relic_pool = Array[ExtResource("4_x53nd")]([ExtResource("5_6w2u5"), ExtResource("6_tbe7a"), ExtResource("7_a0b37"), ExtResource("8_2foro"), ExtResource("9_l4vn1"), ExtResource("10_ctna3"), ExtResource("11_axhcw"), ExtResource("12_dfo0u"), ExtResource("5_l6p45"), ExtResource("14_n0yky"), ExtResource("15_yey0w"), ExtResource("16_ev4fb"), ExtResource("17_ik8qf"), ExtResource("18_rxc36"), ExtResource("19_omd4m"), ExtResource("5_x53nd"), ExtResource("21_82xe7"), ExtResource("22_yj3lc"), ExtResource("23_4aki2"), ExtResource("24_8fhq7"), ExtResource("25_x3nam"), ExtResource("26_tbe7a"), ExtResource("27_2foro"), ExtResource("28_l4vn1"), ExtResource("29_l4vn1"), ExtResource("30_axhcw"), ExtResource("31_dfo0u"), ExtResource("32_dfo0u"), ExtResource("33_n0yky"), ExtResource("34_ev4fb"), ExtResource("35_ik8qf"), ExtResource("36_rxc36"), ExtResource("37_omd4m"), ExtResource("38_omd4m")])
 
 [node name="Map" parent="." unique_id=1692311060 instance=ExtResource("1_7xwwf")]
 

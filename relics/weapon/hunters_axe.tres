@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Sadistic" format=3 uid="uid://cl046c518vs52"]
+
+[ext_resource type="Texture2D" uid="uid://byf13pl3yhh2d" path="res://art/verdadeira arte/items/hunters_axe.png" id="1_nu5hp"]
+[ext_resource type="Script" uid="uid://bute6kc20uydc" path="res://relics/weapon/hunters_axe.gd" id="2_nu5hp"]
+
+[resource]
+script = ExtResource("2_nu5hp")
+relic_name = "Hunter's Axe"
+id = "HuntersAxe"
+type = 5
+rarity = 2
+starter_relic = true
+icon = ExtResource("1_nu5hp")
+tooltip = "1d10 weapon damage
+
+When an enemy dies, gain 1 ATTACK UP"
+weapon_dice_attack = 10
+weapon_dice_amount = 1
+metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

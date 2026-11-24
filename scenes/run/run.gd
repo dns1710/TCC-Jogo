@@ -67,7 +67,7 @@ func _start_new_run() -> void:
 	relic_handler.run_stats = stats
 	relic_handler.character_stats = character
 	
-	var starter_relic := preload("res://relics/armor/slow.tres")
+	var starter_relic := preload("res://relics/helmet/scout_scarf.tres")
 	relic_handler.add_relic(starter_relic,false)
 	relic_handler.equip_relic(starter_relic)
 	

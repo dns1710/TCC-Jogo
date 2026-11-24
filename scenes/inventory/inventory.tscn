@@ -62,21 +62,21 @@ custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 icon = ExtResource("3_tvok8")
 
-[node name="TrinketSlot1" type="Button" parent="EquipSlotsVBox/MainSlots" unique_id=484292632]
+[node name="ArmorSlot" type="Button" parent="EquipSlotsVBox/MainSlots" unique_id=1737863131]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
-icon = ExtResource("2_4axmw")
+icon = ExtResource("3_el5y6")
 
 [node name="TrinketSlots" type="HBoxContainer" parent="EquipSlotsVBox" unique_id=281994280]
 layout_mode = 2
 alignment = 1
 
-[node name="ArmorSlot" type="Button" parent="EquipSlotsVBox/TrinketSlots" unique_id=1737863131]
+[node name="TrinketSlot1" type="Button" parent="EquipSlotsVBox/TrinketSlots" unique_id=484292632]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
-icon = ExtResource("3_el5y6")
+icon = ExtResource("2_4axmw")
 
 [node name="TrinketSlot2" type="Button" parent="EquipSlotsVBox/TrinketSlots" unique_id=663266950]
 unique_name_in_owner = true
