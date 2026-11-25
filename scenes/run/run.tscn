@@ -92,9 +92,9 @@ battle_relic_pool = Array[ExtResource("4_x53nd")]([ExtResource("5_6w2u5"), ExtRe
 
 [node name="RerollButton" type="Button" parent="Map/Reroll" unique_id=1161378671]
 offset_left = 217.0
-offset_top = 119.0
+offset_top = 112.0
 offset_right = 245.0
-offset_bottom = 131.0
+offset_bottom = 124.0
 script = ExtResource("4_cnkn7")
 
 [node name="CurrentView" type="Node" parent="." unique_id=878995358]

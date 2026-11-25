@@ -9,6 +9,8 @@ const LINES: ScoutmasterLines = preload("res://scenes/narrative/scoutmaster_line
 const PREFIX := "SCOUTMASTER: "
 const FADE := 0.25
 const HOLD := 3.0
+## Pixels between the remark and the bottom edge of the 256x144 viewport.
+const BOTTOM_MARGIN := 4
 
 enum Pending {NONE, HARDER, EASIER}
 
@@ -26,9 +28,15 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_panel = PanelContainer.new()
 	_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_panel.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	# Bottom of the screen: the top holds the inventory and relic bar.
+	_panel.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
 	_panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	_panel.offset_top = 4
+	_panel.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	_panel.offset_bottom = -BOTTOM_MARGIN
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.0, 0.0, 0.0, 0.65)
+	style.set_content_margin_all(3)
+	_panel.add_theme_stylebox_override("panel", style)
 	_label = Label.new()
 	_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
