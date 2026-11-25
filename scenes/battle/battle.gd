@@ -5,6 +5,8 @@ extends Node2D
 @export var char_stats: CharacterStats
 ## Set by the run from the current act; null keeps the forest background.
 @export var battle_background: Texture2D
+## The act being fought in; its scaling applies to the enemies. Null leaves them as defined.
+@export var act: Act
 @export var music: AudioStream
 @export var map_music: AudioStream
 @export var relics: RelicHandler 
@@ -44,6 +46,7 @@ func start_battle() -> void:
 	char_stats.reset_stats()
 	player.stats = char_stats 
 	player_handler.relics = relics 
+	enemy_handler.act = act
 	enemy_handler.setup_enemies(battle_stats)
 	relics.relics_activated.connect(_on_relics_activated) 
 	relics.activate_relics_by_type(Relic.Type.START_OF_COMBAT)

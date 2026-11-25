@@ -11,6 +11,8 @@ const SLOT_TOLERANCE := 12.0
 const FIZZLE_FALLBACK := 6.0
 
 var acting_enemies: Array[Enemy] = []
+## The act whose scaling applies to enemies spawned here (null = enemies as defined).
+var act: Act
 
 
 func _ready() -> void:
@@ -32,6 +34,7 @@ func setup_enemies(battle_stats: BattleStats) -> void:
 		var new_enemy_child := new_enemy.duplicate() as Enemy
 		by_name[new_enemy.name] = new_enemy_child
 		add_child(new_enemy_child)
+		EnemyScaling.apply(new_enemy_child, act)
 		new_enemy_child.home_position = new_enemy_child.position
 
 		new_enemy_child.status_handler.statuses_applied.connect(
@@ -80,6 +83,7 @@ func spawn_enemy(stats: EnemyStats, summoner: Node = null) -> Enemy:
 	enemy.position = SLOTS[slot_index]
 	enemy.home_position = SLOTS[slot_index]
 	add_child(enemy)
+	EnemyScaling.apply(enemy, act)
 	enemy.reset_atb()
 	enemy.status_handler.statuses_applied.connect(_on_enemy_statuses_applied.bind(enemy))
 

@@ -8,6 +8,7 @@
 script = ExtResource("1_mol81")
 ai = ExtResource("1_idh5q")
 max_health = 40
+is_boss = true
 max_attack = 3
 max_speed = 4
 art = ExtResource("1_e72ft")

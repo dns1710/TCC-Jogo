@@ -27,10 +27,13 @@ func _ready() -> void:
 	Events.animation_dda_lock.connect(func(value: bool): _lock_events.append(value))
 
 	_check_config()
+	_check_relic_scoring()
 	await _check_score()
 	_check_score_tables()
 	_check_decisions()
+	_check_shop_size()
 	_check_flags()
+	_check_weak_help_and_limits()
 	_check_state_and_saves()
 	await _check_run()
 
@@ -73,9 +76,29 @@ func _check_config() -> void:
 	var c := dda.config
 	_expect(c.tier2_upgrade_score == 75 and c.battle_high_score == 65 and c.battle_low_score == 35, "default battle thresholds")
 	_expect(c.campfire_high_score == 70 and c.campfire_low_score == 30, "default campfire thresholds")
-	_expect(c.shop_swap_score == 55 and c.broke_gold == 90 and c.broke_very_low_score == 15, "default shop thresholds")
+	_expect(c.shop_swap_score == 55 and c.broke_gold == 45 and c.broke_very_low_score == 15, "default shop thresholds")
 	_expect(c.relic_rarity_scores == PackedInt32Array([1, 3, 5, 8]), "default relic scores")
 	_expect(RunStats.new().dda_score == 50, "score starts at 50")
+	_expect(c.battle_low_gold == 75, "the low-gold shop offer follows the halved economy")
+	_expect(c.shop_size_min == 3 and c.shop_size_weights_high.size() == 3 and c.shop_size_weights_mid.size() == 3 and c.shop_size_weights_low.size() == 3,
+		"shop size is rolled over 3 sizes starting at 3")
+
+
+func _check_relic_scoring() -> void:
+	var rs := RunStats.new()
+	var handler := (load("res://scenes/relic_handler/relic_handler.tscn") as PackedScene).instantiate() as RelicHandler
+	handler.run_stats = rs
+	var rare := load("res://relics/weapon/cinderbrand.tres") as Relic
+	var before := rs.dda_score
+	handler.add_relic(rare)
+	var gained: int = rs.dda_score - before
+	_expect(gained == dda.relic_score(rare.rarity), "picking up a relic adds its rarity score, got %d" % gained)
+	var after_pick := rs.dda_score
+	var count_before := handler.get_all_relics().size()
+	handler.consume_relic(rare)
+	_expect(rs.dda_score == after_pick, "consuming a relic keeps the score earned for it")
+	_expect(handler.get_all_relics().size() == count_before - 1, "held-relic checks use the live count after consumption")
+	handler.free()
 
 
 # ---------------------------------------------------------------- one score function
@@ -142,10 +165,36 @@ func _check_score_tables() -> void:
 
 # ---------------------------------------------------------------- decision tables
 
+func _check_shop_size() -> void:
+	# Weights lean small for a strong run, middle for an average one, large for a struggling one.
+	var cases := [["strong", 80, 3], ["average", 50, 4], ["struggling", 20, 5]]
+	for case in cases:
+		var counts := {3: 0, 4: 0, 5: 0}
+		RNG.instance.seed = 777
+		for i in 3000:
+			counts[dda.shop_stock_size(case[1])] += 1
+		var best := 3
+		for size in counts:
+			if counts[size] > counts[best]:
+				best = size
+		_expect(best == case[2], "a %s run (score %d) most often gets a %d-relic shop, counts %s" % [case[0], case[1], case[2], counts])
+		_expect(counts[3] + counts[4] + counts[5] == 3000, "shop size is always 3 to 5")
+	# Explicit rolls land in the matching bucket (1..sum of weights).
+	_expect(dda.shop_stock_size(80, 1) == 3 and dda.shop_stock_size(80, 100) == 5, "high score: first roll gives 3, last gives 5")
+	_expect(dda.shop_stock_size(20, 1) == 3 and dda.shop_stock_size(20, 100) == 5, "low score: first roll gives 3, last gives 5")
+	_expect(dda.shop_stock_size(65, 100) == 5 and dda.shop_stock_size(36, 25) == 3 and dda.shop_stock_size(36, 26) == 4, "thresholds are inclusive, the middle bucket sits between them")
+
+
 func _check_decisions() -> void:
 	var fresh := DDAState.new()
 	var used := DDAState.new()
 	used.shop_changed = true
+	var two_offered := DDAState.new()
+	two_offered.shop_offered_items = 2
+	var three_offered := DDAState.new()
+	three_offered.shop_offered_items = 3
+	var five_offered := DDAState.new()
+	five_offered.shop_offered_items = 5
 
 	# After a battle (score, hp, relics, gold, state) -> conversions
 	var cases := [
@@ -154,20 +203,25 @@ func _check_decisions() -> void:
 		["battle hi, relics, flag free", dda.decide_after_battle(70, 0.8, 6, 50, fresh), "SHOP->MONSTER*"],
 		["battle hi, relics, flag used", dda.decide_after_battle(70, 0.8, 6, 50, used), "CAMPFIRE->MONSTER"],
 		["battle lo, rich", dda.decide_after_battle(30, 0.8, 3, 200, fresh), "MONSTER->SHOP"],
-		["battle lo, poor", dda.decide_after_battle(30, 0.8, 3, 100, fresh), "MONSTER->CAMPFIRE"],
-		["battle lo, rich but hurt", dda.decide_after_battle(30, 0.4, 3, 200, fresh), "MONSTER->CAMPFIRE"],
-		["battle mid", dda.decide_after_battle(50, 0.8, 9, 500, fresh), ""],
+		["battle lo, poor", dda.decide_after_battle(30, 0.8, 3, 50, fresh), "MONSTER->CAMPFIRE"],
+		["battle lo, rich but hurt", dda.decide_after_battle(30, 0.4, 3, 200, fresh), "MONSTER->CAMPFIRE,MONSTER->SHOP$"],
+		["battle mid, hoarding gold", dda.decide_after_battle(50, 0.8, 9, 500, fresh), "MONSTER->SHOP$"],
+		["battle mid, modest gold", dda.decide_after_battle(50, 0.8, 9, 150, fresh), ""],
 		["campfire hi, arrived healthy", dda.decide_after_campfire(75, 0.6), "CAMPFIRE->MONSTER"],
 		["campfire hi, arrived hurt", dda.decide_after_campfire(75, 0.4), "EVENT->MONSTER"],
 		["campfire lo, arrived healthy", dda.decide_after_campfire(25, 0.6), "EVENT->CAMPFIRE"],
 		["campfire lo, arrived hurt", dda.decide_after_campfire(25, 0.4), "MONSTER->CAMPFIRE"],
 		["campfire mid", dda.decide_after_campfire(50, 0.4), ""],
-		["shop bought all, loaded", dda.decide_after_shop(60, 9, 6, 10, fresh), "SHOP->MONSTER*"],
-		["shop bought some", dda.decide_after_shop(60, 8, 6, 10, fresh), ""],
-		["shop broke, very low", dda.decide_after_shop(10, 6, 6, 50, fresh), "MONSTER->TREASURE*"],
-		["shop broke, low", dda.decide_after_shop(30, 6, 6, 50, fresh), "EVENT->TREASURE*"],
-		["shop broke, ok score", dda.decide_after_shop(40, 6, 6, 50, fresh), ""],
-		["shop with flag used", dda.decide_after_shop(10, 6, 6, 50, used), ""],
+		["shop bought all (2 of 2), loaded", dda.decide_after_shop(60, 8, 6, 10, two_offered), "SHOP->MONSTER*"],
+		["shop bought all (3 of 3), loaded", dda.decide_after_shop(60, 9, 6, 10, three_offered), "SHOP->MONSTER*"],
+		["shop bought 3 of 5", dda.decide_after_shop(60, 9, 6, 10, five_offered), ""],
+		["shop bought 5 of 5, loaded", dda.decide_after_shop(60, 11, 6, 10, five_offered), "SHOP->MONSTER*"],
+		["shop bought some", dda.decide_after_shop(60, 7, 6, 10, two_offered), ""],
+		["shop size not recorded", dda.decide_after_shop(60, 8, 6, 10, fresh), ""],
+		["shop broke, very low", dda.decide_after_shop(10, 6, 6, 30, fresh), "MONSTER->TREASURE*"],
+		["shop broke, low", dda.decide_after_shop(30, 6, 6, 30, fresh), "EVENT->TREASURE*"],
+		["shop broke, ok score", dda.decide_after_shop(40, 6, 6, 30, fresh), ""],
+		["shop with flag used", dda.decide_after_shop(10, 6, 6, 30, used), ""],
 		["treasure, relics grew", dda.decide_after_treasure(60, 0.8, 5, 4, fresh), "SHOP->MONSTER*"],
 		["treasure hi, healthy", dda.decide_after_treasure(75, 0.6, 3, 3, fresh), "CAMPFIRE->MONSTER"],
 		["treasure hi, exactly half", dda.decide_after_treasure(75, 0.5, 3, 3, fresh), "EVENT->MONSTER"],
@@ -205,6 +259,92 @@ func _check_flags() -> void:
 	dda.execute(plain, stub, plain_state)
 	_expect(not plain_state.shop_changed, "conversions without the flag never touch it")
 	stub.free()
+
+
+# ---------------------------------------------------------------- weak help and limits
+
+func _check_weak_help_and_limits() -> void:
+	# Weak-run help.
+	_expect(dda.should_downgrade_to_tier0(35) and not dda.should_downgrade_to_tier0(36), "tier-0 downgrade at 35 and below")
+	_expect(not (dda.should_upgrade_to_tier2(35) and dda.should_downgrade_to_tier0(35)), "upgrade and downgrade never both apply")
+	_expect(is_equal_approx(dda.campfire_bonus_heal(30), dda.config.campfire_weak_heal_share) and dda.campfire_bonus_heal(31) == 0.0, "campfire bonus heal at 30 and below")
+	# A weak rest at 40 max health heals 18, an average one 12.
+	_expect(ceili(40 * (0.3 + dda.campfire_bonus_heal(25))) == 18 and ceili(40 * (0.3 + dda.campfire_bonus_heal(50))) == 12, "weak rest heals 18, average rest 12")
+
+	var fresh := DDAState.new()
+	# Hoarded gold: a shop swap once per act, only with no shop ahead, never doubled with the weak swap.
+	_expect(_names(dda.decide_after_battle(50, 0.8, 3, 250, fresh, false)) == "MONSTER->SHOP$", "250 gold and no shop ahead swaps a battle for a shop")
+	_expect(_names(dda.decide_after_battle(50, 0.8, 3, 250, fresh, true)) == "", "a shop already ahead blocks the hoard swap")
+	var hoard_used := DDAState.new()
+	hoard_used.hoard_shop_used = true
+	_expect(_names(dda.decide_after_battle(50, 0.8, 3, 250, hoard_used, false)) == "", "the hoard swap is once per act")
+	_expect(_names(dda.decide_after_battle(30, 0.8, 3, 250, fresh, false)) == "MONSTER->SHOP", "a weak rich run gets one shop swap, not two")
+	_expect(_names(dda.decide_after_battle(70, 0.8, 7, 250, fresh, false)) == "CAMPFIRE->MONSTER,MONSTER->SHOP$", "a rich strong run keeps its shop instead of losing it")
+
+	# Emergency campfire: once per run, not doubled with the weak swap.
+	_expect(_names(dda.decide_after_battle(50, 0.15, 3, 50, fresh)) == "MONSTER->CAMPFIRE!", "15% health swaps a battle for a campfire")
+	_expect(_names(dda.decide_after_battle(50, 0.3, 3, 50, fresh)) == "", "30% health is not an emergency")
+	var emergency_used := DDAState.new()
+	emergency_used.emergency_campfire_used = true
+	_expect(_names(dda.decide_after_battle(50, 0.1, 3, 50, emergency_used)) == "", "the emergency campfire is once per run")
+	_expect(_names(dda.decide_after_battle(30, 0.15, 3, 50, fresh)) == "MONSTER->CAMPFIRE", "a weak run at 15% health loses one battle to a campfire, not two")
+
+	# Budget: after the configured number of conversions into battles, strong scores add none.
+	var full := DDAState.new()
+	full.battle_conversions = dda.config.max_battle_conversions_per_act
+	_expect(dda.battle_budget(full) == 0 and dda.battle_budget(fresh) == dda.config.max_battle_conversions_per_act, "budget counts down to zero")
+	_expect(_names(dda.decide_after_battle(80, 0.8, 9, 50, full)) == "", "no battle conversion after a battle once the budget is spent")
+	_expect(_names(dda.decide_after_campfire(80, 0.8, full)) == "", "no battle conversion after a campfire once the budget is spent")
+	_expect(_names(dda.decide_after_treasure(80, 0.8, 9, 3, full)) == "", "no battle conversion after a treasure room once the budget is spent")
+	var bought_all := DDAState.new()
+	bought_all.shop_offered_items = 2
+	bought_all.battle_conversions = dda.config.max_battle_conversions_per_act
+	_expect(_names(dda.decide_after_shop(60, 8, 6, 10, bought_all)) == "", "no shop-to-battle swap once the budget is spent")
+	_expect(_names(dda.decide_after_battle(80, 0.8, 9, 50, fresh)) != "", "a fresh act still converts")
+	# Help for the weak still works with the budget spent.
+	_expect(_names(dda.decide_after_battle(30, 0.8, 3, 50, full)) == "MONSTER->CAMPFIRE", "weak-run help ignores the battle budget")
+
+	# execute: counts rooms really turned into battles, sets flags only after a real change.
+	var stub_script := GDScript.new()
+	stub_script.source_code = "extends Node\nvar result: Array = []\nfunc convert_rooms(_a, _b, _c = 1):\n\treturn result\n"
+	stub_script.reload()
+	var stub := Node.new()
+	stub.set_script(stub_script)
+	var state := DDAState.new()
+	var to_battle: Array[DDAConversion] = [DDAConversion.make(CF, M), DDAConversion.make(EV, M)]
+	stub.result = []
+	dda.execute(to_battle, stub, state)
+	_expect(state.battle_conversions == 0, "nothing changed means nothing counted")
+	stub.result = [Room.new()]
+	dda.execute(to_battle, stub, state)
+	_expect(state.battle_conversions == 2, "two rooms turned into battles are counted, got %d" % state.battle_conversions)
+	var hoard := DDAConversion.make(M, S)
+	hoard.uses_hoard_flag = true
+	var emergency := DDAConversion.make(M, CF)
+	emergency.uses_emergency_flag = true
+	var flagged: Array[DDAConversion] = [hoard, emergency]
+	stub.result = []
+	dda.execute(flagged, stub, state)
+	_expect(not state.hoard_shop_used and not state.emergency_campfire_used, "flags stay free when nothing converted")
+	stub.result = [Room.new()]
+	dda.execute(flagged, stub, state)
+	_expect(state.hoard_shop_used and state.emergency_campfire_used, "flags are used after a real conversion")
+	_expect(state.battle_conversions == 2, "swaps that are not into battles are not counted")
+	state.reset_for_act()
+	_expect(state.battle_conversions == 0 and not state.hoard_shop_used and state.emergency_campfire_used, "a new act resets the count and the hoard swap but not the emergency campfire")
+	stub.free()
+
+	# Saving keeps the new fields.
+	var rs := RunStats.new()
+	rs.dda_state.battle_conversions = 2
+	rs.dda_state.hoard_shop_used = true
+	rs.dda_state.emergency_campfire_used = true
+	var path := "user://dda_check_limits.tres"
+	ResourceSaver.save(rs, path)
+	var loaded := ResourceLoader.load(path, "", ResourceLoader.CACHE_MODE_IGNORE) as RunStats
+	_expect(loaded != null and loaded.dda_state.battle_conversions == 2 and loaded.dda_state.hoard_shop_used and loaded.dda_state.emergency_campfire_used, "the new flags survive saving")
+	_expect(DDAState.new().battle_conversions == 0 and not DDAState.new().emergency_campfire_used, "an older save starts with nothing used")
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
 
 
 # ---------------------------------------------------------------- state, reset, saves
@@ -280,6 +420,27 @@ func _check_run() -> void:
 	await _frames(2)
 	_expect(run.stats.dda_score == 45, "resting and leaving does not change the score again")
 
+	# --- the campfire before the boss is fixed: difficulty conversion never touches it
+	run.map.hide_map()
+	var pre_boss_floor := MapGenerator.FLOORS - 2
+	var approach: Room = null
+	for room: Room in run.map.map_data[pre_boss_floor - 1]:
+		if room.active and not room.next_rooms.is_empty():
+			approach = room
+			break
+	_expect(approach != null, "found a room right before the pre-boss campfires")
+	if approach:
+		run.map.last_room = approach
+		run.map.floors_climbed = pre_boss_floor
+		var reachable_fire := 0
+		for room: Room in run.map.get_reachable_rooms():
+			reachable_fire += 1 if room.row == pre_boss_floor and room.type == Room.Type.CAMPFIRE else 0
+		_expect(reachable_fire > 0, "a pre-boss campfire is reachable for the check")
+		var swapped := run.map.convert_rooms(Room.Type.CAMPFIRE, Room.Type.MONSTER, 3)
+		_expect(swapped.is_empty(), "CAMPFIRE->MONSTER skips the pre-boss campfires, got %d rooms" % swapped.size())
+		for room: Room in run.map.map_data[pre_boss_floor]:
+			_expect(not room.active or room.type == Room.Type.CAMPFIRE, "pre-boss room stays a campfire")
+
 	# --- map: conversions change data at once and animate later
 	run.map.hide_map()
 	run.map.last_room = run.map.map_data[0][MapGenerator.MAP_WIDTH / 2]
@@ -322,7 +483,7 @@ func _check_run() -> void:
 		event_room.type = Room.Type.EVENT
 		event_room.original_type = Room.Type.EVENT
 	run.stats.dda_score = 30
-	run.stats.gold = 50
+	run.stats.gold = 30
 	run.stats.dda_state.shop_changed = false
 	run.stats.dda_state.shop_entered_items = run.relic_handler.get_all_relics().size()
 	var map_treasure_before := _count_type(run.map.map_data, T)
@@ -346,5 +507,31 @@ func _check_run() -> void:
 	await _frames(2)
 	_expect(not run.stats.dda_state.shop_changed, "a new act resets the DDA flags")
 	_expect(run.stats.dda_score == 61, "a new act keeps the score")
+
+	# --- weak runs face tier-0 battles, average ones tier 1, strong ones tier 2 (real run and pool)
+	var tier1_stats: BattleStats = run.map.get_battle_pool().get_random_battle_for_tier(1)
+	for case in [[30, 0], [50, 1], [80, 2]]:
+		run.stats.dda_score = case[0]
+		var battle_room := Room.new()
+		battle_room.type = Room.Type.MONSTER
+		battle_room.battle_stats = tier1_stats
+		run._prepare_battle(battle_room)
+		_expect(battle_room.battle_stats.battle_tier == case[1], "score %d plays a tier-%d battle, got tier %d" % [case[0], case[1], battle_room.battle_stats.battle_tier])
+
+	# --- a weak rest heals 45% of max health, an average one 30%
+	for case in [[20, 18], [60, 12]]:
+		run.character.max_health = 40
+		run.character.health = 5
+		run.stats.dda_score = case[0]
+		run._on_campfire_entered()
+		await _frames(2)
+		var rest_view := run.current_view.get_child(0) as Campfire
+		_expect(rest_view != null, "the campfire opened")
+		if rest_view:
+			var before := run.character.health
+			rest_view._on_rest_button_pressed()
+			_expect(run.character.health - before == case[1], "a rest at score %d heals %d, healed %d" % [case[0], case[1], run.character.health - before])
+			rest_view.queue_free()
+		await _frames(2)
 
 	run.queue_free()

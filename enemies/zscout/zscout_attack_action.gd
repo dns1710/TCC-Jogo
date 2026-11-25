@@ -7,7 +7,7 @@ func perform_action() -> void:
 	if not enemy or not target:
 		return
 	
-	var damage = Dice.roll(dice_amount, dice_value, enemy.stats.attack)
+	var damage = roll_attack(dice_amount, dice_value)
 	
 	var tween := create_tween().set_trans(Tween.TRANS_QUINT)
 	var start := enemy.global_position

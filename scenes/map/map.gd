@@ -284,6 +284,11 @@ func _is_protected_floor(row: int) -> bool:
 	)
 
 
+## The floor of campfires right before the boss.
+func _is_pre_boss_campfire_floor(row: int) -> bool:
+	return row == MapGenerator.FLOORS - 2
+
+
 func _reroll_room(room: Room) -> bool:
 	if run_stats == null:
 		return false
@@ -371,6 +376,10 @@ func convert_rooms(original_type: Room.Type, new_type: Room.Type, amount: int = 
 				continue
 
 			if _is_protected_floor(room.row):
+				continue
+
+			# The campfire before the boss is fixed: difficulty adjustment never converts it.
+			if _is_pre_boss_campfire_floor(room.row):
 				continue
 
 			candidates.append(room)

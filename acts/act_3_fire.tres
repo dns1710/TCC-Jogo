@@ -13,3 +13,6 @@ battle_stats_pool = ExtResource("2_battles")
 event_room_pool = ExtResource("3_events")
 battle_background = ExtResource("4_bg")
 transition_text = "The fire dies down. The journey ends here."
+enemy_health_scale = 1.5
+enemy_attack_bonus = 2
+boss_extra_dice = 1

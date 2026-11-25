@@ -13,6 +13,8 @@ const BASE_RARE_WEIGHT := 0.3
 @export var gold := STARTING_GOLD : set = set_gold
 
 @export var rerolls := STARTING_REROLLS
+## Regular battles in a row that dropped no relic (the pity counter of reward-drop-rates).
+@export var relic_drop_misses := 0
 ## Events already seen in the current act (resource paths); reset each act.
 @export var seen_events: Array[String] = []
 

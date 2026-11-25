@@ -15,22 +15,15 @@ const SHOP_RELIC = preload("res://scenes/shop/shop_relic.tscn")
 @onready var shop_keeper_animation: AnimationPlayer = %ShopkeeperAnimation
 @onready var blink_timer: Timer = %BlinkTimer
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
-@onready var tier = RNG.instance.randi_range(1,3)
+const REWARD_CONFIG: RewardConfig = preload("res://custom_resources/reward_config.tres")
+const ROW_1_MAX := 3
+## Row 1 / row 2 split for a stock of 3, 4 and 5 relics.
+const ROW_SPLIT := {3: [2, 1], 4: [2, 2], 5: [3, 2]}
 
 var row_1_range: int
 var row_2_range: int
 
 func _ready() -> void:
-	if tier == 1:
-		row_1_range = 2
-		row_2_range = 1
-	elif tier == 2:
-		row_1_range = 2
-		row_2_range = 2
-	elif tier == 3:
-		row_1_range = 3
-		row_2_range = 2
-		
 	for shop_card: ShopCard in cards.get_children():
 		shop_card.queue_free()
 		
@@ -84,13 +77,12 @@ func _generate_shop_relics() -> void:
 			continue
 		available_relics[relic.rarity].append(relic)
 	
-	var rarity_weights: Dictionary = {
-		Relic.Rarity.COMMON: 40,
-		Relic.Rarity.UNCOMMON: 35,
-		Relic.Rarity.RARE: 20,
-		Relic.Rarity.MYTHIC: 5
-	}
-	
+	var rarity_weights := RewardRules.weights_from(REWARD_CONFIG.shop_rarity_weights)
+	var stock_size := stock_size_for(run_stats)
+	var split: Array = ROW_SPLIT.get(stock_size, [ROW_1_MAX, maxi(stock_size - ROW_1_MAX, 0)])
+	row_1_range = split[0]
+	row_2_range = split[1]
+
 	var shop_relics_array: Array[Relic] = []
 	
 	for i in range(row_1_range + row_2_range):
@@ -128,8 +120,18 @@ func _generate_shop_relics() -> void:
 		else:
 			relics_row_2.add_child(new_shop_relic)
 		new_shop_relic.relic = relic
-		new_shop_relic.gold_cost = _get_updated_shop_cost(new_shop_relic.gold_cost)
+		new_shop_relic.gold_cost = _get_updated_shop_cost(RewardRules.shop_price(REWARD_CONFIG, relic.rarity))
 		new_shop_relic.update(run_stats)
+
+	# Tell the difficulty system how many relics were on offer ("bought everything" check).
+	if run_stats:
+		run_stats.dda_state.shop_offered_items = shop_relics_array.size()
+
+
+## How many relics the shop stocks for this run: 3 to 5, leaning small for a strong run.
+func stock_size_for(stats: RunStats) -> int:
+	var score := stats.dda_score if stats else RunStats.STARTING_DDA_SCORE
+	return DDA.new().shop_stock_size(score)
 
 
 func _update_items() -> void:

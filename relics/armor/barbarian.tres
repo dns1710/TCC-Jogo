@@ -13,5 +13,4 @@ icon = ExtResource("1_vdnxq")
 tooltip = "+1 BLOCK, +1 ATTACK"
 bonus_blk = 1
 bonus_atk = 1
-weapon_dice_attack = 1
 metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

@@ -19,7 +19,7 @@ func perform_action() -> void:
 		return
 	enemy.special_state = ""
 	enemy.sprite_2d.texture = enemy.stats.art
-	var damage := Dice.roll(dice_amount, dice_value, enemy.stats.attack)
+	var damage := roll_attack(dice_amount, dice_value)
 	var damage_effect := DamageEffect.new()
 	damage_effect.amount = damage
 	damage_effect.die_sides = dice_value

@@ -2,6 +2,8 @@ class_name EventOutcome
 extends Resource
 ## One possible result of an event choice: the story text plus what it changes.
 
+const REWARD_CONFIG: RewardConfig = preload("res://custom_resources/reward_config.tres")
+
 @export_multiline var text := ""
 ## Relative chance among the choice's outcomes (ignored when the choice has a stat check).
 @export var weight := 1.0
@@ -33,7 +35,9 @@ func apply(event: EventRoom, bet := 0) -> Array[String]:
 	var stats := event.character_stats
 	var run := event.run_stats
 
-	var gold_delta := gold + int(floor(bet * bet_multiplier))
+	# Gold gained follows the income scale; gold lost and winnings from a bet do not.
+	var scaled_gold := RewardRules.scale_gold(REWARD_CONFIG, gold) if gold > 0 else gold
+	var gold_delta := scaled_gold + int(floor(bet * bet_multiplier))
 	if gold_delta != 0:
 		var before := run.gold
 		run.gold = maxi(0, run.gold + gold_delta)

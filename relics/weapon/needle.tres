@@ -13,5 +13,6 @@ icon = ExtResource("1_evsos")
 tooltip = "1d4 weapon damage
 
 This weapon deals +1d4 damage for every 2 SPEED you have"
+weapon_dice_attack = 4
 weapon_dice_amount = 1
 metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

@@ -135,10 +135,12 @@ func _check_effects() -> void:
 
 	run.gold = 100
 	_apply(event, {"gold": 45})
-	_expect(run.gold == 145, "gold effect")
+	# Gold gained follows the income scale (45 -> 23 at 0.5); gold lost is not scaled.
+	_expect(run.gold == 100 + RewardRules.scale_gold(preload("res://custom_resources/reward_config.tres"), 45), "gold effect follows the income scale, got %d" % run.gold)
+	var gold_after_gain := run.gold
 	var lines := _apply(event, {"gold": -500})
 	_expect(run.gold == 0, "gold must not go below 0")
-	_expect(lines == ["-145 gold"], "gold line shows the real change, got %s" % [lines])
+	_expect(lines == ["-%d gold" % gold_after_gain], "gold line shows the real change, got %s" % [lines])
 	run.gold = 50
 	_apply(event, {"bet_multiplier": 2.0}, 50)
 	_expect(run.gold == 150, "bet multiplier pays out bet x multiplier")

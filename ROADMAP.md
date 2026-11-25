@@ -13,32 +13,34 @@ Caddy in Docker (`build/`). Headless checks: `tools/verify_*.tscn`.
   (Brittle = one extra die of the hit's size; Maul +1d4 per 5 block; Gloves +1d4). Gear stat bonuses
   (+BLOCK/+ATTACK/+SPEED) and status stack counts stay numbers.
 - A status applied by the hit itself never counts as "already afflicted".
-- Enemy scaling does not exist yet. Brittle scales with enemy dice on its own.
+- Enemy scaling lives in the act resources (`enemy_health_scale`, `enemy_attack_bonus`, `boss_extra_dice`). Brittle
+  scales with enemy dice on its own.
 
 ## Order
-1. Rebalancing (start here)
+1. Rebalancing (DONE, archived 2026-11-24)
 2. Art overhaul (done by hand by the owner; see notes)
 3. Items screen (codex)
 4. Scoring overhaul + Supabase
 5. Scoutmaster dialogue (already specified)
 
-## 1. Rebalancing
-Split into three changes, in this order:
+## 1. Rebalancing (DONE, archived 2026-11-24)
+All four changes are implemented, archived under `openspec/changes/archive/`, and their specs live in `openspec/specs/`.
 
-0. `item-balance-report` - a headless script that prints every relic in one table (name, slot, rarity, stat
-   total, weapon dice and average damage, effect text, statuses touched), grouped by rarity, flagging anything above
-   its rarity budget (about 1 point common, 2 uncommon, 3 rare, build-defining mythic). Builds the data for 1c.
-1. `reward-drop-rates` - today every battle drops 1 relic (100%), the first battle guarantees a weapon plus a
-   common, shops sell 3 relics and chests/events add more, so the player picks their build every run.
-   Suggested: about 45% on regular battles with a pity counter, 100% on tier 2, a choice of rarity on bosses, gold as
-   the consolation reward, fewer or pricier shop relics. The DDA score gains points per relic picked up
-   (+1/+3/+5/+8 by rarity), so fewer relics lowers the score: retune `dda_config.tres` in the same change.
-   Specs: `reward-drop-rates`, plus a modified requirement for how DDA counts relics.
-2. `enemy-scaling` - enemies have fixed stats per type. Add `enemy_health_scale` and `enemy_attack_bonus` to the
-   `acts/*.tres` resources and use extra dice on bosses. Specs: `enemy-scaling`, `act-difficulty-curve`.
-3. `item-balance-pass` - tune numbers from the report. Known candidates: Cracked Visor, Frostfire Pike, Glass
-   Heart, Phoenix Feather. Do after 1 so the number of items a player holds is known. Consider a small headless
-   simulator so numbers come from data.
+- `item-balance-report` - `tools/report_item_balance.tscn`. Budgets use a weighted stat total (SPEED 1.0, ATTACK 0.7,
+  BLOCK 0.3), taken from what a point is worth in the simulator. No relic is over budget; the exception list is empty.
+- `reward-drop-rates` - `custom_resources/reward_config.tres`: 35% drop on regular battles with pity after 2 misses,
+  tier 2 always drops, bosses (acts 1 and 2) offer a choice of 3 relics of different rarities, shops sell 2 relics at
+  x1.25. `dda_config.tres` `shop_all_bought_items` is 2 to match the shop. `tools/simulate_rewards.tscn` shows relics
+  held at the end of a run fall from 33.6 to about 24.
+- `enemy-scaling` - acts: x1.0 / x1.25 / x1.5 health, +0 / +1 / +2 attack, boss dice +0 / +0 / +1 (Krampus with a
+  die would out-hit the player's 40 health). Bosses are flagged with `EnemyStats.is_boss`.
+- `item-balance-pass` - `tools/simulate_balance.tscn` (ranking, builds, loadout comparison). Glass Heart +3 ATK / +2 SPD,
+  Heavier Armor +10 BLOCK / -1 SPD, Heavy Plate and Heavy Helmet +4 BLOCK. Needle and Barbarian Armor data fixed.
+
+**Open, owner decided to keep as is:** the simulator puts typical builds at 28% HP lost per act-1 fight (on target)
+but 84% in act 2 and 100% in act 3 (targets 25-40% and 30-45%). Without act scaling it is still 51% and 77%, so the gap is
+mostly base act 2-3 enemies (golems, wolf packs). The simulator ignores statuses and smart play, so it is probably
+harsher than real play. Decide after playtests; relic tuning cannot close it.
 
 ## 2. Art overhaul (owner, manual)
 - Keep sizes (items 16x16, statuses 10x10) and file names so item resources keep their icons.
@@ -73,7 +75,4 @@ Split into three changes, in this order:
 ## Loose ends
 - `hotfix-reroll-button-campfire-act1`: 2 tasks left.
 - `smore.gd` looks up status id `"attackup"` but the real id is `"AttackUp"`, so its Attack Up never clears.
-- `tools/run_suite.ps1` points at a Godot path that does not exist on the dev machine
-  (`C:\Users\usuario\Documents\Setups\Godot_v4.7.2-stable_win64.exe\Godot_v4.7.2-stable_win64_console.exe` works).
-- `openspec/specs/` is empty until the first change is archived.
 - Reactive Plate cannot tell when Sunder let a hit skip block, so it may misjudge a block break in that case.
