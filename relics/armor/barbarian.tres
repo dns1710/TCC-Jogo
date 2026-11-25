@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Relic" format=3 uid="uid://dojirvwbp0qjw"]
 
-[ext_resource type="Texture2D" uid="uid://bue8imscpldys" path="res://art/tile_0097.png" id="1_vdnxq"]
+[ext_resource type="Texture2D" uid="uid://b25rg5ie26q8t" path="res://art/verdadeira arte/items/barbarian_armor.png" id="1_vdnxq"]
 [ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="2_vdnxq"]
 
 [resource]
