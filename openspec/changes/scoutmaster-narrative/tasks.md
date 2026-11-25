@@ -16,7 +16,7 @@
 
 ## 3. Integration
 
-- [ ] 3.1 Boot check and all suites. Verify: no script errors and every suite exits 0.
+- [x] 3.1 Boot check and all suites. Verify: no script errors and every suite exits 0.
 - [x] 3.2 Copy review: the user approved the drafted lines as written (design decision 5). Any later wording change only edits the lines data file.
 - [ ] 3.3 Manual playtest: new run opening, a remark after a difficulty change, a win. Left to the user.
 
