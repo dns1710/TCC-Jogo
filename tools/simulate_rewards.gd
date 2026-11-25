@@ -74,7 +74,108 @@ func _ready() -> void:
 			print("  %-14s  %d   %4d%%  %4d%%  %4d%%" % [
 				key, act + 1, roundi(results["v1"][key][act] * 100), roundi(results["v2"][key][act] * 100),
 				roundi(results["current"][key][act] * 100)])
+	print("")
+	print("Difficulty-system pressure on the map: a strong player (score 80, wins every fight healthy), 3 rooms wide, 11 floors")
+	print("(floor 5 is all treasure, floor 10 is the pre-boss campfire floor; the player picks the best non-battle room each floor)")
+	print("  %-44s %16s %24s" % ["setup", "battles on path", "pre-boss campfire stays"])
+	var cases := [
+		["old: no limit, pre-boss campfire open", 1000000, false],
+		["pre-boss campfire fixed, no limit", 1000000, true],
+		["pre-boss fixed, limit %d per act (current)" % dda.max_battle_conversions_per_act, dda.max_battle_conversions_per_act, true],
+	]
+	for case in cases:
+		var result := _conversion_pressure(case[1], case[2])
+		print("  %-44s %16.1f %23d%%" % [case[0], result["battles"], roundi(result["campfire_kept"] * 100)])
 	get_tree().quit(0)
+
+
+## Plays the real DDA decisions for a strong player over many generated acts.
+## Returns the average battles on the player's path and the share of acts where the pre-boss campfire survived.
+func _conversion_pressure(cap: int, protect_pre_boss: bool) -> Dictionary:
+	_rng.seed = 777
+	var config := DDAConfig.new()
+	config.max_battle_conversions_per_act = cap
+	var dda := DDA.new()
+	dda.config = config
+	var acts := 2000
+	var floors_count := 11
+	var pre_boss := floors_count - 1
+	var treasure_floor := 5
+	var battle_total := 0
+	var campfire_kept := 0
+	for act in acts:
+		var rooms: Array = []
+		for row in floors_count:
+			var row_rooms: Array[Room.Type] = []
+			for column in 3:
+				if row == 0:
+					row_rooms.append(Room.Type.MONSTER)
+				elif row == treasure_floor:
+					row_rooms.append(Room.Type.TREASURE)
+				elif row == pre_boss:
+					row_rooms.append(Room.Type.CAMPFIRE)
+				else:
+					row_rooms.append(_floor_room_type())
+			rooms.append(row_rooms)
+		var state := DDAState.new()
+		var battles := 0
+		for row in floors_count:
+			var visited := _best_room(rooms[row])
+			var type: Room.Type = rooms[row][visited]
+			if type == Room.Type.MONSTER:
+				battles += 1
+			var decisions: Array[DDAConversion] = []
+			match type:
+				Room.Type.MONSTER:
+					decisions = dda.decide_after_battle(80, 0.9, 3, 50, state, true)
+				Room.Type.CAMPFIRE:
+					decisions = dda.decide_after_campfire(80, 0.9, state)
+				Room.Type.TREASURE:
+					decisions = dda.decide_after_treasure(80, 0.9, 3, 1, state)
+			for conversion in decisions:
+				var converted := false
+				for target_row in range(row + 1, floors_count):
+					if protect_pre_boss and target_row == pre_boss:
+						continue
+					for column in 3:
+						if rooms[target_row][column] == conversion.from_type:
+							rooms[target_row][column] = conversion.to_type
+							converted = true
+							break
+					if converted:
+						break
+				if converted:
+					if conversion.to_type == Room.Type.MONSTER:
+						state.battle_conversions += 1
+					if conversion.uses_shop_flag:
+						state.shop_changed = true
+		battle_total += battles
+		if rooms[pre_boss].has(Room.Type.CAMPFIRE):
+			campfire_kept += 1
+	return {"battles": float(battle_total) / acts, "campfire_kept": float(campfire_kept) / acts}
+
+
+## The room the player picks on a floor: campfire, then shop, treasure, event, battle.
+func _best_room(row_rooms: Array) -> int:
+	var order := [Room.Type.CAMPFIRE, Room.Type.SHOP, Room.Type.TREASURE, Room.Type.EVENT, Room.Type.MONSTER]
+	for wanted in order:
+		for column in row_rooms.size():
+			if row_rooms[column] == wanted:
+				return column
+	return 0
+
+
+func _floor_room_type() -> Room.Type:
+	var roll := _rng.randf()
+	if roll < 0.57:
+		return Room.Type.MONSTER
+	if roll < 0.75:
+		return Room.Type.EVENT
+	if roll < 0.83:
+		return Room.Type.CAMPFIRE
+	if roll < 0.93:
+		return Room.Type.SHOP
+	return Room.Type.TREASURE
 
 
 func _band_mid(reward: RewardConfig, rarity: int) -> float:

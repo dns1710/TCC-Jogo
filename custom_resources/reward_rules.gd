@@ -22,7 +22,8 @@ static func battle_drops_relic(config: RewardConfig, tier: int, run_stats: RunSt
 	var pity := config.pity_misses > 0 and run_stats.relic_drop_misses >= config.pity_misses
 	if roll < 0.0:
 		roll = RNG.instance.randf()
-	var drops := pity or roll < chance
+	var weak := config.weak_drop_score >= 0 and run_stats.dda_score <= config.weak_drop_score
+	var drops := pity or weak or roll < chance
 	run_stats.relic_drop_misses = 0 if drops else run_stats.relic_drop_misses + 1
 	return drops
 
@@ -40,7 +41,7 @@ static func scale_gold(config: RewardConfig, amount: int) -> int:
 
 
 static func starting_gold(config: RewardConfig) -> int:
-	return scale_gold(config, config.base_starting_gold)
+	return config.starting_gold
 
 
 ## Index of a weighted pick. `roll` (1..sum) can be passed for tests.

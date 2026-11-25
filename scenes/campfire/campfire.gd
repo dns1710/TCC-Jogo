@@ -2,6 +2,8 @@ class_name Campfire
 extends Control
 
 @export var char_stats: CharacterStats
+## Extra share of max health the rest heals on top of the normal 30% (set for a weak run).
+@export var bonus_heal_share := 0.0
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var rest_button: Button = %RestButton
@@ -11,7 +13,7 @@ func _on_rest_button_pressed() -> void:
 	rest_button.disabled = true
 	#var previous_health: int = char_stats.health
 	
-	char_stats.heal(ceili(char_stats.max_health * 0.3))
+	char_stats.heal(ceili(char_stats.max_health * (0.3 + bonus_heal_share)))
 	
 	#var healed_amount: int = char_stats.health - previous_health
 	

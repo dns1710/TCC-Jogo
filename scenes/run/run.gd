@@ -389,6 +389,11 @@ func _prepare_battle(room:Room) -> void:
 		var tier_2 := map.get_battle_pool().get_random_battle_for_tier(2)
 		if tier_2:
 			room.battle_stats = tier_2
+	elif dda.should_downgrade_to_tier0(stats.dda_score):
+		# A weak run faces an easier battle of the same act.
+		var tier_0 := map.get_battle_pool().get_random_battle_for_tier(0)
+		if tier_0:
+			room.battle_stats = tier_0
 
 func _on_treasure_room_entered() -> void:
 	var treasure := _change_view(TREASURE_SCENE) as Treasure
@@ -415,10 +420,11 @@ func _on_campfire_entered() -> void:
 
 	var campfire := _change_view(CAMPFIRE_SCENE) as Campfire
 	campfire.char_stats = character
+	campfire.bonus_heal_share = dda.campfire_bonus_heal(stats.dda_score)
 
 func _on_campfire_exited() -> void:
 	dda.execute(
-		dda.decide_after_campfire(stats.dda_score, stats.dda_state.campfire_arrival_hp),
+		dda.decide_after_campfire(stats.dda_score, stats.dda_state.campfire_arrival_hp, stats.dda_state),
 		map,
 		stats.dda_state
 	)
@@ -470,6 +476,14 @@ func _on_event_room_entered(_room: Room) -> void:
 	event_room.relic_pool = battle_relic_pool
 	event_room.setup()
 
+## True when a shop can still be reached on the map.
+func _shop_ahead() -> bool:
+	for room: Room in map.get_reachable_rooms():
+		if room.type == Room.Type.SHOP and room.row >= map.floors_climbed:
+			return true
+	return false
+
+
 func _on_battle_won() -> void:
 	dda.update_score_battle(character.health, character.max_health, stats)
 	dda.execute(
@@ -478,7 +492,8 @@ func _on_battle_won() -> void:
 			_hp_share(),
 			relic_handler.get_all_relics().size(),
 			stats.gold,
-			stats.dda_state
+			stats.dda_state,
+			_shop_ahead()
 		),
 		map,
 		stats.dda_state

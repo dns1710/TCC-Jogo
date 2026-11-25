@@ -43,6 +43,20 @@ extends Resource
 @export var treasure_high_score := 70
 @export var treasure_shop_swap_relics := 4
 
+@export_group("Help for weak runs")
+## Score at or below this turns tier-1 battles into tier-0 battles.
+@export var tier0_downgrade_score := 35
+## Extra share of max health a campfire rest heals while the score is at or below campfire_low_score.
+@export var campfire_weak_heal_share := 0.15
+
+@export_group("Limits and swaps")
+## Most rooms per act the difficulty system may turn into battles (every kind of conversion to a battle counts).
+@export var max_battle_conversions_per_act := 2
+## Holding at least this much gold after a battle turns one upcoming battle into a shop (once per act).
+@export var hoard_gold := 200
+## At or below this share of health after a battle, one upcoming battle becomes a campfire (once per run).
+@export var emergency_hp := 0.2
+
 @export_group("Shop size (3, 4 or 5 relics) by score")
 ## Score at or above this: the run is doing well, shops lean small.
 @export var shop_size_high_score := 65

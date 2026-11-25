@@ -13,6 +13,12 @@ const MAX_HISTORY := 100
 @export var shop_entered_items := 0
 ## Relics the last shop stocked (0 when none was recorded).
 @export var shop_offered_items := 0
+## Rooms the difficulty system turned into battles in the current act.
+@export var battle_conversions := 0
+## The once-per-act hoarded-gold shop swap has been used.
+@export var hoard_shop_used := false
+## The once-per-run emergency campfire has been used (never reset between acts).
+@export var emergency_campfire_used := false
 ## HP share when the player arrived at the current campfire, before resting.
 @export var campfire_arrival_hp := 1.0
 ## Every score change with its reason, newest last (capped).
@@ -24,6 +30,8 @@ func reset_for_act() -> void:
 	treasure_pending = false
 	shop_entered_items = 0
 	shop_offered_items = 0
+	battle_conversions = 0
+	hoard_shop_used = false
 
 
 func record(reason: String, amount: int, new_score: int) -> void:

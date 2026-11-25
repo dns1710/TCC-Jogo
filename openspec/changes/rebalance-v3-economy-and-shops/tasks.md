@@ -9,7 +9,7 @@
 
 ## 2. Gold income
 
-- [x] 2.1 Apply `income_scale` in `BattleStats.roll_gold_reward()`, the chest roll in `run.gd`, and starting gold; verify a 60-70 gold battle pays 30-35 at scale 0.5 and a new run starts with half the v2 purse.
+- [x] 2.1 Apply `income_scale` in `BattleStats.roll_gold_reward()`, the chest roll in `run.gd`, and starting gold; verify a 60-70 gold battle pays 30-35 at scale 0.5 (starting gold is set separately in 6.1).
 - [x] 2.2 Scale positive event gold in `EventOutcome` and leave costs untouched; verify with a seeded event test that a +50 outcome gives +25 and a 40-gold cost stays 40.
 - [x] 2.3 Set Golden Clover to 8-13 extra gold; verify with a relic test that a won battle adds that range.
 
@@ -30,3 +30,8 @@
 - [x] 5.1 Run the simulation and check the median wallet at a shop is about 3 to 4 commons, mythic is affordable in about half of the offers and relics at the end of act 3 are at least about 27; retune data values if not and record the final numbers in design.md.
 - [x] 5.2 Re-check the DDA relic-count calibration (act-1 shares within 10 points of the old rewards) and run the full verify suite headless; verify every suite passes.
 - [x] 5.3 Start the game, play the first act through a shop and a boss; verify the shop shows 3 to 5 relics with banded prices and the boss reward shows exactly one relic.
+
+## 6. Playtest follow-ups
+
+- [x] 6.1 Starting gold is 50, set directly in `RewardConfig.starting_gold` and not scaled; verify `RewardRules.starting_gold` returns 50 in `tools/verify_reward_drops.gd`.
+- [x] 6.2 `Map.convert_rooms` never converts the pre-boss campfire floor; verify in `tools/verify_dda.gd` that CAMPFIRE to MONSTER with a reachable pre-boss campfire changes no room.

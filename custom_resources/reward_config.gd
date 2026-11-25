@@ -10,6 +10,8 @@ extends Resource
 @export var pity_misses := 2
 ## Chance that a tier-2 battle offers a relic.
 @export_range(0.0, 1.0) var tier2_drop_chance := 1.0
+## While the run's difficulty score is at or below this, every regular battle drops a relic (-1 turns it off).
+@export var weak_drop_score := 35
 ## Extra share of gold a battle gives when it drops no relic (0.5 = +50%).
 @export var miss_gold_bonus := 0.5
 
@@ -20,11 +22,11 @@ extends Resource
 @export var boss_weights := PackedInt32Array([0, 40, 45, 15])
 
 @export_group("Gold")
-## Multiplies every gold payout (battles, bosses, chests, gold gained in events, starting gold).
+## Multiplies every gold payout (battles, bosses, chests, gold gained in events).
 ## Costs (events, shops) are not scaled, so a lower scale makes gold scarcer.
 @export_range(0.1, 2.0) var income_scale := 0.5
-## Gold a new run starts with, before the income scale.
-@export var base_starting_gold := 70
+## Gold a new run starts with. Set directly, not scaled by the income scale (playtest: 35 was too tight).
+@export var starting_gold := 50
 
 @export_group("Shops")
 ## Rarity weights for each relic a shop stocks (common, uncommon, rare, mythic).

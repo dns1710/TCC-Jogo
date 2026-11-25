@@ -7,19 +7,22 @@ Keeps gold scarce enough that shop prices and gold events force choices, by scal
 ## ADDED Requirements
 
 ### Requirement: One income scale for every payout
-Gold paid out by battles, bosses, treasure chests, positive event outcomes and the starting purse SHALL be multiplied by a single configured income scale, rounded to a whole number.
+Gold paid out by battles, bosses, treasure chests, positive event outcomes SHALL be multiplied by a single configured income scale, rounded to a whole number.
 
 #### Scenario: Battle gold
 - **WHEN** a battle that pays 60 to 70 gold is won with an income scale of 0.5
 - **THEN** the reward screen offers 30 to 35 gold
 
-#### Scenario: Starting gold
-- **WHEN** a new run starts with an income scale of 0.5
-- **THEN** the player starts with half the version 2 starting gold
-
 #### Scenario: Event costs unchanged
 - **WHEN** an event choice costs 40 gold
 - **THEN** it still costs 40 gold whatever the income scale is
+
+### Requirement: Starting gold is set directly
+A new run SHALL start with the configured starting gold, which is not multiplied by the income scale.
+
+#### Scenario: Starting gold
+- **WHEN** a new run starts with an income scale of 0.5 and a configured starting gold of 50
+- **THEN** the player starts with 50 gold
 
 ### Requirement: Gold-giving relics follow the scale
 A relic that pays gold on its own SHALL pay an amount in line with the income scale.

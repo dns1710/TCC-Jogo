@@ -31,10 +31,13 @@
 5. **Shop records its size.** `DDAState` gets `shop_offered_items`, set when the shop is generated; `decide_after_shop` compares `relic_count == entered_items + shop_offered_items` instead of the fixed `shop_all_bought_items`, which is removed. Alternative: keep a fixed count of 3. Rejected: buying 3 of a 5-relic shop would then count as buying everything.
 6. **Boss: one default drop.** `boss_top_weights` is replaced by `boss_weights` = common 0, uncommon 40, rare 45, mythic 15. `boss_choices`, `add_relic_choice` and `_get_boss_relic_choices` are deleted. Boss gold scales with the income scale like every other source.
 7. **Drop chance 0.6, pity 2.** Relics at the end of act 3 go from 24.6 at 0.35 to 27.3 at 0.6 (28.7 at 0.7), which offsets the relics lost by cutting gold (about 1.5 to 2). Drop chance moves item volume; income moves shop tension. They are tuned separately.
-8. **One `income_scale` in `RewardConfig`.** Applied in `BattleStats.roll_gold_reward()` (battles and bosses, so the 33 `.tres` files stay untouched), the chest roll in `run.gd`, starting gold, and positive event gold in `EventOutcome`. Event costs are not scaled, so events cost about twice as much relative to income, which is the intent. Alternative: edit every `.tres`. Rejected: 33+ files to retune on every change.
+8. **One `income_scale` in `RewardConfig`.** Applied in `BattleStats.roll_gold_reward()` (battles and bosses, so the 33 `.tres` files stay untouched), the chest roll in `run.gd`, and positive event gold in `EventOutcome`. Event costs are not scaled, so events cost about twice as much relative to income, which is the intent. Alternative: edit every `.tres`. Rejected: 33+ files to retune on every change.
 9. **Golden Clover** pays 8-13 extra gold (about half of 15-25). Left alone it would add about 60% to a battle's gold. It stays data on the relic.
 10. **DDA gold thresholds** are halved with the economy: `battle_low_gold` 150 to 75, `broke_gold` 90 to 45. Left alone, the broke check would fire almost every time and the low-score shop offer would almost never fire.
 11. **Verification runs headless.** Godot 4.6.2 lives at `D:\Documents\Godot\Godot_v4.6.2-stable_win64.exe`. `tools/run_suite.ps1` hardcodes a path from another machine, so it reads `$env:GODOT` first and falls back to the path above.
+
+12. **Starting gold is 50, set directly.** After a full playtest run the scaled purse (35) was too tight, so `starting_gold` is its own value (50) and is not multiplied by the income scale. It buys about one common at the first shop and keeps the opening choices open. The simulated median first-shop wallet barely moves (226 to 232).
+13. **The campfire before the boss is fixed for the difficulty system.** `Map.convert_rooms` skips the floor right before the boss (floor 12), as it already skips floors 0 and 13. The player's own reroll on that floor is unchanged.
 
 ## Simulation results (apply)
 

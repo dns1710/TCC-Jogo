@@ -6,6 +6,10 @@ var from_type: Room.Type
 var to_type: Room.Type
 ## True when this conversion uses up the once-per-act shop swap flag.
 var uses_shop_flag := false
+## True when this conversion uses up the once-per-act hoarded-gold shop swap.
+var uses_hoard_flag := false
+## True when this conversion uses up the once-per-run emergency campfire.
+var uses_emergency_flag := false
 
 
 static func make(p_from: Room.Type, p_to: Room.Type, p_uses_shop_flag := false) -> DDAConversion:
@@ -17,4 +21,7 @@ static func make(p_from: Room.Type, p_to: Room.Type, p_uses_shop_flag := false) 
 
 
 func _to_string() -> String:
-	return "%s->%s%s" % [Room.Type.keys()[from_type], Room.Type.keys()[to_type], "*" if uses_shop_flag else ""]
+	var mark := "*" if uses_shop_flag else ""
+	mark += "$" if uses_hoard_flag else ""
+	mark += "!" if uses_emergency_flag else ""
+	return "%s->%s%s" % [Room.Type.keys()[from_type], Room.Type.keys()[to_type], mark]

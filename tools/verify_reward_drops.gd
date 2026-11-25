@@ -91,6 +91,16 @@ func _check_rules() -> void:
 	_expect(stats.relic_drop_misses == 0, "a drop resets the counter")
 	_expect(RewardRules.battle_drops_relic(CONFIG, 1, stats, chance - 0.01), "roll under the chance drops")
 
+	# A weak run always drops, whatever the roll; an average run follows the normal rules.
+	var weak_stats := RunStats.new()
+	weak_stats.dda_score = CONFIG.weak_drop_score
+	weak_stats.relic_drop_misses = 1
+	_expect(RewardRules.battle_drops_relic(CONFIG, 1, weak_stats, 0.999), "a weak run drops even when the roll fails")
+	_expect(weak_stats.relic_drop_misses == 0, "a weak-run drop resets the pity counter")
+	var average_stats := RunStats.new()
+	average_stats.dda_score = CONFIG.weak_drop_score + 1
+	_expect(not RewardRules.battle_drops_relic(CONFIG, 1, average_stats, 0.999), "an average run follows the normal drop roll")
+
 	# Tier 2 always drops.
 	var tier2_ok := true
 	RNG.instance.seed = 4242
@@ -142,7 +152,7 @@ func _check_economy_rules() -> void:
 
 	# Income scale: a 60-70 gold battle pays 30-35, costs are untouched, start gold halves.
 	_expect(RewardRules.scale_gold(CONFIG, 60) == 30 and RewardRules.scale_gold(CONFIG, 70) == 35, "a 60-70 battle pays 30-35")
-	_expect(RewardRules.starting_gold(CONFIG) == 35, "a new run starts with half the v2 purse")
+	_expect(RewardRules.starting_gold(CONFIG) == 50, "a new run starts with 50 gold, not scaled by the income scale")
 	_expect(RewardRules.scale_gold(CONFIG, -40) == -40 and RewardRules.scale_gold(CONFIG, 0) == 0, "gold lost or zero is not scaled")
 	_expect(RewardRules.scale_gold(CONFIG, 1) >= 1, "a positive payout never rounds to nothing")
 	var bs := BattleStats.new()
