@@ -10,7 +10,7 @@ Today none of this is visible. This change surfaces it with as little text as po
 
 - **Opening:** a short, skippable scene at the start of a New Run (not on Continue): the rain, the camp, the scoutmaster proposing the RPG. A few lines at most, no new art (a dark screen with falling rain lines and text).
 - **Scoutmaster remarks:** when the difficulty adjustment changes upcoming rooms, a one-line remark from the scoutmaster appears with the map change: a "making it harder" line or a "going easier" line.
-- **Ending:** the win screen gains a short scoutmaster epilogue: the game is over, the scout may sleep and has no duties in the morning.
+- **Ending:** the win screen becomes a short ending sequence (about 10 seconds, skippable) that closes the frame the opening started: the victory beat, the rain stopping, the three-line scoutmaster epilogue (the game is over, the scout may sleep, no duties in the morning) and the portrait dimming as the scout falls asleep. The Main Menu button fades in at the end.
 - Set the project and window name to "Rogue Playing Game" (it is still the template name "Deck Builder Tutorial").
 
 Copy: the drafted lines (opening, remarks, epilogue) are approved as written.
@@ -30,7 +30,7 @@ None.
 
 ## Impact
 
-- New: `scenes/narrative/` (opening scene, remark banner), a small text resource of the lines.
-- Edited: `global/events.gd` (one new signal), `custom_resources/dda.gd` (`execute` emits it), `scenes/ui/main_menu.gd` or `scenes/run/run.gd` (show the opening on a New Run), `scenes/win_screen/win_screen.tscn` and `.gd` (epilogue), `project.godot` (name).
+- New: `scenes/narrative/` (opening scene, remark banner, shared `RainBackdrop` used by the opening and the win screen), a small text resource of the lines.
+- Edited: `global/events.gd` (one new signal), `custom_resources/dda.gd` (`execute` emits it), `scenes/ui/main_menu.gd` or `scenes/run/run.gd` (show the opening on a New Run), `scenes/win_screen/win_screen.tscn` and `.gd` (rewritten as the ending sequence), `project.godot` (name).
 - Tests: new `tools/verify_narrative.tscn`.
-- Note: `add-run-scoring` (not applied yet) will also change the win screen; this change keeps its edits small and additive so the two can be combined later.
+- Note: `add-run-scoring` (not applied yet) will also change the win screen. The sequence ends in one `finished` point and one exit action, so scoring only needs to change where that action leads (the score screen instead of the main menu).

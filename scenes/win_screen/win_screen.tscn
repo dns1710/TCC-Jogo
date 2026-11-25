@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://csf1fkkelbf78" path="res://scenes/win_screen/win_screen.gd" id="1_n40vj"]
 [ext_resource type="Texture2D" uid="uid://cpydvk8mq66o5" path="res://art/tile_0087.png" id="3_13ibh"]
+[ext_resource type="PackedScene" path="res://scenes/narrative/rain_backdrop.tscn" id="4_rain"]
 
 [sub_resource type="Gradient" id="Gradient_7af3e"]
 colors = PackedColorArray(0.2, 0.117647, 0.0509804, 1, 0.054902, 0, 0.0588235, 1)
@@ -32,7 +33,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("GradientTexture1D_1kxac")
+
+[node name="Night" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.03, 0.05, 0.13, 1)
+
+[node name="RainBackdrop" parent="." instance=ExtResource("4_rain")]
+unique_name_in_owner = true
+layout_mode = 1
 
 [node name="CharacterPortrait" type="TextureRect" parent="." unique_id=173389455]
 unique_name_in_owner = true
@@ -44,16 +61,18 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -87.0
-offset_top = -30.0
+offset_top = -62.0
 offset_right = -27.0
-offset_bottom = 30.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("3_13ibh")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="VboxContainer" type="VBoxContainer" parent="." unique_id=1316992271]
+[node name="Message" type="Label" parent="." unique_id=910117028]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -61,25 +80,49 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 3.0
-offset_top = -32.0
+offset_top = -62.0
 offset_right = 97.0
-offset_bottom = 32.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
-
-[node name="Message" type="Label" parent="VboxContainer" unique_id=910117028]
-unique_name_in_owner = true
-layout_mode = 2
+mouse_filter = 2
 text = "YOU WON!!"
 label_settings = SubResource("LabelSettings_aveil")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MainMenuButton" type="Button" parent="VboxContainer" unique_id=535689264]
+[node name="Epilogue" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = 8.0
+offset_right = 110.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="MainMenuButton" type="Button" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 14)
-layout_mode = 2
-size_flags_horizontal = 4
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -22.0
+offset_right = 30.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
 text = "Main Menu"
 
-[connection signal="pressed" from="VboxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]

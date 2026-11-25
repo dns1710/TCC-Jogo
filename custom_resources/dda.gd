@@ -221,6 +221,7 @@ func decide_after_treasure(score: int, hp: float, relic_count: int, entered_item
 ## really changed. Returns how many rooms changed.
 func execute(conversions: Array[DDAConversion], map: Object, state: DDAState) -> int:
 	var total := 0
+	var made_harder := false
 	for conversion in conversions:
 		var changed: Array = map.call("convert_rooms", conversion.from_type, conversion.to_type, 1)
 		if changed.is_empty():
@@ -228,10 +229,13 @@ func execute(conversions: Array[DDAConversion], map: Object, state: DDAState) ->
 		total += changed.size()
 		if conversion.to_type == Room.Type.MONSTER:
 			state.battle_conversions += changed.size()
+			made_harder = true
 		if conversion.uses_shop_flag:
 			state.shop_changed = true
 		if conversion.uses_hoard_flag:
 			state.hoard_shop_used = true
 		if conversion.uses_emergency_flag:
 			state.emergency_campfire_used = true
+	if total > 0:
+		Events.dda_adjusted.emit(made_harder)
 	return total
