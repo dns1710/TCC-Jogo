@@ -14,7 +14,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="Deck Builder Tutorial"
+config/name="Rogue Playing Game"
 config/tags=PackedStringArray("gamelab")
 run/main_scene="uid://4tj0qise1som"
 config/features=PackedStringArray("4.6", "Mobile")
@@ -31,6 +31,7 @@ MusicPlayer="*res://global/music_player.tscn"
 SFXPlayer="*res://global/sfx_player.tscn"
 RNG="*res://global/rng.gd"
 TutorialManager="*res://global/tutorial_manager.gd"
+ScoutmasterBanner="*res://scenes/narrative/scoutmaster_banner.gd"
 
 [debug]
 

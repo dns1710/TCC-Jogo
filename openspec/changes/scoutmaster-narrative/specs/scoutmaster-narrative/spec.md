@@ -39,12 +39,20 @@ A remark SHALL be one line, SHALL disappear by itself within a few seconds or on
 - **WHEN** two harder-direction adjustments happen in a row
 - **THEN** the two remarks are different lines
 
-### Requirement: Winning ends the frame with the reward
-The win screen SHALL include a short scoutmaster epilogue of at most 3 lines saying the game is over, the scout may sleep, and there are no duties in the morning.
+### Requirement: Victory plays a short ending sequence
+The win screen SHALL play an ending sequence of about 10 seconds that closes the camp frame: the victory message with the character portrait, the rain stopping, a scoutmaster epilogue of at most 3 lines (the game is over, the scout may sleep, no duties in the morning) and the portrait dimming on the last line. The exit button (Main Menu) SHALL appear when the sequence ends.
 
 #### Scenario: Victory
 - **WHEN** the player beats the final boss
-- **THEN** the win screen shows the epilogue
+- **THEN** the sequence plays in order: victory message, rain stops, epilogue lines one at a time, portrait dims, exit button appears
+
+#### Scenario: Skipping
+- **WHEN** the player clicks or presses a key during the sequence
+- **THEN** it jumps to its end state (rain stopped, full epilogue shown, portrait dimmed, exit button visible)
+
+#### Scenario: Never trapped
+- **WHEN** the sequence is playing, skipped or finished
+- **THEN** the player can always reach the exit button within the sequence length at most
 
 ### Requirement: Narrative text stays minimal
 The total narrative added by this capability SHALL stay within the limits above (opening at most 4 lines, remarks one line each, epilogue at most 3 lines), and in-world text such as events and act lore SHALL be unchanged.

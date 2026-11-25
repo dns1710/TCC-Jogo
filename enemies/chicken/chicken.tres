@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://csml8orhg63vh" path="res://custom_resources/enemy_stats.gd" id="1_4e5ad"]
 [ext_resource type="PackedScene" uid="uid://co7fvwqjh7u05" path="res://enemies/chicken/chicken_ai.tscn" id="1_efblh"]
-[ext_resource type="Texture2D" uid="uid://b8bq77uq4fif2" path="res://art/tile_0124.png" id="1_wrgsv"]
+[ext_resource type="Texture2D" uid="uid://c4l47fha8f3pi" path="res://art/verdadeira arte/enemy/chicken.png" id="2_efblh"]
 
 [resource]
 script = ExtResource("1_4e5ad")
@@ -10,5 +10,5 @@ ai = ExtResource("1_efblh")
 max_health = 5
 max_attack = 1
 max_speed = 6
-art = ExtResource("1_wrgsv")
+art = ExtResource("2_efblh")
 metadata/_custom_type_script = "uid://csml8orhg63vh"

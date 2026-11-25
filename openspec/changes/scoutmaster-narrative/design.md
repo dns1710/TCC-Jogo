@@ -2,7 +2,7 @@
 
 ## Context
 
-The player's journey is Main Menu, Run (map, battles, rooms), act transitions, then the win screen after Act 3. The difficulty adjustment lives in `custom_resources/dda.gd`: `decide_after_*` return `DDAConversion`s (from type, to type) and `DDA.execute` applies them through `Map.convert_rooms`; the change is then shown by `Map.play_pending_conversions`, which emits `Events.animation_dda_lock(true)` while the cosmetic room-change animation plays. The win screen is `scenes/win_screen/win_screen.tscn` (portrait plus "The %s is victorious!"). The main menu shows the title "Rogue Playing Game"; `project.godot` still has the template name. In-world text was deliberately written as serious dark fantasy and stays that way. See proposal.md for the story and scope.
+The player's journey is Main Menu, Run (map, battles, rooms), act transitions, then the win screen after Act 3. The difficulty adjustment lives in `custom_resources/dda.gd`: `decide_after_*` return `DDAConversion`s (from type, to type) and `DDA.execute` applies them through `Map.convert_rooms`; the change is then shown by `Map.play_pending_conversions`, which emits `Events.animation_dda_lock(true)` while the cosmetic room-change animation plays. The win screen is `scenes/win_screen/win_screen.tscn` (a static gradient, the portrait, "The %s is victorious!" and a Main Menu button, created by `run.gd` and given the character). The main menu shows the title "Rogue Playing Game"; `project.godot` still has the template name. In-world text was deliberately written as serious dark fantasy and stays that way. See proposal.md for the story and scope.
 
 ## Goals / Non-Goals
 
@@ -29,9 +29,9 @@ The player's journey is Main Menu, Run (map, battles, rooms), act transitions, t
 - Opening (4 lines): "The rain won't stop." / "Everyone is stuck in the camp." / "Scoutmaster: 'Let's play an RPG.'" / "You roll for initiative."
 - Epilogue (3 lines): "Scoutmaster: 'Alright, that's enough.'" / "'Off to bed. No chores tomorrow morning.'" / "The scout sleeps well."
 
-**6. Opening scene.** `scenes/narrative/opening.tscn`: a dark screen, simple rain made of a few falling `Line2D` or `GPUParticles2D` streaks (no new art), lines revealed one at a time, any click or key skips to the end. Shown when starting a New Run: the main menu's new-run handler changes to the opening first and the opening then loads the run scene, so run code is untouched. Continue goes straight to the run as today.
+**6. Opening scene.** `scenes/narrative/opening.tscn`: a dark screen, lines revealed one at a time over a shared `scenes/narrative/rain_backdrop.tscn` (`RainBackdrop`: a few falling `Line2D` or `GPUParticles2D` streaks, no new art, with `stop_rain()` that fades the streaks out; the win screen reuses it), any click or key skips to the end. Shown when starting a New Run: the main menu's new-run handler changes to the opening first and the opening then loads the run scene, so run code is untouched. Continue goes straight to the run as today.
 
-**7. Win screen epilogue.** Add a `Label` to the win screen with the epilogue lines under the existing message; the existing victory text stays. Kept additive to ease combining with `add-run-scoring`, which will also edit this screen.
+**7. Win screen as an ending sequence.** `win_screen.gd` plays a tween-driven sequence over the existing portrait and message, with a `RainBackdrop` behind them: (1) victory message and portrait, rain falling (about 2 s); (2) `stop_rain()` and the background fades from the warm gradient to a calm dark blue (about 2 s); (3) the epilogue lines revealed one at a time in a single label (about 1.5 s each); (4) the portrait modulates dark on the last line; (5) the Main Menu button fades in and the sequence emits `finished`. Any click or key calls `skip()`, which kills the tween and sets the end state directly (so the end state is one function used by both paths). The button is hidden only while the sequence runs, and `skip()` shows it, so the player is never trapped. The `character` setter and `run.gd` call site are unchanged. No new text beyond the epilogue lines. Alternative: a separate ending scene before the win screen; rejected, it adds a scene hop and a second place to wire into `run.gd` and scoring.
 
 **8. Project name.** Set `config/name` in `project.godot` to "Rogue Playing Game".
 
@@ -41,4 +41,5 @@ The player's journey is Main Menu, Run (map, battles, rooms), act transitions, t
 - [Remark appears at the wrong time (no animation)] → Dropped at the next battle start; the harness covers it.
 - [The opening annoys returning players] → One click skips it; it is not shown on Continue. If it still annoys, limit it to the first run per machine (a one-line change using the tutorial's settings file).
 - [Tone clash between the camp frame and serious in-world text] → Frame text is short and dry; in-world text is untouched.
-- [Win screen conflicts with `add-run-scoring`] → Additive label only; reconcile when scoring is applied.
+- [Win screen conflicts with `add-run-scoring`] → The exit action is a single method; scoring changes only where it leads. Reconcile when scoring is applied.
+- [Ending feels long] → About 10 seconds, skippable with one click, and the end state is reachable at any time.

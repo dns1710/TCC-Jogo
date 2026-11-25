@@ -36,6 +36,9 @@ signal action_used(action: Action)
 # Map-related events
 signal map_exited(room: Room)
 signal animation_dda_lock(value: bool)
+## The difficulty adjustment converted at least one room: harder is true when any
+## conversion made a battle, false when it only made the game easier.
+signal dda_adjusted(harder: bool)
 
 # Shop-related events
 signal shop_entered(shop: Shop)

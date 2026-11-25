@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Relic" format=3 uid="uid://5gcorcnmcrw"]
 
-[ext_resource type="Texture2D" uid="uid://duwwkdf3yi0e6" path="res://icon.png" id="1_c2iuf"]
+[ext_resource type="Texture2D" uid="uid://c5bxfff6qnonn" path="res://art/verdadeira arte/items/heavier_plate_relic.png" id="1_c2iuf"]
 [ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="1_l330s"]
 
 [resource]

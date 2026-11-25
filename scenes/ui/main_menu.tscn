@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c5lurucavk6a2" path="res://scenes/ui/main_menu.gd" id="1_bck1p"]
 [ext_resource type="Resource" uid="uid://bd874b0h1q8n1" path="res://scenes/run/run_startup.tres" id="2_4poyw"]
 [ext_resource type="AudioStream" uid="uid://bo8mn2yas0hpy" path="res://art/verdadeira arte/track/Esperanto.mp3" id="3_btxxm"]
-[ext_resource type="Texture2D" uid="uid://b1nj6u7dxl3mh" path="res://art/tile_0085.png" id="3_uhagc"]
+[ext_resource type="Texture2D" uid="uid://b173jy54tsili" path="res://art/verdadeira arte/player_scout.png" id="4_btxxm"]
 [ext_resource type="Texture2D" uid="uid://b8bq77uq4fif2" path="res://art/tile_0124.png" id="5_btxxm"]
 [ext_resource type="Texture2D" uid="uid://d2vujk8wvu6ia" path="res://art/tile_0123.png" id="6_wb0q5"]
 [ext_resource type="Texture2D" uid="uid://bub76qc3f5hk7" path="res://art/verdadeira arte/enemy/zscout.png" id="7_btxxm"]
@@ -84,7 +84,7 @@ custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
 text = "New Run"
 
-[node name="Tutorial" type="Button" parent="VBoxContainer"]
+[node name="Tutorial" type="Button" parent="VBoxContainer" unique_id=196546676]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
 text = "Tutorial"
@@ -95,9 +95,9 @@ layout_mode = 2
 text = "Exit"
 
 [node name="Player" type="Sprite2D" parent="." unique_id=2146435779]
-position = Vector2(43.999996, 94)
+position = Vector2(48, 98)
 scale = Vector2(3.125, 3.125)
-texture = ExtResource("3_uhagc")
+texture = ExtResource("4_btxxm")
 
 [node name="Chicken" type="Sprite2D" parent="." unique_id=2023574308]
 position = Vector2(198, 92)

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ScoutmasterLines" format=3]
+
+[ext_resource type="Script" path="res://scenes/narrative/scoutmaster_lines.gd" id="1_lines"]
+
+[resource]
+script = ExtResource("1_lines")
+harder = Array[String](["Hmm... things are going too smoothly.", "Let's make this a bit more interesting.", "You look comfortable. Not for long."])
+easier = Array[String](["Maybe I've been too harsh.", "Take a breather, scout.", "Fine, I'll go easy on you. Once."])
+opening = Array[String](["The rain won't stop.", "Everyone is stuck in the camp.", "Scoutmaster: \"Let's play an RPG.\"", "You roll for initiative."])
+epilogue = Array[String](["Scoutmaster: \"Alright, that's enough.\"", "\"Off to bed. No chores tomorrow morning.\"", "The scout sleeps well."])

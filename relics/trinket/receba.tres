@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Relic" format=3 uid="uid://cg6m8kypm42q6"]
 
-[ext_resource type="Texture2D" uid="uid://bho3bya1v7e6o" path="res://art/muscle.png" id="1_emerd"]
+[ext_resource type="Texture2D" uid="uid://dturhntpcmjpy" path="res://art/verdadeira arte/items/RECEBA.png" id="1_emerd"]
 [ext_resource type="Script" uid="uid://cwlbkmtd7v5bk" path="res://custom_resources/relic.gd" id="1_ox8tp"]
 
 [resource]
