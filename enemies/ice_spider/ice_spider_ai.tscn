@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cqmyeqh13uxnt"]
 
 [ext_resource type="Script" uid="uid://dnhcysun6wq2l" path="res://scenes/enemy/enemy_action_picker.gd" id="1_x"]
 [ext_resource type="Script" uid="uid://bftbwev0ypoo2" path="res://scenes/enemy/status_action.gd" id="2_x"]
@@ -7,24 +7,21 @@
 [ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="5_x"]
 [ext_resource type="Script" uid="uid://do33tnmtege1a" path="res://scenes/enemy/melee_attack_action.gd" id="6_x"]
 
-[node name="AI" type="Node"]
+[node name="AI" type="Node" unique_id=1591867623]
 script = ExtResource("1_x")
 
-[node name="Web" type="Node" parent="."]
+[node name="Web" type="Node" parent="." unique_id=732894253]
 script = ExtResource("2_x")
-type = 1
-chance_weight = 4.0
 statuses = Array[ExtResource("3_x")]([ExtResource("4_x")])
 stack_counts = Array[int]([2])
 warning_text = "WEB"
 sound = ExtResource("5_x")
+type = 1
+chance_weight = 4.0
 
-[node name="CrystalBite" type="Node" parent="."]
+[node name="CrystalBite" type="Node" parent="." unique_id=1967667941]
 script = ExtResource("6_x")
+bonus_vs_status = "SpeedDown"
 sound = ExtResource("5_x")
 type = 1
 chance_weight = 6.0
-dice_amount = 1
-dice_value = 6
-bonus_vs_status = "SpeedDown"
-bonus_multiplier = 1.5
