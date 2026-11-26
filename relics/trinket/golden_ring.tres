@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="GoldenRing" format=3 uid="uid://bqx18xxdgf8pn"]
+
+[ext_resource type="Texture2D" uid="uid://dwsogdbnyp64p" path="res://art/verdadeira arte/items/golden_ring_relic.png" id="1_b672d"]
+[ext_resource type="Script" uid="uid://flgbs7ydpdqi" path="res://relics/trinket/golden_ring.gd" id="2_grgjr"]
+
+[resource]
+script = ExtResource("2_grgjr")
+relic_name = "Golden Ring"
+id = "GoldenRing"
+type = 2
+equip = 3
+rarity = 1
+icon = ExtResource("1_b672d")
+tooltip = "Gain WARD at the start of combat"

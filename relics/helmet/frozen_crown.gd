@@ -1,0 +1,27 @@
+class_name FrozenCrown
+extends Relic
+
+var relic_ui: RelicUI
+var first_block : bool = true
+
+func activate_relic(owner: RelicUI) -> void:
+	relic_ui = owner
+	first_block = true
+	if not Events.action_used.is_connected(_on_action_used):
+		Events.action_used.connect(_on_action_used)
+
+
+func deactivate_relic(_owner: RelicUI) -> void:
+	if Events.action_used.is_connected(_on_action_used):
+		Events.action_used.disconnect(_on_action_used)
+		
+func _on_action_used(action: Action) -> void:
+	if action.type != Action.Type.BLOCK or not is_instance_valid(relic_ui):
+		return
+	var targets := ItemFx.enemies(relic_ui)
+	if targets.is_empty():
+		return
+	if first_block:
+		ItemFx.apply(targets[randi() % targets.size()], ItemFx.FREEZE)
+		first_block = false
+		ItemFx.flash(relic_ui)

@@ -3,10 +3,11 @@ extends Relic
 ## When you Block, 1 Scorch lands on a random enemy.
 
 var relic_ui: RelicUI
-
+var first_block: bool = true
 
 func activate_relic(owner: RelicUI) -> void:
 	relic_ui = owner
+	first_block = true
 	if not Events.action_used.is_connected(_on_action_used):
 		Events.action_used.connect(_on_action_used)
 
@@ -22,5 +23,7 @@ func _on_action_used(action: Action) -> void:
 	var targets := ItemFx.enemies(relic_ui)
 	if targets.is_empty():
 		return
-	ItemFx.apply(targets[randi() % targets.size()], ItemFx.SCORCH, 1)
-	ItemFx.flash(relic_ui)
+	if first_block:
+		ItemFx.apply(targets[randi() % targets.size()], ItemFx.BURN)
+		ItemFx.flash(relic_ui)
+	first_block = false

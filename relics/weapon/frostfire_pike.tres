@@ -1,7 +1,7 @@
-[gd_resource type="Resource" format=3]
+[gd_resource type="Resource" script_class="FrostfirePike" format=3 uid="uid://brcs38ehcleqd"]
 
-[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/frostfire_pike.png" id="1_icon"]
-[ext_resource type="Script" path="res://relics/weapon/frostfire_pike.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://8l6iujixqw2h" path="res://art/verdadeira arte/items/frostfire_pike_relic.png" id="1_i7vwx"]
+[ext_resource type="Script" uid="uid://bvxto4ffbdqmw" path="res://relics/weapon/frostfire_pike.gd" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
@@ -9,9 +9,9 @@ relic_name = "Frostfire Pike"
 id = "FrostfirePike"
 type = 2
 rarity = 3
-icon = ExtResource("1_icon")
+icon = ExtResource("1_i7vwx")
 tooltip = "1d8 weapon damage
 
-Hits alternate between 1 SCORCH and 1 SPEED DOWN. The hit that leaves an enemy with both makes it BRITTLE and SUNDERED. It can happen again only after one of them wears off"
+Your attacks alternate between applying 1 SCORCH and 1 SLOWNESS on hit. The hit that leaves an enemy with both makes it BRITTLE and SUNDERED. It can happen again only after one of them ends first"
 weapon_dice_attack = 8
 weapon_dice_amount = 1

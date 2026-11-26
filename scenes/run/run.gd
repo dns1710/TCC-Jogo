@@ -143,9 +143,11 @@ func _load_run() -> void:
 		save_data.equipped_trinket_1_id,
 		save_data.equipped_trinket_2_id
 	)
+	
 	#relic_handler.add_relics(save_data.relics)
 	#relic_handler.run_stats = stats
 	#relic_handler.character_stats = character
+	
 	_setup_top_bar()
 	
 	act_index = clampi(save_data.act_index, 0, ACTS.size() - 1)

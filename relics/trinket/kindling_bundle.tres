@@ -1,7 +1,7 @@
-[gd_resource type="Resource" format=3]
+[gd_resource type="Resource" script_class="KindlingBundle" format=3 uid="uid://dxppivc4qu3uo"]
 
-[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/kindling_bundle.png" id="1_icon"]
-[ext_resource type="Script" path="res://relics/trinket/kindling_bundle.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://562ek6203x2s" path="res://art/verdadeira arte/items/kindling_bundle_relic.png" id="1_o88fm"]
+[ext_resource type="Script" uid="uid://bt77ij1hcqlvb" path="res://relics/trinket/kindling_bundle.gd" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
@@ -9,5 +9,5 @@ relic_name = "Kindling Bundle"
 id = "KindlingBundle"
 type = 5
 equip = 3
-icon = ExtResource("1_icon")
-tooltip = "When you BLOCK, apply 1 SCORCH to a random enemy"
+icon = ExtResource("1_o88fm")
+tooltip = "When you block for the first time in a combat, apply BURN to a random enemy"

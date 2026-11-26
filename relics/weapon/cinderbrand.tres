@@ -1,18 +1,19 @@
-[gd_resource type="Resource" format=3]
+[gd_resource type="Resource" script_class="Cinderbrand" format=3 uid="uid://dg0qy850tpwet"]
 
-[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/cinderbrand.png" id="1_icon"]
-[ext_resource type="Script" path="res://relics/weapon/cinderbrand.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://b653uow44m5j5" path="res://art/verdadeira arte/items/cinderbrand_relic.png" id="1_4nvsb"]
+[ext_resource type="Script" uid="uid://123g2tmwa25y" path="res://relics/weapon/cinderbrand.gd" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
+damage_die = 12
 relic_name = "Cinderbrand"
 id = "Cinderbrand"
 type = 2
 rarity = 2
-icon = ExtResource("1_icon")
-tooltip = "1d6 weapon damage, +1 ATTACK
+icon = ExtResource("1_4nvsb")
+tooltip = "1d6 weapon damage
 
-Each hit adds 1 SCORCH. Hitting an enemy with 3 or more SCORCH detonates it for 1d4 damage per stack"
-bonus_atk = 1
+When you attack an enemy, apply 1 SCORCH to it
+When you attack an enemy with 3 or more SCORCH, you detonate it, dealing +1d4 damage for each SCORCH stack"
 weapon_dice_attack = 6
 weapon_dice_amount = 1

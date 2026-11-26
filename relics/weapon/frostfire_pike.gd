@@ -26,7 +26,7 @@ func on_attack_hit(targets: Array[Node]) -> void:
 			continue
 		if not _holds_both(target):
 			_shocked.erase(target)
-		ItemFx.apply(target, ItemFx.SCORCH if fire_turn else ItemFx.SPEED_DOWN, stacks)
+		ItemFx.apply(target, ItemFx.SCORCH if fire_turn else ItemFx.SLOWNESS, stacks)
 		if _holds_both(target) and not _shocked.has(target):
 			_shocked.append(target)
 			ItemFx.apply(target, ItemFx.BRITTLE)
@@ -35,4 +35,4 @@ func on_attack_hit(targets: Array[Node]) -> void:
 
 
 func _holds_both(target: Node) -> bool:
-	return ItemFx.has_status(target, "Scorch") and ItemFx.has_status(target, "SpeedDown")
+	return ItemFx.has_status(target, "Scorch") and ItemFx.has_status(target, "Slowness")

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BreakerPick" format=3 uid="uid://d14e1byeqbt2r"]
+
+[ext_resource type="Texture2D" uid="uid://rpwdwwk1ranb" path="res://art/verdadeira arte/items/pickaxe.png" id="1_215ug"]
+[ext_resource type="Script" uid="uid://ddu3k6ifrr5fk" path="res://relics/weapon/pickaxe.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Pickaxe"
+id = "Pickaxe"
+type = 2
+rarity = 1
+icon = ExtResource("1_215ug")
+tooltip = "1d8 weapon damage
+
+When you attack an enemy and it still has BLOCK left, apply SUNDER to it"
+weapon_dice_attack = 8
+weapon_dice_amount = 1

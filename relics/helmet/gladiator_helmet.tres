@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CrackedVisor" format=3 uid="uid://dq4wu14e0jmv3"]
+
+[ext_resource type="Texture2D" uid="uid://n8gawyongr75" path="res://art/verdadeira arte/items/gladiator_helmet_relic.png" id="1_2yhof"]
+[ext_resource type="Script" uid="uid://ck1ltjne6my4f" path="res://relics/helmet/gladiator_helmet.gd" id="2_db4ht"]
+
+[resource]
+script = ExtResource("2_db4ht")
+bonus_dice = 6
+relic_name = "Gladiator Helmet"
+id = "GladiatorHelmet"
+type = 5
+equip = 1
+rarity = 2
+icon = ExtResource("1_2yhof")
+tooltip = "+3 BLOCK
+
+While you are BRITTLE, your attacks deal +1d6 damage"
+bonus_blk = 3
+bonus_atk = 1

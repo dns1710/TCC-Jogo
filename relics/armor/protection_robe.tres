@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SentinelsAegis" format=3 uid="uid://b6nhbedvwemgf"]
+
+[ext_resource type="Texture2D" uid="uid://dhnl2yqhrig3s" path="res://art/verdadeira arte/items/protection_robe.png" id="1_dejuh"]
+[ext_resource type="Script" uid="uid://b1auuk5lv128v" path="res://relics/armor/protection_robe.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Protection Robe"
+id = "ProtectionRobe"
+type = 2
+equip = 2
+rarity = 2
+icon = ExtResource("1_dejuh")
+tooltip = "+2 BLOCK
+
+At the start of combat, gain WARD.
+Every 3 times you block, gain WARD"
+bonus_blk = 2

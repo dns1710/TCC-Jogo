@@ -1,7 +1,7 @@
-[gd_resource type="Resource" format=3]
+[gd_resource type="Resource" script_class="GlassHeart" format=3 uid="uid://1wg682cyejkb"]
 
-[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/glass_heart.png" id="1_icon"]
-[ext_resource type="Script" path="res://relics/trinket/glass_heart.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://dsk34hnig74os" path="res://art/verdadeira arte/items/glass_heart_relic.png" id="1_7ul26"]
+[ext_resource type="Script" uid="uid://b62l6odrevqo0" path="res://relics/trinket/glass_heart.gd" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
@@ -10,9 +10,10 @@ id = "GlassHeart"
 type = 2
 equip = 3
 rarity = 3
-icon = ExtResource("1_icon")
+icon = ExtResource("1_7ul26")
 tooltip = "+3 ATTACK, +2 SPEED
 
-You are always BRITTLE. It returns 3 actions after a hit consumes it"
+Start the combat with BRITTLE.
+When BRITTLE ends, gain it again after 3 turns"
 bonus_atk = 3
-bonus_spd = 2
+bonus_spd = 3

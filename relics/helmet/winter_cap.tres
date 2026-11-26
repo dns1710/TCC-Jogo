@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WinterCap" format=3 uid="uid://blr40afur78g7"]
+
+[ext_resource type="Texture2D" uid="uid://c0hghasn52vj5" path="res://art/verdadeira arte/items/winter_cap_relic.png" id="1_ed4ra"]
+[ext_resource type="Script" uid="uid://etu22v7lo8ty" path="res://relics/helmet/winter_cap.gd" id="2_6v4vu"]
+
+[resource]
+script = ExtResource("2_6v4vu")
+relic_name = "Winter Cap"
+id = "WinterCap"
+type = 2
+equip = 1
+icon = ExtResource("1_ed4ra")
+tooltip = "+1 BLOCK
+
+You are immune to SLOWNESS"
+bonus_blk = 1

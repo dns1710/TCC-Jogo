@@ -1,7 +1,7 @@
-[gd_resource type="Resource" format=3]
+[gd_resource type="Resource" script_class="WardenVisage" format=3 uid="uid://doxw7304af6kj"]
 
-[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/warden_visage.png" id="1_icon"]
-[ext_resource type="Script" path="res://relics/helmet/warden_visage.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://d0eykvni6r6rh" path="res://art/verdadeira arte/items/plague_mask.png" id="1_fxr4o"]
+[ext_resource type="Script" uid="uid://cnj1esiylmkyj" path="res://relics/helmet/warden_visage.gd" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
@@ -10,8 +10,9 @@ id = "WardenVisage"
 type = 5
 equip = 1
 rarity = 3
-icon = ExtResource("1_icon")
-tooltip = "+1 SPEED
+icon = ExtResource("1_fxr4o")
+tooltip = "+1 BLOCK, +1 SPEED
 
-SCORCH, SPEED DOWN and ATTACK DOWN you inflict gain +1 stack"
+When you apply a stacking debuff, apply +1 stack"
+bonus_blk = 1
 bonus_spd = 1

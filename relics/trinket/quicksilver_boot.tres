@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="QuicksilverSpurs" format=3 uid="uid://bmcjicnxf0xxx"]
+
+[ext_resource type="Texture2D" uid="uid://qdplaw7kd4rm" path="res://art/verdadeira arte/items/quicksilver_boot_relic.png" id="1_5vvi0"]
+[ext_resource type="Script" uid="uid://b4xl83nvy5018" path="res://relics/trinket/quicksilver_boot.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+relic_name = "Quicksilver Boot"
+id = "QuicksilverBoot"
+type = 5
+equip = 3
+rarity = 2
+icon = ExtResource("1_5vvi0")
+tooltip = "+1 SPEED
+
+When you attack an enemy with SLOWNESS or FREEZE, your next action clock starts at 25%"
+bonus_spd = 1

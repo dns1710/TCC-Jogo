@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ReactivePlate" format=3 uid="uid://bon0ynm4fbxe4"]
+
+[ext_resource type="Texture2D" uid="uid://dlfu52pb1e30y" path="res://art/verdadeira arte/items/cracked_core.png" id="1_omaq0"]
+[ext_resource type="Script" uid="uid://cg8jc4a0jh060" path="res://relics/armor/cracked_core.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+dice_amount = 1
+dice_value = 8
+relic_name = "Cracked Core"
+id = "Cracked Core"
+type = 5
+equip = 2
+rarity = 2
+icon = ExtResource("1_omaq0")
+tooltip = "+2 BLOCK
+
+When a hit breaks all your BLOCK, the attacker takes 1d8 damage and becomes BRITTLE"
+bonus_blk = 2

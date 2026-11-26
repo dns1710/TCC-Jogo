@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MirrorscaleMail" format=3 uid="uid://8aa7sbj5lg8f"]
+
+[ext_resource type="Texture2D" uid="uid://bk3vkwld1a1jp" path="res://art/verdadeira arte/items/mirror_armor.png" id="1_tt2bx"]
+[ext_resource type="Script" uid="uid://cau1oy3pxtkb0" path="res://relics/armor/mirror_armor.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+regain_after = 3
+relic_name = "Mirror Armor"
+id = "MirrorArmor"
+type = 2
+equip = 2
+rarity = 3
+icon = ExtResource("1_tt2bx")
+tooltip = "+2 BLOCK
+
+At the start of combat, gain WARD
+When WARD prevents a debuff, apply it to all enemies. Then gain WARD again after 3 turns"
+bonus_blk = 2

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FrozenCrown" format=3 uid="uid://bhg844qro0fjf"]
+
+[ext_resource type="Texture2D" uid="uid://cwq5yjrxyad8s" path="res://art/verdadeira arte/items/frozen_crown_relic.png" id="1_ydp8m"]
+[ext_resource type="Script" uid="uid://bm0tvpybqdqni" path="res://relics/helmet/frozen_crown.gd" id="2_de36c"]
+
+[resource]
+script = ExtResource("2_de36c")
+relic_name = "Frozen Crown"
+id = "FrozenCrown"
+type = 2
+equip = 1
+rarity = 2
+icon = ExtResource("1_ydp8m")
+tooltip = "+2 BLOCK
+
+The first time you block in a combat, apply FREEZE to a random enemy"
+bonus_blk = 3

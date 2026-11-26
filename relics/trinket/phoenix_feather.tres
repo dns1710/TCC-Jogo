@@ -1,7 +1,7 @@
-[gd_resource type="Resource" format=3]
+[gd_resource type="Resource" script_class="PhoenixFeather" format=3 uid="uid://csxgbwtl08dbc"]
 
-[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/phoenix_feather.png" id="1_icon"]
-[ext_resource type="Script" path="res://relics/trinket/phoenix_feather.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://yg3belogdwri" path="res://art/verdadeira arte/items/phoenix_feather_relic.png" id="1_m3dtu"]
+[ext_resource type="Script" uid="uid://b3udn3hpkp5j8" path="res://relics/trinket/phoenix_feather.gd" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
@@ -10,5 +10,5 @@ id = "PhoenixFeather"
 type = 2
 equip = 3
 rarity = 3
-icon = ExtResource("1_icon")
-tooltip = "A lethal hit leaves you at 30% health and applies 1 SCORCH to all enemies. The feather then fizzles out and is removed from your inventory"
+icon = ExtResource("1_m3dtu")
+tooltip = "When you die in combat, heal back to 30% health and apply 1 SCORCH to all enemies. The feather then fizzles out"

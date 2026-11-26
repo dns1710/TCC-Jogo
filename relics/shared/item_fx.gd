@@ -3,17 +3,20 @@ extends RefCounted
 ## Small helpers the item scripts share: finding actors, applying statuses, reading statuses.
 
 const SCORCH := preload("res://statuses/status_scorch.tres")
-const SPEED_DOWN := preload("res://statuses/status_speed_down.tres")
+const SLOWNESS := preload("res://statuses/status_speed_down.tres")
 const BRITTLE := preload("res://statuses/status_brittle.tres")
 const SUNDER := preload("res://statuses/status_sunder.tres")
 const FREEZE := preload("res://statuses/status_freeze.tres")
 const WARD := preload("res://statuses/status_ward.tres")
 const ATTACK_UP := preload("res://statuses/status_attack_up.tres")
+const ATTACK_DOWN := preload("res://statuses/status_attack_down.tres")
+const SPEED_UP := preload("res://statuses/status_speed_down.tres")
+const SPEED_DOWN := preload("res://statuses/status_speed_down_true.tres")
 const POISON := preload("res://statuses/status_poison.tres")
 const BURN := preload("res://statuses/status_burn.tres")
 
 ## Debuffs whose stacks Warden's Visage amplifies.
-const STACKING_DEBUFFS: Array[String] = ["Scorch", "SpeedDown", "AttackDown"]
+const STACKING_DEBUFFS: Array[String] = ["Scorch", "Slowness", "SpeedDown", "AttackDown"]
 
 
 static func player(from: Node) -> Player:

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Nail" format=3 uid="uid://co0jnosejk6xd"]
+
+[ext_resource type="Texture2D" uid="uid://t2cfcff4ltec" path="res://art/verdadeira arte/items/nail_relic.png" id="1_16k72"]
+[ext_resource type="Script" uid="uid://cvpr40j2qsph8" path="res://relics/trinket/nail.gd" id="2_mpdo6"]
+
+[resource]
+script = ExtResource("2_mpdo6")
+relic_name = "Nail"
+id = "Nail"
+type = 5
+equip = 3
+icon = ExtResource("1_16k72")
+tooltip = "When you attack an enemy with SLOWNESS, apply BRITTLE to it"

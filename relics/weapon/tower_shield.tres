@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="TowerShield" format=3 uid="uid://d4ax4boiirav5"]
+
+[ext_resource type="Texture2D" uid="uid://c72g6oe6qcr" path="res://art/verdadeira arte/items/tower_shield_relic.png" id="1_r344j"]
+[ext_resource type="Script" uid="uid://cpducftsks841" path="res://relics/weapon/tower_shield.gd" id="2_sa106"]
+
+[resource]
+script = ExtResource("2_sa106")
+relic_name = "Tower Shield"
+id = "TowerShield"
+type = 2
+rarity = 2
+icon = ExtResource("1_r344j")
+tooltip = "1d6 weapon damage
+
++2 BLOCK
+
+This weapon deals +1d4 damage for every 5 BLOCK you have, up to a max of +3d4"
+bonus_blk = 2
+weapon_dice_attack = 6
+weapon_dice_amount = 1

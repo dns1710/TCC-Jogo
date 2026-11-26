@@ -1,7 +1,7 @@
-[gd_resource type="Resource" format=3]
+[gd_resource type="Resource" script_class="CarrionThurible" format=3 uid="uid://xwk83wkyo15h"]
 
-[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/carrion_thurible.png" id="1_icon"]
-[ext_resource type="Script" path="res://relics/trinket/carrion_thurible.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://dc0agd42xvun2" path="res://art/verdadeira arte/items/carrion_thurible_relic.png" id="1_e2kjj"]
+[ext_resource type="Script" uid="uid://bd6pwqqjn8rme" path="res://relics/trinket/carrion_thurible.gd" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
@@ -10,5 +10,5 @@ id = "CarrionThurible"
 type = 5
 equip = 3
 rarity = 2
-icon = ExtResource("1_icon")
-tooltip = "When an enemy dies, its POISON, BURN and SCORCH jump to one random enemy"
+icon = ExtResource("1_e2kjj")
+tooltip = "When an enemy dies, its POISON, BURN and SCORCH are applied to another random enemy"

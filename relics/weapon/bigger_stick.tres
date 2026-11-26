@@ -12,6 +12,6 @@ rarity = 2
 icon = ExtResource("1_e88py")
 tooltip = "1d10 weapon damage
 
-Your first attack every combat deals +1d10 damage."
+Your first attack every combat deals +1d10 damage"
 weapon_dice_attack = 10
 weapon_dice_amount = 1

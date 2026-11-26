@@ -10,9 +10,9 @@ id = "Needle"
 type = 2
 rarity = 3
 icon = ExtResource("1_evsos")
-tooltip = "1d4 weapon damage
+tooltip = "1d6 weapon damage
 
-This weapon deals +1d4 damage for every 2 SPEED you have"
+This weapon deals +1d4 damage for every 3 SPEED you have"
 weapon_dice_attack = 4
 weapon_dice_amount = 1
 metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Butcher" format=3 uid="uid://ecw0w3ixnaqp"]
+
+[ext_resource type="Texture2D" uid="uid://dw5cm0vv6rdn0" path="res://art/verdadeira arte/items/butcher_relic.png" id="1_6g61s"]
+[ext_resource type="Script" uid="uid://dov2janxhgq2" path="res://relics/weapon/butcher.gd" id="2_07p6x"]
+
+[resource]
+script = ExtResource("2_07p6x")
+execute_share = 0.2
+relic_name = "Butcher"
+id = "Butcher"
+type = 5
+rarity = 3
+icon = ExtResource("1_6g61s")
+tooltip = "1d8 weapon damage
+
+When you attack an enemy and it's left under 20% health, it gets executed. Bosses take +1d8 damage instead"
+weapon_dice_attack = 8
+weapon_dice_amount = 1

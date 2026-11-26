@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="AshenStatus" format=3]
+[gd_resource type="Resource" script_class="AshenStatus" format=3 uid="uid://bpectqpuhgwia"]
 
-[ext_resource type="Script" path="res://statuses/status_ashen.gd" id="1_s"]
-[ext_resource type="Texture2D" path="res://art/verdadeira arte/status/status_ashen.png" id="2_i"]
+[ext_resource type="Script" uid="uid://cuc0e3gkvx3l1" path="res://statuses/status_ashen.gd" id="1_s"]
+[ext_resource type="Texture2D" uid="uid://ha2vn8ttrkos" path="res://art/verdadeira arte/status/status_ashen.png" id="2_i"]
 
 [resource]
 script = ExtResource("1_s")
@@ -11,6 +11,5 @@ type = 2
 stack_type = 2
 can_expire = true
 duration = 3
-stacks = 0
 icon = ExtResource("2_i")
 tooltip = "Block gained is halved for 3 actions."

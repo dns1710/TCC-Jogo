@@ -12,6 +12,7 @@ equip = 3
 rarity = 1
 icon = ExtResource("1_ecodf")
 tooltip = "+1 BLOCK
-If you're at half health or less, gain 2 ATTACK UP."
+
+If you're at half health or less, gain 2 ATTACK UP"
 bonus_blk = 1
 metadata/_custom_type_script = "uid://cwlbkmtd7v5bk"

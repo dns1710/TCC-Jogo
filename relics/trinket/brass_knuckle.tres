@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BrassKnuckle" format=3 uid="uid://dtlpt33k2bl8g"]
+
+[ext_resource type="Texture2D" uid="uid://cxrxi6q4n8juw" path="res://art/verdadeira arte/items/brass_knuckles.png" id="1_jhel0"]
+[ext_resource type="Script" uid="uid://doih3g3qfjgc2" path="res://relics/trinket/brass_knuckle.gd" id="2_tr652"]
+
+[resource]
+script = ExtResource("2_tr652")
+relic_name = "Brass Knuckle"
+id = "BrassKnuckle"
+type = 5
+equip = 3
+rarity = 1
+icon = ExtResource("1_jhel0")
+tooltip = "+1 ATTACK
+
+When you attack an enemy with a debuff, deal +1d4 damage"
+bonus_atk = 1

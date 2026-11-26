@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EmberweaveTunic" format=3 uid="uid://bvakjwvqg5xts"]
+
+[ext_resource type="Texture2D" uid="uid://qb570db3d2r0" path="res://art/verdadeira arte/items/scorching_armor.png" id="1_mbufh"]
+[ext_resource type="Script" uid="uid://dsp1p8otokrn2" path="res://relics/armor/scorching_armor.gd" id="2_0m1dx"]
+
+[resource]
+script = ExtResource("2_0m1dx")
+relic_name = "Scorching Armor"
+id = "ScorchingArmor"
+type = 5
+equip = 2
+rarity = 1
+icon = ExtResource("1_mbufh")
+tooltip = "+1 BLOCK, +1 SPEED
+
+When you gain SCORCH, gain 1d4 BLOCK for each stack"
+bonus_blk = 1
+bonus_spd = 1

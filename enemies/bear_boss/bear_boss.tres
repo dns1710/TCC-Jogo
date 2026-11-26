@@ -7,8 +7,8 @@
 [resource]
 script = ExtResource("1_c2kga")
 ai = ExtResource("1_1usp3")
-max_health = 60
 is_boss = true
+max_health = 60
 max_attack = 4
 max_speed = 3
 max_block = 10

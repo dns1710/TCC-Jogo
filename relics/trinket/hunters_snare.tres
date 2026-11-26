@@ -1,7 +1,7 @@
-[gd_resource type="Resource" format=3]
+[gd_resource type="Resource" script_class="HuntersSnare" format=3 uid="uid://cqogp3e4a4uoq"]
 
-[ext_resource type="Texture2D" path="res://art/verdadeira arte/items/hunters_snare.png" id="1_icon"]
-[ext_resource type="Script" path="res://relics/trinket/hunters_snare.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://scheadccrnkp" path="res://art/verdadeira arte/items/hunters_trap_relic.png" id="1_k1y2x"]
+[ext_resource type="Script" uid="uid://cwhk0h2ah2f67" path="res://relics/trinket/hunters_snare.gd" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
@@ -10,5 +10,5 @@ id = "HuntersSnare"
 type = 2
 equip = 3
 rarity = 2
-icon = ExtResource("1_icon")
-tooltip = "Enemies start combat with 1 SPEED DOWN"
+icon = ExtResource("1_k1y2x")
+tooltip = "At the start of combat, apply 1 SLOWNESS to all enemies"

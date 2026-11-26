@@ -1,4 +1,4 @@
-class_name SpeedDownStatus
+class_name SlownessStatus
 extends Status
 ## Percentage slow on the turn bar: each stack multiplies the owner's progress
 ## rate by RATE_PER_STACK (uncapped stacks, never a full stop). The owner loses

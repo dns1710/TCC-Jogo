@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Rapier" format=3 uid="uid://bekuoeqm4qqqm"]
+
+[ext_resource type="Texture2D" uid="uid://d1ogqc2g5p804" path="res://art/verdadeira arte/items/rapier_relic.png" id="1_tglit"]
+[ext_resource type="Script" uid="uid://bh535wfepp8kh" path="res://relics/weapon/rapier.gd" id="2_ob174"]
+
+[resource]
+script = ExtResource("2_ob174")
+relic_name = "Rapier"
+id = "Rapier"
+type = 5
+rarity = 1
+icon = ExtResource("1_tglit")
+tooltip = "1d6 weapon damage
+
++1 BLOCK
+
+After you block, your next attack deals +1d6 damage"
+bonus_blk = 1
+weapon_dice_attack = 6
+weapon_dice_amount = 1
